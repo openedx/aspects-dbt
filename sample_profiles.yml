@@ -1,0 +1,11 @@
+oars: # this needs to match the profile in your dbt_project.yml file
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: xapi
+      host: localhost
+      port: 8123
+      user: ch_admin
+      password: ''
+      secure: False
