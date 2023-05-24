@@ -1,0 +1,43 @@
+# This file records information about this repo. Its use is described in OEP-55:
+# https://open-edx-proposals.readthedocs.io/en/latest/processes/oep-0055-proc-project-maintainers.html
+
+apiVersion: backstage.io/v1alpha1
+# (Required) Acceptable Values: Component, Resource, System
+# Use `Component` unless you know how backstage works and what the other kinds mean.
+kind: Component
+metadata:
+  name: 'oars-dbt'
+  description: "The dbt project for Open edX OARS!"
+  links:
+    - url: "https://github.com/openedx/oars-dbt"
+      title: "Source"
+      icon: "Web"
+  annotations:
+    # (Optional) Annotation keys and values can be whatever you want.
+    # We use it in Open edX repos to have a comma-separated list of GitHub user
+    # names that might be interested in changes to the architecture of this
+    # component.
+    openedx.org/arch-interest-groups: "bmtcril"
+spec:
+
+  # (Required) This can be a group (`group:<github_group_name>`) or a user (`user:<github_username>`).
+  # Don't forget the "user:" or "group:" prefix. Groups must be GitHub team
+  # names in the openedx GitHub organization: https://github.com/orgs/openedx/teams
+  #
+  # If you need a new team created, create an issue with Axim engineering:
+  # https://github.com/openedx/axim-engineering/issues/new/choose
+  owner: user:bmtcril
+
+  # (Required) Acceptable Type Values: service, website, library
+  type: 'library'
+
+  # (Required) Acceptable Lifecycle Values: experimental, production, deprecated
+  lifecycle: 'experimental'
+
+  # (Optional) The value can be the name of any known component.
+  subcomponentOf: 'tutor-contrib-oars'
+
+  # (Optional) An array of different components or resources.
+  # dependsOn:
+  #- '<component_or_resource>'
+  #- '<another_component_or_resource>'
