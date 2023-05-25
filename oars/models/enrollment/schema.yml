@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: enrollments_by_day
+    description: "One record for each day after a student first enrolls in a course. Useful for plotting enrollments by day"
+    columns:
+      - name: enrollment_status_date
+        description: "The date of a specific enrollment status, in YYYY-MM-DD format"
+        tests:
+          - not_null
+      - name: actor_id
+        description: "Learner's UUID"
+      - name: object_id
+      - name: course_id
+      - name: org
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a class."
+        tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
+      - name: enrollment_mode

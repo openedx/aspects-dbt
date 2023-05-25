@@ -20,7 +20,16 @@ Getting Help
 Documentation
 =============
 
-Coming soon.
+Installation
+************
+
+1. ``pip install -r requirements.txt`` will install dbt and other required packages.
+2. ``dbt deps`` will install the dbt packages defined in `oars/packages.yml <oars/packages.yml>`_ (this step needs to be run when initializing your project or when changing the package list).
+
+Running dbt
+***********
+
+``dbt run`` will compile and create the models defined in the oars dbt project. By default, dbt will look in the ``xapi`` schema to find source tables. The ``XAPI_SCHEMA`` environment variable can be used to specify a different schema.
 
 More Help
 =========
@@ -50,7 +59,7 @@ License
 The code in this repository is licensed under the AGPL 3.0 unless
 otherwise noted.
 
-Please see `LICENSE.txt <LICENSE.txt>`_ for details.
+Please see `LICENSE <LICENSE>`_ for details.
 
 Contributing
 ************
