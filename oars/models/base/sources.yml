@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: xapi
+    database: "{{ env_var('XAPI_SCHEMA', 'xapi') }}"
+    description: "the xapi database in clickhouse"
+    tables:
+      - name: xapi_events_all_parsed
+        identifier: "{{ env_var('OARS_XAPI_TABLE', 'xapi_events_all_parsed') }}"
+        description: "Materialized view of parsed xapi events"
+        columns:
+          - name: event_id
+          - name: verb_id
+          - name: actor_id
+          - name: org
+          - name: course_id
+          - name: emission_time
+            description: "timestamp of when the event was emitted"
+          - name: event_str
+            description: "json string of the event"
+
+      - name: enrollment_events
+        identifier: "{{ env_var('OARS_ENROLLMENT_EVENTS_TABLE', 'enrollment_events') }}"
+        description: "Materialized view of enrollment events"
+        columns:
+          - name: event_id
+          - name: emission_time
+          - name: actor_id
+          - name: object_id
+          - name: course_id
+          - name: org
+          - name: verb_id
+          - name: event_type
+          - name: enrollment_mode
