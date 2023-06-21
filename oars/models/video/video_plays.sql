@@ -10,4 +10,4 @@ select
 from
     {{ source('xapi', 'video_playback_events') }}
 where
-    event_type = 'play'
+    event_type = 'played'
