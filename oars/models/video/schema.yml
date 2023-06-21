@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: video_plays
+    description: "One record for each time a learner played a video"
+    columns:
+      - name: emission_time
+      - name: org
+      - name: course_id
+      - name: video_id
+      - name: actor_id
+
+  - name: transcript_usage
+    description: "One record for each time a transcript of closed caption was enabled"
+    columns:
+      - name: emission_time
+      - name: org
+      - name: course_id
+      - name: video_id
+      - name: actor_id
