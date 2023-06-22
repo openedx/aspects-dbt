@@ -30,7 +30,6 @@ sources:
           - name: course_id
           - name: org
           - name: verb_id
-          - name: event_type
           - name: enrollment_mode
 
       - name: video_playback_events
@@ -43,7 +42,6 @@ sources:
           - name: course_id
           - name: org
           - name: verb_id
-          - name: event_type
           - name: video_position
 
       - name: problem_events
@@ -56,7 +54,6 @@ sources:
           - name: course_id
           - name: org
           - name: verb_id
-          - name: event_type
           - name: responses
           - name: scaled_score
           - name: success

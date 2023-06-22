@@ -10,4 +10,4 @@ select
 from
     {{ source('xapi', 'video_playback_events') }}
 where
-    event_type = 'played'
+    verb_id = 'https://w3id.org/xapi/video/verbs/played'
