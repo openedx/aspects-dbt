@@ -30,5 +30,4 @@ sources:
           - name: course_id
           - name: org
           - name: verb_id
-          - name: event_type
           - name: enrollment_mode

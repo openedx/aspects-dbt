@@ -4,7 +4,6 @@ with enrollments_ranked as (
     object_id,
     course_id,
     org,
-    event_type,
     enrollment_mode,
     emission_time as window_start_at,
     anyOrNull(emission_time)
@@ -20,7 +19,6 @@ select
   object_id,
   course_id,
   org,
-  event_type,
   enrollment_mode,
   date_trunc('day', window_start_at) as window_start_date,
   date_trunc('day', coalesce(window_end_at, now())) as window_end_date,
