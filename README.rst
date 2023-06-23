@@ -1,17 +1,17 @@
-OARS dbt
-========
+Aspects dbt
+===========
 
 Purpose
 *******
 
-This repository hosts the dbt project for Open edX `OARS`_. It contains sql files
-and configuration that control the `ClickHouse`_ reporting schema, data 
-transformations, tests, and documentation that drive OARS reports. This project 
-is still in its infancy and will be growing with documentation and examples as we 
-approach the OARS v1 launch.
+This repository hosts the dbt project for Open edX `Aspects`_. It contains sql files
+and configuration that control the `ClickHouse`_ reporting schema, data
+transformations, tests, and documentation that drive Aspects reports. This project
+is still in its infancy and will be growing with documentation and examples as we
+approach the Aspects v1 launch.
 
 .. _ClickHouse: https://clickhouse.com
-.. _OARS: https://docs.openedx.org/projects/openedx-oars/en/latest/index.html
+.. _Aspects: https://docs.openedx.org/projects/openedx-aspects/en/latest/index.html
 
 
 Getting Help
@@ -24,12 +24,12 @@ Installation
 ************
 
 1. ``pip install -r requirements.txt`` will install dbt and other required packages.
-2. ``dbt deps`` will install the dbt packages defined in `oars/packages.yml <oars/packages.yml>`_ (this step needs to be run when initializing your project or when changing the package list).
+2. ``dbt deps`` will install the dbt packages defined in `aspects/packages.yml <aspects/packages.yml>`_ (this step needs to be run when initializing your project or when changing the package list).
 
 Running dbt
 ***********
 
-``dbt run`` will compile and create the models defined in the oars dbt project. By default, dbt will look in the ``xapi`` schema to find source tables. The ``XAPI_SCHEMA`` environment variable can be used to specify a different schema.
+``dbt run`` will compile and create the models defined in the "aspects" dbt project. By default, dbt will look in the ``xapi`` schema to find source tables. The ``XAPI_SCHEMA`` environment variable can be used to specify a different schema.
 
 More Help
 =========
@@ -45,7 +45,7 @@ For anything non-trivial, the best path is to open an issue in this
 repository with as many details about the issue you are facing as you
 can provide.
 
-https://github.com/openedx/oars-dbt/issues
+https://github.com/openedx/aspects-dbt/issues
 
 For more information about these options, see the `Getting Help`_ page.
 
