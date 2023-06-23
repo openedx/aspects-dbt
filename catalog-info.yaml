@@ -6,10 +6,10 @@ apiVersion: backstage.io/v1alpha1
 # Use `Component` unless you know how backstage works and what the other kinds mean.
 kind: Component
 metadata:
-  name: 'oars-dbt'
-  description: "The dbt project for Open edX OARS!"
+  name: 'aspects-dbt'
+  description: "The dbt project for Open edX Aspects!"
   links:
-    - url: "https://github.com/openedx/oars-dbt"
+    - url: "https://github.com/openedx/aspects-dbt"
       title: "Source"
       icon: "Web"
   annotations:
@@ -35,7 +35,7 @@ spec:
   lifecycle: 'experimental'
 
   # (Optional) The value can be the name of any known component.
-  subcomponentOf: 'tutor-contrib-oars'
+  subcomponentOf: 'tutor-contrib-aspects'
 
   # (Optional) An array of different components or resources.
   # dependsOn:

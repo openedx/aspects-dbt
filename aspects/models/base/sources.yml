@@ -6,7 +6,7 @@ sources:
     description: "the xapi database in clickhouse"
     tables:
       - name: xapi_events_all_parsed
-        identifier: "{{ env_var('OARS_XAPI_TABLE', 'xapi_events_all_parsed') }}"
+        identifier: "{{ env_var('ASPECTS_XAPI_TABLE', 'xapi_events_all_parsed') }}"
         description: "Materialized view of parsed xapi events"
         columns:
           - name: event_id
@@ -20,7 +20,7 @@ sources:
             description: "json string of the event"
 
       - name: enrollment_events
-        identifier: "{{ env_var('OARS_ENROLLMENT_EVENTS_TABLE', 'enrollment_events') }}"
+        identifier: "{{ env_var('ASPECTS_ENROLLMENT_EVENTS_TABLE', 'enrollment_events') }}"
         description: "Materialized view of enrollment events"
         columns:
           - name: event_id
