@@ -1,5 +1,3 @@
--- this model could support the answer distribution and problem
--- submission count metrics
 select
     emission_time,
     org,

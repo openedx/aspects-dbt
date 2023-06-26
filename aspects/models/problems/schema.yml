@@ -35,3 +35,17 @@ models:
         description: "Boolean indicating whether the responses were correct"
       - name: attempts
         description: "Number indicating which attempt this was"
+
+  - name: int_problem_hints
+    description: "intermediate dataset for hints and answers displayed to learners"
+    columns:
+      - name: emission_time
+      - name: org
+      - name: course_id
+      - name: problem_id
+      - name: actor_id
+      - name: help_type
+        description: "whether the help displayed was a hint or an answer"
+        tests:
+          - accepted_values:
+              values: ["hint", "answer"]

@@ -4,8 +4,7 @@
 
 
 -- find the timestamp of the earliest successful response
--- this will be used to pick the xAPI event corresponding to that
--- submission
+-- this will be used to pick the xAPI event corresponding to that submission
 with successful_responses as (
     select
         org,
@@ -42,10 +41,7 @@ unsuccessful_responses as (
         problem_id,
         actor_id
 ),
--- this CTE should have either:
--- the first timestamp of a successful reponse, or
--- if no successful responses for this learner, the timestamp of the last
--- attempt
+-- combine result sets for successful and unsuccessful problem submissions
 responses as (
     select
         org,

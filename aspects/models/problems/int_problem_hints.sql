@@ -1,5 +1,3 @@
--- verb id for showanswer and hint events: http://adlnet.gov/expapi/verbs/asked
-
 select
     emission_time,
     org,
