@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: learner_problem_summary
+    description: "One record per learner per problem in a course"
+    columns:
+      - name: org
+      - name: course_id
+      - name: problem_id
+      - name: actor_id
+      - name: success
+        description: "The result of the last submission"
+        tests:
+          - not_null
+      - name: attempts
+        description: "The number of attempts made"
+        tests:
+          - not_null
+      - name: num_hints_displayed
+        description: "The number of times a learner asked for a hint"
+      - name: num_answers_displayed
+        description: "The number of times a learner requested the answers for the problem"
+
+  - name: problem_responses
+    description: "One record for each submitted response to a problem"
+    columns:
+      - name: emission_time
+      - name: org
+      - name: course_id
+      - name: problem_id
+      - name: actor_id
+      - name: responses
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: success
+        description: "Boolean indicating whether the responses were correct"
+      - name: attempts
+        description: "Number indicating which attempt this was"
