@@ -11,7 +11,7 @@ models:
       - name: actor_id
 
   - name: transcript_usage
-    description: "One record for each time a transcript of closed caption was enabled"
+    description: "One record for each time a transcript or closed caption was enabled"
     columns:
       - name: emission_time
       - name: org
