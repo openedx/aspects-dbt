@@ -17,10 +17,14 @@ select
       )
     )
   )) as enrollment_status_date,
-  actor_id,
-  object_id,
-  course_id,
   org,
-  enrollment_mode
+  course_id,
+  actor_id,
+  enrollment_mode,
+  if(
+    verb_id = 'http://adlnet.gov/expapi/verbs/registered',
+    'registered',
+    'unregistered'
+  ) as enrollment_status
 from
-  {{ ref('stg_enrollment_windows') }}
+  {{ ref('int_enrollment_windows') }}
