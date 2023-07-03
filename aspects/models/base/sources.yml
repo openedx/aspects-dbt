@@ -73,3 +73,14 @@ sources:
           - name: object_type
           - name: starting_position
           - name: ending_point
+
+  - name: superset_permissions
+    database: "{{ env_var('PERMISSIONS_SCHEMA', 'superset_permissions') }}"
+    description: "the xapi database in clickhouse"
+    tables:
+      - name: superset_user_course_mapping
+        identifier: "{{ env_var('PERMISSIONS_USER_COURSE_MAPPING', 'superset_user_course_mapping') }}"
+        description: "Table course admins to their courses for permissions."
+        columns:
+          - name: clickhouse_username
+          - name: course_id

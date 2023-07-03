@@ -5,6 +5,9 @@
 -- to Unix timestamps, then generating a range of Unix timestamps,
 -- creating one record per timestamp (via arrayJoin), and then converting
 -- the timestamps back into dates
+{{ config(
+  post_hook = ["{{apply_admin_rbac(this)}}", "{{apply_instructor_rbac(this)}}"]
+) }}
 
 
 select
