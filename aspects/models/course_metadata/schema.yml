@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: course_overview_current
+    description: "The most recent row for each course overview."
+    columns:
+      - name: org
+      - name: course_key
+      - name: display_name
+        description: "The human readable name of the course."
+      - name: course_start
+        description: "The course start date and time."
+      - name: course_end
+        description: "The course end date and time."
+      - name: enrollment_start
+        description: "The date and time when enrollments begin to be allowed, this can be before the course_start."
+      - name: enrollment_end
+        description: "The date and time when enrollments are no longer allowed."
+      - name: self_paced
+        description: "Boolean flag indicating whether the course is self paced or instructor paced."
+      - name: created
+        description: "Date and time when the course was first created."
+      - name: last_modified
+        description: "Date and time the course was last edited."
+  - name: course_blocks_current
+    description: "The most recent row for each course xblock."
+    columns:
+      - name: org
+      - name: course_key
+      - name: location
+        description: "The xblock locator (ex: block-v1:edX+DemoX+Demo_Course+type@problem+block@700x_proteinmake)"
+      - name: display_name
+        description: "The human readable name of the course."
+      - name: order
+        description: "Indicates where the block occurs in the course hierarchy."
+      - name: last_modified
+        description: "Date and time the xblock was last edited."
