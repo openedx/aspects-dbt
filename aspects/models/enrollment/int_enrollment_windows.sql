@@ -1,22 +1,22 @@
 with enrollments_ranked as (
   select
     org,
-    course_id,
+    course_key,
     actor_id,
     enrollment_mode,
     verb_id,
     emission_time as window_start_at,
     anyOrNull(emission_time)
-      over (partition by org, course_id, actor_id order by emission_time asc rows between 1 following and 1 following)
+      over (partition by org, course_key, actor_id order by emission_time asc rows between 1 following and 1 following)
       as window_end_at,
-    rank() over (partition by date(emission_time), org, course_id, actor_id order by emission_time desc) as rank
+    rank() over (partition by date(emission_time), org, course_key, actor_id order by emission_time desc) as rank
   from
     {{ source('xapi', 'enrollment_events') }}
 )
 
 select
   org,
-  course_id,
+  course_key,
   actor_id,
   verb_id,
   enrollment_mode,

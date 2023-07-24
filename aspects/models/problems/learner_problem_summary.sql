@@ -3,7 +3,7 @@
 with summary as (
     select
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id,
         success,
@@ -14,7 +14,7 @@ with summary as (
     union all
     select
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id,
         null as success,
@@ -36,7 +36,7 @@ with summary as (
 -- placeholders in the problem_hints part of the union
 select
     org,
-    course_id,
+    course_key,
     problem_id,
     actor_id,
     coalesce(any(success), false) as success,
@@ -47,6 +47,6 @@ from
     summary
 group by
     org,
-    course_id,
+    course_key,
     problem_id,
     actor_id

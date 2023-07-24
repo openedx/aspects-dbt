@@ -1,7 +1,7 @@
 select
     emission_time,
     org,
-    course_id,
+    course_key,
     {{ get_problem_id('object_id') }} as problem_id,
     actor_id,
     responses,

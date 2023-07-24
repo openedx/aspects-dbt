@@ -18,7 +18,7 @@ select
     )
   )) as enrollment_status_date,
   org,
-  course_id,
+  course_key,
   actor_id,
   enrollment_mode,
   if(

@@ -8,7 +8,7 @@
 with successful_responses as (
     select
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id,
         min(emission_time) as first_success_at
@@ -18,7 +18,7 @@ with successful_responses as (
         success
     group by
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id
 ),
@@ -27,7 +27,7 @@ with successful_responses as (
 unsuccessful_responses as (
     select
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id,
         max(emission_time) as last_response_at
@@ -37,7 +37,7 @@ unsuccessful_responses as (
         actor_id not in (select distinct actor_id from successful_responses)
     group by
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id
 ),
@@ -45,7 +45,7 @@ unsuccessful_responses as (
 responses as (
     select
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id,
         first_success_at as emission_time
@@ -54,7 +54,7 @@ responses as (
     union all
     select
         org,
-        course_id,
+        course_key,
         problem_id,
         actor_id,
         last_response_at as emission_time
@@ -65,7 +65,7 @@ responses as (
 select
     emission_time,
     org,
-    course_id,
+    course_key,
     problem_id,
     actor_id,
     responses,
@@ -74,4 +74,4 @@ select
 from
     {{ ref('problem_responses') }} problem_responses
     join responses
-        using (org, course_id, problem_id, actor_id, emission_time)
+        using (org, course_key, problem_id, actor_id, emission_time)
