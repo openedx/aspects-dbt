@@ -1,7 +1,7 @@
 select
     emission_time,
     org,
-    course_id,
+    splitByString('/', course_id)[-1] as course_key,
     splitByString('/xblock/', object_id)[2] as video_id,
     actor_id
 from

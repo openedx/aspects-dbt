@@ -27,7 +27,7 @@ sources:
           - name: emission_time
           - name: actor_id
           - name: object_id
-          - name: course_id
+          - name: course_key
           - name: org
           - name: verb_id
           - name: enrollment_mode
@@ -39,7 +39,7 @@ sources:
           - name: emission_time
           - name: actor_id
           - name: object_id
-          - name: course_id
+          - name: course_key
           - name: org
           - name: verb_id
           - name: video_position
@@ -51,7 +51,7 @@ sources:
           - name: emission_time
           - name: actor_id
           - name: object_id
-          - name: course_id
+          - name: course_key
           - name: org
           - name: verb_id
           - name: responses
@@ -67,7 +67,7 @@ sources:
           - name: emission_time
           - name: actor_id
           - name: object_id
-          - name: course_id
+          - name: course_key
           - name: org
           - name: verb_id
           - name: object_type

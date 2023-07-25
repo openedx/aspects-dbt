@@ -5,7 +5,7 @@ models:
     description: "One record per learner per problem in a course"
     columns:
       - name: org
-      - name: course_id
+      - name: course_key
       - name: problem_id
       - name: actor_id
       - name: success
@@ -26,7 +26,7 @@ models:
     columns:
       - name: emission_time
       - name: org
-      - name: course_id
+      - name: course_key
       - name: problem_id
       - name: actor_id
       - name: responses
@@ -41,7 +41,7 @@ models:
     columns:
       - name: emission_time
       - name: org
-      - name: course_id
+      - name: course_key
       - name: problem_id
       - name: actor_id
       - name: help_type
