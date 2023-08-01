@@ -4,7 +4,7 @@
 
 select
     org,
-    course_id,
+    course_key,
     problem_id,
     actor_id,
     count(*) as num_rows
@@ -12,7 +12,7 @@ from
     {{ ref('int_problem_results') }}
 group by
     org,
-    course_id,
+    course_key,
     problem_id,
     actor_id
 having num_rows > 1
