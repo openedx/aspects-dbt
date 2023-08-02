@@ -1,21 +1,19 @@
 version: 2
 
 models:
-  - name: enrollments_by_day
-    description: "One record for each day after a student first enrolls in a course. Useful for plotting enrollments by day"
+  - name: fact_enrollments
+    description: "A record for each enrollment event"
     columns:
-      - name: enrollment_status_date
-        description: "The date of a specific enrollment status, in YYYY-MM-DD format"
-        tests:
-          - not_null
-      - name: actor_id
-        description: "Learner's UUID"
-      - name: object_id
-      - name: course_id
+      - name: emission_time
+        description: "Timestamp, to the second, of when this event was emitted"
       - name: org
+      - name: course_name
+      - name: run_name
+      - name: actor_id
+      - name: enrollment_mode
+        description: ""
       - name: enrollment_status
-        description: "Whether a learner is actively enrolled in a class."
+        description: "Whether a learner is actively enrolled in a course"
         tests:
           - accepted_values:
               values: ["registered", "unregistered"]
-      - name: enrollment_mode

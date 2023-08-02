@@ -73,3 +73,16 @@ sources:
           - name: object_type
           - name: starting_position
           - name: ending_point
+
+  - name: event_sink
+    database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
+    tables:
+      - name: course_block_names
+        columns:
+          - name: location
+          - name: block_name
+
+      - name: course_names
+        columns:
+          - name: course_key
+          - name: course_name
