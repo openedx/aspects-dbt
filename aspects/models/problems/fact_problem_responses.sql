@@ -17,8 +17,10 @@ with responses as (
 select
     responses.emission_time as emission_time,
     responses.org as org,
+    courses.course_key as course_key,
     courses.course_name as course_name,
     splitByString('+', courses.course_key)[-1] as run_name,
+    responses.problem_id as problem_id,
     blocks.block_name as problem_name,
     responses.actor_id as actor_id,
     responses.responses as responses,

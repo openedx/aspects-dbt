@@ -13,9 +13,10 @@ with successful_responses as (
         actor_id,
         min(emission_time) as first_success_at
     from
-        {{ ref('problem_responses') }}
+        {{ ref('fact_problem_responses') }}
     where
-        success
+        -- clickhouse throws an error when shortening this to `where success`
+        success = true
     group by
         org,
         course_key,
@@ -32,7 +33,7 @@ unsuccessful_responses as (
         actor_id,
         max(emission_time) as last_response_at
     from
-        {{ ref('problem_responses') }}
+        {{ ref('fact_problem_responses') }}
     where
         actor_id not in (select distinct actor_id from successful_responses)
     group by
@@ -66,12 +67,15 @@ select
     emission_time,
     org,
     course_key,
+    course_name,
+    run_name,
     problem_id,
+    problem_name,
     actor_id,
     responses,
     success,
     attempts
 from
-    {{ ref('problem_responses') }} problem_responses
+    {{ ref('fact_problem_responses') }} problem_responses
     join responses
         using (org, course_key, problem_id, actor_id, emission_time)
