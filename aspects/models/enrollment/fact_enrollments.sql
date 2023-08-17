@@ -11,13 +11,13 @@ with enrollments as (
 )
 
 select
-    enrollments.emission_time,
-    enrollments.org,
-    courses.course_name,
-    splitByString('+', courses.course_key)[-1] as run_name,
-    enrollments.actor_id,
-    enrollments.enrollment_mode,
-    enrollments.enrollment_status
+    enrollments.emission_time as emission_time,
+    enrollments.org as org,
+    courses.course_name as course_name,
+    courses.course_run as course_run,
+    enrollments.actor_id as actor_id,
+    enrollments.enrollment_mode as enrollment_mode,
+    enrollments.enrollment_status as enrollment_status
 from
     enrollments
     join {{ source('event_sink', 'course_names')}} courses

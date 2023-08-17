@@ -86,3 +86,5 @@ sources:
         columns:
           - name: course_key
           - name: course_name
+          - name: course_run
+          - name: org

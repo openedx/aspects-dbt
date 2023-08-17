@@ -17,7 +17,7 @@ select
     plays.emission_time as emission_time,
     plays.org as org,
     courses.course_name as course_name,
-    splitByString('+', courses.course_key)[-1] as run_name,
+    courses.course_run as course_run,
     blocks.block_name as video_name,
     plays.actor_id as actor_id
 from

@@ -7,7 +7,7 @@ models:
       - name: emission_time
       - name: org
       - name: course_name
-      - name: run_name
+      - name: course_run
       - name: video_name
       - name: actor_id
 
@@ -17,6 +17,6 @@ models:
       - name: emission_time
       - name: org
       - name: course_name
-      - name: run_name
+      - name: course_run
       - name: video_name
       - name: actor_id
