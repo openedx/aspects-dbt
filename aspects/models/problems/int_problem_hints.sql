@@ -21,7 +21,7 @@ select
     hints.org as org,
     hints.course_key as course_key,
     courses.course_name as course_name,
-    splitByString('+', courses.course_key)[-1] as run_name,
+    courses.course_run as course_run,
     hints.problem_id as problem_id,
     blocks.block_name as problem_name,
     hints.actor_id as actor_id,

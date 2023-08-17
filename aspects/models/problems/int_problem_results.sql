@@ -68,7 +68,7 @@ select
     org,
     course_key,
     course_name,
-    run_name,
+    course_run,
     problem_id,
     problem_name,
     actor_id,
