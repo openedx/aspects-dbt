@@ -15,8 +15,10 @@ with transcripts as (
 select
     transcripts.emission_time as emission_time,
     transcripts.org as org,
+    transcripts.course_key as course_key,
     courses.course_name as course_name,
     courses.course_run as course_run,
+    transcripts.video_id as video_id,
     blocks.block_name as video_name,
     transcripts.actor_id as actor_id
 from
