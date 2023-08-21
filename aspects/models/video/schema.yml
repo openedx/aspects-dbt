@@ -6,8 +6,10 @@ models:
     columns:
       - name: emission_time
       - name: org
+      - name: course_key
       - name: course_name
       - name: course_run
+      - name: video_id
       - name: video_name
       - name: actor_id
 
@@ -16,7 +18,9 @@ models:
     columns:
       - name: emission_time
       - name: org
+      - name: course_key
       - name: course_name
       - name: course_run
+      - name: video_id
       - name: video_name
       - name: actor_id
