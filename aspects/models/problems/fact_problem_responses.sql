@@ -17,7 +17,7 @@ with responses as (
 select
     responses.emission_time as emission_time,
     responses.org as org,
-    courses.course_key as course_key,
+    responses.course_key as course_key,
     courses.course_name as course_name,
     courses.course_run as course_run,
     responses.problem_id as problem_id,
