@@ -5,7 +5,7 @@ select
     actor_id,
     count(*) as num_rows
 from
-    {{ ref('learner_problem_summary') }}
+    {{ ref('fact_learner_problem_summary') }}
 group by
     org,
     course_key,
