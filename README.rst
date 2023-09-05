@@ -24,7 +24,7 @@ Installation
 ************
 
 1. ``pip install -r requirements.txt`` will install dbt and other required packages.
-2. ``dbt deps`` will install the dbt packages defined in `aspects/packages.yml <aspects/packages.yml>`_ (this step needs to be run when initializing your project or when changing the package list).
+2. ``dbt deps`` will install the dbt packages defined in `packages.yml <packages.yml>`_ (this step needs to be run when initializing your project or when changing the package list).
 
 Running dbt
 ***********

@@ -81,6 +81,7 @@ sources:
         columns:
           - name: location
           - name: block_name
+          - name: course_key
 
       - name: course_names
         columns:
