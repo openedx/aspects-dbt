@@ -17,14 +17,13 @@ select
     plays.emission_time as emission_time,
     plays.org as org,
     plays.course_key as course_key,
-    courses.course_name as course_name,
-    courses.course_run as course_run,
+    blocks.course_name as course_name,
+    blocks.course_run as course_run,
     plays.video_id as video_id,
     blocks.block_name as video_name,
     plays.actor_id as actor_id
 from
     plays
-    join {{ source('event_sink', 'course_names')}} courses
-         on plays.course_key = courses.course_key
-    join {{ source('event_sink', 'course_block_names')}} blocks
-         on plays.video_id = blocks.location
+    join {{ ref('dim_course_blocks')}} blocks
+         on (plays.course_key = blocks.course_key
+             and plays.video_id = blocks.block_id)
