@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: fact_grades
+    description: "One record per grading event for courses, subsections, and problems"
+    columns:
+      - name: emission_time
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+      - name: course_key
+      - name: course_name
+      - name: course_run
+      - name: entity_id
+        description: "The block ID or course key for the graded entity"
+      - name: entity_name
+      - name: grade_type
+        description: "The type of object graded"
+        tests:
+          - accepted_values:
+              values: ["course", "subsection", "problem"]
+      - name: actor_id
+      - name: scaled_score
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: grade_bucket
+        description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"

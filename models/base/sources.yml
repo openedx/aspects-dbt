@@ -33,7 +33,7 @@ sources:
           - name: enrollment_mode
 
       - name: video_playback_events
-        identifier: "{{ env_var('OARS_VIDEO_PLAYBACK_EVENTS_TABLE', 'video_playback_events') }}"
+        identifier: "{{ env_var('ASPECTS_VIDEO_PLAYBACK_EVENTS_TABLE', 'video_playback_events') }}"
         columns:
           - name: event_id
           - name: emission_time
@@ -45,7 +45,7 @@ sources:
           - name: video_position
 
       - name: problem_events
-        identifier: "{{ env_var('OARS_PROBLEM_EVENTS_TABLE', 'problem_events') }}"
+        identifier: "{{ env_var('ASPECTS_PROBLEM_EVENTS_TABLE', 'problem_events') }}"
         columns:
           - name: event_id
           - name: emission_time
@@ -61,7 +61,7 @@ sources:
           - name: attempts
 
       - name: navigation_events
-        identifier: "{{ env_var('OARS_NAVIGATION_EVENTS_TABLE', 'navigation_events') }}"
+        identifier: "{{ env_var('ASPECTS_NAVIGATION_EVENTS_TABLE', 'navigation_events') }}"
         columns:
           - name: event_id
           - name: emission_time
@@ -73,6 +73,18 @@ sources:
           - name: object_type
           - name: starting_position
           - name: ending_point
+
+      - name: grading_events
+        identifier: "{{ env_var('ASPECTS_GRADING_EVENTS_TABLE', 'grading_events') }}"
+        columns:
+          - name: event_id
+          - name: emission_time
+          - name: actor_id
+          - name: object_id
+          - name: course_key
+          - name: org
+          - name: verb_id
+          - name: scaled_score
 
   - name: event_sink
     database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
