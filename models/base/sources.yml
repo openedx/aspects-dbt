@@ -86,6 +86,17 @@ sources:
           - name: verb_id
           - name: scaled_score
 
+      - name: forum_events
+        identifier: "{{ env_var('ASPECTS_FORUM_EVENTS_TABLE', 'forum_events') }}"
+        columns:
+          - name: event_id
+          - name: emission_time
+          - name: org
+          - name: course_key
+          - name: actor_id
+          - name: object_id
+          - name: verb_id
+
   - name: event_sink
     database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
     tables:
