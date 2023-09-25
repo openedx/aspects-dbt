@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: fact_completions
+    description: "One record per completion events for component"
+    columns:
+      - name: emission_time
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+      - name: course_key
+      - name: course_name
+      - name: course_run
+      - name: entity_id
+        description: "The block ID or course key for the graded entity"
+      - name: entity_name
+      - name: actor_id
+      - name: progress_percent
+        description: "A ratio between 0 and 1, inclusive, of the learner's progress"
+      - name: completion_bucket
+        description: "A displayable value of progress sorted into 10% buckets. Useful for grouping progress together to show high-level learner performance"
