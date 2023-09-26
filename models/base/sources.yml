@@ -85,6 +85,18 @@ sources:
           - name: org
           - name: verb_id
           - name: scaled_score
+      
+      - name: completions_events
+        identifier: "{{ env_var('ASPECTS_COMPLETION_EVENTS_TABLE', 'completion_events') }}"
+        columns:
+          - name: event_id
+          - name: emission_time
+          - name: actor_id
+          - name: object_id
+          - name: course_key
+          - name: org
+          - name: verb_id
+          - name: progress_percent
 
       - name: forum_events
         identifier: "{{ env_var('ASPECTS_FORUM_EVENTS_TABLE', 'forum_events') }}"
