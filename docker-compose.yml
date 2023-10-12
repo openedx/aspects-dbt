@@ -1,0 +1,18 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8
+    environment:
+      CLICKHOUSE_DB: "xapi"
+      CLICKHOUSE_USER: "ch_admin"
+      CLICKHOUSE_PASSWORD: "ch_password"
+      CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT: 1
+    ports:
+      - 8123:8123
+      - 9006:9000
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    volumes:
+      - ./clickhouse/config:/etc/clickhouse-server/config.d/
+      - ./clickhouse/users:/etc/clickhouse-server/users.d/
