@@ -13,7 +13,7 @@ with successful_responses as (
         actor_id,
         min(emission_time) as first_success_at
     from
-        reporting.fact_problem_responses
+        xapi.fact_problem_responses
     where
         -- clickhouse throws an error when shortening this to `where success`
         success = true
@@ -33,7 +33,7 @@ unsuccessful_responses as (
         actor_id,
         max(emission_time) as last_response_at
     from
-        reporting.fact_problem_responses
+        xapi.fact_problem_responses
     where
         actor_id not in (select distinct actor_id from successful_responses)
     group by
@@ -76,6 +76,6 @@ select
     success,
     attempts
 from
-    reporting.fact_problem_responses problem_responses
+    xapi.fact_problem_responses problem_responses
     join responses
         using (org, course_key, problem_id, actor_id, emission_time)

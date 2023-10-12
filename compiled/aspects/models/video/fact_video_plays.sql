@@ -24,6 +24,6 @@ select
     plays.actor_id as actor_id
 from
     plays
-    join reporting.dim_course_blocks blocks
+    join xapi.dim_course_blocks blocks
          on (plays.course_key = blocks.course_key
              and plays.video_id = blocks.block_id)

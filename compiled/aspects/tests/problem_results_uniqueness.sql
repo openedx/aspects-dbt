@@ -9,7 +9,7 @@ select
     actor_id,
     count(*) as num_rows
 from
-    reporting.int_problem_results
+    xapi.int_problem_results
 group by
     org,
     course_key,

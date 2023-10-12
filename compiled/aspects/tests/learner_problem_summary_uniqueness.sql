@@ -5,7 +5,7 @@ select
     actor_id,
     count(*) as num_rows
 from
-    reporting.fact_learner_problem_summary
+    xapi.fact_learner_problem_summary
 group by
     org,
     course_key,

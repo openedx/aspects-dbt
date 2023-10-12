@@ -8,7 +8,7 @@ with all_values as (
         grade_type as value_field,
         count(*) as n_records
 
-    from reporting.fact_grades
+    from xapi.fact_grades
     group by grade_type
 
 )

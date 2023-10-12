@@ -23,6 +23,6 @@ select
     transcripts.actor_id as actor_id
 from
     transcripts
-    join reporting.dim_course_blocks blocks
+    join xapi.dim_course_blocks blocks
          on (transcripts.course_key = blocks.course_key
              and transcripts.video_id = blocks.block_id)
