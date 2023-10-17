@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: fact_forum_interactions
+    description: "One record per forum interaction"
+    columns:
+      - name: event_id
+        data_type: UUID
+      - name: emission_time
+        data_type: DateTime64(3)
+      - name: org
+        data_type: String
+      - name: course_key
+        data_type: String
+      - name: course_name
+        data_type: String
+      - name: course_run
+        data_type: String
+      - name: object_id
+        data_type: String
+      - name: actor_id
+        data_type: String
+      - name: verb_id
+        data_type: LowCardinality(String)

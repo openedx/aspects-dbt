@@ -5,22 +5,42 @@ models:
     description: "One record for each time a learner played a video"
     columns:
       - name: emission_time
+        data_type: DateTime
       - name: org
+        data_type: String
       - name: course_key
+        data_type: String
       - name: course_name
+        data_type: String
       - name: course_run
+        data_type: String
       - name: video_id
+        data_type: String
       - name: video_name
+        data_type: String
+      - name: video_name_with_location
+        data_type: String
       - name: actor_id
+        data_type: String
 
   - name: fact_transcript_usage
     description: "One record for each time a transcript or closed caption was enabled"
     columns:
       - name: emission_time
+        data_type: DateTime
       - name: org
+        data_type: String
       - name: course_key
+        data_type: String
       - name: course_name
+        data_type: String
       - name: course_run
+        data_type: String
       - name: video_id
+        data_type: String
       - name: video_name
+        data_type: String
+      - name: video_name_with_location
+        data_type: String
       - name: actor_id
+        data_type: String

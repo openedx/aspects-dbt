@@ -2,19 +2,32 @@ version: 2
 
 models:
   - name: fact_completions
+    database: "{{ env_var('DBT_PROFILE_TARGET_DATABASE', 'reporting') }}"
     description: "One record per completion events for component"
     columns:
       - name: emission_time
         description: "Timestamp, to the second, of when this event was emitted"
+        data_type: DateTime64(3)
       - name: org
+        data_type: String
       - name: course_key
+        data_type: String
       - name: course_name
+        data_type: String
       - name: course_run
+        data_type: String
       - name: entity_id
         description: "The block ID or course key for the graded entity"
+        data_type: String
       - name: entity_name
+        data_type: String
+      - name: entity_name_with_location
+        data_type: Nullable(String)
       - name: actor_id
-      - name: progress_percent
+        data_type: String
+      - name: scaled_progress
         description: "A ratio between 0 and 1, inclusive, of the learner's progress"
+        data_type: Float32
       - name: completion_bucket
         description: "A displayable value of progress sorted into 10% buckets. Useful for grouping progress together to show high-level learner performance"
+        data_type: String

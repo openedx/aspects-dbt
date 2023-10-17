@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: dim_course_blocks
+    description: "A denormalized table of course block information"
+    columns:
+      - name: org
+        data_type: String
+      - name: course_key
+        data_type: String
+      - name: course_name
+        data_type: String
+      - name: course_run
+        data_type: String
+      - name: block_id
+        data_type: String
+      - name: block_name
+        data_type: String
+      - name: display_name_with_location
+        data_type: String
+        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"

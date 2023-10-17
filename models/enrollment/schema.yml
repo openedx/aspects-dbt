@@ -6,13 +6,20 @@ models:
     columns:
       - name: emission_time
         description: "Timestamp, to the second, of when this event was emitted"
+        data_type: DateTime
       - name: org
+        data_type: String
       - name: course_name
+        data_type: String
       - name: course_run
+        data_type: String
       - name: actor_id
+        data_type: String
       - name: enrollment_mode
+        data_type: LowCardinality(String)
       - name: enrollment_status
         description: "Whether a learner is actively enrolled in a course"
         tests:
           - accepted_values:
               values: ["registered", "unregistered"]
+        data_type: String
