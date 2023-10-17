@@ -24,6 +24,7 @@ select
     blocks.course_run as course_run,
     hints.problem_id as problem_id,
     blocks.block_name as problem_name,
+    blocks.display_name_with_location as problem_name_with_location,
     hints.actor_id as actor_id,
     hints.help_type as help_type
 from

@@ -5,39 +5,65 @@ models:
     description: "One record per learner per problem in a course"
     columns:
       - name: org
+        data_type: String
       - name: course_key
+        data_type: String
       - name: course_name
+        data_type: String
       - name: course_run
+        data_type: String
       - name: problem_id
+        data_type: String
       - name: problem_name
+        data_type: String
+      - name: problem_name_with_location
+        data_type: String
       - name: actor_id
+        data_type: String
       - name: success
         description: "The result of the last submission"
         tests:
           - not_null
+        data_type: Bool
       - name: attempts
         description: "The number of attempts made"
         tests:
           - not_null
+        data_type: Int16
       - name: num_hints_displayed
         description: "The number of times a learner asked for a hint"
+        data_type: UInt64
       - name: num_answers_displayed
         description: "The number of times a learner requested the answers for the problem"
+        data_type: UInt64
 
   - name: fact_problem_responses
     description: "One record for each submitted response to a problem"
     columns:
       - name: emission_time
+        data_type: DateTime
       - name: org
+        data_type: String
       - name: course_key
+        data_type: String
       - name: course_name
+        data_type: String
       - name: course_run
+        data_type: String
       - name: problem_id
+        data_type: String
       - name: problem_name
+        data_type: String
+      - name: problem_name_with_location
+        data_type: String
       - name: actor_id
+        data_type: String
       - name: responses
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+        data_type: String
       - name: success
         description: "Boolean indicating whether the responses were correct"
+        data_type: Bool
       - name: attempts
         description: "Number indicating which attempt this was"
+        data_type: Int16

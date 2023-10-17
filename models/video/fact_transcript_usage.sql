@@ -20,6 +20,7 @@ select
     blocks.course_run as course_run,
     transcripts.video_id as video_id,
     blocks.block_name as video_name,
+    blocks.display_name_with_location as video_name_with_location,
     transcripts.actor_id as actor_id
 from
     transcripts

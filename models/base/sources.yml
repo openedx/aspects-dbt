@@ -85,7 +85,7 @@ sources:
           - name: org
           - name: verb_id
           - name: scaled_score
-      
+
       - name: completions_events
         identifier: "{{ env_var('ASPECTS_COMPLETION_EVENTS_TABLE', 'completion_events') }}"
         columns:
@@ -117,6 +117,8 @@ sources:
           - name: location
           - name: block_name
           - name: course_key
+          - name: graded
+          - name: display_name_with_location
 
       - name: course_names
         columns:
