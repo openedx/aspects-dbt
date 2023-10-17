@@ -27,6 +27,7 @@ select
     courses.course_run as course_run,
     grades.entity_id as entity_id,
     if(blocks.block_name != '', blocks.block_name, courses.course_name) as entity_name,
+    if(blocks.block_name != '', blocks.display_name_with_location, null) as entity_name_with_location,
     grades.grade_type as grade_type,
     grades.actor_id as actor_id,
     cast(grades.scaled_score as Float) as scaled_score,
