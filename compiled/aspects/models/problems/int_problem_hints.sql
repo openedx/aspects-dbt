@@ -4,7 +4,7 @@ with hints as (
         org,
         course_key,
         
-   regexpExtract(object_id, 'xblock/([\w\d-@\+:]*)', 1)
+   regexpExtract(object_id, 'xblock/([\w\d-\+:]*@problem\+block@[\w\d][^_]*)(_\d_\d)?', 1)
  as problem_id,
         actor_id,
         case
