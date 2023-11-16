@@ -8,7 +8,7 @@ with plays as (
         splitByString('/xblock/', object_id)[-1] as video_id,
         actor_id
     from
-        {{ source('xapi', 'video_playback_events') }}
+        {{ ref('video_playback_events') }}
     where
         verb_id = 'https://w3id.org/xapi/video/verbs/played'
 )

@@ -10,9 +10,9 @@ with completions as (
             splitByString('/course/', object_id)[-1],
             splitByString('/xblock/', object_id)[-1]
         ) as entity_id,
-        progress_percent/100 as scaled_progress
+        cast(progress_percent as Float)/100 as scaled_progress
     from
-        {{ source('xapi', 'completions_events') }}
+        {{ ref('completion_events') }}
 )
 
 select

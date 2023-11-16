@@ -7,7 +7,7 @@ with enrollments as (
         enrollment_mode,
         splitByString('/', verb_id)[-1] as enrollment_status
     from
-        {{ source('xapi', 'enrollment_events') }}
+        {{ ref('enrollment_events') }}
 )
 
 select
