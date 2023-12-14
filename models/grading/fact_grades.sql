@@ -14,7 +14,7 @@ with grades as (
             splitByString('/xblock/', object_id)[-1]
         ) as entity_id,
         actor_id,
-        scaled_score
+        toFloat64OrZero(scaled_score) as scaled_score
     from
         {{ source('xapi', 'grading_events') }}
 )
@@ -30,7 +30,7 @@ select
     if(blocks.block_name != '', blocks.display_name_with_location, null) as entity_name_with_location,
     grades.grade_type as grade_type,
     grades.actor_id as actor_id,
-    cast(grades.scaled_score as Float) as scaled_score,
+    grades.scaled_score as scaled_score,
     case
         when scaled_score >= 0.9 then '90-100%'
         when scaled_score >= 0.8 and scaled_score < 0.9 then '80-89%'
