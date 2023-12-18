@@ -11,7 +11,7 @@ with hints as (
             else 'N/A'
         end as help_type
     from
-        {{ source('xapi', 'problem_events') }}
+        {{ ref('problem_events') }}
     where
         verb_id = 'http://adlnet.gov/expapi/verbs/asked'
 )

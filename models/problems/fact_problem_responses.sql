@@ -9,7 +9,7 @@ with responses as (
         success,
         attempts
     from
-        {{ source('xapi', 'problem_events') }}
+        {{ ref('problem_events') }}
     where
         verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
 )
