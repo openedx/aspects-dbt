@@ -1,6 +1,6 @@
 {{ config(
     materialized='materialized_view',
-    engine='MergeTree()',
+    engine=get_engine('ReplacingMergeTree()'),
     primary_key='(org, course_key, video_id)',
     order_by='(org, course_key, video_id, emission_time, actor_id, cc_enabled, event_id)'
   ) }}
