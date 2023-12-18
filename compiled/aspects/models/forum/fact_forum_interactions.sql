@@ -9,6 +9,6 @@ select
     forum.actor_id as actor_id,
     forum.verb_id as verb_id
 from
-    xapi.forum_events forum
-    join event_sink.course_names courses
+    `xapi`.`forum_events` forum
+    join `event_sink`.`course_names` courses
         on (forum.course_key = courses.course_key)

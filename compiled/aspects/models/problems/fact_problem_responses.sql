@@ -11,7 +11,7 @@ with responses as (
         success,
         attempts
     from
-        xapi.problem_events
+        `xapi`.`problem_events`
     where
         verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
 )
@@ -31,7 +31,7 @@ select
     responses.attempts as attempts
 from
     responses
-    join xapi.dim_course_blocks blocks
+    join `xapi`.`dim_course_blocks` blocks
          on (responses.course_key = blocks.course_key
              and responses.problem_id = blocks.block_id)
 group by

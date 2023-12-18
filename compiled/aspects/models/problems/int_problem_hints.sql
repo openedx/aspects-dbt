@@ -13,7 +13,7 @@ with hints as (
             else 'N/A'
         end as help_type
     from
-        xapi.problem_events
+        `xapi`.`problem_events`
     where
         verb_id = 'http://adlnet.gov/expapi/verbs/asked'
 )
@@ -31,6 +31,6 @@ select
     hints.help_type as help_type
 from
     hints
-    join xapi.dim_course_blocks blocks
+    join `xapi`.`dim_course_blocks` blocks
          on (hints.course_key = blocks.course_key
              and hints.problem_id = blocks.block_id)

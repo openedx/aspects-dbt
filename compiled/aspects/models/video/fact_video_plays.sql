@@ -8,7 +8,7 @@ with plays as (
         splitByString('/xblock/', object_id)[-1] as video_id,
         actor_id
     from
-        xapi.video_playback_events
+        `xapi`.`video_playback_events`
     where
         verb_id = 'https://w3id.org/xapi/video/verbs/played'
 )
@@ -25,6 +25,6 @@ select
     plays.actor_id as actor_id
 from
     plays
-    join xapi.dim_course_blocks blocks
+    join `xapi`.`dim_course_blocks` blocks
          on (plays.course_key = blocks.course_key
              and plays.video_id = blocks.block_id)

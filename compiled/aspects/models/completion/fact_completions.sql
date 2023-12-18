@@ -10,9 +10,9 @@ with completions as (
             splitByString('/course/', object_id)[-1],
             splitByString('/xblock/', object_id)[-1]
         ) as entity_id,
-        progress_percent/100 as scaled_progress
+        cast(progress_percent as Float)/100 as scaled_progress
     from
-        xapi.completion_events
+        `xapi`.`completion_events`
 )
 
 select
@@ -40,7 +40,7 @@ select
     end as completion_bucket
 from
     completions
-    join event_sink.course_names courses
+    join `event_sink`.`course_names` courses
         on completions.course_key = courses.course_key
-    left join event_sink.course_block_names blocks
+    left join `event_sink`.`course_block_names` blocks
         on completions.entity_id = blocks.location

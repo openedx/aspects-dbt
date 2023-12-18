@@ -8,7 +8,7 @@ with all_values as (
         enrollment_status as value_field,
         count(*) as n_records
 
-    from xapi.fact_enrollments
+    from `xapi`.`fact_enrollments`
     group by enrollment_status
 
 )

@@ -14,7 +14,7 @@ with results_with_hints as (
         attempts,
         0 as num_hints_displayed,
         0 as num_answers_displayed
-    from xapi.int_problem_results
+    from `xapi`.`int_problem_results`
     union all
     select
         org,
@@ -35,7 +35,7 @@ with results_with_hints as (
             when 'answer' then 1
             else 0
         end as num_answers_displayed
-    from xapi.int_problem_hints
+    from `xapi`.`int_problem_hints`
 )
 
 -- n.b.: there should only be one row per org, course, problem, and actor
