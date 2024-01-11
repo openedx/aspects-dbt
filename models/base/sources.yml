@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: xapi
-    database: "{{ env_var('XAPI_SCHEMA', 'xapi') }}"
+    database: "{{ env_var('ASPECTS_XAPI_DATABASE', 'xapi') }}"
     description: "the xapi database in clickhouse"
     tables:
       - name: xapi_events_all
