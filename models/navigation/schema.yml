@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: navigation_events
+    description: "A materialized view for xAPI events related to course navigation"
+    columns:
+      - name: event_id
+        data_type: uuid
+      - name: emission_time
+        data_type: datetime
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: actor_id
+        data_type: string
+      - name: block_id
+        data_type: string
+      - name: course_key
+        data_type: string
+      - name: org
+        data_type: string
+      - name: verb_id
+        data_type: string
+      - name: object_type
+        data_type: string
+      - name: starting_position
+        data_type: int64
+        description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"
+      - name: ending_point
+        data_type: string
+        description: "The tab in the unit navigation bar that the learner selected to navigate to"
+
+  - name: fact_navigation
+    description: "A view of navigation_events enriched with course and block metadata"
+    columns:
+      - name: emission_time
+        data_type: datetime
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+        data_type: string
+      - name: course_key
+        data_type: string
+      - name: course_name
+        data_type: string
+      - name: course_run
+        data_type: string
+      - name: actor_id
+        data_type: string
+      - name: block_id
+        data_type: string
+      - name: block_name
+        data_type: string
+      - name: block_name_with_location
+        data_type: string
+      - name: object_type
+        data_type: string
+      - name: starting_position
+        data_type: int64
+        description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"
+      - name: ending_point
+        data_type: string
+        description: "The tab in the unit navigation bar that the learner selected to navigate to"
