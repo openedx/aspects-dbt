@@ -14,7 +14,7 @@ SELECT
     splitByString('/', course_id)[-1] AS course_key,
     org,
     verb_id,
-    JSON_VALUE(event_str, '$.object.definition.extensions."https://w3id.org/xapi/acrossx/extensions/type"') AS enrollment_mode
+    JSON_VALUE(event, '$.object.definition.extensions."https://w3id.org/xapi/acrossx/extensions/type"') AS enrollment_mode
 FROM {{ ref('xapi_events_all_parsed') }}
 WHERE verb_id IN (
     'http://adlnet.gov/expapi/verbs/registered',
