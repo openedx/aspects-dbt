@@ -4,6 +4,7 @@
     engine=get_engine('ReplacingMergeTree()'),
     primary_key='(org, course_id, verb_id, actor_id, emission_time, event_id)',
     order_by='(org, course_id, verb_id, actor_id, emission_time, event_id)',
+    partition_by='(toYYYYMM(emission_time))',
     post_hook='OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL'
   ) }}
 

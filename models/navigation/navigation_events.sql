@@ -3,7 +3,8 @@
     schema=env_var('ASPECTS_XAPI_DATABASE', 'xapi'),
     engine=get_engine('ReplacingMergeTree()'),
     primary_key='(org, course_key, object_type)',
-    order_by='(org, course_key, object_type, emission_time, actor_id, starting_position, event_id)'
+    order_by='(org, course_key, object_type, emission_time, actor_id, starting_position, event_id)',
+    partition_by='(toYYYYMM(emission_time))',
   ) }}
 
 SELECT
