@@ -9,6 +9,6 @@ SELECT
     splitByString('/', course_id)[-1] AS course_key,
     org,
     verb_id,
-    JSONExtractFloat(event_str, 'result', 'score', 'scaled') AS scaled_score
+    JSONExtractFloat(event, 'result', 'score', 'scaled') AS scaled_score
 FROM `xapi`.`xapi_events_all_parsed`
 WHERE verb_id IN ('http://id.tincanapi.com/verb/earned', 'https://w3id.org/xapi/acrossx/verbs/evaluated')

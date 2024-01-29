@@ -9,4 +9,4 @@ SELECT
     actor_id,
     verb_id
 FROM `xapi`.`xapi_events_all_parsed`
-WHERE JSON_VALUE(event_str, '$.object.definition.type') = 'http://id.tincanapi.com/activitytype/discussion'
+WHERE JSON_VALUE(event, '$.object.definition.type') = 'http://id.tincanapi.com/activitytype/discussion'
