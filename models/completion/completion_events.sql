@@ -14,6 +14,6 @@ SELECT
     splitByString('/', course_id)[-1] AS course_key,
     org,
     verb_id,
-    JSON_VALUE(event_str, '$.result.extensions."https://w3id.org/xapi/cmi5/result/extensions/progress"') AS progress_percent
+    JSON_VALUE(event, '$.result.extensions."https://w3id.org/xapi/cmi5/result/extensions/progress"') AS progress_percent
 FROM {{ ref('xapi_events_all_parsed') }}
 WHERE verb_id = 'http://adlnet.gov/expapi/verbs/progressed'

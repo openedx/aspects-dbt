@@ -14,7 +14,7 @@ SELECT
     splitByString('/', course_id)[-1] AS course_key,
     org,
     verb_id,
-    JSONExtractString(event_str, 'object', 'definition', 'type') AS object_type,
+    JSONExtractString(event, 'object', 'definition', 'type') AS object_type,
     -- clicking a link and selecting a module outline have no starting-position field
     if (
         object_type in (
@@ -23,12 +23,12 @@ SELECT
         ),
         0,
         JSONExtractInt(
-            event_str,
+            event,
             'context', 'extensions', 'http://id.tincanapi.com/extension/starting-position'
         )
     ) AS starting_position,
     JSONExtractString(
-        event_str,
+        event,
         'context', 'extensions', 'http://id.tincanapi.com/extension/ending-point'
     ) AS ending_point
 FROM
