@@ -1,2 +1,2 @@
-dbt-clickhouse==1.7.0
+dbt-clickhouse==1.7.2
 dbt-core==1.7.0
