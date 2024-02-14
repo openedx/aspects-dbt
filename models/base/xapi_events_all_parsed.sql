@@ -37,7 +37,7 @@ SELECT
         -- Otherwise use the object id
         JSON_VALUE(event::String, '$.object.id')
     ) as course_id,
-    coalesce(get_org_from_course_url(course_id), '') as org,
+    coalesce(get_org_from_course_url(course_id), get_org_from_ccx_course_url(course_id), '') as org,
     emission_time as emission_time,
     event::String as event
 FROM {{ source('xapi', 'xapi_events_all') }}
