@@ -74,6 +74,8 @@ beginning development to maximize the chances of your change being accepted.
 You can start a conversation by creating a new issue on this repo summarizing
 your idea.
 
+Make sure to format the SQL models via `make format` before submitting a pull request.
+
 The Open edX Code of Conduct
 ****************************
 

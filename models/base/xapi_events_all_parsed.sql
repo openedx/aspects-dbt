@@ -1,14 +1,16 @@
-{{ config(
-    materialized='materialized_view',
-    schema=env_var('ASPECTS_XAPI_DATABASE', 'xapi'),
-    engine=get_engine('ReplacingMergeTree()'),
-    primary_key='(org, course_id, verb_id, actor_id, emission_time, event_id)',
-    order_by='(org, course_id, verb_id, actor_id, emission_time, event_id)',
-    partition_by='(toYYYYMM(emission_time))',
-    post_hook='OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL'
-  ) }}
+{{
+    config(
+        materialized="materialized_view",
+        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
+        engine=get_engine("ReplacingMergeTree()"),
+        primary_key="(org, course_id, verb_id, actor_id, emission_time, event_id)",
+        order_by="(org, course_id, verb_id, actor_id, emission_time, event_id)",
+        partition_by="(toYYYYMM(emission_time))",
+        post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
+    )
+}}
 
-SELECT
+select
     event_id as event_id,
     JSON_VALUE(event::String, '$.verb.id') as verb_id,
     COALESCE(
@@ -23,21 +25,21 @@ SELECT
     multiIf(
         -- If the contextActivities parent is a course, use that
         JSON_VALUE(
-            event::String,
-            '$.context.contextActivities.parent[0].definition.type'
-        ) = 'http://adlnet.gov/expapi/activities/course',
+            event::String, '$.context.contextActivities.parent[0].definition.type'
+        )
+        = 'http://adlnet.gov/expapi/activities/course',
         JSON_VALUE(event::String, '$.context.contextActivities.parent[0].id'),
         -- Else if the contextActivities parent is a GroupActivity, it's a multi
         -- question problem and we use the grouping id
-        JSON_VALUE(
-            event::String,
-            '$.context.contextActivities.parent[0].objectType'
-        ) in ('Activity', 'GroupActivity'),
+        JSON_VALUE(event::String, '$.context.contextActivities.parent[0].objectType')
+        in ('Activity', 'GroupActivity'),
         JSON_VALUE(event::String, '$.context.contextActivities.grouping[0].id'),
         -- Otherwise use the object id
         JSON_VALUE(event::String, '$.object.id')
     ) as course_id,
-    coalesce(get_org_from_course_url(course_id), get_org_from_ccx_course_url(course_id), '') as org,
+    coalesce(
+        get_org_from_course_url(course_id), get_org_from_ccx_course_url(course_id), ''
+    ) as org,
     emission_time as emission_time,
     event::String as event
-FROM {{ source('xapi', 'xapi_events_all') }}
+from {{ source("xapi", "xapi_events_all") }}

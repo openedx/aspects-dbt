@@ -1,20 +1,21 @@
-with hints as (
-    select
-        emission_time,
-        org,
-        course_key,
-        {{ get_problem_id('object_id') }} as problem_id,
-        actor_id,
-        case
-            when object_id like '%/hint%' then 'hint'
-            when object_id like '%/answer%' then 'answer'
-            else 'N/A'
-        end as help_type
-    from
-        {{ ref('problem_events') }}
-    where
-        verb_id = 'http://adlnet.gov/expapi/verbs/asked'
-)
+with
+    hints as (
+        select
+            emission_time,
+            org,
+            course_key,
+            {{ get_problem_id("object_id") }} as problem_id,
+            actor_id,
+            case
+                when object_id like '%/hint%'
+                then 'hint'
+                when object_id like '%/answer%'
+                then 'answer'
+                else 'N/A'
+            end as help_type
+        from {{ ref("problem_events") }}
+        where verb_id = 'http://adlnet.gov/expapi/verbs/asked'
+    )
 
 select
     hints.emission_time as emission_time,
@@ -27,8 +28,7 @@ select
     blocks.display_name_with_location as problem_name_with_location,
     hints.actor_id as actor_id,
     hints.help_type as help_type
-from
-    hints
-    join {{ ref('dim_course_blocks')}} blocks
-         on (hints.course_key = blocks.course_key
-             and hints.problem_id = blocks.block_id)
+from hints
+join
+    {{ ref("dim_course_blocks") }} blocks
+    on (hints.course_key = blocks.course_key and hints.problem_id = blocks.block_id)
