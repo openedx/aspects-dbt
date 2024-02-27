@@ -20,6 +20,11 @@ with
             actor_id,
             scaled_score
         from {{ ref("grading_events") }}
+        where
+            verb_id in (
+                'http://id.tincanapi.com/verb/earned',
+                'https://w3id.org/xapi/acrossx/verbs/evaluated'
+            )
     )
 
 select
