@@ -19,3 +19,8 @@ models:
       - name: display_name_with_location
         data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
+      - name: graded
+        data_type: Boolean
+      - name: block_type
+        data_type: String
+        description: "The type of block. This can be a section, subsection, unit, or the block type"
