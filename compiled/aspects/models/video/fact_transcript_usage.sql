@@ -8,10 +8,11 @@ select
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
     transcripts.actor_id as actor_id
-from
-    `xapi`.`video_transcript_events` transcripts
-    join `xapi`.`dim_course_blocks` blocks
-         on (transcripts.course_key = blocks.course_key
-             and transcripts.video_id = blocks.block_id)
-where
-    transcripts.cc_enabled
+from `xapi`.`video_transcript_events` transcripts
+join
+    `xapi`.`dim_course_blocks` blocks
+    on (
+        transcripts.course_key = blocks.course_key
+        and transcripts.video_id = blocks.block_id
+    )
+where transcripts.cc_enabled

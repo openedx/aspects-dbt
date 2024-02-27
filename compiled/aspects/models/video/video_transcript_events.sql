@@ -1,14 +1,24 @@
 
 
-SELECT
+select
     event_id,
-    CAST(emission_time, 'DateTime') AS emission_time,
+    CAST(emission_time, 'DateTime') as emission_time,
     org,
-    splitByString('/', course_id)[-1] AS course_key,
+    splitByString('/', course_id)[-1] as course_key,
     splitByString('/xblock/', object_id)[2] as video_id,
     actor_id,
-    JSONExtractBool(event, 'result','extensions','https://w3id.org/xapi/video/extensions/cc-enabled') as cc_enabled
-FROM `xapi`.`xapi_events_all_parsed`
-WHERE
-    verb_id IN ('http://adlnet.gov/expapi/verbs/interacted')
-    AND JSONHas(event, 'result', 'extensions', 'https://w3id.org/xapi/video/extensions/cc-enabled')
+    JSONExtractBool(
+        event,
+        'result',
+        'extensions',
+        'https://w3id.org/xapi/video/extensions/cc-enabled'
+    ) as cc_enabled
+from `xapi`.`xapi_events_all_parsed`
+where
+    verb_id in ('http://adlnet.gov/expapi/verbs/interacted')
+    and JSONHas(
+        event,
+        'result',
+        'extensions',
+        'https://w3id.org/xapi/video/extensions/cc-enabled'
+    )
