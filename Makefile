@@ -1,0 +1,2 @@
+format:
+	sqlfmt models macros

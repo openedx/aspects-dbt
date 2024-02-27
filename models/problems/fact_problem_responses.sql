@@ -1,18 +1,17 @@
-with responses as (
-    select
-        emission_time,
-        org,
-        course_key,
-        {{ get_problem_id('object_id') }} as problem_id,
-        actor_id,
-        responses,
-        success,
-        attempts
-    from
-        {{ ref('problem_events') }}
-    where
-        verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
-)
+with
+    responses as (
+        select
+            emission_time,
+            org,
+            course_key,
+            {{ get_problem_id("object_id") }} as problem_id,
+            actor_id,
+            responses,
+            success,
+            attempts
+        from {{ ref("problem_events") }}
+        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
+    )
 
 select
     responses.emission_time as emission_time,
@@ -27,11 +26,13 @@ select
     responses.responses as responses,
     responses.success as success,
     responses.attempts as attempts
-from
-    responses
-    join {{ ref('dim_course_blocks')}} blocks
-         on (responses.course_key = blocks.course_key
-             and responses.problem_id = blocks.block_id)
+from responses
+join
+    {{ ref("dim_course_blocks") }} blocks
+    on (
+        responses.course_key = blocks.course_key
+        and responses.problem_id = blocks.block_id
+    )
 group by
     -- multi-part questions include an extra record for the response to the first
     -- part of the question. this group by clause eliminates the duplicate record
