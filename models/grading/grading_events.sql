@@ -18,10 +18,12 @@ select
     splitByString('/', course_id)[-1] as course_key,
     org,
     verb_id,
-    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score
+    coalesce(JSONExtractFloat(event, 'result', 'score', 'scaled'), 0) as scaled_score
 from {{ ref("xapi_events_all_parsed") }}
 where
     verb_id in (
         'http://id.tincanapi.com/verb/earned',
-        'https://w3id.org/xapi/acrossx/verbs/evaluated'
+        'https://w3id.org/xapi/acrossx/verbs/evaluated',
+        'http://adlnet.gov/expapi/verbs/passed',
+        'http://adlnet.gov/expapi/verbs/failed'
     )
