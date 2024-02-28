@@ -38,7 +38,10 @@ select
             ),
             'Decimal32(2)'
         )
-    ) as video_position
+    ) as video_position,
+    JSONExtractInt(
+        event, 'context', 'extensions', 'https://w3id.org/xapi/video/extensions/length'
+    ) as video_duration
 from {{ ref("xapi_events_all_parsed") }}
 where
     (
