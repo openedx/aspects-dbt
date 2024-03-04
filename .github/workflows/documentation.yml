@@ -7,6 +7,14 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency: preview-${{ github.ref }}
 
 env:
   DBT_PROFILES_DIR: ./.github/
@@ -15,7 +23,7 @@ env:
   CLICKHOUSE_PASSWORD: "ch_password"
 
 jobs:
-  build:
+  deploy-docs:
     name: Deploy dbt docs to github pages
     runs-on: ubuntu-latest
     permissions:
@@ -39,10 +47,17 @@ jobs:
           docker compose up -d
       - name: Build docs
         run: |
+          dbt run
           dbt docs generate
       - name: Deploy
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
           publish_dir: ./target
+          destination_dir: ./dbt-aspects
           commit_message: "docs: update docs for "
+      - name: Documentation Coverage
+        run: |
+          ls -a -R
+          dbt-coverage compute doc --cov-fail-under 0.9

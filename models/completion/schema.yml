@@ -31,3 +31,30 @@ models:
       - name: completion_bucket
         description: "A displayable value of progress sorted into 10% buckets. Useful for grouping progress together to show high-level learner performance"
         data_type: String
+  - name: completion_events
+    description: ""
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: ""
+      - name: emission_time
+        data_type: datetime
+        description: ""
+      - name: actor_id
+        data_type: string
+        description: ""
+      - name: object_id
+        data_type: string
+        description: ""
+      - name: course_key
+        data_type: string
+        description: ""
+      - name: org
+        data_type: string
+        description: ""
+      - name: verb_id
+        data_type: string
+        description: ""
+      - name: progress_percent
+        data_type: string
+        description: ""
