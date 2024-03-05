@@ -9,7 +9,7 @@ models:
         description: "Timestamp, to the second, of when this event was emitted"
         data_type: DateTime64(3)
       - name: org
-        data_type: String}
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
         data_type: String

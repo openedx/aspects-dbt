@@ -106,6 +106,9 @@ models:
       - name: state
         data_type: string
         description: "The most recent state of the learner's grade"
+        tests:
+          - accepted_values:
+              values: ["passed", "failed"]
 
   - name: grading_events
     description: "Events related to grading"

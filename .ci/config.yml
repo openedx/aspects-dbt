@@ -1,0 +1,9 @@
+CLICKHOUSE_ADMIN_PASSWORD: ch_password
+CLICKHOUSE_ADMIN_USER: ch_admin
+CLICKHOUSE_SECURE_CONNECTION: false
+LANGUAGE_CODE: en
+LMS_HOST: local.edly.io
+PLATFORM_NAME: Aspects Local CI Test
+PLUGINS:
+- aspects
+DOCKER_IMAGE_OPENEDX: edunext/openedx-aspects:0.80.0
