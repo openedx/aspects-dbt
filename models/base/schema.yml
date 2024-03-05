@@ -6,16 +6,22 @@ models:
     columns:
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: block_id
         data_type: String
+        description: "The block's unique identifier"
       - name: block_name
         data_type: String
+        description: "The block's name"
       - name: section_number
         data_type: string
         description: "The section this block belongs to, formatted as <section location>:0:0"
@@ -30,6 +36,35 @@ models:
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: graded
         data_type: Boolean
+        description: "Whether the block is graded"
       - name: block_type
         data_type: String
         description: "The type of block. This can be a section, subsection, unit, or the block type"
+
+  - name: xapi_events_all_parsed
+    description: "A materialized view for xAPI events"
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: "The unique identifier for the event"
+      - name: verb_id
+        data_type: string
+        description: "The xAPI verb identifier"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: object_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: course_id
+        data_type: string
+        description: "The course identifier"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: emission_time
+        data_type: datetime64(6)
+        description: "The time the event was emitted"
+      - name: event
+        data_type: string
+        description: "The xAPI event as a string"

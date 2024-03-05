@@ -6,21 +6,28 @@ models:
     columns:
       - name: event_id
         data_type: uuid
+        description: "The unique identifier for the event"
       - name: emission_time
         data_type: datetime
         description: "Timestamp, to the second, of when this event was emitted"
       - name: actor_id
         data_type: string
+        description: "The xAPI actor identifier"
       - name: block_id
         data_type: string
+        description: "The LMS object identifier"
       - name: course_key
         data_type: string
+        description: "The course identifier"
       - name: org
         data_type: string
+        description: "The organization that the course belongs to"
       - name: verb_id
         data_type: string
+        description: "The xAPI verb identifier"
       - name: object_type
         data_type: string
+        description: "The type of object that the learner interacted with"
       - name: starting_position
         data_type: int64
         description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"
@@ -36,22 +43,31 @@ models:
         description: "Timestamp, to the second, of when this event was emitted"
       - name: org
         data_type: string
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: string
+        description: "The course identifier"
       - name: course_name
         data_type: string
+        description: "The name of the course"
       - name: course_run
         data_type: string
+        description: "The course run for the course"
       - name: actor_id
         data_type: string
+        description: "The xAPI actor identifier"
       - name: block_id
         data_type: string
+        description: "The LMS object identifier"
       - name: block_name
         data_type: string
+        description: "The block's name"
       - name: block_name_with_location
         data_type: string
+        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: object_type
         data_type: string
+        description: "The type of object that the learner interacted with"
       - name: starting_position
         data_type: int64
         description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"

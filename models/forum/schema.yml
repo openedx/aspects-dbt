@@ -6,19 +6,53 @@ models:
     columns:
       - name: event_id
         data_type: UUID
+        description: "The unique identifier for the event"
       - name: emission_time
         data_type: DateTime64(3)
+        description: "Timestamp, to the second, of when this event was emitted"
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: object_id
         data_type: String
+        description: "The xAPI object identifier"
       - name: actor_id
         data_type: String
+        description: "The xAPI actor identifier"
       - name: verb_id
         data_type: LowCardinality(String)
+        description: "The xAPI verb identifier"
+
+  - name: forum_events
+    description: ""
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: "The unique identifier for the event"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: object_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: verb_id
+        data_type: string
+        description: "The xAPI verb identifier"

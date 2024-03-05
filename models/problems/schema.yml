@@ -6,20 +6,28 @@ models:
     columns:
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: problem_id
         data_type: String
+        description: "The problem's unique identifier"
       - name: problem_name
         data_type: String
+        description: "The problem's name"
       - name: problem_name_with_location
         data_type: String
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
       - name: actor_id
         data_type: String
+        description: "The xAPI actor identifier"
       - name: success
         description: "The result of the last submission"
         tests:
@@ -42,22 +50,31 @@ models:
     columns:
       - name: emission_time
         data_type: DateTime
+        description: "Timestamp, to the second, of when this event was emitted"
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: problem_id
         data_type: String
+        description: "The problem's unique identifier"
       - name: problem_name
         data_type: String
+        description: "The problem's name"
       - name: problem_name_with_location
         data_type: String
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
       - name: actor_id
         data_type: String
+        description: "The xAPI actor identifier"
       - name: responses
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
         data_type: String
@@ -67,3 +84,117 @@ models:
       - name: attempts
         description: "Number indicating which attempt this was"
         data_type: Int16
+
+  - name: int_problem_hints
+    description: "Internal table for problem hints"
+    columns:
+      - name: emission_time
+        data_type: datetime
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: course_name
+        data_type: string
+        description: "The name of the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: problem_id
+        data_type: string
+        description: "The problem's unique identifier"
+      - name: problem_name
+        data_type: string
+        description: "The problem's name"
+      - name: problem_name_with_location
+        data_type: string
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: help_type
+        data_type: string
+        description: "The type of help requested"
+
+  - name: int_problem_results
+    description: "Internal table for problem results"
+    columns:
+      - name: emission_time
+        data_type: datetime
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: course_name
+        data_type: string
+        description: "The name of the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: problem_id
+        data_type: string
+        description: "The problem's unique identifier"
+      - name: problem_name
+        data_type: string
+        description: "The problem's name"
+      - name: problem_name_with_location
+        data_type: string
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: responses
+        data_type: string
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: success
+        data_type: bool
+        description: "Boolean indicating whether the responses were correct"
+      - name: attempts
+        data_type: int16
+        description: "Number indicating which attempt this was"
+
+  - name: problem_events
+    description: "Problem events"
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: "The unique identifier for the event"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: object_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: verb_id
+        data_type: string
+        description: "The xAPI verb identifier"
+      - name: responses
+        data_type: string
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: scaled_score
+        data_type: string
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: success
+        data_type: bool
+        description: "Boolean indicating whether the responses were correct"
+      - name: interaction_type
+        data_type: string
+        description: "The type of interaction"
+      - name: attempts
+        data_type: int16
+        description: "Number indicating which attempt this was"

@@ -1,176 +1,188 @@
 {
   "cov_type": "doc",
-  "covered": 28,
-  "total": 216,
-  "coverage": 0.12962962962962962,
+  "covered": 218,
+  "total": 218,
+  "coverage": 1.0,
   "tables": [
     {
-      "name": "reporting.completion_events",
-      "covered": 0,
+      "name": "xapi.completion_events",
+      "covered": 8,
       "total": 8,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "progress_percent",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.dim_course_blocks",
-      "covered": 1,
-      "total": 7,
-      "coverage": 0.14285714285714285,
+      "name": "xapi.dim_course_blocks",
+      "covered": 9,
+      "total": 9,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "block_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "block_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "display_name_with_location",
           "covered": 1,
           "total": 1,
           "coverage": 1.0
+        },
+        {
+          "name": "graded",
+          "covered": 1,
+          "total": 1,
+          "coverage": 1.0
+        },
+        {
+          "name": "block_type",
+          "covered": 1,
+          "total": 1,
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.enrollment_events",
-      "covered": 0,
+      "name": "xapi.enrollment_events",
+      "covered": 8,
       "total": 8,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "enrollment_mode",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.fact_completions",
-      "covered": 4,
+      "name": "xapi.fact_completions",
+      "covered": 11,
       "total": 11,
-      "coverage": 0.36363636363636365,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
@@ -180,27 +192,27 @@
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "entity_id",
@@ -210,21 +222,21 @@
         },
         {
           "name": "entity_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "entity_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "scaled_progress",
@@ -241,10 +253,10 @@
       ]
     },
     {
-      "name": "reporting.fact_enrollments",
-      "covered": 2,
+      "name": "xapi.fact_enrollments",
+      "covered": 8,
       "total": 8,
-      "coverage": 0.25,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
@@ -254,39 +266,39 @@
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "enrollment_mode",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "enrollment_status",
@@ -297,102 +309,102 @@
       ]
     },
     {
-      "name": "reporting.fact_forum_interactions",
-      "covered": 0,
+      "name": "xapi.fact_forum_interactions",
+      "covered": 9,
       "total": 9,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.fact_grade_status",
-      "covered": 3,
+      "name": "xapi.fact_grade_status",
+      "covered": 8,
       "total": 8,
-      "coverage": 0.375,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "state",
@@ -415,10 +427,10 @@
       ]
     },
     {
-      "name": "reporting.fact_grades",
-      "covered": 5,
+      "name": "xapi.fact_grades",
+      "covered": 12,
       "total": 12,
-      "coverage": 0.4166666666666667,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
@@ -428,27 +440,27 @@
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "entity_id",
@@ -458,15 +470,15 @@
         },
         {
           "name": "entity_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "entity_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "grade_type",
@@ -476,9 +488,9 @@
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "scaled_score",
@@ -495,122 +507,122 @@
       ]
     },
     {
-      "name": "reporting.fact_learner_course_grade",
-      "covered": 0,
+      "name": "xapi.fact_learner_course_grade",
+      "covered": 4,
       "total": 4,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_grade",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.fact_learner_course_status",
-      "covered": 0,
+      "name": "xapi.fact_learner_course_status",
+      "covered": 4,
       "total": 4,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "state",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.fact_learner_problem_summary",
-      "covered": 4,
+      "name": "xapi.fact_learner_problem_summary",
+      "covered": 12,
       "total": 12,
-      "coverage": 0.3333333333333333,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "success",
@@ -639,10 +651,10 @@
       ]
     },
     {
-      "name": "reporting.fact_navigation",
-      "covered": 3,
+      "name": "xapi.fact_navigation",
+      "covered": 12,
       "total": 12,
-      "coverage": 0.25,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
@@ -652,57 +664,57 @@
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "block_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "block_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "block_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_type",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "starting_position",
@@ -719,64 +731,64 @@
       ]
     },
     {
-      "name": "reporting.fact_problem_responses",
-      "covered": 3,
+      "name": "xapi.fact_problem_responses",
+      "covered": 12,
       "total": 12,
-      "coverage": 0.25,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "responses",
@@ -799,394 +811,394 @@
       ]
     },
     {
-      "name": "reporting.fact_transcript_usage",
-      "covered": 0,
+      "name": "xapi.fact_transcript_usage",
+      "covered": 9,
       "total": 9,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.fact_video_plays",
-      "covered": 0,
+      "name": "xapi.fact_video_plays",
+      "covered": 9,
       "total": 9,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.forum_events",
-      "covered": 0,
+      "name": "xapi.forum_events",
+      "covered": 7,
       "total": 7,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.grading_events",
-      "covered": 0,
+      "name": "xapi.grading_events",
+      "covered": 8,
       "total": 8,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "scaled_score",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.int_problem_hints",
-      "covered": 0,
+      "name": "xapi.int_problem_hints",
+      "covered": 10,
       "total": 10,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "help_type",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.int_problem_results",
-      "covered": 0,
+      "name": "xapi.int_problem_results",
+      "covered": 12,
       "total": 12,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_run",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "problem_name_with_location",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "responses",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "success",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "attempts",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.navigation_events",
-      "covered": 3,
+      "name": "xapi.navigation_events",
+      "covered": 10,
       "total": 10,
-      "coverage": 0.3,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
@@ -1196,39 +1208,39 @@
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "block_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_type",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "starting_position",
@@ -1245,250 +1257,250 @@
       ]
     },
     {
-      "name": "reporting.problem_events",
-      "covered": 0,
+      "name": "xapi.problem_events",
+      "covered": 12,
       "total": 12,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "responses",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "scaled_score",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "success",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "interaction_type",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "attempts",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.video_playback_events",
-      "covered": 0,
+      "name": "xapi.video_playback_events",
+      "covered": 9,
       "total": 9,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_position",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_duration",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.video_transcript_events",
-      "covered": 0,
+      "name": "xapi.video_transcript_events",
+      "covered": 7,
       "total": 7,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_key",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "video_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "cc_enabled",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     },
     {
-      "name": "reporting.xapi_events_all_parsed",
-      "covered": 0,
+      "name": "xapi.xapi_events_all_parsed",
+      "covered": 8,
       "total": 8,
-      "coverage": 0.0,
+      "coverage": 1.0,
       "columns": [
         {
           "name": "event_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "verb_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "actor_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "object_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "course_id",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "org",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "emission_time",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         },
         {
           "name": "event",
-          "covered": 0,
+          "covered": 1,
           "total": 1,
-          "coverage": 0.0
+          "coverage": 1.0
         }
       ]
     }
