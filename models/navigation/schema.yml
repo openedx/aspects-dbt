@@ -58,3 +58,48 @@ models:
       - name: ending_point
         data_type: string
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
+
+  - name: fact_navigation_dropoff
+    description: "A view for analyzing the number of page visits per learner per section and subsection"
+    columns:
+      - name: emission_date
+        data_type: date
+      - name: org
+        data_type: string
+      - name: course_key
+        data_type: string
+      - name: rollup_name
+        data_type: string
+        description: "The level at which page views are counted"
+        tests:
+          - accepted_values:
+              values: ["section", "subsection"]
+      - name: block_name
+        data_type: string
+      - name: actor_id
+        data_type: string
+      - name: total_views
+        data_type: uint64
+        description: "The total number of times a learner viewed pages in this section or subsection on a given day"
+
+  - name: fact_navigation_completion
+    description: "A view for analyzing how many pages a learner has visited in a section or subsection"
+    columns:
+      - name: visited_on
+        data_type: date
+      - name: org
+        data_type: string
+      - name: course_key
+        data_type: string
+      - name: section_with_name
+        data_type: string
+      - name: subsection_with_name
+        data_type: string
+      - name: page_count
+        data_type: uint64
+        description: "The number of pages in the associated subsection"
+      - name: actor_id
+        data_type: string
+      - name: block_id
+        data_type: string
+        description: "The ID of the specific page visited"

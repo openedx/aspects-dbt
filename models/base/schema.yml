@@ -16,6 +16,15 @@ models:
         data_type: String
       - name: block_name
         data_type: String
+      - name: section_number
+        data_type: string
+        description: "The section this block belongs to, formatted as <section location>:0:0"
+      - name: subsection_number
+        data_type: string
+        description: "The subsection this block belongs to, formatted as <section location>:<subsection location>:0"
+      - name: hierarchy_location
+        data_type: string
+        description: "The full section:subsection:unit hierarchy in which this block belongs"
       - name: display_name_with_location
         data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
