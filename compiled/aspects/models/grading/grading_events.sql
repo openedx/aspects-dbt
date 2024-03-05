@@ -16,3 +16,11 @@ where
         'http://id.tincanapi.com/verb/earned',
         'https://w3id.org/xapi/acrossx/verbs/evaluated'
     )
+    or (
+        verb_id in (
+            'http://adlnet.gov/expapi/verbs/passed',
+            'http://adlnet.gov/expapi/verbs/failed'
+        )
+        and JSON_VALUE(event::String, '$.object.definition.type')
+        = 'http://adlnet.gov/expapi/activities/course'
+    )
