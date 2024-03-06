@@ -5,6 +5,27 @@ select
     courses.course_run as course_run,
     blocks.location as block_id,
     blocks.block_name as block_name,
+    
+    concat(
+        splitByString(
+            ':', splitByString(' - ', blocks.display_name_with_location)[1], 1
+        )[1],
+        ':0:0'
+    )
+ as section_number,
+    
+    concat(
+        arrayStringConcat(
+            splitByString(
+                ':', splitByString(' - ', blocks.display_name_with_location)[1], 2
+            ),
+            ':'
+        ),
+        ':0'
+    )
+
+    as subsection_number,
+    splitByString(' - ', blocks.display_name_with_location)[1] as hierarchy_location,
     blocks.display_name_with_location as display_name_with_location,
     graded,
     case
