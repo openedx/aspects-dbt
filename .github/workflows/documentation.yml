@@ -7,12 +7,16 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 env:
   DBT_PROFILES_DIR: ./.github/
   CLICKHOUSE_DB: "xapi"
   CLICKHOUSE_USER: "ch_admin"
   CLICKHOUSE_PASSWORD: "ch_password"
+  TUTOR_ROOT: ./.ci/
 
 jobs:
   build:
@@ -32,15 +36,23 @@ jobs:
           python-version: "3.8.x"
       - name: Install dependencies
         run: |
+          pip install tutor-contrib-aspects
           pip install -r requirements.txt
           dbt deps
-      - name: Run Clickhouse
+      - name: Initialize Open edX
         run: |
-          docker compose up -d
+          tutor plugins enable aspects
+          tutor config save
+          tutor local start -d
+          tutor local do init
+          tutor local do load-xapi-test-data
       - name: Build docs
         run: |
+          dbt run
           dbt docs generate
+          dbt-coverage compute doc --cov-fail-under 0.9
       - name: Deploy
+        if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}

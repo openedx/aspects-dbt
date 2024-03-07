@@ -10,24 +10,59 @@ models:
         data_type: DateTime64(3)
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: entity_id
         description: "The block ID or course key for the graded entity"
         data_type: String
       - name: entity_name
         data_type: String
+        description: "The name of the graded entity (course or block)"
       - name: entity_name_with_location
         data_type: Nullable(String)
+        description: "The entity's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: actor_id
         data_type: String
+        description: "The xAPI actor identifier"
       - name: scaled_progress
         description: "A ratio between 0 and 1, inclusive, of the learner's progress"
         data_type: Float32
       - name: completion_bucket
         description: "A displayable value of progress sorted into 10% buckets. Useful for grouping progress together to show high-level learner performance"
         data_type: String
+
+  - name: completion_events
+    description: "A materialized view for xAPI events related to course completions"
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: "The unique identifier for the event"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: object_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: verb_id
+        data_type: string
+        description: "The xAPI verb identifier"
+      - name: progress_percent
+        data_type: string
+        description: "The percentage of the xAPI object completed"

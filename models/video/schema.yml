@@ -6,41 +6,115 @@ models:
     columns:
       - name: emission_time
         data_type: DateTime
+        description: "Timestamp, to the second, of when this event was emitted"
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: video_id
         data_type: String
+        description: "The xAPI object identifier"
       - name: video_name
         data_type: String
+        description: "The name of the video"
       - name: video_name_with_location
         data_type: String
+        description: "The name of the video with the section and subsection"
       - name: actor_id
         data_type: String
+        description: "The xAPI actor identifier"
 
   - name: fact_transcript_usage
     description: "One record for each time a transcript or closed caption was enabled"
     columns:
       - name: emission_time
         data_type: DateTime
+        description: "Timestamp, to the second, of when this event was emitted"
       - name: org
         data_type: String
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
+        description: "The course key for the course"
       - name: course_name
         data_type: String
+        description: "The name of the course"
       - name: course_run
         data_type: String
+        description: "The course run for the course"
       - name: video_id
         data_type: String
+        description: "The xAPI object identifier"
       - name: video_name
         data_type: String
+        description: "The name of the video"
       - name: video_name_with_location
         data_type: String
+        description: "The name of the video with the section and subsection"
       - name: actor_id
         data_type: String
+        description: "The xAPI actor identifier"
+
+  - name: video_playback_events
+    description: "Events related to video playback"
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: "The unique identifier for the event"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: object_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: verb_id
+        data_type: string
+        description: "The xAPI verb identifier"
+      - name: video_position
+        data_type: decimal(9, 2)
+        description: "The position in the video where the event occurred"
+      - name: video_duration
+        data_type: int64
+        description: "The duration of the video"
+
+  - name: video_transcript_events
+    description: "Events related to video transcripts"
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: "The unique identifier for the event"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: video_id
+        data_type: string
+        description: "The video identifier"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: cc_enabled
+        data_type: uint8
+        description: "Whether closed captions were enabled"
