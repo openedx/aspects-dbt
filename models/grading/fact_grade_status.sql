@@ -5,6 +5,7 @@ select
     courses.course_name as course_name,
     courses.course_run as course_run,
     coalesce(state, 'failed') as state,
+    emission_time,
     course_grade as course_grade,
     {{ get_bucket("course_grade") }} as grade_bucket
 from {{ ref("fact_learner_course_grade") }} ls
