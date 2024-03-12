@@ -6,7 +6,7 @@ select
     courses.course_run as course_run,
     coalesce(state, 'failed') as state,
     enrollment_status,
-    lg.emission_time,
+    lg.emission_time as emission_time,
     course_grade as course_grade,
     {{ get_bucket("course_grade") }} as grade_bucket
 from {{ ref("fact_learner_course_grade") }} ls

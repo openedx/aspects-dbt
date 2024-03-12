@@ -44,37 +44,6 @@ models:
         description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
         data_type: String
 
-  - name: fact_grade_status
-    description: "One record per learner per course for the most recent grade and approving status"
-    columns:
-      - name: org
-        data_type: String
-        description: "The organization that the course belongs to"
-      - name: course_key
-        data_type: String
-        description: "The course key for the course"
-      - name: actor_id
-        data_type: String
-        description: "The xAPI actor identifier"
-      - name: course_name
-        data_type: String
-        description: "The name of the course"
-      - name: course_run
-        data_type: String
-        description: "The course run for the course"
-      - name: state
-        description: "The most recent state of the learner's grade"
-        tests:
-          - accepted_values:
-              values: ["passed", "failed"]
-        data_type: String
-      - name: course_grade
-        description: "The most recent grade for the learner"
-        data_type: Float32
-      - name: grade_bucket
-        description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
-        data_type: String
-
   - name: fact_learner_course_grade
     description: "One record per learner per course for the most recent grade"
     columns:
@@ -103,6 +72,9 @@ models:
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
       - name: state
         data_type: string
         description: "The most recent state of the learner's grade"
@@ -137,3 +109,39 @@ models:
       - name: scaled_score
         data_type: float64
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+
+  - name: fact_student_status
+    description: "One record per learner per course for the most recent grade and enrollment status"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: course_name
+        data_type: string
+        description: "The name of the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: state
+        data_type: string
+        description: "The most recent approving state for the learner"
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a course"
+        tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: course_grade
+        data_type: float64
+        description: "The most recent grade for the learner"
+      - name: grade_bucket
+        data_type: string
+        description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
