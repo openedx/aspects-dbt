@@ -80,10 +80,13 @@ models:
     columns:
       - name: emission_date
         data_type: date
+        description: "The date the event was emitted"
       - name: org
         data_type: string
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: string
+        description: "The course identifier"
       - name: rollup_name
         data_type: string
         description: "The level at which page views are counted"
@@ -92,8 +95,10 @@ models:
               values: ["section", "subsection"]
       - name: block_name
         data_type: string
+        description: "The name of the section or subsection"
       - name: actor_id
         data_type: string
+        description: "The xAPI actor identifier"
       - name: total_views
         data_type: uint64
         description: "The total number of times a learner viewed pages in this section or subsection on a given day"
@@ -103,21 +108,52 @@ models:
     columns:
       - name: visited_on
         data_type: date
+        description: "The date the page was visited"
       - name: org
         data_type: string
+        description: "The organization that the course belongs to"
       - name: course_key
         data_type: string
       - name: course_run
         data_type: string
+        description: "The course identifier"
       - name: section_with_name
         data_type: string
+        description: "The name of the section"
       - name: subsection_with_name
         data_type: string
+        description: "The name of the subsection"
       - name: page_count
         data_type: uint64
         description: "The number of pages in the associated subsection"
       - name: actor_id
         data_type: string
+        description: "The xAPI actor identifier"
       - name: block_id
         data_type: string
         description: "The ID of the specific page visited"
+
+  - name: int_pages_per_subsection
+    description: ""
+    columns:
+      - name: org
+        data_type: string
+        description: The organization that the course belongs to
+      - name: course_key
+        data_type: string
+        description: The course identifier
+      - name: section_number
+        data_type: string
+        description: The section number
+      - name: section_with_name
+        data_type: string
+        description: The section number and name
+      - name: subsection_number
+        data_type: string
+        description: The subsection number
+      - name: subsection_with_name
+        data_type: string
+        description: The subsection number and name
+      - name: page_count
+        data_type: uint64
+        description: The number of pages in the associated subsection
