@@ -50,3 +50,8 @@ join
     on blocks.course_key = courses.course_key
     settings join_algorithm = 'direct'
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

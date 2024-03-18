@@ -44,3 +44,8 @@ join
     `event_sink`.`course_names` courses
     on ls.course_key = courses.course_key
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

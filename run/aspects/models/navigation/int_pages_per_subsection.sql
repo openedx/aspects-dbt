@@ -40,3 +40,8 @@ left join
         and subsection_blocks.block_id like '%@sequential+block@%'
     )
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

@@ -20,3 +20,8 @@ join
     `event_sink`.`course_names` courses
     on (forum.course_key = courses.course_key)
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

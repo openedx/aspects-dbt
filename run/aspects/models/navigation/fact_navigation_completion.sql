@@ -56,3 +56,8 @@ join
         and visits.subsection_number = pages.subsection_number
     )
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

@@ -31,3 +31,8 @@ join
     `event_sink`.`course_names` courses
     on enrollments.course_key = courses.course_key
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

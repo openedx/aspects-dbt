@@ -24,3 +24,8 @@ join
     )
 where transcripts.cc_enabled
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

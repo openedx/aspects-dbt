@@ -26,3 +26,8 @@ join
         and navigation.block_id = blocks.block_id
     )
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

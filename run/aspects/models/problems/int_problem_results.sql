@@ -62,3 +62,8 @@ select
 from `xapi`.`fact_problem_responses` problem_responses
 join responses using (org, course_key, problem_id, actor_id, emission_time)
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

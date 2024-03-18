@@ -64,3 +64,8 @@ left join
     `event_sink`.`course_block_names` blocks
     on completions.entity_id = blocks.location
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

@@ -98,3 +98,8 @@ join
         and page_views.hierarchy_location = blocks.hierarchy_location
     )
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

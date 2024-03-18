@@ -60,3 +60,8 @@ group by
     success,
     attempts
   )
+      
+      
+                    -- end_of_sql
+                    
+                    

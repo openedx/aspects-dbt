@@ -35,3 +35,8 @@ join
     `xapi`.`dim_course_blocks` blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
   )
+      
+      
+                    -- end_of_sql
+                    
+                    
