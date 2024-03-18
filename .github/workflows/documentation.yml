@@ -20,6 +20,7 @@ env:
 
 jobs:
   build:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     name: Deploy dbt docs to github pages
     runs-on: ubuntu-latest
     permissions:
