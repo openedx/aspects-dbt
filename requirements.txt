@@ -1,4 +1,4 @@
 dbt-clickhouse==1.7.2
-dbt-core==1.7.0
+dbt-core==1.7.3
 shandy-sqlfmt[jinjafmt]==0.21.2
 dbt-coverage
