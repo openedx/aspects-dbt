@@ -6,4 +6,6 @@ LMS_HOST: local.edly.io
 PLATFORM_NAME: Aspects Local CI Test
 PLUGINS:
 - aspects
-DOCKER_IMAGE_OPENEDX: edunext/openedx-aspects:0.80.0
+DOCKER_IMAGE_OPENEDX: edunext/openedx-aspects:latest
+DOCKER_IMAGE_ASPECTS: edunext/aspects:latest
+DOCKER_IMAGE_SUPERSET: edunext/aspects-superset:latest
