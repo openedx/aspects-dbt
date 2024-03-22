@@ -41,6 +41,30 @@ models:
         data_type: String
         description: "The type of block. This can be a section, subsection, unit, or the block type"
 
+  - name: user_pii
+    description: "The user PII table for reports."
+    columns:
+      - name: external_user_id
+        description: "The external user id"
+      - name: external_id_type
+        description: "The external id type"
+      - name: username
+        description: "The username"
+      - name: name
+        description: "The name of the user"
+      - name: language
+        description: "The language of the user"
+      - name: year_of_birth
+        description: "The year of birth of the user"
+      - name: gender
+        description: "The gender of the user"
+      - name: level_of_education
+        description: "The level of education of the user"
+      - name: country
+        description: "The country of the user"
+      - name: age
+        description: "The age of the user"
+
   - name: xapi_events_all_parsed
     description: "A materialized view for xAPI events"
     columns:

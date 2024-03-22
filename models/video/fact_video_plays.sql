@@ -7,6 +7,8 @@ with
             emission_time,
             org,
             course_key,
+            video_duration,
+            video_position,
             splitByString('/xblock/', object_id)[-1] as video_id,
             actor_id
         from {{ ref("video_playback_events") }}
@@ -22,6 +24,9 @@ select
     plays.video_id as video_id,
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
+    video_position,
+    video_duration,
+    {{ get_bucket("video_position/video_duration") }} as visualization_bucket,
     plays.actor_id as actor_id
 from plays
 join

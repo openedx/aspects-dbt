@@ -31,6 +31,15 @@ models:
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
+      - name: video_duration
+        data_type: Int64
+        description: "The duration of the video in seconds"
+      - name: video_position
+        data_type: Int64
+        description: "The seconds into the video where the play event occurred"
+      - name: visualization_bucket
+        data_type: String
+        description: "The percentile bucket for the video play event"
 
   - name: fact_transcript_usage
     description: "One record for each time a transcript or closed caption was enabled"
@@ -92,7 +101,7 @@ models:
         description: "The position in the video where the event occurred"
       - name: video_duration
         data_type: int64
-        description: "The duration of the video"
+        description: "The duration of the video in seconds"
 
   - name: video_transcript_events
     description: "Events related to video transcripts"
