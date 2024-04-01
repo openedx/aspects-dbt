@@ -107,6 +107,8 @@ models:
         data_type: string
       - name: course_key
         data_type: string
+      - name: course_run
+        data_type: string
       - name: section_with_name
         data_type: string
       - name: subsection_with_name
