@@ -20,8 +20,7 @@ select
         then 'unit'
         else regexpExtract(block_id, '@([^+]+)\+block@', 1)
     end as block_type
-from {{ source("event_sink", "course_block_names") }} blocks
+from {{ ref("course_block_names") }} blocks
 join
-    {{ source("event_sink", "course_names") }} courses
-    on blocks.course_key = courses.course_key
+    {{ ref("course_names") }} courses on blocks.course_key = courses.course_key
     settings join_algorithm = 'direct'

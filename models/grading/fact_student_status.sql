@@ -21,6 +21,6 @@ left join
     and fes.course_key = ls.course_key
     and fes.actor_id = ls.actor_id
 join
-    {{ source("event_sink", "course_names") }} courses
+    {{ ref("course_names") }} courses
     on fes.org = courses.org
     and fes.course_key = courses.course_key

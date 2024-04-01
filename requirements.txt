@@ -1,4 +1,5 @@
-dbt-clickhouse==1.7.3
+dbt-clickhouse==1.7.4
 dbt-core==1.7.10
 shandy-sqlfmt[jinjafmt]==0.21.2
 dbt-coverage
+clickhouse-cityhash

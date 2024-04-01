@@ -13,4 +13,4 @@ select
         NULL,
         toYear(now()) - toInt32OrZero(year_of_birth)
     ) as age
-from {{ source("event_sink", "user_pii") }} user_pii
+from {{ ref("user_pii") }} user_pii
