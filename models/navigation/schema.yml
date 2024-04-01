@@ -117,6 +117,9 @@ models:
       - name: course_run
         data_type: string
         description: "The course identifier"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
       - name: section_with_name
         data_type: string
         description: "The name of the section"
@@ -134,7 +137,7 @@ models:
         description: "The ID of the specific page visited"
 
   - name: int_pages_per_subsection
-    description: ""
+    description: "A view for analyzing the number of pages in each subsection"
     columns:
       - name: org
         data_type: string
