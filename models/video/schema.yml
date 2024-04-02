@@ -127,3 +127,42 @@ models:
       - name: cc_enabled
         data_type: uint8
         description: "Whether closed captions were enabled"
+
+  - name: int_videos_per_subsection
+    columns:
+      - name: org
+        data_type: string
+      - name: course_key
+        data_type: string
+      - name: section_number
+        data_type: string
+        description: "The location of this section in the course, represented as section:0:0"
+      - name: section_with_name
+        data_type: string
+      - name: subsection_number
+        data_type: string
+        description: "The location of this subsection in the course, represented as section:subsection:0"
+      - name: subsection_with_name
+        data_type: string
+      - name: item_count
+        data_type: uint64
+
+  - name: fact_video_engagement
+    description: ""
+    columns:
+      - name: viewed_on
+        data_type: date
+      - name: org
+        data_type: string
+      - name: course_key
+        data_type: string
+      - name: section_with_name
+        data_type: string
+      - name: subsection_with_name
+        data_type: string
+      - name: item_count
+        data_type: uint64
+      - name: actor_id
+        data_type: string
+      - name: video_id
+        data_type: string
