@@ -78,3 +78,6 @@ models:
         tests:
           - accepted_values:
               values: ["registered", "unregistered"]
+      - name: emission_time
+        data_type: datetime
+        description: "The time the enrollment status was emitted"

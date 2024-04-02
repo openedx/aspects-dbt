@@ -22,6 +22,6 @@ with
         from {{ ref("enrollment_events") }}
     )
 
-select org, course_key, actor_id, enrollment_status
+select org, course_key, actor_id, enrollment_status, emission_time
 from ranked_enrollments
 where rn = 1

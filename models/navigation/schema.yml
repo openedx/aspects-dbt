@@ -114,9 +114,10 @@ models:
         description: "The organization that the course belongs to"
       - name: course_key
         data_type: string
+        description: "The course identifier"
       - name: course_run
         data_type: string
-        description: "The course identifier"
+        description: "The course run for the course"
       - name: course_run
         data_type: string
         description: "The course run for the course"
