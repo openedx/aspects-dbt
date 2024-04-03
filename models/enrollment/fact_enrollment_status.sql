@@ -2,8 +2,8 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, course_run, actor_id)",
-        order_by="(org, course_key, course_run, actor_id)",
+        primary_key="(org, course_key, actor_id)",
+        order_by="(org, course_key, actor_id)",
     )
 }}
 
@@ -13,12 +13,11 @@ with
             emission_time,
             org,
             course_key,
-            splitByString('+', course_key)[-1] as course_run,
             actor_id,
             enrollment_mode,
             splitByString('/', verb_id)[-1] as enrollment_status,
             row_number() over (
-                partition by org, course_key, course_run, actor_id
+                partition by org, course_key, actor_id
                 order by emission_time desc
             ) as rn
         from {{ ref("enrollment_events") }}
@@ -27,7 +26,6 @@ with
 select
     org,
     course_key,
-    course_run,
     actor_id,
     enrollment_status,
     enrollment_mode,
