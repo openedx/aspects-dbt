@@ -4,7 +4,7 @@ select
     fes.course_run as course_run,
     fes.actor_id as actor_id,
     courses.course_name as course_name,
-    coalesce(approving_state, 'failed') as approving_state,
+    if(empty(approving_state), 'failed', approving_state) as approving_state,
     enrollment_mode,
     enrollment_status,
     course_grade as course_grade,
