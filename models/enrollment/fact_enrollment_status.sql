@@ -13,7 +13,7 @@ with
             emission_time,
             org,
             course_key,
-            splitByString('+\\', course_key)[-1] as course_run,
+            splitByString('+', course_key)[-1] as course_run,
             actor_id,
             enrollment_mode,
             splitByString('/', verb_id)[-1] as enrollment_status,

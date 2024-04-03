@@ -13,7 +13,7 @@ with
             emission_time,
             org,
             course_key,
-            splitByString('+\\', course_key)[-1] as course_run,
+            splitByString('+', course_key)[-1] as course_run,
             actor_id,
             scaled_score as course_grade,
             row_number() over (
