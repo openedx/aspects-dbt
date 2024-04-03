@@ -53,6 +53,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
+      - name: course_run
+        data_type: string
+        description: "The course run"
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
@@ -79,9 +82,9 @@ models:
       - name: emission_time
         data_type: datetime
         description: "The time the event was emitted"
-      - name: state
+      - name: approving_state
         data_type: string
-        description: "The most recent state of the learner's grade"
+        description: "The most recent approving_state of the learner's grade"
         tests:
           - accepted_values:
               values: ["passed", "failed"]

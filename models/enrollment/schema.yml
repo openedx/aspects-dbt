@@ -69,6 +69,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
@@ -78,6 +81,9 @@ models:
         tests:
           - accepted_values:
               values: ["registered", "unregistered"]
+      - name: enrollment_mode
+        data_type: string
+        description: "The mode of enrollment"
       - name: emission_time
         data_type: datetime
         description: "The time the enrollment status was emitted"

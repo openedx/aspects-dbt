@@ -13,12 +13,16 @@ left join
     {{ ref("fact_learner_course_status") }} lg
     on ls.org = lg.org
     and ls.course_key = lg.course_key
+    and ls.course_run = lg.course_run
     and ls.actor_id = lg.actor_id
 left join
     {{ ref("fact_enrollment_status") }} fes
     on ls.org = fes.org
     and ls.course_key = fes.course_key
+    and ls.course_run = fes.course_run
     and ls.actor_id = fes.actor_id
 join
     {{ source("event_sink", "course_names") }} courses
-    on ls.course_key = courses.course_key
+    on ls.org = courses.org
+    and ls.course_key = courses.course_key
+    and ls.course_run = courses.course_run
