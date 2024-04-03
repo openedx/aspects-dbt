@@ -126,6 +126,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
+      - name: course_run
+        data_type: string
+        description: "The course run"
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
@@ -135,9 +138,12 @@ models:
       - name: course_run
         data_type: string
         description: "The course run for the course"
-      - name: state
+      - name: approving_state
         data_type: string
         description: "The most recent approving state for the learner"
+      - name: enrollment_mode
+        data_type: string
+        description: "The mode of enrollment"
       - name: enrollment_status
         description: "Whether a learner is actively enrolled in a course"
         tests:

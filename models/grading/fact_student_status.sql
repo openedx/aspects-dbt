@@ -1,10 +1,12 @@
 select
     ls.org as org,
     ls.course_key as course_key,
+    ls.course_run as course_run,
     ls.actor_id as actor_id,
     courses.course_name as course_name,
     courses.course_run as course_run,
-    coalesce(state, 'failed') as state,
+    coalesce(approving_state, 'failed') as approving_state,
+    enrollment_mode,
     enrollment_status,
     course_grade as course_grade,
     {{ get_bucket("course_grade") }} as grade_bucket
