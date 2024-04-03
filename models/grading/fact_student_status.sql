@@ -4,7 +4,6 @@ select
     ls.course_run as course_run,
     ls.actor_id as actor_id,
     courses.course_name as course_name,
-    courses.course_run as course_run,
     coalesce(approving_state, 'failed') as approving_state,
     enrollment_mode,
     enrollment_status,
