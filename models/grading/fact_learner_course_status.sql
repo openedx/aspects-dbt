@@ -17,7 +17,8 @@ with
             splitByString('+', course_key)[-1] as course_run,
             emission_time,
             row_number() over (
-                partition by org, course_key, course_run, actor_id order by emission_time desc
+                partition by org, course_key, course_run, actor_id
+                order by emission_time desc
             ) as rn
         from {{ ref("grading_events") }}
         where
