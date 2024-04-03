@@ -53,9 +53,6 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
-      - name: course_run
-        data_type: string
-        description: "The course run"
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
@@ -126,9 +123,6 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
-      - name: course_run
-        data_type: string
-        description: "The course run"
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
