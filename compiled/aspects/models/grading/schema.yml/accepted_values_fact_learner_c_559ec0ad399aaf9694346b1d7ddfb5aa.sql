@@ -5,11 +5,11 @@
 with all_values as (
 
     select
-        state as value_field,
+        approving_state as value_field,
         count(*) as n_records
 
-    from `xapi`.`fact_grade_status`
-    group by state
+    from `xapi`.`fact_learner_course_status`
+    group by approving_state
 
 )
 

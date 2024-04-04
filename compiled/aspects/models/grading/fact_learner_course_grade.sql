@@ -3,6 +3,7 @@
 with
     ranked_grades as (
         select
+            emission_time,
             org,
             course_key,
             actor_id,
@@ -14,6 +15,6 @@ with
         where object_id like '%/course/%'
     )
 
-select org, course_key, actor_id, course_grade
+select org, course_key, actor_id, course_grade, emission_time
 from ranked_grades
 where rn = 1

@@ -6,7 +6,8 @@ with
             org,
             course_key,
             actor_id,
-            splitByString('/', verb_id)[-1] as state,
+            splitByString('/', verb_id)[-1] as approving_state,
+            emission_time,
             row_number() over (
                 partition by org, course_key, actor_id order by emission_time desc
             ) as rn
@@ -18,6 +19,6 @@ with
             )
     )
 
-select org, course_key, actor_id, state
+select org, course_key, actor_id, approving_state, emission_time
 from ranked_status
 where rn = 1

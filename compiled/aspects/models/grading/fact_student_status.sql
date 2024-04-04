@@ -1,17 +1,12 @@
-
-
-  create view `xapi`.`fact_grade_status` 
-  
-    
-    
-  as (
-    select
-    ls.org as org,
-    ls.course_key as course_key,
-    ls.actor_id as actor_id,
+select
+    fes.org as org,
+    fes.course_key as course_key,
+    fes.actor_id as actor_id,
     courses.course_name as course_name,
     courses.course_run as course_run,
-    coalesce(state, 'failed') as state,
+    if(empty(approving_state), 'failed', approving_state) as approving_state,
+    enrollment_mode,
+    enrollment_status,
     course_grade as course_grade,
     case
         when course_grade >= 0.9
@@ -34,18 +29,18 @@
         then '10-19%'
         else '0-9%'
     end as grade_bucket
-from `xapi`.`fact_learner_course_grade` ls
+from `xapi`.`fact_enrollment_status` fes
 left join
     `xapi`.`fact_learner_course_status` lg
-    on ls.org = lg.org
-    and ls.course_key = lg.course_key
-    and ls.actor_id = lg.actor_id
+    on fes.org = lg.org
+    and fes.course_key = lg.course_key
+    and fes.actor_id = lg.actor_id
+left join
+    `xapi`.`fact_learner_course_grade` ls
+    on fes.org = ls.org
+    and fes.course_key = ls.course_key
+    and fes.actor_id = ls.actor_id
 join
     `event_sink`.`course_names` courses
-    on ls.course_key = courses.course_key
-  )
-      
-      
-                    -- end_of_sql
-                    
-                    
+    on fes.org = courses.org
+    and fes.course_key = courses.course_key
