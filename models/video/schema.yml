@@ -28,6 +28,9 @@ models:
       - name: video_name_with_location
         data_type: String
         description: "The name of the video with the section and subsection"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
@@ -127,3 +130,62 @@ models:
       - name: cc_enabled
         data_type: uint8
         description: "Whether closed captions were enabled"
+
+  - name: int_videos_per_subsection
+    description: "A dimension table with the number of videos per subsection"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: section_number
+        data_type: string
+        description: "The location of this section in the course, represented as section:0:0"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section this subsection belongs to, with section_number prepended"
+      - name: subsection_number
+        data_type: string
+        description: "The location of this subsection in the course, represented as section:subsection:0"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the subsection, with section_number prepended"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
+      - name: item_count
+        data_type: uint64
+        description: "The number of videos in this subsection"
+
+  - name: fact_video_engagement
+    description: "A dataset with one record representing a video viewed by a learner and the section and subsection that video belongs to"
+    columns:
+      - name: viewed_on
+        data_type: date
+        description: "The date on which the video was viewed"
+      - name: org
+        data_type: string
+        description: "The organization that the video belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section this subsection belongs to, with section_number prepended"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the subsection, with section_number prepended"
+      - name: item_count
+        data_type: uint64
+        description: "The number of videos in this subsection"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: video_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"

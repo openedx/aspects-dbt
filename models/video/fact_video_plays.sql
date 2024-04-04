@@ -24,6 +24,7 @@ select
     plays.video_id as video_id,
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
+    blocks.graded as graded,
     video_position,
     video_duration,
     {{ get_bucket("video_position/video_duration") }} as visualization_bucket,
