@@ -7,6 +7,7 @@ with
             {{ section_from_display("video_name_with_location") }} as section_number,
             {{ subsection_from_display("video_name_with_location") }}
             as subsection_number,
+            graded,
             actor_id,
             video_id
         from {{ ref("fact_video_plays") }}
@@ -20,7 +21,8 @@ select
     videos.subsection_with_name,
     videos.item_count,
     views.actor_id,
-    views.video_id
+    views.video_id,
+    views.graded
 from viewed_subsection_videos views
 join
     {{ ref("int_videos_per_subsection") }} videos

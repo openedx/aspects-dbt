@@ -28,6 +28,9 @@ models:
       - name: video_name_with_location
         data_type: String
         description: "The name of the video with the section and subsection"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
@@ -149,6 +152,9 @@ models:
       - name: subsection_with_name
         data_type: string
         description: "The name of the subsection, with section_number prepended"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
       - name: item_count
         data_type: uint64
         description: "The number of videos in this subsection"
@@ -180,3 +186,6 @@ models:
       - name: video_id
         data_type: string
         description: "The xAPI object identifier"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"

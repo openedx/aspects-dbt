@@ -6,10 +6,11 @@
                 course_key,
                 section_number,
                 subsection_number,
+                graded,
                 count(*) as item_count
             from {{ ref("dim_course_blocks") }}
             where block_id like '{{ block_pattern }}'
-            group by org, course_key, section_number, subsection_number
+            group by org, course_key, section_number, subsection_number, graded
         )
 
     select
@@ -19,6 +20,7 @@
         section_blocks.display_name_with_location as section_with_name,
         ips.subsection_number as subsection_number,
         subsection_blocks.display_name_with_location as subsection_with_name,
+        ips.graded as graded,
         ips.item_count as item_count
     from items_per_subsection ips
     left join
