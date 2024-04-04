@@ -17,7 +17,7 @@ left join
     and fes.actor_id = lg.actor_id
 left join
     {{ ref("fact_learner_course_grade") }} ls
-    on fes.org = fes.org
+    on fes.org = ls.org
     and fes.course_key = ls.course_key
     and fes.actor_id = ls.actor_id
 join
