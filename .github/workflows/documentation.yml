@@ -50,7 +50,7 @@ jobs:
         run: |
           dbt run
           dbt docs generate
-          dbt-coverage compute doc --cov-fail-under 0.9
+          dbt-coverage compute doc --cov-fail-under 1.0
       - name: Deploy
         if: github.event_name == 'push'
         uses: peaceiris/actions-gh-pages@v3

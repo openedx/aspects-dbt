@@ -59,3 +59,28 @@ models:
       - name: enrollment_mode
         data_type: string
         description: "The mode of enrollment"
+
+  - name: fact_enrollment_status
+    description: One record per learner per course for the most recent enrollment status
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: enrollment_status
+        data_type: string
+        description: "Whether a learner is actively enrolled in a course"
+        tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
+      - name: enrollment_mode
+        data_type: string
+        description: "The mode of enrollment"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the enrollment status was emitted"

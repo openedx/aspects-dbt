@@ -30,3 +30,46 @@ sources:
           - name: course_name
           - name: course_run
           - name: org
+
+      - name: user_pii
+        columns:
+          - name: user_id
+            description: "The user id"
+          - name: external_user_id
+            description: "The external user id"
+          - name: external_id_type
+            description: "The external id type"
+          - name: username
+            description: "The username"
+          - name: name
+            description: "The name of the user"
+          - name: meta
+            description: "A field to store custom information as JSON"
+          - name: courseware
+            description: "Unknown"
+          - name: language
+            description: "The language of the user"
+          - name: location
+            description: "Unknown"
+          - name: year_of_birth
+            description: "The year of birth of the user"
+          - name: gender
+            description: "The gender of the user"
+          - name: level_of_education
+            description: "The level of education of the user"
+          - name: mailing_address
+            description: "The mailing address of the user"
+          - name: city
+            description: "The city of the user"
+          - name: country
+            description: "The country of the user"
+          - name: state
+            description: "The state of the user"
+          - name: goals
+            description: "The goals of the user"
+          - name: bio
+            description: "The bio of the user"
+          - name: profile_image_uploaded_at
+            description: "Date of the profile image upload"
+          - name: phone_number
+            description: "The phone number of the user"

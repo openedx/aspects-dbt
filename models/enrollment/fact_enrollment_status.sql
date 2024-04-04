@@ -8,24 +8,20 @@
 }}
 
 with
-    ranked_status as (
+    ranked_enrollments as (
         select
+            emission_time,
             org,
             course_key,
             actor_id,
-            splitByString('/', verb_id)[-1] as approving_state,
-            emission_time,
+            enrollment_mode,
+            splitByString('/', verb_id)[-1] as enrollment_status,
             row_number() over (
                 partition by org, course_key, actor_id order by emission_time desc
             ) as rn
-        from {{ ref("grading_events") }}
-        where
-            verb_id in (
-                'http://adlnet.gov/expapi/verbs/passed',
-                'http://adlnet.gov/expapi/verbs/failed'
-            )
+        from {{ ref("enrollment_events") }}
     )
 
-select org, course_key, actor_id, approving_state, emission_time
-from ranked_status
+select org, course_key, actor_id, enrollment_status, enrollment_mode, emission_time
+from ranked_enrollments
 where rn = 1

@@ -33,7 +33,7 @@ models:
         description: "The xAPI verb identifier"
 
   - name: forum_events
-    description: ""
+    description: "One record per forum event"
     columns:
       - name: event_id
         data_type: uuid
