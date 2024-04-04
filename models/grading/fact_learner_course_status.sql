@@ -16,8 +16,7 @@ with
             splitByString('/', verb_id)[-1] as approving_state,
             emission_time,
             row_number() over (
-                partition by org, course_key, actor_id
-                order by emission_time desc
+                partition by org, course_key, actor_id order by emission_time desc
             ) as rn
         from {{ ref("grading_events") }}
         where

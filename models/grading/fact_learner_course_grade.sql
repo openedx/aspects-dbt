@@ -16,8 +16,7 @@ with
             actor_id,
             scaled_score as course_grade,
             row_number() over (
-                partition by org, course_key, actor_id
-                order by emission_time desc
+                partition by org, course_key, actor_id order by emission_time desc
             ) as rn
         from {{ ref("grading_events") }}
         where object_id like '%/course/%'

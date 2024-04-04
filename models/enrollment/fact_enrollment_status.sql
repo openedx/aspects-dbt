@@ -17,18 +17,11 @@ with
             enrollment_mode,
             splitByString('/', verb_id)[-1] as enrollment_status,
             row_number() over (
-                partition by org, course_key, actor_id
-                order by emission_time desc
+                partition by org, course_key, actor_id order by emission_time desc
             ) as rn
         from {{ ref("enrollment_events") }}
     )
 
-select
-    org,
-    course_key,
-    actor_id,
-    enrollment_status,
-    enrollment_mode,
-    emission_time
+select org, course_key, actor_id, enrollment_status, enrollment_mode, emission_time
 from ranked_enrollments
 where rn = 1
