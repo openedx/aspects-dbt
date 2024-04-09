@@ -72,6 +72,9 @@ models:
       - name: problem_name_with_location
         data_type: String
         description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: problem_link
+        data_type: String
+        description: "An anchor tag with a link to the problem"
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
@@ -146,6 +149,9 @@ models:
       - name: problem_name_with_location
         data_type: string
         description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: problem_link
+        data_type: String
+        description: "An anchor tag with a link to the problem"
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"

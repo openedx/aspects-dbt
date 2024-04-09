@@ -28,6 +28,9 @@ models:
       - name: video_name_with_location
         data_type: String
         description: "The name of the video with the section and subsection"
+      - name: video_link
+        data_type: String
+        description: "An anchor tag with a link to the video"
       - name: graded
         data_type: Boolean
         description: "Whether the block is graded"
