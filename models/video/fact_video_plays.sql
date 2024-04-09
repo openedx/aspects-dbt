@@ -25,7 +25,7 @@ select
     plays.video_id as video_id,
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
-    {{ a_tag('plays.object_id', 'blocks.block_name') }} as video_link,
+    {{ a_tag("plays.object_id", "blocks.block_name") }} as video_link,
     blocks.graded as graded,
     video_position,
     video_duration,
