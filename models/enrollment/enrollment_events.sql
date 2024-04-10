@@ -6,6 +6,7 @@
         primary_key="(org, course_key)",
         order_by="(org, course_key, emission_time, actor_id, enrollment_mode, event_id)",
         partition_by="(toYYYYMM(emission_time))",
+        ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
     )
 }}
 

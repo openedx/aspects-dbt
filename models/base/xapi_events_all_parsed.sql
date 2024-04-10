@@ -6,6 +6,7 @@
         primary_key="(org, course_id, verb_id, actor_id, emission_time, event_id)",
         order_by="(org, course_id, verb_id, actor_id, emission_time, event_id)",
         partition_by="(toYYYYMM(emission_time))",
+        ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
         post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
     )
 }}
