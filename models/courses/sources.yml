@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: event_sink
+    database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
+    tables:
+
+      - name: course_blocks
+        columns:
+          - name: org
+          - name: course_key
+          - name: location
+          - name: display_name
+          - name: xblock_data_json
+          - name: order
+          - name: edited_on
+          - name: dump_id
+          - name: time_last_dumped
+
+      - name: course_overviews
+        columns:
+          - name: org
+          - name: course_key
+          - name: display_name
+          - name: course_start
+          - name: course_end
+          - name: enrollment_start
+          - name: enrollment_end
+          - name: self_paced
+          - name: course_data_json
+          - name: created
+          - name: modified
+          - name: dump_id
+          - name: time_last_dumped
