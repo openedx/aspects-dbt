@@ -81,7 +81,7 @@ select
     profile_image_uploaded_at,
     phone_number
 from {{ source("event_sink", "external_id") }} ex
-right outer join
+left outer join
     most_recent_user_profile mrup
     on mrup.user_id = ex.user_id
     and (ex.external_id_type = 'xapi' or ex.external_id_type is NULL)
