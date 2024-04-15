@@ -6,7 +6,7 @@
             ("location", "String"),
             ("block_name", "String"),
             ("course_key", "String"),
-            ("graded", "Int8"),
+            ("graded", "Bool"),
             ("display_name_with_location", "String"),
         ],
         primary_key="location",
