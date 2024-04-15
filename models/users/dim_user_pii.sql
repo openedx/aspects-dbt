@@ -3,6 +3,7 @@ select
     external_id_type,
     username,
     name,
+    email,
     language,
     year_of_birth,
     gender,

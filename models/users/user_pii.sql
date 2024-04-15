@@ -8,6 +8,7 @@
             ("external_id_type", "String"),
             ("username", "String"),
             ("name", "String"),
+            ("email", "String"),
             ("meta", "String"),
             ("courseware", "String"),
             ("language", "String"),
@@ -36,6 +37,7 @@ with
         select
             user_id,
             name,
+            email,
             meta,
             courseware,
             language,
@@ -62,6 +64,7 @@ select
     external_id_type,
     username,
     name,
+    email,
     meta,
     courseware,
     language,
