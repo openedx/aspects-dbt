@@ -52,6 +52,8 @@ select
     actor_id,
     responses,
     success,
-    attempts
+    attempts,
+    graded,
+    interaction_type
 from {{ ref("fact_problem_responses") }} problem_responses
 join responses using (org, course_key, problem_id, actor_id, emission_time)
