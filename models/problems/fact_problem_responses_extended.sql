@@ -1,10 +1,12 @@
-with problem_results as (
-    select *,
-    {{ section_from_display("problem_name_with_location") }} as section_number,
+with
+    problem_results as (
+        select
+            *,
+            {{ section_from_display("problem_name_with_location") }} as section_number,
             {{ subsection_from_display("problem_name_with_location") }}
             as subsection_number
-    from {{ ref("int_problem_results") }}
-)
+        from {{ ref("int_problem_results") }}
+    )
 select
     results.emission_time as emission_time,
     results.org as org,
@@ -24,8 +26,9 @@ select
     results.graded as graded,
     results.interaction_type as interaction_type
 from problem_results results
-join {{ ref("int_problems_per_subsection") }} problems
-on (
+join
+    {{ ref("int_problems_per_subsection") }} problems
+    on (
         results.org = problems.org
         and results.course_key = problems.course_key
         and results.section_number = problems.section_number
