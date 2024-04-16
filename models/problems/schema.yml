@@ -44,6 +44,15 @@ models:
       - name: num_answers_displayed
         description: "The number of times a learner requested the answers for the problem"
         data_type: UInt64
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: fact_problem_responses
     description: "One record for each submitted response to a problem"
@@ -93,6 +102,15 @@ models:
       - name: graded
         data_type: bool
         description: "Boolean indicating this block is graded"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: int_problem_hints
     description: "Internal table for problem hints"
@@ -272,3 +290,12 @@ models:
       - name: graded
         data_type: bool
         description: "Whether the block is graded"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"

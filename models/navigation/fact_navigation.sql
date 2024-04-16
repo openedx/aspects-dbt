@@ -10,7 +10,10 @@ select
     blocks.display_name_with_location as block_name_with_location,
     navigation.object_type as object_type,
     navigation.starting_position as starting_position,
-    navigation.ending_point as ending_point
+    navigation.ending_point as ending_point,
+    username,
+    name,
+    email
 from {{ ref("navigation_events") }} navigation
 join
     {{ ref("dim_course_blocks") }} blocks
@@ -18,3 +21,4 @@ join
         navigation.course_key = blocks.course_key
         and navigation.block_id = blocks.block_id
     )
+left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

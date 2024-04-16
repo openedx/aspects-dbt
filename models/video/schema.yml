@@ -46,6 +46,15 @@ models:
       - name: visualization_bucket
         data_type: String
         description: "The percentile bucket for the video play event"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: fact_transcript_usage
     description: "One record for each time a transcript or closed caption was enabled"
@@ -77,6 +86,15 @@ models:
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: video_playback_events
     description: "Events related to video playback"
@@ -192,3 +210,12 @@ models:
       - name: graded
         data_type: Boolean
         description: "Whether the block is graded"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"

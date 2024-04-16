@@ -8,7 +8,10 @@ select
     enrollment_mode,
     enrollment_status,
     course_grade as course_grade,
-    {{ get_bucket("course_grade") }} as grade_bucket
+    {{ get_bucket("course_grade") }} as grade_bucket,
+    username,
+    name,
+    email
 from {{ ref("fact_enrollment_status") }} fes
 left join
     {{ ref("fact_learner_course_status") }} lg
@@ -24,3 +27,4 @@ join
     {{ ref("course_names") }} courses
     on fes.org = courses.org
     and fes.course_key = courses.course_key
+left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

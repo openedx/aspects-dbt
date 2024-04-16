@@ -28,7 +28,10 @@ select
     responses.actor_id as actor_id,
     responses.responses as responses,
     responses.success as success,
-    responses.attempts as attempts
+    responses.attempts as attempts,
+    username,
+    name,
+    email
 from responses
 join
     {{ ref("dim_course_blocks") }} blocks
@@ -36,6 +39,7 @@ join
         responses.course_key = blocks.course_key
         and responses.problem_id = blocks.block_id
     )
+left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 group by
     -- multi-part questions include an extra record for the response to the first
     -- part of the question. this group by clause eliminates the duplicate record
@@ -52,4 +56,7 @@ group by
     responses,
     success,
     attempts,
-    graded
+    graded,
+    username,
+    name,
+    email

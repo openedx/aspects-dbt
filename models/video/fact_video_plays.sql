@@ -30,8 +30,12 @@ select
     video_position,
     video_duration,
     {{ get_bucket("video_position/video_duration") }} as visualization_bucket,
-    plays.actor_id as actor_id
+    plays.actor_id as actor_id,
+    username,
+    name,
+    email
 from plays
 join
     {{ ref("dim_course_blocks") }} blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
+left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

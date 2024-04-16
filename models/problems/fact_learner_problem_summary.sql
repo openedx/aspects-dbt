@@ -49,8 +49,12 @@ select
     coalesce(any(success), false) as success,
     coalesce(any(attempts), 0) as attempts,
     sum(num_hints_displayed) as num_hints_displayed,
-    sum(num_answers_displayed) as num_answers_displayed
+    sum(num_answers_displayed) as num_answers_displayed,
+    username,
+    name,
+    email
 from results_with_hints
+left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 group by
     org,
     course_key,
@@ -59,4 +63,7 @@ group by
     problem_id,
     problem_name,
     problem_name_with_location,
-    actor_id
+    actor_id,
+    username,
+    name,
+    email

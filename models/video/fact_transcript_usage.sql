@@ -7,7 +7,10 @@ select
     transcripts.video_id as video_id,
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
-    transcripts.actor_id as actor_id
+    transcripts.actor_id as actor_id,
+    username,
+    name,
+    email
 from {{ ref("video_transcript_events") }} transcripts
 join
     {{ ref("dim_course_blocks") }} blocks
@@ -15,4 +18,5 @@ join
         transcripts.course_key = blocks.course_key
         and transcripts.video_id = blocks.block_id
     )
+left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 where transcripts.cc_enabled
