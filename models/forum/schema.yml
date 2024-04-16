@@ -31,6 +31,15 @@ models:
       - name: verb_id
         data_type: LowCardinality(String)
         description: "The xAPI verb identifier"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: forum_events
     description: "One record per forum event"

@@ -48,8 +48,14 @@ select
         when scaled_progress >= 0.1 and scaled_progress < 0.2
         then '10-19%'
         else '0-9%'
-    end as completion_bucket
+    end as completion_bucket,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from completions
 join {{ ref("course_names") }} courses on completions.course_key = courses.course_key
 left join
     {{ ref("course_block_names") }} blocks on completions.entity_id = blocks.location
+left outer join
+    {{ ref("dim_user_pii") }} users
+    on toUUID(completions.actor_id) = users.external_user_id

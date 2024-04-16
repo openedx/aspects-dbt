@@ -25,6 +25,9 @@ select
     results.attempts as attempts,
     results.graded as graded,
     results.interaction_type as interaction_type
+    users.username as username,
+    users.name as name,
+    users.email as email
 from problem_results results
 join
     {{ ref("int_problems_per_subsection") }} problems
@@ -34,3 +37,5 @@ join
         and results.section_number = problems.section_number
         and results.subsection_number = problems.subsection_number
     )
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

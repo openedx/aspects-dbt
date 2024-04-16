@@ -9,7 +9,10 @@ with
             as subsection_number,
             graded,
             actor_id,
-            video_id
+            video_id,
+            username,
+            name,
+            email
         from {{ ref("fact_video_plays") }}
     )
 
@@ -22,7 +25,10 @@ select
     videos.item_count,
     views.actor_id,
     views.video_id,
-    views.graded
+    views.graded,
+    views.username as username,
+    views.name as name,
+    views.email as email
 from viewed_subsection_videos views
 join
     {{ ref("int_videos_per_subsection") }} videos

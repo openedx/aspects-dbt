@@ -43,6 +43,15 @@ models:
       - name: grade_bucket
         description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
         data_type: String
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: fact_learner_course_grade
     description: "One record per learner per course for the most recent grade"
@@ -149,3 +158,12 @@ models:
       - name: grade_bucket
         data_type: string
         description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
