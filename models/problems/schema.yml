@@ -87,6 +87,9 @@ models:
       - name: attempts
         description: "Number indicating which attempt this was"
         data_type: Int16
+      - name: graded
+        data_type: bool
+        description: "Boolean indicating this block is graded"
 
   - name: int_problem_hints
     description: "Internal table for problem hints"
