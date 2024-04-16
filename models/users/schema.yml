@@ -1,0 +1,107 @@
+version: 2
+
+models:
+
+  - name: user_pii
+    description: "The user PII table for reports."
+    columns:
+      - name: user_id
+        data_type: String
+        description: "The user id"
+      - name: external_user_id
+        data_type: String
+        description: "The external user id"
+      - name: external_id_type
+        data_type: String
+        description: "The external id type"
+      - name: username
+        data_type: String
+        description: "The username of the user"
+      - name: name
+        data_type: String
+        description: "The name of the user"
+      - name: email
+        data_type: String
+        description: "The email of the user"
+      - name: meta
+        data_type: String
+        description: "The meta information of the user"
+      - name: courseware
+        data_type: String
+        description: "The courseware information of the user"
+      - name: language
+        data_type: String
+        description: "The language of the user. This field is deprecated and will be removed in the future."
+      - name: location
+        data_type: String
+        description: "The location of the user"
+      - name: year_of_birth
+        data_type: Int
+        description: "The year of birth of the user"
+      - name: gender
+        data_type: String
+        description: "The gender of the user"
+      - name: level_of_education
+        data_type: String
+        description: "The level of education of the user"
+      - name: mailing_address
+        data_type: String
+        description: "The mailing address of the user"
+      - name: city
+        data_type: String
+        description: "The city of the user"
+      - name: country
+        data_type: String
+        description: "The country of the user"
+      - name: state
+        data_type: String
+        description: "The state where the user resides"
+      - name: goals
+        data_type: String
+        description: "The goals of the user"
+      - name: bio
+        data_type: String
+        description: "The biography of the user"
+      - name: profile_image_uploaded_at
+        data_type: DateTime
+        description: "The time the profile image was uploaded"
+      - name: phone_number
+        data_type: String
+        description: "The phone number of the user"
+
+  - name: dim_user_pii
+    description: "A denormalized table of user PII information"
+    columns:
+      - name: external_user_id
+        data_type: String
+        description: "The external user id"
+      - name: external_id_type
+        data_type: String
+        description: "The external id type"
+      - name: username
+        data_type: String
+        description: "The username"
+      - name: name
+        data_type: String
+        description: "The name of the user"
+      - name: email
+        data_type: String
+        description: "The email of the user"
+      - name: language
+        data_type: String
+        description: "The language of the user"
+      - name: year_of_birth
+        data_type: Int
+        description: "The year of birth of the user"
+      - name: gender
+        data_type: String
+        description: "The gender of the user"
+      - name: level_of_education
+        data_type: String
+        description: "The level of education of the user"
+      - name: country
+        data_type: String
+        description: "The country of the user"
+      - name: age
+        data_type: Int
+        description: "The age of the user"

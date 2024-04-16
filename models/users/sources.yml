@@ -1,0 +1,39 @@
+version: 2
+
+sources:
+  - name: event_sink
+    database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
+    tables:
+
+      - name: user_profile
+        columns:
+          - name: id
+          - name: user_id
+          - name: name
+          - name: email
+          - name: meta
+          - name: courseware
+          - name: language
+          - name: location
+          - name: year_of_birth
+          - name: gender
+          - name: level_of_education
+          - name: mailing_address
+          - name: city
+          - name: country
+          - name: state
+          - name: goals
+          - name: bio
+          - name: profile_image_uploaded_at
+          - name: phone_number
+          - name: dump_id
+          - name: time_last_dumped
+
+      - name: external_id
+        columns:
+          - name: external_user_id
+          - name: external_id_type
+          - name: username
+          - name: user_id
+          - name: dump_id
+          - name: time_last_dumped

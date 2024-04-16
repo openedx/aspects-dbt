@@ -75,6 +75,9 @@ models:
       - name: problem_link
         data_type: String
         description: "An anchor tag with a link to the problem"
+      - name: graded
+        data_type: Bool
+        description: "Whether the block is graded"
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"

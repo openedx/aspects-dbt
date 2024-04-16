@@ -20,6 +20,4 @@ select
     enrollments.enrollment_mode as enrollment_mode,
     enrollments.enrollment_status as enrollment_status
 from enrollments
-join
-    {{ source("event_sink", "course_names") }} courses
-    on enrollments.course_key = courses.course_key
+join {{ ref("course_names") }} courses on enrollments.course_key = courses.course_key

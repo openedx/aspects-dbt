@@ -50,9 +50,6 @@ select
         else '0-9%'
     end as completion_bucket
 from completions
-join
-    {{ source("event_sink", "course_names") }} courses
-    on completions.course_key = courses.course_key
+join {{ ref("course_names") }} courses on completions.course_key = courses.course_key
 left join
-    {{ source("event_sink", "course_block_names") }} blocks
-    on completions.entity_id = blocks.location
+    {{ ref("course_block_names") }} blocks on completions.entity_id = blocks.location
