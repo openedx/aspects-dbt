@@ -1,7 +1,6 @@
-# Build documentation for dbt-aspects on every PR to main.
-# Deploy documentation to gh-pages branch on every push to main.
+# Check documentation coverage
 
-name: Build documentation
+name: dbt Docs Coverage
 
 on:
   push:
@@ -20,9 +19,7 @@ env:
 
 jobs:
   build:
-    # Forks will never have permissions to do this, so skip this for those
-    if: github.event.pull_request.head.repo.full_name == github.repository
-    name: Deploy dbt docs to github pages
+    name: Build docs and check coverage
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -30,8 +27,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -48,14 +43,8 @@ jobs:
           tutor local start -d
           tutor local do init
           tutor local do load-xapi-test-data
-      - name: Build docs
+      - name: Check docs coverage
         run: |
           dbt run
           dbt docs generate
-      - name: Deploy
-        if: github.event_name == 'push'
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
-          publish_dir: ./target
-          commit_message: "docs: update docs for "
+          dbt-coverage compute doc --cov-fail-under 1.0
