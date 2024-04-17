@@ -93,6 +93,9 @@ models:
       - name: graded
         data_type: bool
         description: "Boolean indicating this block is graded"
+      - name: interaction_type
+        data_type: string
+        description: "The type of interaction - e.g. multiple choice"
 
   - name: int_problem_hints
     description: "Internal table for problem hints"
@@ -170,6 +173,12 @@ models:
       - name: attempts
         data_type: int16
         description: "Number indicating which attempt this was"
+      - name: graded
+        data_type: bool
+        description: "Boolean indicating this block is graded"
+      - name: interaction_type
+        data_type: string
+        description: "The type of interaction - e.g. multiple choice"
 
   - name: problem_events
     description: "Problem events"
