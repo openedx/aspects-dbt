@@ -9,7 +9,8 @@ with
             actor_id,
             responses,
             success,
-            attempts
+            attempts,
+            interaction_type
         from {{ ref("problem_events") }}
         where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
     )
@@ -28,7 +29,8 @@ select
     responses.actor_id as actor_id,
     responses.responses as responses,
     responses.success as success,
-    responses.attempts as attempts
+    responses.attempts as attempts,
+    responses.interaction_type as interaction_type
 from responses
 join
     {{ ref("dim_course_blocks") }} blocks
@@ -52,4 +54,5 @@ group by
     responses,
     success,
     attempts,
-    graded
+    graded,
+    interaction_type
