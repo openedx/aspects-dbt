@@ -133,9 +133,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course identifier"
-      - name: course_run
+      - name: course_name
         data_type: string
-        description: "The course run for the course"
+        description: "The course name"
       - name: course_run
         data_type: string
         description: "The course run for the course"

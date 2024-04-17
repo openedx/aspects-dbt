@@ -24,7 +24,7 @@ select
     results.success as success,
     results.attempts as attempts,
     results.graded as graded,
-    results.interaction_type as interaction_type
+    results.interaction_type as interaction_type,
     users.username as username,
     users.name as name,
     users.email as email

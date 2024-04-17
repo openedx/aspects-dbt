@@ -30,7 +30,7 @@ select
     responses.responses as responses,
     responses.success as success,
     responses.attempts as attempts,
-    responses.interaction_type as interaction_type
+    responses.interaction_type as interaction_type,
     users.username as username,
     users.name as name,
     users.email as email
@@ -60,7 +60,7 @@ group by
     success,
     attempts,
     graded,
-    interaction_type
+    interaction_type,
     username,
     name,
     email

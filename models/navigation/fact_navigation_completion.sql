@@ -5,6 +5,7 @@ with
             date(emission_time) as visited_on,
             org,
             course_key,
+            course_name,
             course_run,
             {{ section_from_display("block_name_with_location") }} as section_number,
             {{ subsection_from_display("block_name_with_location") }}
@@ -18,6 +19,7 @@ select
     visits.visited_on as visited_on,
     visits.org as org,
     visits.course_key as course_key,
+    visits.course_name as course_name,
     visits.course_run as course_run,
     pages.section_with_name as section_with_name,
     pages.subsection_with_name as subsection_with_name,
