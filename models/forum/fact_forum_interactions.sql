@@ -13,4 +13,5 @@ select
     email
 from {{ ref("forum_events") }} forum
 join {{ ref("course_names") }} courses on (forum.course_key = courses.course_key)
-left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

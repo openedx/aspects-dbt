@@ -54,7 +54,8 @@ select
     name,
     email
 from results_with_hints
-left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 group by
     org,
     course_key,

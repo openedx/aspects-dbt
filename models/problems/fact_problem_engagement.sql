@@ -37,4 +37,5 @@ join
         and attempts.section_number = problems.section_number
         and attempts.subsection_number = problems.subsection_number
     )
-left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

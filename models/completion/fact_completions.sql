@@ -56,6 +56,6 @@ from completions
 join {{ ref("course_names") }} courses on completions.course_key = courses.course_key
 left join
     {{ ref("course_block_names") }} blocks on completions.entity_id = blocks.location
-left join
+left outer join
     {{ ref("dim_user_pii") }} users
     on toUUID(completions.actor_id) = users.external_user_id

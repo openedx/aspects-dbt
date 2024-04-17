@@ -36,4 +36,5 @@ join
         and visits.section_number = pages.section_number
         and visits.subsection_number = pages.subsection_number
     )
-left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

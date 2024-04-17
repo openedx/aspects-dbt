@@ -18,5 +18,6 @@ join
         transcripts.course_key = blocks.course_key
         and transcripts.video_id = blocks.block_id
     )
-left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 where transcripts.cc_enabled

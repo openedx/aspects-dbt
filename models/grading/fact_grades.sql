@@ -48,4 +48,5 @@ select
 from grades
 join {{ ref("course_names") }} courses on grades.course_key = courses.course_key
 left join {{ ref("course_block_names") }} blocks on grades.entity_id = blocks.location
-left join {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
