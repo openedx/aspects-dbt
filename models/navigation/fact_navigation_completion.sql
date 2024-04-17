@@ -24,9 +24,9 @@ select
     pages.page_count as page_count,
     visits.actor_id as actor_id,
     visits.block_id as block_id,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from visited_subsection_pages visits
 join
     {{ ref("int_pages_per_subsection") }} pages

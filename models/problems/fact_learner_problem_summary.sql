@@ -50,9 +50,9 @@ select
     coalesce(any(attempts), 0) as attempts,
     sum(num_hints_displayed) as num_hints_displayed,
     sum(num_answers_displayed) as num_answers_displayed,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from results_with_hints
 left outer join
     {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

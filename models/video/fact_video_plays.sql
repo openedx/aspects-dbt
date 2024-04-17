@@ -31,9 +31,9 @@ select
     video_duration,
     {{ get_bucket("video_position/video_duration") }} as visualization_bucket,
     plays.actor_id as actor_id,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from plays
 join
     {{ ref("dim_course_blocks") }} blocks

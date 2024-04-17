@@ -65,9 +65,9 @@ select
     blocks.display_name_with_location as block_name,
     page_views.actor_id as actor_id,
     page_views.total_views as total_views,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from page_views
 join
     blocks

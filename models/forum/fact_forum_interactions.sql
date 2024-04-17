@@ -8,9 +8,9 @@ select
     forum.object_id as object_id,
     forum.actor_id as actor_id,
     forum.verb_id as verb_id,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from {{ ref("forum_events") }} forum
 join {{ ref("course_names") }} courses on (forum.course_key = courses.course_key)
 left outer join

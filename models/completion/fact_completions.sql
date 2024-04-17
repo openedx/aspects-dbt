@@ -49,9 +49,9 @@ select
         then '10-19%'
         else '0-9%'
     end as completion_bucket,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from completions
 join {{ ref("course_names") }} courses on completions.course_key = courses.course_key
 left join

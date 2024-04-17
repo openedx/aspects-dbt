@@ -42,9 +42,9 @@ select
     grades.actor_id as actor_id,
     grades.scaled_score as scaled_score,
     {{ get_bucket("scaled_score") }} as grade_bucket,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from grades
 join {{ ref("course_names") }} courses on grades.course_key = courses.course_key
 left join {{ ref("course_block_names") }} blocks on grades.entity_id = blocks.location

@@ -11,9 +11,9 @@ select
     navigation.object_type as object_type,
     navigation.starting_position as starting_position,
     navigation.ending_point as ending_point,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from {{ ref("navigation_events") }} navigation
 join
     {{ ref("dim_course_blocks") }} blocks

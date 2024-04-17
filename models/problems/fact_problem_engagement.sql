@@ -25,9 +25,9 @@ select
     attempts.actor_id as actor_id,
     attempts.problem_id as problem_id,
     attempts.graded as graded,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from attempted_subsection_problems attempts
 join
     {{ ref("int_problems_per_subsection") }} problems

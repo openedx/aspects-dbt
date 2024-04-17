@@ -29,9 +29,9 @@ select
     responses.responses as responses,
     responses.success as success,
     responses.attempts as attempts,
-    username,
-    name,
-    email
+    users.username as username,
+    users.name as name,
+    users.email as email
 from responses
 join
     {{ ref("dim_course_blocks") }} blocks
@@ -58,6 +58,6 @@ group by
     success,
     attempts,
     graded,
-    username,
+    users.username as username,
     name,
     email

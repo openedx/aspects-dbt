@@ -26,9 +26,9 @@ select
     views.actor_id,
     views.video_id,
     views.graded,
-    username,
-    name,
-    email
+    views.username as username,
+    views.name as name,
+    views.email as email
 from viewed_subsection_videos views
 join
     {{ ref("int_videos_per_subsection") }} videos
