@@ -5,6 +5,7 @@ with
             date(emission_time) as visited_on,
             org,
             course_key,
+            course_name,
             course_run,
             {{ section_from_display("block_name_with_location") }} as section_number,
             {{ subsection_from_display("block_name_with_location") }}
@@ -15,15 +16,19 @@ with
     )
 
 select
-    visits.visited_on,
-    visits.org,
-    visits.course_key,
-    visits.course_run,
-    pages.section_with_name,
-    pages.subsection_with_name,
-    pages.page_count,
-    visits.actor_id,
-    visits.block_id
+    visits.visited_on as visited_on,
+    visits.org as org,
+    visits.course_key as course_key,
+    visits.course_name as course_name,
+    visits.course_run as course_run,
+    pages.section_with_name as section_with_name,
+    pages.subsection_with_name as subsection_with_name,
+    pages.page_count as page_count,
+    visits.actor_id as actor_id,
+    visits.block_id as block_id,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from visited_subsection_pages visits
 join
     {{ ref("int_pages_per_subsection") }} pages
@@ -33,3 +38,5 @@ join
         and visits.section_number = pages.section_number
         and visits.subsection_number = pages.subsection_number
     )
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
