@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: dim_course_blocks
-    description: "A denormalized table of course block information"
+    description: "A denormalized table of course block information. This should be preferred over dim_course_blocks_extended when section and subsection names are not necessary to include in a model"
     columns:
       - name: org
         data_type: String
@@ -75,3 +75,49 @@ models:
       - name: org
         data_type: String
         description: "The organization that the course belongs to"
+
+  - name: dim_course_blocks_extended
+    description: "dim_course_blocks with section and subsection names joined into the data."
+    columns:
+      - name: org
+        data_type: String
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
+      - name: block_id
+        data_type: String
+        description: "The block's unique identifier"
+      - name: block_name
+        data_type: String
+        description: "The block's name"
+      - name: section_number
+        data_type: string
+        description: "The section this block belongs to, formatted as <section location>:0:0"
+      - name: subsection_number
+        data_type: string
+        description: "The subsection this block belongs to, formatted as <section location>:<subsection location>:0"
+      - name: hierarchy_location
+        data_type: string
+        description: "The full section:subsection:unit hierarchy in which this block belongs"
+      - name: display_name_with_location
+        data_type: String
+        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
+      - name: block_type
+        data_type: String
+        description: "The type of block. This can be a section, subsection, unit, or the block type"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section this block belongs to, with section_number prepended"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the section this subsection belongs to, with subsection_number prepended"
