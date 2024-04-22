@@ -4,6 +4,7 @@ with
             date(emission_time) as viewed_on,
             org,
             course_key,
+            course_run,
             {{ section_from_display("video_name_with_location") }} as section_number,
             {{ subsection_from_display("video_name_with_location") }}
             as subsection_number,
@@ -20,6 +21,7 @@ select
     views.viewed_on,
     views.org,
     views.course_key,
+    views.course_run,
     videos.section_with_name,
     videos.subsection_with_name,
     videos.item_count,
