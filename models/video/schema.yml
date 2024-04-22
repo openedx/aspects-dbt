@@ -198,6 +198,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
       - name: section_with_name
         data_type: string
         description: "The name of the section this subsection belongs to, with section_number prepended"
