@@ -29,6 +29,9 @@
         layout="COMPLEX_KEY_SPARSE_HASHED()",
         lifetime=env_var("ASPECTS_PII_CACHE_LIFETIME", "120"),
         source_type="clickhouse",
+        connection_overrides={
+            "host": "localhost",
+        },
     )
 }}
 
