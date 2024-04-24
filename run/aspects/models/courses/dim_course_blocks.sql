@@ -1,4 +1,11 @@
-select
+
+
+  create view `xapi`.`dim_course_blocks` 
+  
+    
+    
+  as (
+    select
     courses.org as org,
     courses.course_key as course_key,
     courses.course_name as course_name,
@@ -37,8 +44,13 @@ select
         then 'unit'
         else regexpExtract(block_id, '@([^+]+)\+block@', 1)
     end as block_type
-from `event_sink`.`course_block_names` blocks
+from `xapi`.`course_block_names` blocks
 join
-    `event_sink`.`course_names` courses
-    on blocks.course_key = courses.course_key
+    `xapi`.`course_names` courses on blocks.course_key = courses.course_key
     settings join_algorithm = 'direct'
+  )
+      
+      
+                    -- end_of_sql
+                    
+                    

@@ -81,7 +81,10 @@ select
     page_views.rollup_name as rollup_name,
     blocks.display_name_with_location as block_name,
     page_views.actor_id as actor_id,
-    page_views.total_views as total_views
+    page_views.total_views as total_views,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from page_views
 join
     blocks
@@ -90,3 +93,5 @@ join
         and page_views.course_key = blocks.course_key
         and page_views.hierarchy_location = blocks.hierarchy_location
     )
+left outer join
+    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id

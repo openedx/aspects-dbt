@@ -7,6 +7,7 @@ with
             emission_time,
             org,
             course_key,
+            object_id,
             video_duration,
             video_position,
             splitByString('/xblock/', object_id)[-1] as video_id,
@@ -24,9 +25,14 @@ select
     plays.video_id as video_id,
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
+    
+    concat(
+        '<a href="', plays.object_id, '" target="_blank">', blocks.block_name, '</a>'
+    )
+ as video_link,
     blocks.graded as graded,
-    video_position,
-    video_duration,
+    plays.video_position as video_position,
+    plays.video_duration as video_duration,
     case
         when video_position/video_duration >= 0.9
         then '90-100%'
@@ -48,8 +54,15 @@ select
         then '10-19%'
         else '0-9%'
     end as visualization_bucket,
-    plays.actor_id as actor_id
+    plays.actor_id as actor_id,
+    users.username as username,
+    users.name as name,
+    users.email as email,
+    blocks.section_with_name as section_with_name,
+    blocks.subsection_with_name as subsection_with_name
 from plays
 join
-    `xapi`.`dim_course_blocks` blocks
+    `xapi`.`dim_course_blocks_extended` blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
+left outer join
+    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id

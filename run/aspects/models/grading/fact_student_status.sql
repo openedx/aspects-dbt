@@ -35,7 +35,10 @@
         when course_grade >= 0.1 and course_grade < 0.2
         then '10-19%'
         else '0-9%'
-    end as grade_bucket
+    end as grade_bucket,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from `xapi`.`fact_enrollment_status` fes
 left join
     `xapi`.`fact_learner_course_status` lg
@@ -48,9 +51,11 @@ left join
     and fes.course_key = ls.course_key
     and fes.actor_id = ls.actor_id
 join
-    `event_sink`.`course_names` courses
+    `xapi`.`course_names` courses
     on fes.org = courses.org
     and fes.course_key = courses.course_key
+left outer join
+    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
   )
       
       

@@ -68,14 +68,15 @@ select
         when scaled_score >= 0.1 and scaled_score < 0.2
         then '10-19%'
         else '0-9%'
-    end as grade_bucket
+    end as grade_bucket,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from grades
-join
-    `event_sink`.`course_names` courses
-    on grades.course_key = courses.course_key
-left join
-    `event_sink`.`course_block_names` blocks
-    on grades.entity_id = blocks.location
+join `xapi`.`course_names` courses on grades.course_key = courses.course_key
+left join `xapi`.`course_block_names` blocks on grades.entity_id = blocks.location
+left outer join
+    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
   )
       
       

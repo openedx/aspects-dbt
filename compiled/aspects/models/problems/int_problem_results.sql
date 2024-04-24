@@ -48,9 +48,12 @@ select
     problem_id,
     problem_name,
     problem_name_with_location,
+    problem_link,
     actor_id,
     responses,
     success,
-    attempts
+    attempts,
+    graded,
+    interaction_type
 from `xapi`.`fact_problem_responses` problem_responses
 join responses using (org, course_key, problem_id, actor_id, emission_time)

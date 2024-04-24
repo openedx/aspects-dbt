@@ -18,8 +18,11 @@ select
     courses.course_run as course_run,
     enrollments.actor_id as actor_id,
     enrollments.enrollment_mode as enrollment_mode,
-    enrollments.enrollment_status as enrollment_status
+    enrollments.enrollment_status as enrollment_status,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from enrollments
-join
-    `event_sink`.`course_names` courses
-    on enrollments.course_key = courses.course_key
+join `xapi`.`course_names` courses on enrollments.course_key = courses.course_key
+left outer join
+    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id

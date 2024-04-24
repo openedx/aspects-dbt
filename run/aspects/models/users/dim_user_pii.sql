@@ -10,6 +10,7 @@
     external_id_type,
     username,
     name,
+    email,
     language,
     year_of_birth,
     gender,
@@ -20,7 +21,7 @@
         NULL,
         toYear(now()) - toInt32OrZero(year_of_birth)
     ) as age
-from `event_sink`.`user_pii` user_pii
+from `xapi`.`user_pii` user_pii
   )
       
       

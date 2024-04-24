@@ -17,7 +17,10 @@
     blocks.display_name_with_location as block_name_with_location,
     navigation.object_type as object_type,
     navigation.starting_position as starting_position,
-    navigation.ending_point as ending_point
+    navigation.ending_point as ending_point,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from `xapi`.`navigation_events` navigation
 join
     `xapi`.`dim_course_blocks` blocks
@@ -25,6 +28,8 @@ join
         navigation.course_key = blocks.course_key
         and navigation.block_id = blocks.block_id
     )
+left outer join
+    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
   )
       
       
