@@ -58,9 +58,6 @@ For more information about these options, see the `Getting Help`_ page.
 License
 *******
 
-The code in this repository is licensed under the AGPL 3.0 unless
-otherwise noted.
-
 Please see `LICENSE <LICENSE>`_ for details.
 
 Contributing
