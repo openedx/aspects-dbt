@@ -13,6 +13,9 @@
         layout="COMPLEX_KEY_SPARSE_HASHED()",
         lifetime="120",
         source_type="clickhouse",
+        connection_overrides={
+            "host": "localhost",
+        },
     )
 }}
 

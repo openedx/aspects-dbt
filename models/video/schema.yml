@@ -46,6 +46,21 @@ models:
       - name: visualization_bucket
         data_type: String
         description: "The percentile bucket for the video play event"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section this video belongs to, with section_number prepended"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the subsection this video belongs to, with subsection_number prepended"
 
   - name: fact_transcript_usage
     description: "One record for each time a transcript or closed caption was enabled"
@@ -77,6 +92,15 @@ models:
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: video_playback_events
     description: "Events related to video playback"
@@ -174,6 +198,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course key for the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
       - name: section_with_name
         data_type: string
         description: "The name of the section this subsection belongs to, with section_number prepended"
@@ -192,3 +219,12 @@ models:
       - name: graded
         data_type: Boolean
         description: "Whether the block is graded"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"

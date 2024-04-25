@@ -44,6 +44,15 @@ models:
       - name: num_answers_displayed
         description: "The number of times a learner requested the answers for the problem"
         data_type: UInt64
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: fact_problem_responses
     description: "One record for each submitted response to a problem"
@@ -93,6 +102,18 @@ models:
       - name: graded
         data_type: bool
         description: "Boolean indicating this block is graded"
+      - name: interaction_type
+        data_type: string
+        description: "The type of interaction - e.g. multiple choice"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: int_problem_hints
     description: "Internal table for problem hints"
@@ -170,6 +191,12 @@ models:
       - name: attempts
         data_type: int16
         description: "Number indicating which attempt this was"
+      - name: graded
+        data_type: bool
+        description: "Boolean indicating this block is graded"
+      - name: interaction_type
+        data_type: string
+        description: "The type of interaction - e.g. multiple choice"
 
   - name: problem_events
     description: "Problem events"
@@ -272,3 +299,77 @@ models:
       - name: graded
         data_type: bool
         description: "Whether the block is graded"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
+
+
+  - name: fact_problem_responses_extended
+    description: "int_problem_results with section and subsection names"
+    columns:
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: course_name
+        data_type: string
+        description: "The name of the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section this subsection belongs to, with section_number prepended"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the subsection, with section_number prepended"
+      - name: problem_id
+        data_type: string
+        description: "The problem's unique identifier"
+      - name: problem_name
+        data_type: string
+        description: "The problem's name"
+      - name: problem_name_with_location
+        data_type: string
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: problem_link
+        data_type: String
+        description: "An anchor tag with a link to the problem"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: responses
+        data_type: string
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: success
+        data_type: bool
+        description: "Boolean indicating whether the responses were correct"
+      - name: attempts
+        data_type: int16
+        description: "Number indicating which attempt this was"
+      - name: graded
+        data_type: bool
+        description: "Whether this subsection block is graded"
+      - name: interaction_type
+        data_type: string
+        description: "The type of interaction"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"

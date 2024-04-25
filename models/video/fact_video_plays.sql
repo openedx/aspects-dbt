@@ -27,11 +27,18 @@ select
     blocks.display_name_with_location as video_name_with_location,
     {{ a_tag("plays.object_id", "blocks.block_name") }} as video_link,
     blocks.graded as graded,
-    video_position,
-    video_duration,
+    plays.video_position as video_position,
+    plays.video_duration as video_duration,
     {{ get_bucket("video_position/video_duration") }} as visualization_bucket,
-    plays.actor_id as actor_id
+    plays.actor_id as actor_id,
+    users.username as username,
+    users.name as name,
+    users.email as email,
+    blocks.section_with_name as section_with_name,
+    blocks.subsection_with_name as subsection_with_name
 from plays
 join
-    {{ ref("dim_course_blocks") }} blocks
+    {{ ref("dim_course_blocks_extended") }} blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id

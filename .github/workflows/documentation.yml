@@ -7,9 +7,6 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 env:
   DBT_PROFILES_DIR: ./.github/
@@ -20,8 +17,6 @@ env:
 
 jobs:
   build:
-    # Forks will never have permissions to do this, so skip this for those
-    if: github.event.pull_request.head.repo.full_name == github.repository
     name: Deploy dbt docs to github pages
     runs-on: ubuntu-latest
     permissions:

@@ -10,6 +10,8 @@ transformations, tests, and documentation that drive Aspects reports. This proje
 is still in its infancy and will be growing with documentation and examples as we
 approach the Aspects v1 launch.
 
+A dbt docs site with the details of this project, built off the main branch is located here: https://openedx.github.io/aspects-dbt/
+
 .. _ClickHouse: https://clickhouse.com
 .. _Aspects: https://docs.openedx.org/projects/openedx-aspects/en/latest/index.html
 

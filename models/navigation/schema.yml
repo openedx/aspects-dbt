@@ -74,6 +74,15 @@ models:
       - name: ending_point
         data_type: string
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: fact_navigation_dropoff
     description: "A view for analyzing the number of page visits per learner per section and subsection"
@@ -102,6 +111,15 @@ models:
       - name: total_views
         data_type: uint64
         description: "The total number of times a learner viewed pages in this section or subsection on a given day"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: fact_navigation_completion
     description: "A view for analyzing how many pages a learner has visited in a section or subsection"
@@ -115,9 +133,9 @@ models:
       - name: course_key
         data_type: string
         description: "The course identifier"
-      - name: course_run
+      - name: course_name
         data_type: string
-        description: "The course run for the course"
+        description: "The course name"
       - name: course_run
         data_type: string
         description: "The course run for the course"
@@ -136,6 +154,15 @@ models:
       - name: block_id
         data_type: string
         description: "The ID of the specific page visited"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: int_pages_per_subsection
     description: "A view for analyzing the number of pages in each subsection"

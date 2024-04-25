@@ -9,7 +9,8 @@ with
             actor_id,
             responses,
             success,
-            attempts
+            attempts,
+            interaction_type
         from {{ ref("problem_events") }}
         where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
     )
@@ -28,7 +29,11 @@ select
     responses.actor_id as actor_id,
     responses.responses as responses,
     responses.success as success,
-    responses.attempts as attempts
+    responses.attempts as attempts,
+    responses.interaction_type as interaction_type,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from responses
 join
     {{ ref("dim_course_blocks") }} blocks
@@ -36,6 +41,8 @@ join
         responses.course_key = blocks.course_key
         and responses.problem_id = blocks.block_id
     )
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 group by
     -- multi-part questions include an extra record for the response to the first
     -- part of the question. this group by clause eliminates the duplicate record
@@ -52,4 +59,8 @@ group by
     responses,
     success,
     attempts,
-    graded
+    graded,
+    interaction_type,
+    username,
+    name,
+    email

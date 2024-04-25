@@ -38,6 +38,15 @@ models:
       - name: completion_bucket
         description: "A displayable value of progress sorted into 10% buckets. Useful for grouping progress together to show high-level learner performance"
         data_type: String
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
 
   - name: completion_events
     description: "A materialized view for xAPI events related to course completions"

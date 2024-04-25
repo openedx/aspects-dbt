@@ -41,7 +41,12 @@ select
     grades.grade_type as grade_type,
     grades.actor_id as actor_id,
     grades.scaled_score as scaled_score,
-    {{ get_bucket("scaled_score") }} as grade_bucket
+    {{ get_bucket("scaled_score") }} as grade_bucket,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from grades
 join {{ ref("course_names") }} courses on grades.course_key = courses.course_key
 left join {{ ref("course_block_names") }} blocks on grades.entity_id = blocks.location
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
