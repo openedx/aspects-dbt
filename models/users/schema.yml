@@ -105,3 +105,31 @@ models:
       - name: age
         data_type: Int
         description: "The age of the user"
+
+  - name: dim_at_risk_learners
+    description: "A record for each learner determined to be at risk of dropping out of a given course"
+    columns:
+      - name: org
+        data_type: String
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: username
+        data_type: string
+        description: "The username of the user"
+      - name: name
+        data_type: string
+        description: "The name of the user"
+      - name: email
+        data_type: string
+        description: "The email of the user"
