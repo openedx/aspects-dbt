@@ -6,22 +6,20 @@ with
     )
 
 select
-    learners.org,
-    learners.course_key,
-    learners.course_name,
-    learners.course_run,
-    learners.actor_id,
-    learners.username,
-    learners.name,
-    learners.email
+    learners.org as org,
+    learners.course_key as course_key,
+    learners.course_name as course_name,
+    learners.course_run as course_run,
+    learners.actor_id as actor_id,
+    learners.username as username,
+    learners.name as name,
+    learners.email as email,
+    learners.enrollment_mode as enrollment_mode,
+    learners.course_grade as course_grade,
+    page_visits.last_visited as last_visited
 from {{ ref("fact_student_status") }} learners
-left join page_visits using (org, course_key, actor_id)
+join page_visits using (org, course_key, actor_id)
 where
-    -- not yet passing
     approving_state = 'failed'
-    -- enrolled in the course
     and enrollment_status = 'registered'
-    -- have visited a page other than the course homepage
-    and page_visits.actor_id is not null
-    -- haven't visited in the last 7 days
     and page_visits.last_visited < subtractDays(now(), 7)
