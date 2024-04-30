@@ -7,6 +7,7 @@ select
     transcripts.video_id as video_id,
     blocks.block_name as video_name,
     blocks.display_name_with_location as video_name_with_location,
+    blocks.course_order as course_order,
     transcripts.actor_id as actor_id,
     users.username as username,
     users.name as name,

@@ -1,10 +1,15 @@
 with
     pages_per_subsection as (
         select
-            org, course_key, section_number, subsection_number, count(*) as page_count
+            org,
+            course_key,
+            section_number,
+            subsection_number,
+            course_order,
+            count(*) as page_count
         from {{ ref("dim_course_blocks") }}
         where block_id like '%@vertical+block@%'
-        group by org, course_key, section_number, subsection_number
+        group by org, course_key, section_number, subsection_number, course_order
     )
 
 select
@@ -14,6 +19,7 @@ select
     section_blocks.display_name_with_location as section_with_name,
     pps.subsection_number as subsection_number,
     subsection_blocks.display_name_with_location as subsection_with_name,
+    pps.course_order as course_order,
     pps.page_count as page_count
 from pages_per_subsection pps
 left join

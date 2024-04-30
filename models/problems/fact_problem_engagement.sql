@@ -8,6 +8,7 @@ with
             {{ section_from_display("problem_name_with_location") }} as section_number,
             {{ subsection_from_display("problem_name_with_location") }}
             as subsection_number,
+            course_order as course_order,
             graded,
             actor_id,
             problem_id
@@ -24,6 +25,7 @@ select
     problems.item_count as item_count,
     attempts.actor_id as actor_id,
     attempts.problem_id as problem_id,
+    attempts.course_order as course_order,
     attempts.graded as graded,
     users.username as username,
     users.name as name,
