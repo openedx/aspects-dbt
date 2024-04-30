@@ -53,6 +53,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_problem_responses
     description: "One record for each submitted response to a problem"
@@ -114,6 +117,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: int_problem_hints
     description: "Internal table for problem hints"
@@ -148,6 +154,9 @@ models:
       - name: help_type
         data_type: string
         description: "The type of help requested"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: int_problem_results
     description: "Internal table for problem results"
@@ -197,6 +206,9 @@ models:
       - name: interaction_type
         data_type: string
         description: "The type of interaction - e.g. multiple choice"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: problem_events
     description: "Problem events"
@@ -265,6 +277,9 @@ models:
       - name: item_count
         data_type: uint64
         description: "The number of problems in this subsection"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_problem_engagement
     description: "A dataset with one record representing a problem attempted by a learner and the section and subsection that problem belongs to"
@@ -308,6 +323,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
 
   - name: fact_problem_responses_extended
@@ -373,3 +391,6 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"

@@ -83,6 +83,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_navigation_dropoff
     description: "A view for analyzing the number of page visits per learner per section and subsection"
@@ -120,6 +123,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_navigation_completion
     description: "A view for analyzing how many pages a learner has visited in a section or subsection"
@@ -163,6 +169,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: int_pages_per_subsection
     description: "A view for analyzing the number of pages in each subsection"
@@ -188,3 +197,6 @@ models:
       - name: page_count
         data_type: uint64
         description: The number of pages in the associated subsection
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"

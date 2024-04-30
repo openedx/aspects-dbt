@@ -40,6 +40,9 @@ models:
       - name: block_type
         data_type: String
         description: "The type of block. This can be a section, subsection, unit, or the block type"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: course_block_names
     description: "A table of course blocks with their names"
@@ -59,6 +62,9 @@ models:
       - name: display_name_with_location
         data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: course_names
     description: "A table of courses with their names"
@@ -121,3 +127,6 @@ models:
       - name: subsection_with_name
         data_type: string
         description: "The name of the section this subsection belongs to, with subsection_number prepended"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
