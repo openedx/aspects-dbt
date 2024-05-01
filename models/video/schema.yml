@@ -191,6 +191,9 @@ models:
       - name: item_count
         data_type: uint64
         description: "The number of videos in this subsection"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_video_engagement
     description: "A dataset with one record representing a video viewed by a learner and the section and subsection that video belongs to"
