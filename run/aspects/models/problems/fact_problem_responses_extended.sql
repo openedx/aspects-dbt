@@ -47,6 +47,7 @@ select
     results.responses as responses,
     results.success as success,
     results.attempts as attempts,
+    results.course_order as course_order,
     results.graded as graded,
     results.interaction_type as interaction_type,
     users.username as username,

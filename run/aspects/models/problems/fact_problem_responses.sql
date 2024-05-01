@@ -41,6 +41,7 @@ select
     )
  as problem_link,
     blocks.graded as graded,
+    course_order as course_order,
     responses.actor_id as actor_id,
     responses.responses as responses,
     responses.success as success,
@@ -74,6 +75,7 @@ group by
     responses,
     success,
     attempts,
+    course_order,
     graded,
     interaction_type,
     username,

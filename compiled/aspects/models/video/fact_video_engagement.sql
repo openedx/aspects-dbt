@@ -41,6 +41,7 @@ select
     views.course_run,
     videos.section_with_name,
     videos.subsection_with_name,
+    videos.course_order,
     videos.item_count,
     views.actor_id,
     views.video_id,

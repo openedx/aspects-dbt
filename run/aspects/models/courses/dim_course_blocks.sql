@@ -34,6 +34,7 @@
     as subsection_number,
     splitByString(' - ', blocks.display_name_with_location)[1] as hierarchy_location,
     blocks.display_name_with_location as display_name_with_location,
+    course_order,
     graded,
     case
         when block_id like '%@chapter+block@%'

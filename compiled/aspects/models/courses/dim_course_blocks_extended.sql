@@ -10,6 +10,7 @@ select
     blocks.hierarchy_location as hierarchy_location,
     blocks.display_name_with_location as display_name_with_location,
     blocks.graded as graded,
+    blocks.course_order as course_order,
     blocks.block_type as block_type,
     section_blocks.display_name_with_location as section_with_name,
     subsection_blocks.display_name_with_location as subsection_with_name

@@ -8,6 +8,7 @@ select
     navigation.block_id as block_id,
     blocks.block_name as block_name,
     blocks.display_name_with_location as block_name_with_location,
+    blocks.course_order as course_order,
     navigation.object_type as object_type,
     navigation.starting_position as starting_position,
     navigation.ending_point as ending_point,

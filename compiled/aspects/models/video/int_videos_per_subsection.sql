@@ -6,11 +6,13 @@ select * from (
                 course_key,
                 section_number,
                 subsection_number,
+                course_order,
                 graded,
                 count(*) as item_count
             from `xapi`.`dim_course_blocks`
             where block_id like '%@video+block@%'
-            group by org, course_key, section_number, subsection_number, graded
+            group by
+                org, course_key, section_number, subsection_number, course_order, graded
         )
 
     select
@@ -20,6 +22,7 @@ select * from (
         section_blocks.display_name_with_location as section_with_name,
         ips.subsection_number as subsection_number,
         subsection_blocks.display_name_with_location as subsection_with_name,
+        ips.course_order as course_order,
         ips.graded as graded,
         ips.item_count as item_count
     from items_per_subsection ips

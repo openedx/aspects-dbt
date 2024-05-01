@@ -1,7 +1,11 @@
-create materialized view if not exists `xapi`.`fact_instance_enrollments_mv` 
+
   
-  to `xapi`.`fact_instance_enrollments`
-  as 
+    
+    
+    
+        
+        insert into `xapi`.`fact_instance_enrollments__dbt_backup`
+        ("emission_hour", "course_name", "enrollment_mode", "enrollment_status", "course_enrollment_mode_status_cnt")
 
 with
     enrollments as (
@@ -22,3 +26,5 @@ select
 from enrollments
 join `xapi`.`course_names` courses on enrollments.course_key = courses.course_key
 group by emission_hour, course_name, enrollment_mode, enrollment_status
+  
+  

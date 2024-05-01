@@ -1,6 +1,6 @@
 CREATE DICTIONARY `xapi`.`course_block_names__dbt_tmp` 
   
-  (location String,block_name String,course_key String,graded Bool,display_name_with_location String)
+  (location String,block_name String,course_key String,graded Bool,course_order Int32,display_name_with_location String)
   
     primary key location
   SOURCE(
@@ -27,6 +27,7 @@ with
             JSONExtractInt(xblock_data_json, 'subsection') as subsection,
             JSONExtractInt(xblock_data_json, 'unit') as unit,
             JSONExtractBool(xblock_data_json, 'graded') as graded,
+            `order` as course_order,
             course_key,
             dump_id,
             time_last_dumped,
@@ -36,7 +37,12 @@ with
         from `event_sink`.`course_blocks`
     )
 select
-    location, display_name as block_name, course_key, graded, display_name_with_location
+    location,
+    display_name as block_name,
+    course_key,
+    graded,
+    course_order,
+    display_name_with_location
 from most_recent_course_blocks
 where rn = 1"
       )

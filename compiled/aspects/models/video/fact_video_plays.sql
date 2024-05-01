@@ -59,7 +59,8 @@ select
     users.name as name,
     users.email as email,
     blocks.section_with_name as section_with_name,
-    blocks.subsection_with_name as subsection_with_name
+    blocks.subsection_with_name as subsection_with_name,
+    blocks.course_order as course_order
 from plays
 join
     `xapi`.`dim_course_blocks_extended` blocks

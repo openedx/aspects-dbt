@@ -55,6 +55,7 @@ select
     problem_id,
     problem_name,
     problem_name_with_location,
+    course_order,
     problem_link,
     actor_id,
     responses,

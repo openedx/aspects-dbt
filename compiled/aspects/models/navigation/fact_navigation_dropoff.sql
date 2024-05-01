@@ -1,6 +1,11 @@
 with
     blocks as (
-        select org, course_key, display_name_with_location, hierarchy_location
+        select
+            org,
+            course_key,
+            display_name_with_location,
+            hierarchy_location,
+            course_order
         from `xapi`.`dim_course_blocks`
         where block_id like '%@chapter+block@%' or block_id like '%@sequential+block@%'
     ),
@@ -80,6 +85,7 @@ select
     page_views.course_key as course_key,
     page_views.rollup_name as rollup_name,
     blocks.display_name_with_location as block_name,
+    blocks.course_order as course_order,
     page_views.actor_id as actor_id,
     page_views.total_views as total_views,
     users.username as username,
