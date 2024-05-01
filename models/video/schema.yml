@@ -61,6 +61,9 @@ models:
       - name: subsection_with_name
         data_type: string
         description: "The name of the subsection this video belongs to, with subsection_number prepended"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_transcript_usage
     description: "One record for each time a transcript or closed caption was enabled"
@@ -101,6 +104,9 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: video_playback_events
     description: "Events related to video playback"
@@ -185,6 +191,9 @@ models:
       - name: item_count
         data_type: uint64
         description: "The number of videos in this subsection"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_video_engagement
     description: "A dataset with one record representing a video viewed by a learner and the section and subsection that video belongs to"
@@ -228,3 +237,6 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
