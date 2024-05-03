@@ -72,7 +72,7 @@ models:
         description: "The most recent grade for the learner"
       - name: enrolled_at
         data_type: DateTime
-        description: "The timestamp, to the second, of when the learner enrolled in the course"
+        description: "The timestamp, to the second, of the most recent enrollment action for this learner and course."
       - name: last_visited
         data_type: datetime
         description: "The last time the learner visited a page for this course"
