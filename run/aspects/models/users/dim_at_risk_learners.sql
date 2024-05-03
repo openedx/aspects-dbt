@@ -23,6 +23,7 @@ select
     learners.email as email,
     learners.enrollment_mode as enrollment_mode,
     learners.course_grade as course_grade,
+    learners.enrolled_at as enrolled_at,
     page_visits.last_visited as last_visited
 from `xapi`.`fact_student_status` learners
 join page_visits using (org, course_key, actor_id)
