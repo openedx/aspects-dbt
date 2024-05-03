@@ -167,3 +167,6 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+      - name: enrolled_at
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent enrollment action for this learner and course."
