@@ -11,7 +11,8 @@ select
     {{ get_bucket("course_grade") }} as grade_bucket,
     users.username as username,
     users.name as name,
-    users.email as email
+    users.email as email,
+    fes.emission_time as enrolled_at
 from {{ ref("fact_enrollment_status") }} fes
 left join
     {{ ref("fact_learner_course_status") }} lg
