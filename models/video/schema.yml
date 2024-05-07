@@ -240,3 +240,58 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+
+  - name: fact_watched_video_segments
+    description: "A dataset with one record per learner per video segment watched in a course"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: course_name
+        data_type: string
+        description: "The name of the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section this subsection belongs to, with section_number prepended"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the subsection, with section_number prepended"
+      - name: video_name
+        data_type: string
+        description: "The name of the video"
+      - name: video_name_with_location
+        data_type: string
+        description: "The name of the video with the section and subsection"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: started_at
+        data_type: datetime
+        description: "The time the video segment was started"
+      - name: segment_start
+        data_type: int64
+        description: "The start position of the segment"
+      - name: segment_range
+        data_type: string
+        description: "An string representing the interval of the watched segment"
+      - name: video_duration
+        data_type: int64
+        description: "The duration of the video in seconds"
+      - name: start_position
+        data_type: int64
+        description: "The start position of the segment"
+      - name: username
+        data_type: string
+        description: "The username of the learner"
+      - name: name
+        data_type: string
+        description: "The full name of the learner"
+      - name: email
+        data_type: string
+        description: "The email address of the learner"
