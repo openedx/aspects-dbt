@@ -73,6 +73,9 @@ models:
       - name: enrolled_at
         data_type: DateTime
         description: "The timestamp, to the second, of the most recent enrollment action for this learner and course."
+      - name: grade_bucket
+        data_type: string
+        description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
       - name: last_visited
         data_type: datetime
         description: "The last time the learner visited a page for this course"
