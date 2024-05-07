@@ -200,3 +200,46 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+
+  - name: fact_pageview_engagement
+    description: "A view for analyzing the number of page views per learner per section and subsection"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: section_with_name
+        data_type: string
+        description: "The name of the section"
+      - name: subsection_with_name
+        data_type: string
+        description: "The name of the subsection"
+      - name: section/subsection name
+        data_type: string
+        description: "The name of the section or subsection"
+      - name: content level
+        data_type: string
+        description: "The level at which page views are counted"
+        tests:
+          - accepted_values:
+              values: ["section", "subsection"]
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: section/subsection page engagement
+        data_type: uint64
+        description: "The total number of times a learner viewed pages in this section or subsection"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"

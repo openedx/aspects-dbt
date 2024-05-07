@@ -24,7 +24,7 @@ select
     fss.name as name,
     fss.email as email,
     fes.max_emission_time as emission_time,
-    let.last_visited as last_visited,
+    let.last_visited as last_visited
 from {{ ref("fact_student_status") }} fss
 left join
     enrollment_status fes

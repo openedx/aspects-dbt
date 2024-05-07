@@ -3,4 +3,3 @@ version: 2
 models:
   - name: learner_summary
     description: TODO
-    columns:
