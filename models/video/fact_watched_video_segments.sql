@@ -87,15 +87,12 @@ select
     started_at,
     arrayJoin(range(start_position, end_position, 5)) as segment_start,
     video_duration,
-    CONCAT(
-        toString(start_position), '-', toString(start_position + 4)
-    ) as segment_range,
+    CONCAT(toString(segment_start), '-', toString(segment_start + 4)) as segment_range,
     start_position,
     username,
     name,
     email
 from enriched_segments
-join
-    {{ ref("dim_user_pii") }} dpi
-    on enriched_segments.actor_id = toString(dpi.external_user_id)
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
 order by start_position

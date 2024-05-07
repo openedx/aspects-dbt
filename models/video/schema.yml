@@ -242,6 +242,7 @@ models:
         description: "The sort order of this block in the course across all course blocks"
 
   - name: fact_watched_video_segments
+    description: "A dataset with one record per learner per video segment watched in a course"
     columns:
       - name: org
         data_type: string
@@ -270,6 +271,9 @@ models:
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
+      - name: started_at
+        data_type: datetime
+        description: "The time the video segment was started"
       - name: segment_start
         data_type: int64
         description: "The start position of the segment"
