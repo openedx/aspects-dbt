@@ -349,7 +349,7 @@ models:
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
-      - name: section/subsection problem engagement
+      - name: section_subsection_problem_engagement
         data_type: string
         description: "The engagement level of the learner with the section/subsection"
         tests:

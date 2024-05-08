@@ -219,10 +219,10 @@ models:
       - name: subsection_with_name
         data_type: string
         description: "The name of the subsection"
-      - name: section/subsection name
+      - name: section_subsection_name
         data_type: string
         description: "The name of the section or subsection"
-      - name: content level
+      - name: content_level
         data_type: string
         description: "The level at which page views are counted"
         tests:
@@ -231,7 +231,7 @@ models:
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
-      - name: section/subsection page engagement
+      - name: section_subsection_page_engagement
         data_type: uint64
         description: "The total number of times a learner viewed pages in this section or subsection"
       - name: username

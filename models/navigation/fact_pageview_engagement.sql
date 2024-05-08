@@ -59,10 +59,10 @@ with
             course_run,
             section_with_name as section_with_name,
             subsection_with_name as subsection_with_name,
-            subsection_with_name as `section/subsection name`,
-            'subsection' as `content level`,
+            subsection_with_name as section_subsection_name,
+            'subsection' as content_level,
             actor_id as actor_id,
-            engagement_level as `section/subsection page engagement`
+            engagement_level as section_subsection_page_engagement
         from subsection_counts
         union all
         select
@@ -71,10 +71,10 @@ with
             course_run,
             section_with_name as section_with_name,
             subsection_with_name as subsection_with_name,
-            section_with_name as `section/subsection name`,
-            'section' as `content level`,
+            section_with_name as section_subsection_name,
+            'section' as content_level,
             actor_id as actor_id,
-            engagement_level as `section/subsection page engagement`
+            engagement_level as section_subsection_page_engagement
         from section_counts
 
     )
