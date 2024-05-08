@@ -9,3 +9,4 @@ PLUGINS:
 DOCKER_IMAGE_OPENEDX: edunext/openedx-aspects:latest
 DOCKER_IMAGE_ASPECTS: edunext/aspects:latest
 DOCKER_IMAGE_SUPERSET: edunext/aspects-superset:latest
+SUPERSET_DASHBOARD_LOCALES: []
