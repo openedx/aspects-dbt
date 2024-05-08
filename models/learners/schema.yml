@@ -2,4 +2,52 @@ version: 2
 
 models:
   - name: learner_summary
-    description: TODO
+    description: Summary of a learner with their grade and enrollment status
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: course_name
+        data_type: string
+        description: "The name of the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: approving_state
+        data_type: string
+        description: "The most recent approving state for the learner"
+      - name: enrollment_mode
+        data_type: string
+        description: "The mode of enrollment"
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a course"
+        tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
+      - name: course_grade
+        data_type: float64
+        description: "The most recent grade for the learner"
+      - name: grade_bucket
+        data_type: string
+        description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
+      - name: emission_time
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent enrollment action for this learner and course."
+      - name: last_visited
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent time the learner visited the course."

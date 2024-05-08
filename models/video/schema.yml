@@ -259,6 +259,17 @@ models:
       - name: subsection_with_name
         data_type: string
         description: "The name of the subsection, with section_number prepended"
+      - name: section_subsection_name
+        data_type: string
+        description: "The name of the section or the subsection"
+      - name: content_level
+        data_type: string
+        description: "The content level of the video"
+        tests:
+          - accepted_values:
+              values:
+                - 'section'
+                - 'subsection'
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
