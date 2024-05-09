@@ -281,7 +281,7 @@ models:
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
 
-  - name: fact_problem_engagement
+  - name: fact_problem_engagement_per_subsection
     description: "A dataset with one record representing a problem attempted by a learner and the section and subsection that problem belongs to"
     columns:
       - name: attempted_on
@@ -326,6 +326,47 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+
+
+  - name: fact_problem_engagement
+    description: ""
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: course_run
+        data_type: string
+        description: "The course run for the course"
+      - name: section_subsection_name
+        data_type: string
+        description: "The name of the section this subsection belongs to, with section_number prepended"
+      - name: content_level
+        data_type: string
+        description: "The name of the subsection, with section_number prepended"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: section_subsection_problem_engagement
+        data_type: string
+        description: "The engagement level of the learner with the section/subsection"
+        tests:
+          - accepted_values:
+              values:
+                - 'No problems attempted yet'
+                - 'All problems attempted'
+                - 'At least one problem attempted'
+      - name: username
+        data_type: string
+        description: "The username of the learner"
+      - name: name
+        data_type: string
+        description: "The full name of the learner"
+      - name: email
+        data_type: string
+        description: "The email address of the learner"
 
 
   - name: fact_problem_responses_extended
