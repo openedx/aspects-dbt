@@ -6,65 +6,109 @@
     
   as (
     with
-    attempted_subsection_problems as (
-        select distinct
-            date(emission_time) as attempted_on,
+    subsection_counts as (
+        select
             org,
             course_key,
             course_run,
-            
-    concat(
-        splitByString(
-            ':', splitByString(' - ', problem_name_with_location)[1], 1
-        )[1],
-        ':0:0'
-    )
- as section_number,
-            
-    concat(
-        arrayStringConcat(
-            splitByString(
-                ':', splitByString(' - ', problem_name_with_location)[1], 2
-            ),
-            ':'
-        ),
-        ':0'
-    )
-
-            as subsection_number,
-            course_order as course_order,
-            graded,
+            section_with_name,
+            subsection_with_name,
             actor_id,
-            problem_id
-        from `xapi`.`fact_problem_responses`
+            item_count,
+            count(distinct problem_id) as problems_attempted,
+            case
+                when problems_attempted = 0
+                then 'No problems attempted yet'
+                when problems_attempted = item_count
+                then 'All problems attempted'
+                else 'At least one problem attempted'
+            end as engagement_level,
+            username,
+            name,
+            email
+        from `xapi`.`fact_problem_engagement_per_subsection`
+        group by
+            org,
+            course_key,
+            course_run,
+            section_with_name,
+            subsection_with_name,
+            actor_id,
+            item_count,
+            username,
+            name,
+            email
+    ),
+    section_counts as (
+        select
+            org,
+            course_key,
+            course_run,
+            section_with_name,
+            actor_id,
+            sum(item_count) as item_count,
+            sum(problems_attempted) as problems_attempted,
+            case
+                when problems_attempted = 0
+                then 'No problems attempted yet'
+                when problems_attempted = item_count
+                then 'All problems attempted'
+                else 'At least one problem attempted'
+            end as engagement_level,
+            username,
+            name,
+            email
+        from subsection_counts
+        group by
+            org,
+            course_key,
+            course_run,
+            section_with_name,
+            actor_id,
+            username,
+            name,
+            email
+    ),
+    problem_engagement as (
+        select
+            org,
+            course_key,
+            course_run,
+            subsection_with_name as section_subsection_name,
+            'subsection' as content_level,
+            actor_id as actor_id,
+            engagement_level as section_subsection_problem_engagement,
+            username,
+            name,
+            email
+        from subsection_counts
+        union all
+        select
+            org,
+            course_key,
+            course_run,
+            section_with_name as section_subsection_name,
+            'section' as content_level,
+            actor_id as actor_id,
+            engagement_level as section_subsection_problem_engagement,
+            username,
+            name,
+            email
+        from section_counts
     )
 
 select
-    attempts.attempted_on as attempted_on,
-    attempts.org as org,
-    attempts.course_key as course_key,
-    attempts.course_run as course_run,
-    problems.section_with_name as section_with_name,
-    problems.subsection_with_name as subsection_with_name,
-    problems.item_count as item_count,
-    attempts.actor_id as actor_id,
-    attempts.problem_id as problem_id,
-    attempts.course_order as course_order,
-    attempts.graded as graded,
-    users.username as username,
-    users.name as name,
-    users.email as email
-from attempted_subsection_problems attempts
-join
-    `xapi`.`int_problems_per_subsection` problems
-    on (
-        attempts.org = problems.org
-        and attempts.course_key = problems.course_key
-        and attempts.section_number = problems.section_number
-        and attempts.subsection_number = problems.subsection_number
-    )
-left outer join
-    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
+    pe.org as org,
+    pe.course_key as course_key,
+    pe.course_run as course_run,
+    pe.section_subsection_name as section_subsection_name,
+    pe.content_level as content_level,
+    pe.actor_id as actor_id,
+    pe.section_subsection_problem_engagement as section_subsection_problem_engagement,
+    pe.username as username,
+    pe.name as name,
+    pe.email as email
+from problem_engagement pe
   )
       
       
