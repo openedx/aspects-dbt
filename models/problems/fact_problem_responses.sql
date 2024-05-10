@@ -1,8 +1,4 @@
-with
-    responses as (
-        select *
-        from {{ ref("problem_responses") }}
-    )
+with responses as (select * from {{ ref("problem_responses") }})
 
 select
     responses.emission_time as emission_time,

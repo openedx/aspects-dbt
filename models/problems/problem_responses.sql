@@ -34,8 +34,7 @@ select
             problem_id,
             actor_id,
             min(emission_time) as first_success_at
-        where
-            success = true
+        where success = true
         group by org, course_key, problem_id, actor_id
     )
     PROJECTION unsuccessful_responses
