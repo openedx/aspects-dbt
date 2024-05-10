@@ -25,7 +25,7 @@ select
     responses,
     success,
     attempts,
-    interaction_type
+    interaction_type,
     PROJECTION successful_responses
     (
         select
@@ -36,7 +36,7 @@ select
             min(emission_time) as first_success_at
         where success = true
         group by org, course_key, problem_id, actor_id
-    )
+    ),
     PROJECTION unsuccessful_responses
     (
         select
