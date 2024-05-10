@@ -35,7 +35,8 @@ select
             ) as Int16
         ),
         0
-    ) as attempts
+    ) as attempts,
+    {{ get_problem_id("object_id") }} as problem_id
 from {{ ref("xapi_events_all_parsed") }}
 where
     verb_id in (
