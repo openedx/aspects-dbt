@@ -1,18 +1,7 @@
 with
     responses as (
-        select
-            emission_time,
-            org,
-            course_key,
-            object_id,
-            {{ get_problem_id("object_id") }} as problem_id,
-            actor_id,
-            responses,
-            success,
-            attempts,
-            interaction_type
-        from {{ ref("problem_events") }}
-        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
+        select *
+        from {{ ref("problem_responses") }}
     )
 
 select
@@ -44,25 +33,3 @@ join
     )
 left outer join
     {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
-group by
-    -- multi-part questions include an extra record for the response to the first
-    -- part of the question. this group by clause eliminates the duplicate record
-    emission_time,
-    org,
-    course_key,
-    course_name,
-    course_run,
-    problem_id,
-    problem_name,
-    problem_name_with_location,
-    problem_link,
-    actor_id,
-    responses,
-    success,
-    attempts,
-    course_order,
-    graded,
-    interaction_type,
-    username,
-    name,
-    email

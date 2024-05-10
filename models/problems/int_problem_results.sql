@@ -11,7 +11,7 @@ with
             problem_id,
             actor_id,
             min(emission_time) as first_success_at
-        from {{ ref("fact_problem_responses") }}
+        from {{ ref("problem_responses") }}
         where
             -- clickhouse throws an error when shortening this to `where success`
             success = true
@@ -26,7 +26,7 @@ with
             problem_id,
             actor_id,
             max(emission_time) as last_response_at
-        from {{ ref("fact_problem_responses") }}
+        from {{ ref("problem_responses") }}
         where actor_id not in (select distinct actor_id from successful_responses)
         group by org, course_key, problem_id, actor_id
     ),
