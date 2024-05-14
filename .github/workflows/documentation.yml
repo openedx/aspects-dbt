@@ -37,11 +37,12 @@ jobs:
           pip install -r requirements.txt
           dbt deps
       - name: Initialize Open edX
+        continue-on-error: true
         run: |
           tutor plugins enable aspects
           tutor config save
           tutor local start -d
-          tutor local do init
+          tutor local do init -l aspects
           tutor local do load-xapi-test-data
       - name: Build docs
         run: |
