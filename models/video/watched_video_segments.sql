@@ -3,7 +3,7 @@
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key, video_id)",
-        order_by="(org, course_key, video_id, actor_id, started_at, end_type, started_at, ended_at, start_position, end_position, video_duration)",
+        order_by="(org, course_key, video_id, actor_id, start_position, end_position, started_at, ended_at, end_type, video_duration, emission_time)",
         partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
     )
