@@ -4,7 +4,7 @@
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key, video_id)",
-        order_by="(org, course_key, verb_id, emission_time, actor_id, video_position, event_id)",
+        order_by="(org, course_key, video_id, verb_id, emission_time, actor_id, video_position, event_id)",
         partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
     )
