@@ -71,5 +71,6 @@ select
     started_at,
     ended_at,
     end_type,
-    video_duration
+    video_duration,
+    ended_at as emission_time
 from segments
