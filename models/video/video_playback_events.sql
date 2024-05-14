@@ -42,7 +42,8 @@ select
     ) as video_position,
     JSONExtractInt(
         event, 'context', 'extensions', 'https://w3id.org/xapi/video/extensions/length'
-    ) as video_duration
+    ) as video_duration,
+    splitByString('/xblock/', object_id)[-1] as video_id
 from {{ ref("xapi_events_all_parsed") }}
 where
     (
