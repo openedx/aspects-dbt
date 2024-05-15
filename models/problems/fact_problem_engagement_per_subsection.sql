@@ -19,7 +19,6 @@ with
     )
 
 select
-    attempts.attempted_on as attempted_on,
     attempts.org as org,
     attempts.course_key as course_key,
     attempts.course_run as course_run,
@@ -28,8 +27,6 @@ select
     problems.item_count as item_count,
     attempts.actor_id as actor_id,
     attempts.problem_id as problem_id,
-    attempts.course_order as course_order,
-    attempts.graded as graded,
     attempts.username as username,
     attempts.name as name,
     attempts.email as email
