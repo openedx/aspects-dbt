@@ -50,8 +50,10 @@ with
                 and responses.problem_id = blocks.block_id
             )
         group by
-            -- multi-part questions include an extra record for the response to the first
-            -- part of the question. this group by clause eliminates the duplicate record
+            -- multi-part questions include an extra record for the response to the
+            -- first
+            -- part of the question. this group by clause eliminates the duplicate
+            -- record
             emission_time,
             org,
             course_key,
