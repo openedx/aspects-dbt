@@ -249,6 +249,9 @@ models:
       - name: attempts
         data_type: int16
         description: "Number indicating which attempt this was"
+      - name: problem_id
+        data_type: string
+        description: "The problem's unique identifier"
 
   - name: int_problems_per_subsection
     description: "A dimension table with the number of problems per subsection"
@@ -435,3 +438,28 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+
+  - name: responses
+    description: "A record per course per problem per learner with their last attempt and first success"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: problem_id
+        data_type: string
+        description: "The problem's unique identifier"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: first_success_at
+        data_type: datetime
+        description: "The timestamp of the first successful attempt"
+      - name: last_attempt_at
+        data_type: datetime
+        description: "The timestamp of the last attempt"
+      - name: emission_time
+        data_type: datetime
+        description: "The timestamp of the last attempt or the first successful attempt"
