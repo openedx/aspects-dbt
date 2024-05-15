@@ -48,5 +48,4 @@ join
         and pe.block_id = course_blocks.block_id
     )
 left outer join
-    {{ ref("dim_user_pii") }} users
-    on toUUID(pe.actor_id) = users.external_user_id
+    {{ ref("dim_user_pii") }} users on toUUID(pe.actor_id) = users.external_user_id
