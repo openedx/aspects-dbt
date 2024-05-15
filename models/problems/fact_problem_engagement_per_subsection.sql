@@ -11,7 +11,10 @@ with
             course_order as course_order,
             graded,
             actor_id,
-            problem_id
+            problem_id,
+            username,
+            name,
+            email
         from {{ ref("fact_problem_responses") }}
     )
 
@@ -27,9 +30,9 @@ select
     attempts.problem_id as problem_id,
     attempts.course_order as course_order,
     attempts.graded as graded,
-    users.username as username,
-    users.name as name,
-    users.email as email
+    attempts.username as username,
+    attempts.name as name,
+    attempts.email as email
 from attempted_subsection_problems attempts
 join
     {{ ref("int_problems_per_subsection") }} problems
@@ -39,5 +42,3 @@ join
         and attempts.section_number = problems.section_number
         and attempts.subsection_number = problems.subsection_number
     )
-left outer join
-    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
