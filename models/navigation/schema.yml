@@ -243,3 +243,19 @@ models:
       - name: email
         data_type: String
         description: "The email address of the learner"
+
+  - name: fact_learner_last_course_visit
+    description: "A materialized view that stores a learners last navigation event timestamp for a course"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course identifier"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: emission_time
+        data_type: datetime
+        description: "Timestamp, to the second, of when this event was emitted"
