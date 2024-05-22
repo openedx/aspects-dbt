@@ -3,8 +3,8 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, course_run)",
-        order_by="(org, course_key, course_run, section_block_id, content_level, actor_id)",
+        primary_key="(org, course_key)",
+        order_by="(org, course_key, section_block_id, content_level, actor_id)",
     )
 }}
 
