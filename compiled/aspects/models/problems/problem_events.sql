@@ -25,7 +25,12 @@ select
             ) as Int16
         ),
         0
-    ) as attempts
+    ) as attempts,
+    
+    regexpExtract(
+        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_]*)(_\d_\d)?', 1
+    )
+ as problem_id
 from `xapi`.`xapi_events_all_parsed`
 where
     verb_id in (

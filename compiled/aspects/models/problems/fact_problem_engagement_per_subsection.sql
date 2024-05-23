@@ -28,12 +28,14 @@ with
             course_order as course_order,
             graded,
             actor_id,
-            problem_id
+            problem_id,
+            username,
+            name,
+            email
         from `xapi`.`fact_problem_responses`
     )
 
 select
-    attempts.attempted_on as attempted_on,
     attempts.org as org,
     attempts.course_key as course_key,
     attempts.course_run as course_run,
@@ -42,11 +44,9 @@ select
     problems.item_count as item_count,
     attempts.actor_id as actor_id,
     attempts.problem_id as problem_id,
-    attempts.course_order as course_order,
-    attempts.graded as graded,
-    users.username as username,
-    users.name as name,
-    users.email as email
+    attempts.username as username,
+    attempts.name as name,
+    attempts.email as email
 from attempted_subsection_problems attempts
 join
     `xapi`.`int_problems_per_subsection` problems
@@ -56,5 +56,3 @@ join
         and attempts.section_number = problems.section_number
         and attempts.subsection_number = problems.subsection_number
     )
-left outer join
-    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id

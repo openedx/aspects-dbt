@@ -4,11 +4,7 @@ with
             emission_time,
             org,
             course_key,
-            
-    regexpExtract(
-        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_]*)(_\d_\d)?', 1
-    )
- as problem_id,
+            problem_id,
             actor_id,
             case
                 when object_id like '%/hint%'

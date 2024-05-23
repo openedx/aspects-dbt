@@ -5,7 +5,7 @@
     
         
         insert into `xapi`.`problem_events__dbt_backup`
-        ("event_id", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "responses", "scaled_score", "success", "interaction_type", "attempts")
+        ("event_id", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "responses", "scaled_score", "success", "interaction_type", "attempts", "problem_id")
 
 select
     event_id,
@@ -32,7 +32,12 @@ select
             ) as Int16
         ),
         0
-    ) as attempts
+    ) as attempts,
+    
+    regexpExtract(
+        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_]*)(_\d_\d)?', 1
+    )
+ as problem_id
 from `xapi`.`xapi_events_all_parsed`
 where
     verb_id in (

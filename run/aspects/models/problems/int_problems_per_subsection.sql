@@ -31,7 +31,9 @@
         subsection_blocks.display_name_with_location as subsection_with_name,
         ips.course_order as course_order,
         ips.graded as graded,
-        ips.item_count as item_count
+        ips.item_count as item_count,
+        subsection_blocks.block_id as subsection_block_id,
+        section_blocks.block_id as section_block_id
     from items_per_subsection ips
     left join
         `xapi`.`dim_course_blocks` section_blocks

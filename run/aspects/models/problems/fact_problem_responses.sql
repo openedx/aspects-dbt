@@ -12,11 +12,7 @@
             org,
             course_key,
             object_id,
-            
-    regexpExtract(
-        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_]*)(_\d_\d)?', 1
-    )
- as problem_id,
+            problem_id,
             actor_id,
             responses,
             success,
