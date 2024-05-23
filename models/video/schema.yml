@@ -194,6 +194,12 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+      - name: subsection_block_id
+        data_type: string
+        description: "The unique identifier for the subsection block"
+      - name: section_block_id
+        data_type: string
+        description: "The unique identifier for the section block"
 
   - name: fact_video_engagement_per_subsection
     description: "A dataset with one record representing a video viewed by a learner and the section and subsection that video belongs to"

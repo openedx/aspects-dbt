@@ -4,7 +4,7 @@ with
             emission_time,
             org,
             course_key,
-            {{ get_problem_id("object_id") }} as problem_id,
+            problem_id,
             actor_id,
             case
                 when object_id like '%/hint%'
