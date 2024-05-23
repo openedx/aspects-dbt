@@ -283,6 +283,12 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+      - name: subsection_block_id
+        data_type: string
+        description: "The unique identifier for the subsection block"
+      - name: section_block_id
+        data_type: string
+        description: "The unique identifier for the section block"
 
   - name: fact_problem_engagement_per_subsection
     description: "A dataset with one record representing a problem attempted by a learner and the section and subsection that problem belongs to"
@@ -463,3 +469,53 @@ models:
       - name: emission_time
         data_type: datetime
         description: "The timestamp of the last attempt or the first successful attempt"
+
+  - name: section_problem_engagement
+    description: "A record per course per section per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: section_block_id
+        data_type: string
+        description: "The unique identifier for the section block"
+      - name: engagement_level
+        data_type: string
+        description: "The engagement level of the learner with the section"
+        tests:
+          - accepted_values:
+              values:
+                - 'No problems attempted yet'
+                - 'All problems attempted'
+                - 'At least one problem attempted'
+
+  - name: subsection_problem_engagement
+    description: "A record per course per subsection per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: subsection_block_id
+        data_type: string
+        description: "The unique identifier for the subsection block"
+      - name: engagement_level
+        data_type: string
+        description: "The engagement level of the learner with the subsection"
+        tests:
+          - accepted_values:
+              values:
+                - 'No problems attempted yet'
+                - 'All problems attempted'
+                - 'At least one problem attempted'
