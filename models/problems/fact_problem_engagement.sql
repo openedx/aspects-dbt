@@ -3,20 +3,20 @@ with
         select
             org,
             course_key,
-            "subsection" as content_level,
+            'subsection' as content_level,
             actor_id,
             subsection_block_id as block_id,
-            section_subsection_problem_engagement
+            engagement_level as section_subsection_problem_engagement
         from {{ ref("subsection_problem_engagement") }}
     ),
     section_engagement as (
         select
             org,
             course_key,
-            "section" as content_level,
+            'section' as content_level,
             actor_id,
             section_block_id as block_id,
-            section_subsection_problem_engagement
+            engagement_level as section_subsection_problem_engagement
         from {{ ref("section_problem_engagement") }}
     ),
     problem_engagement as (

@@ -149,5 +149,5 @@ with
         group by org, course_key, section_block_id, actor_id
     )
 
-select org, course_key, actor_id as actor_id, section_block_id, engagement_level
+select org, course_key, actor_id, section_block_id, engagement_level
 from section_counts
