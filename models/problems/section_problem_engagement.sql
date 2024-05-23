@@ -4,7 +4,7 @@
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key)",
-        order_by="(org, course_key, section_block_id, content_level, actor_id)",
+        order_by="(org, course_key, section_block_id, actor_id)",
     )
 }}
 
@@ -30,7 +30,6 @@ with
             responses.org as org,
             responses.course_key as course_key,
             blocks.course_name as course_name,
-            blocks.course_run as course_run,
             responses.problem_id as problem_id,
             blocks.block_name as problem_name,
             blocks.display_name_with_location as problem_name_with_location,
@@ -58,7 +57,6 @@ with
             org,
             course_key,
             course_name,
-            course_run,
             problem_id,
             problem_name,
             problem_name_with_location,
@@ -76,7 +74,6 @@ with
             date(emission_time) as attempted_on,
             org,
             course_key,
-            course_run,
             {{ section_from_display("problem_name_with_location") }} as section_number,
             {{ subsection_from_display("problem_name_with_location") }}
             as subsection_number,
@@ -90,7 +87,6 @@ with
         select
             attempts.org as org,
             attempts.course_key as course_key,
-            attempts.course_run as course_run,
             problems.section_with_name as section_with_name,
             problems.subsection_with_name as subsection_with_name,
             problems.item_count as item_count,
@@ -111,7 +107,6 @@ with
         select
             org,
             course_key,
-            course_run,
             section_with_name,
             subsection_with_name,
             actor_id,
@@ -129,7 +124,6 @@ with
         group by
             org,
             course_key,
-            course_run,
             section_with_name,
             subsection_with_name,
             actor_id,
@@ -140,7 +134,6 @@ with
         select
             org,
             course_key,
-            course_run,
             actor_id,
             sum(item_count) as item_count,
             sum(problems_attempted) as problems_attempted,
@@ -153,15 +146,8 @@ with
             end as engagement_level,
             section_block_id
         from subsection_counts
-        group by org, course_key, course_run, section_block_id, actor_id
+        group by org, course_key, section_block_id, actor_id
     )
 
-select
-    org,
-    course_key,
-    course_run,
-    'section' as content_level,
-    actor_id as actor_id,
-    section_block_id,
-    engagement_level as section_subsection_problem_engagement
+select org, course_key, actor_id as actor_id, section_block_id, engagement_level
 from section_counts

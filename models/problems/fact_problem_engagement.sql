@@ -3,8 +3,7 @@ with
         select
             org,
             course_key,
-            course_run,
-            content_level,
+            "subsection" as content_level,
             actor_id,
             subsection_block_id as block_id,
             section_subsection_problem_engagement
@@ -14,8 +13,7 @@ with
         select
             org,
             course_key,
-            course_run,
-            content_level,
+            "section" as content_level,
             actor_id,
             section_block_id as block_id,
             section_subsection_problem_engagement
@@ -31,7 +29,7 @@ with
 select
     pe.org as org,
     pe.course_key as course_key,
-    pe.course_run as course_run,
+    course_blocks.course_run as course_run,
     course_blocks.display_name_with_location as section_subsection_name,
     pe.content_level as content_level,
     pe.actor_id as actor_id,
