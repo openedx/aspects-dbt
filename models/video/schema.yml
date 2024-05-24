@@ -201,52 +201,6 @@ models:
         data_type: string
         description: "The unique identifier for the section block"
 
-  - name: fact_video_engagement_per_subsection
-    description: "A dataset with one record representing a video viewed by a learner and the section and subsection that video belongs to"
-    columns:
-      - name: viewed_on
-        data_type: date
-        description: "The date on which the video was viewed"
-      - name: org
-        data_type: string
-        description: "The organization that the video belongs to"
-      - name: course_key
-        data_type: string
-        description: "The course key for the course"
-      - name: course_run
-        data_type: String
-        description: "The course run for the course"
-      - name: section_with_name
-        data_type: string
-        description: "The name of the section this subsection belongs to, with section_number prepended"
-      - name: subsection_with_name
-        data_type: string
-        description: "The name of the subsection, with section_number prepended"
-      - name: item_count
-        data_type: uint64
-        description: "The number of videos in this subsection"
-      - name: actor_id
-        data_type: string
-        description: "The xAPI actor identifier"
-      - name: video_id
-        data_type: string
-        description: "The xAPI object identifier"
-      - name: graded
-        data_type: Boolean
-        description: "Whether the block is graded"
-      - name: username
-        data_type: String
-        description: "The username of the learner"
-      - name: name
-        data_type: String
-        description: "The full name of the learner"
-      - name: email
-        data_type: String
-        description: "The email address of the learner"
-      - name: course_order
-        data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
-
   - name: fact_video_engagement
     description: "A dataset with one record representing the engagement of a learner with a video"
     columns:
@@ -353,3 +307,90 @@ models:
       - name: email
         data_type: string
         description: "The email address of the learner"
+
+  - name: section_video_engagement
+    description: "A record per course per section per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: section_block_id
+        data_type: string
+        description: "The unique identifier for the section block"
+      - name: engagement_level
+        data_type: string
+        description: "The engagement level of the learner with the section"
+        tests:
+          - accepted_values:
+              values:
+                - 'No videos viewed yet'
+                - 'All videos viewed'
+                - 'At least one video viewed'
+
+  - name: subsection_video_engagement
+    description: "A record per course per subsection per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: subsection_block_id
+        data_type: string
+        description: "The unique identifier for the subsection block"
+      - name: engagement_level
+        data_type: string
+        description: "The engagement level of the learner with the subsection"
+        tests:
+          - accepted_values:
+              values:
+                - 'No videos viewed yet'
+                - 'All videos viewed'
+                - 'At least one video viewed'
+
+  - name: watched_video_segments
+    description: "A dataset with one record per learner per video segment watched in a course"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: video_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: start_position
+        data_type: int64
+        description: "The start position of the segment"
+      - name: end_position
+        data_type: int64
+        description: "The end position of the segment"
+      - name: started_at
+        data_type: datetime
+        description: "The time the video segment was started"
+      - name: ended_at
+        data_type: datetime
+        description: "The time the video segment was ended"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: end_type
+        data_type: string
+        description: "The type of event that ended the video segment"
+      - name: video_duration
+        data_type: int64
+        description: "The duration of the video in seconds"

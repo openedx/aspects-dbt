@@ -1,112 +1,49 @@
 with
-    subsection_counts as (
+    subsection_engagement as (
         select
             org,
             course_key,
-            course_run,
-            section_with_name,
-            subsection_with_name,
-            actor_id,
-            item_count,
-            count(distinct video_id) as videos_viewed,
-            case
-                when videos_viewed = 0
-                then 'No videos viewed yet'
-                when videos_viewed = item_count
-                then 'All videos viewed'
-                else 'At least one video viewed'
-            end as engagement_level,
-            username,
-            name,
-            email
-        from {{ ref("fact_video_engagement_per_subsection") }}
-        group by
-            org,
-            course_key,
-            course_run,
-            section_with_name,
-            subsection_with_name,
-            actor_id,
-            item_count,
-            username,
-            name,
-            email
-    ),
-    section_counts as (
-        select
-            org,
-            course_key,
-            course_run,
-            section_with_name,
-            '' as subsection_with_name,
-            actor_id,
-            sum(item_count) as item_count,
-            sum(videos_viewed) as videos_viewed,
-            case
-                when videos_viewed = 0
-                then 'No videos viewed yet'
-                when videos_viewed = item_count
-                then 'All videos viewed'
-                else 'At least one video viewed'
-            end as engagement_level,
-            username,
-            name,
-            email
-        from subsection_counts
-        group by
-            org,
-            course_key,
-            course_run,
-            section_with_name,
-            subsection_with_name,
-            actor_id,
-            username,
-            name,
-            email
-    ),
-    all_counts as (
-
-        select
-            org,
-            course_key,
-            course_run,
-            section_with_name as section_with_name,
-            subsection_with_name as subsection_with_name,
-            subsection_with_name as section_subsection_name,
             'subsection' as content_level,
-            actor_id as actor_id,
-            engagement_level as section_subsection_video_engagement,
-            username,
-            name,
-            email
-        from subsection_counts
-        union all
+            actor_id,
+            subsection_block_id as block_id,
+            engagement_level as section_subsection_video_engagement
+        from {{ ref("subsection_video_engagement") }}
+    ),
+    section_engagement as (
         select
             org,
             course_key,
-            course_run,
-            section_with_name as section_with_name,
-            subsection_with_name as subsection_with_name,
-            section_with_name as section_subsection_name,
             'section' as content_level,
-            actor_id as actor_id,
-            engagement_level as section_subsection_video_engagement,
-            username,
-            name,
-            email
-        from section_counts
+            actor_id,
+            section_block_id as block_id,
+            engagement_level as section_subsection_video_engagement
+        from {{ ref("section_video_engagement") }}
+    ),
+    video_engagement as (
+        select *
+        from subsection_engagement
+        union all
+        select *
+        from section_engagement
     )
 select
-    ac.org as org,
-    ac.course_key as course_key,
-    ac.course_run as course_run,
-    ac.section_with_name as section_with_name,
-    ac.subsection_with_name as subsection_with_name,
-    ac.section_subsection_name as section_subsection_name,
-    ac.content_level as content_level,
-    ac.actor_id as actor_id,
-    ac.section_subsection_video_engagement as section_subsection_video_engagement,
-    ac.username as username,
-    ac.name as name,
-    ac.email as email
-from all_counts ac
+    ve.org as org,
+    ve.course_key as course_key,
+    course_blocks.course_run as course_run,
+    course_blocks.display_name_with_location as section_subsection_name,
+    ve.content_level as content_level,
+    ve.actor_id as actor_id,
+    ve.section_subsection_video_engagement as section_subsection_video_engagement,
+    users.username as username,
+    users.name as name,
+    users.email as email
+from video_engagement ve
+join
+    {{ ref("dim_course_blocks") }} course_blocks
+    on (
+        ve.org = course_blocks.org
+        and ve.course_key = course_blocks.course_key
+        and ve.block_id = course_blocks.block_id
+    )
+left outer join
+    {{ ref("dim_user_pii") }} users on toUUID(ve.actor_id) = users.external_user_id
