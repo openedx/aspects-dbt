@@ -357,3 +357,40 @@ models:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
+
+  - name: watched_video_segments
+    description: "A dataset with one record per learner per video segment watched in a course"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: video_id
+        data_type: string
+        description: "The xAPI object identifier"
+      - name: start_position
+        data_type: int64
+        description: "The start position of the segment"
+      - name: end_position
+        data_type: int64
+        description: "The end position of the segment"
+      - name: started_at
+        data_type: datetime
+        description: "The time the video segment was started"
+      - name: ended_at
+        data_type: datetime
+        description: "The time the video segment was ended"
+      - name: emission_time
+        data_type: datetime
+        description: "The time the event was emitted"
+      - name: end_type
+        data_type: string
+        description: "The type of event that ended the video segment"
+      - name: video_duration
+        data_type: int64
+        description: "The duration of the video in seconds"
