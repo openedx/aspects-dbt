@@ -194,12 +194,21 @@ models:
       - name: subsection_with_name
         data_type: string
         description: The subsection number and name
-      - name: page_count
-        data_type: uint64
-        description: The number of pages in the associated subsection
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
+      - name: graded
+        data_type: boolean
+        description: "Whether the unit is graded"
+      - name: item_count
+        data_type: uint64
+        description: The number of pages in the associated subsection
+      - name: subsection_block_id
+        data_type: string
+        description: The unique identifier for the subsection block
+      - name: section_block_id
+        data_type: string
+        description: The unique identifier for the section block
 
   - name: fact_pageview_engagement
     description: "A view for analyzing the number of page views per learner per section and subsection"
@@ -259,3 +268,53 @@ models:
       - name: emission_time
         data_type: datetime
         description: "Timestamp, to the second, of when this event was emitted"
+
+  - name: section_page_engagement
+    description: "A record per course per section per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: section_block_id
+        data_type: string
+        description: "The unique identifier for the section block"
+      - name: engagement_level
+        data_type: string
+        description: "The engagement level of the learner with the section"
+        tests:
+          - accepted_values:
+              values:
+                - 'No problems attempted yet'
+                - 'All problems attempted'
+                - 'At least one problem attempted'
+
+  - name: subsection_page_engagement
+    description: "A record per course per subsection per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: subsection_block_id
+        data_type: string
+        description: "The unique identifier for the subsection block"
+      - name: engagement_level
+        data_type: string
+        description: "The engagement level of the learner with the subsection"
+        tests:
+          - accepted_values:
+              values:
+                - 'No pages viewed yet'
+                - 'All pages viewed'
+                - 'At least one page viewed'
