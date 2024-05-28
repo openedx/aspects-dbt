@@ -9,6 +9,20 @@
 }}
 
 with
+    plays as (
+        select
+            emission_time,
+            org,
+            course_key,
+            splitByString('/xblock/', object_id)[-1] as video_id,
+            actor_id,
+            blocks.display_name_with_location as video_name_with_location
+        from {{ ref("video_playback_events") }} plays
+        join
+            {{ ref("course_block_names") }} blocks
+            on (plays.course_key = blocks.course_key and video_id = blocks.location)
+        where verb_id = 'https://w3id.org/xapi/video/verbs/played'
+    ),
     viewed_subsection_videos as (
         select distinct
             date(emission_time) as viewed_on,
@@ -19,7 +33,7 @@ with
             as subsection_number,
             actor_id,
             video_id
-        from {{ ref("fact_video_plays") }}
+        from plays
     ),
     fact_video_engagement_per_subsection as (
         select
