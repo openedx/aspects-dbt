@@ -24,7 +24,7 @@ select
     pages.section_with_name as section_with_name,
     pages.subsection_with_name as subsection_with_name,
     pages.course_order as course_order,
-    pages.page_count as page_count,
+    pages.item_count as page_count,
     visits.actor_id as actor_id,
     visits.block_id as block_id,
     users.username as username,
