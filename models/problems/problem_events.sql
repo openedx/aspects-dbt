@@ -15,7 +15,7 @@ select
     cast(emission_time as DateTime) as emission_time,
     actor_id,
     object_id,
-    splitByString('/', course_id)[-1] as course_key,
+    course_key,
     org,
     verb_id,
     JSON_VALUE(event, '$.result.response') as responses,
@@ -25,7 +25,7 @@ select
         cast(JSON_VALUE(event, '$.result.success') as Bool),
         false
     ) as success,
-    JSON_VALUE(event, '$.object.definition.interactionType') as interaction_type,
+    toLowCardinality(JSON_VALUE(event, '$.object.definition.interactionType')) as interaction_type,
     if(
         verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated',
         cast(

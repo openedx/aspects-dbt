@@ -14,7 +14,7 @@ select
     event_id,
     CAST(emission_time, 'DateTime') as emission_time,
     org,
-    splitByString('/', course_id)[-1] as course_key,
+    course_key,
     splitByString('/xblock/', object_id)[2] as video_id,
     actor_id,
     JSONExtractBool(
@@ -25,7 +25,7 @@ select
     ) as cc_enabled
 from {{ ref("xapi_events_all_parsed") }}
 where
-    verb_id in ('http://adlnet.gov/expapi/verbs/interacted')
+    verb_id = 'http://adlnet.gov/expapi/verbs/interacted'
     and JSONHas(
         event,
         'result',

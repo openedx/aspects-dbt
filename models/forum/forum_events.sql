@@ -14,7 +14,7 @@ select
     event_id,
     CAST(emission_time, 'DateTime') as emission_time,
     org,
-    splitByString('/', course_id)[-1] as course_key,
+    course_key,
     object_id,
     actor_id,
     verb_id

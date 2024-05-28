@@ -15,13 +15,13 @@ select
     cast(emission_time as DateTime) as emission_time,
     actor_id,
     object_id,
-    splitByString('/', course_id)[-1] as course_key,
+    course_key,
     org,
     verb_id,
-    JSON_VALUE(
+    toLowCardinality(JSON_VALUE(
         event,
         '$.object.definition.extensions."https://w3id.org/xapi/acrossx/extensions/type"'
-    ) as enrollment_mode
+    )) as enrollment_mode
 from {{ ref("xapi_events_all_parsed") }}
 where
     verb_id in (

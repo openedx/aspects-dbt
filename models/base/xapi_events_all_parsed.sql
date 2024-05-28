@@ -13,7 +13,7 @@
 
 select
     event_id as event_id,
-    JSON_VALUE(event::String, '$.verb.id') as verb_id,
+    toLowCardinality(JSON_VALUE(event::String, '$.verb.id')) as verb_id,
     COALESCE(
         NULLIF(JSON_VALUE(event::String, '$.actor.account.name'), ''),
         NULLIF(JSON_VALUE(event::String, '$.actor.mbox'), ''),
@@ -23,7 +23,7 @@ select
     -- If the contextActivities parent is a course, use that. It can be a "course"
     -- type, or a "cmi.interaction" type for multiple question problem submissions.
     -- Otherwise use the object id for the course id.
-    multiIf(
+    toLowCardinality(multiIf(
         -- If the contextActivities parent is a course, use that
         JSON_VALUE(
             event::String, '$.context.contextActivities.parent[0].definition.type'
@@ -37,10 +37,11 @@ select
         JSON_VALUE(event::String, '$.context.contextActivities.grouping[0].id'),
         -- Otherwise use the object id
         JSON_VALUE(event::String, '$.object.id')
-    ) as course_id,
-    coalesce(
+    )) as course_id,
+    toLowCardinality(splitByString('/', course_id)[-1]) as course_key,
+    toLowCardinality(coalesce(
         get_org_from_course_url(course_id), get_org_from_ccx_course_url(course_id), ''
-    ) as org,
+    )) as org,
     emission_time as emission_time,
     event::String as event
 from {{ source("xapi", "xapi_events_all") }}
