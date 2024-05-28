@@ -35,7 +35,10 @@ with
 
             as subsection_number,
             actor_id,
-            block_id
+            block_id,
+            username,
+            name,
+            email
         from `xapi`.`fact_navigation`
     )
 
@@ -51,9 +54,9 @@ select
     pages.item_count as page_count,
     visits.actor_id as actor_id,
     visits.block_id as block_id,
-    users.username as username,
-    users.name as name,
-    users.email as email
+    visits.username as username,
+    visits.name as name,
+    visits.email as email
 from visited_subsection_pages visits
 join
     `xapi`.`int_pages_per_subsection` pages
@@ -63,8 +66,6 @@ join
         and visits.section_number = pages.section_number
         and visits.subsection_number = pages.subsection_number
     )
-left outer join
-    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
   )
       
       
