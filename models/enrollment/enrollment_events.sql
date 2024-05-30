@@ -18,10 +18,12 @@ select
     course_key,
     org,
     verb_id,
-    toLowCardinality(JSON_VALUE(
-        event,
-        '$.object.definition.extensions."https://w3id.org/xapi/acrossx/extensions/type"'
-    )) as enrollment_mode
+    toLowCardinality(
+        JSON_VALUE(
+            event,
+            '$.object.definition.extensions."https://w3id.org/xapi/acrossx/extensions/type"'
+        )
+    ) as enrollment_mode
 from {{ ref("xapi_events_all_parsed") }}
 where
     verb_id in (

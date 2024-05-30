@@ -25,7 +25,9 @@ select
         cast(JSON_VALUE(event, '$.result.success') as Bool),
         false
     ) as success,
-    toLowCardinality(JSON_VALUE(event, '$.object.definition.interactionType')) as interaction_type,
+    toLowCardinality(
+        JSON_VALUE(event, '$.object.definition.interactionType')
+    ) as interaction_type,
     if(
         verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated',
         cast(
