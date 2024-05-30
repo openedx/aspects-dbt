@@ -18,7 +18,10 @@ models:
         description: "The xAPI object identifier"
       - name: course_id
         data_type: string
-        description: "The course identifier"
+        description: "The fully-qualified course identifier URL"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
       - name: org
         data_type: string
         description: "The organization that the course belongs to"

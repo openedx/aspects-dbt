@@ -14,9 +14,9 @@ models:
   - name: fact_instance_events
     description: "A materialized view summarizing site-wide xAPI event activity"
     columns:
-      - name: emission_hour
-        data_type: datetime(64)
-        description: "Time of summary, rounded to the nearest hour"
+      - name: emission_day
+        data_type: datetime
+        description: "Time of summary, truncated to the day"
       - name: events_cnt
         data_type: int
         description: "The number of xAPI events that occurred in the given hour"
@@ -24,9 +24,9 @@ models:
   - name: fact_instance_actors
     description: "A materialized view summarizing site-wide user activity"
     columns:
-      - name: emission_hour
-        data_type: datetime(64)
-        description: "Time of summary, rounded to the nearest hour"
+      - name: emission_day
+        data_type: datetime
+        description: "Time of summary, truncated to the day"
       - name: actors_cnt
         data_type: int
         description: "The number of xAPI actors active in the given hour"
@@ -34,12 +34,15 @@ models:
   - name: fact_instance_enrollments
     description: "A materialized view for summarizing site-wide enrollment activity"
     columns:
-      - name: emission_hour
-        data_type: datetime(64)
-        description: "Time of summary, rounded to the nearest hour"
+      - name: emission_day
+        data_type: datetime
+        description: "Time of summary, truncated to the day"
       - name: course_name
         data_type: String
         description: "The name of the course"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
       - name: enrollment_mode
         data_type: string
         description: "The name of the enrollment mode (ex: audit, honor)"
