@@ -93,3 +93,43 @@ models:
       - name: emission_time
         data_type: datetime
         description: "The time the enrollment status was emitted"
+
+  - name: fact_current_enrollments
+    description: "One record per learner per course for the most recent enrollment status with additional learner information"
+    columns:
+      - name: emission_time
+        data_type: DateTime
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+        data_type: String
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
+      - name: actor_id
+        data_type: String
+        description: "The xAPI actor identifier"
+      - name: enrollment_mode
+        data_type: LowCardinality(String)
+        description: "The mode of enrollment"
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a course"
+        tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
+        data_type: String
+      - name: username
+        data_type: String
+        description: "The username of the learner"
+      - name: name
+        data_type: String
+        description: "The full name of the learner"
+      - name: email
+        data_type: String
+        description: "The email address of the learner"
