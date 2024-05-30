@@ -5,7 +5,7 @@
     
         
         insert into `xapi`.`fact_instance_enrollments__dbt_backup`
-        ("emission_hour", "course_name", "enrollment_mode", "enrollment_status", "course_enrollment_mode_status_cnt")
+        ("emission_day", "course_key", "enrollment_mode", "enrollment_status", "course_enrollment_mode_status_cnt")
 
 with
     enrollments as (
@@ -18,13 +18,12 @@ with
     )
 
 select
-    date_trunc('hour', emission_time) as emission_hour,
-    courses.course_name as course_name,
+    date_trunc('day', emission_time) as emission_day,
+    enrollments.course_key,
     enrollments.enrollment_mode as enrollment_mode,
     enrollments.enrollment_status as enrollment_status,
     count() as course_enrollment_mode_status_cnt
 from enrollments
-join `xapi`.`course_names` courses on enrollments.course_key = courses.course_key
-group by emission_hour, course_name, enrollment_mode, enrollment_status
+group by emission_day, course_key, enrollment_mode, enrollment_status
   
   

@@ -13,7 +13,7 @@ select
     CAST(emission_time, 'DateTime') as emission_time,
     actor_id,
     object_id,
-    splitByString('/', course_id)[-1] as course_key,
+    course_key,
     org,
     verb_id,
     JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score
