@@ -1,14 +1,26 @@
 with
-    enrollments as (
+    all_enrollment as (
         select
-            org, course_key, actor_id, enrollment_status, enrollment_mode, emission_time
+            course_key,
+            actor_id,
+            enrollment_mode,
+            enrollment_status,
+            emission_time,
+            row_number() over (
+                partition by course_key, actor_id order by emission_time desc
+            ) as rn
         from {{ ref("fact_enrollment_status") }}
+    ),
+    enrollments as (
+        select course_key, actor_id, enrollment_status, enrollment_mode, emission_time
+        from all_enrollment
+        where rn = 1
     )
 
 select
     enrollments.emission_time as emission_time,
-    enrollments.org as org,
-    enrollments.course_key as course_key,
+    courses.org as org,
+    courses.course_key as course_key,
     courses.course_name as course_name,
     courses.course_run as course_run,
     enrollments.actor_id as actor_id,
