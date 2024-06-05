@@ -37,4 +37,4 @@ select
         event, 'context', 'extensions', 'http://id.tincanapi.com/extension/ending-point'
     ) as ending_point
 from {{ ref("xapi_events_all_parsed") }}
-where verb_id in ('https://w3id.org/xapi/dod-isd/verbs/navigated')
+where verb_id = 'https://w3id.org/xapi/dod-isd/verbs/navigated'

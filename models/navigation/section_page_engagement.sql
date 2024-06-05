@@ -3,47 +3,31 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key)",
         order_by="(org, course_key, section_block_id, actor_id)",
     )
 }}
 
 with
-    fact_navigation as (
-        select
-            navigation.emission_time as emission_time,
-            navigation.org as org,
-            navigation.course_key as course_key,
-            navigation.actor_id as actor_id,
-            navigation.block_id as block_id,
-            blocks.display_name_with_location as block_name_with_location
-        from {{ ref("navigation_events") }} navigation
-        join
-            {{ ref("dim_course_blocks") }} blocks
-            on (
-                navigation.course_key = blocks.course_key
-                and navigation.block_id = blocks.block_id
-            )
-    ),
     visited_subsection_pages as (
         select distinct
             date(emission_time) as visited_on,
             org,
             course_key,
-            {{ section_from_display("block_name_with_location") }} as section_number,
-            {{ subsection_from_display("block_name_with_location") }}
-            as subsection_number,
+            section_name_with_location,
+            subsection_name_with_location,
             actor_id,
             block_id
-        from fact_navigation
+        from {{ ref("fact_navigation") }}
     ),
     fact_navigation_completion as (
         select
             visits.visited_on as visited_on,
             visits.org as org,
             visits.course_key as course_key,
-            pages.section_with_name as section_with_name,
-            pages.subsection_with_name as subsection_with_name,
+            pages.section_block_id as section_block_id,
+            pages.section_name_with_location as section_name_with_location,
+            pages.subsection_block_id as subsection_block_id,
+            pages.subsection_name_with_location as subsection_name_with_location,
             pages.item_count as item_count,
             visits.actor_id as actor_id,
             visits.block_id as block_id,
@@ -54,16 +38,16 @@ with
             on (
                 visits.org = pages.org
                 and visits.course_key = pages.course_key
-                and visits.section_number = pages.section_number
-                and visits.subsection_number = pages.subsection_number
+                and visits.section_name_with_location = pages.section_name_with_location
+                and visits.subsection_name_with_location = pages.subsection_name_with_location
             )
     ),
     subsection_counts as (
         select
             org,
             course_key,
-            section_with_name,
-            subsection_with_name,
+            section_name_with_location,
+            subsection_name_with_location,
             actor_id,
             item_count,
             count(distinct block_id) as pages_visited,
@@ -79,8 +63,8 @@ with
         group by
             org,
             course_key,
-            section_with_name,
-            subsection_with_name,
+            section_name_with_location,
+            subsection_name_with_location,
             actor_id,
             item_count,
             section_block_id
