@@ -7,20 +7,15 @@ select
     navigation.actor_id as actor_id,
     navigation.block_id as block_id,
     blocks.block_name as block_name,
-    blocks.display_name_with_location as block_name_with_location,
+    blocks.display_name_with_location as display_name_with_location,
     blocks.course_order as course_order,
+    blocks.section_id,
+    blocks.subsection_id,
+    blocks.section_name_with_location as section_name_with_location,
+    blocks.subsection_name_with_location as subsection_name_with_location,
     navigation.object_type as object_type,
     navigation.starting_position as starting_position,
-    navigation.ending_point as ending_point,
-    users.username as username,
-    users.name as name,
-    users.email as email
+    navigation.ending_point as ending_point
 from {{ ref("navigation_events") }} navigation
-join
-    {{ ref("dim_course_blocks") }} blocks
-    on (
-        navigation.course_key = blocks.course_key
-        and navigation.block_id = blocks.block_id
-    )
-left outer join
-    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+join {{ ref("dim_course_blocks") }} blocks on
+    navigation.block_id = blocks.block_id

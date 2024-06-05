@@ -7,14 +7,10 @@ with
             course_key,
             course_name,
             course_run,
-            {{ section_from_display("block_name_with_location") }} as section_number,
-            {{ subsection_from_display("block_name_with_location") }}
-            as subsection_number,
+            section_name_with_location,
+            subsection_name_with_location,
             actor_id,
-            block_id,
-            username,
-            name,
-            email
+            block_id
         from {{ ref("fact_navigation") }}
     )
 
@@ -24,21 +20,18 @@ select
     visits.course_key as course_key,
     visits.course_name as course_name,
     visits.course_run as course_run,
-    pages.section_with_name as section_with_name,
-    pages.subsection_with_name as subsection_with_name,
+    pages.section_name_with_location as section_name_with_location,
+    pages.subsection_name_with_location as subsection_name_with_location,
     pages.course_order as course_order,
     pages.item_count as page_count,
     visits.actor_id as actor_id,
-    visits.block_id as block_id,
-    visits.username as username,
-    visits.name as name,
-    visits.email as email
+    visits.block_id as block_id
 from visited_subsection_pages visits
 join
     {{ ref("int_pages_per_subsection") }} pages
     on (
         visits.org = pages.org
         and visits.course_key = pages.course_key
-        and visits.section_number = pages.section_number
-        and visits.subsection_number = pages.subsection_number
+        and visits.section_name_with_location = pages.section_name_with_location
+        and visits.subsection_name_with_location = pages.subsection_name_with_location
     )

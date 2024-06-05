@@ -25,25 +25,19 @@ select
     blocks.block_name as problem_name,
     blocks.display_name_with_location as problem_name_with_location,
     {{ a_tag("responses.object_id", "blocks.block_name") }} as problem_link,
+    blocks.section_block_id as section_block_id,
+    blocks.subsection_block_id as subsection_block_id,
     blocks.graded as graded,
     course_order as course_order,
     responses.actor_id as actor_id,
     responses.responses as responses,
     responses.success as success,
     responses.attempts as attempts,
-    responses.interaction_type as interaction_type,
-    users.username as username,
-    users.name as name,
-    users.email as email
+    responses.interaction_type as interaction_type
 from responses
 join
     {{ ref("dim_course_blocks") }} blocks
-    on (
-        responses.course_key = blocks.course_key
-        and responses.problem_id = blocks.block_id
-    )
-left outer join
-    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+    on responses.problem_id = blocks.block_id
 group by
     -- multi-part questions include an extra record for the response to the first
     -- part of the question. this group by clause eliminates the duplicate record
@@ -56,13 +50,12 @@ group by
     problem_name,
     problem_name_with_location,
     problem_link,
+    section_block_id,
+    subsection_block_id,
     actor_id,
     responses,
     success,
     attempts,
     course_order,
     graded,
-    interaction_type,
-    username,
-    name,
-    email
+    interaction_type
