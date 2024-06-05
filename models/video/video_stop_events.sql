@@ -3,20 +3,19 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, verb_id)",
-        order_by="(org, course_key, verb_id, emission_time, actor_id, video_position, event_id)",
+        order_by="(org, course_key, video_id, verb_id, emission_time, actor_id, video_position)",
         partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
     )
 }}
 
 select
+    org,
+    course_key,
+    splitByString('/xblock/', object_id)[-1] as video_id,
     event_id,
     CAST(emission_time, 'DateTime') as emission_time,
     actor_id,
-    object_id,
-    course_key,
-    org,
     verb_id,
     ceil(
         CAST(
@@ -35,7 +34,7 @@ select
                     ),
                     ''
                 ),
-                '0.0'
+                '0'
             ),
             'Decimal32(2)'
         )
@@ -47,12 +46,10 @@ from {{ ref("xapi_events_all_parsed") }}
 where
     (
         verb_id in (
-            'http://adlnet.gov/expapi/verbs/completed',
-            'http://adlnet.gov/expapi/verbs/initialized',
-            'http://adlnet.gov/expapi/verbs/terminated',
-            'https://w3id.org/xapi/video/verbs/paused',
-            'https://w3id.org/xapi/video/verbs/played',
-            'https://w3id.org/xapi/video/verbs/seeked'
+                'http://adlnet.gov/expapi/verbs/completed',
+                'https://w3id.org/xapi/video/verbs/seeked',
+                'https://w3id.org/xapi/video/verbs/paused',
+                'http://adlnet.gov/expapi/verbs/terminated'
         )
     )
     and (object_id like '%video+block%')

@@ -3,7 +3,6 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key)",
         order_by="(org, course_key, section_block_id, actor_id)",
     )
 }}
@@ -35,7 +34,9 @@ with
             blocks.display_name_with_location as problem_name_with_location,
             {{ a_tag("responses.object_id", "blocks.block_name") }} as problem_link,
             blocks.graded as graded,
-            course_order as course_order,
+            blocks.section_block_id as section_block_id,
+            blocks.subsection_block_id as subsection_block_id,
+            blocks.course_order as course_order,
             responses.actor_id as actor_id,
             responses.responses as responses,
             responses.success as success,
@@ -61,6 +62,8 @@ with
             problem_name,
             problem_name_with_location,
             problem_link,
+            section_block_id,
+            subsection_block_id,
             actor_id,
             responses,
             success,
@@ -74,9 +77,8 @@ with
             date(emission_time) as attempted_on,
             org,
             course_key,
-            {{ section_from_display("problem_name_with_location") }} as section_number,
-            {{ subsection_from_display("problem_name_with_location") }}
-            as subsection_number,
+            section_block_id,
+            subsection_block_id,
             course_order as course_order,
             graded,
             actor_id,
@@ -87,8 +89,8 @@ with
         select
             attempts.org as org,
             attempts.course_key as course_key,
-            problems.section_with_name as section_with_name,
-            problems.subsection_with_name as subsection_with_name,
+            problems.section_name_with_location as section_name_with_location,
+            problems.subsection_name_with_location as subsection_name_with_location,
             problems.item_count as item_count,
             attempts.actor_id as actor_id,
             attempts.problem_id as problem_id,
@@ -96,19 +98,15 @@ with
         from attempted_subsection_problems attempts
         join
             {{ ref("int_problems_per_subsection") }} problems
-            on (
-                attempts.org = problems.org
-                and attempts.course_key = problems.course_key
-                and attempts.section_number = problems.section_number
-                and attempts.subsection_number = problems.subsection_number
-            )
+            on attempts.section_block_id = problems.section_block_id
+            and attempts.subsection_block_id = problems.subsection_block_id
     ),
     subsection_counts as (
         select
             org,
             course_key,
-            section_with_name,
-            subsection_with_name,
+            section_name_with_location,
+            subsection_name_with_location,
             actor_id,
             item_count,
             count(distinct problem_id) as problems_attempted,
@@ -124,8 +122,8 @@ with
         group by
             org,
             course_key,
-            section_with_name,
-            subsection_with_name,
+            section_name_with_location,
+            subsection_name_with_location,
             actor_id,
             item_count,
             section_block_id
