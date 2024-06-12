@@ -8,8 +8,7 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, problem_id)",
-        order_by="(org, course_key, problem_id, actor_id)",
+        order_by="(problem_id, actor_id)",
         partition_by="toYYYYMM(emission_time)",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
     )
@@ -17,19 +16,16 @@
 
 with
     responses as (
-        select emission_time, org, course_key, object_id, problem_id, actor_id, success
-        from {{ ref("problem_events") }}
-        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
-    ),
-    response_status as (
         select
             org,
             course_key,
             problem_id,
             actor_id,
             MIN(case when success then emission_time else NULL end) as first_success_at,
-            MAX(emission_time) as last_attempt_at
-        from responses
+            MAX(emission_time) as last_attempt_at,
+            MAX(attempts) as attempts
+        from {{ ref("problem_events") }}
+        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
         group by org, course_key, problem_id, actor_id
     )
 select
@@ -39,5 +35,6 @@ select
     actor_id,
     first_success_at,
     last_attempt_at,
+    attempts,
     coalesce(first_success_at, last_attempt_at) as emission_time
-from response_status
+from responses
