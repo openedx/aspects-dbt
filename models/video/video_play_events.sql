@@ -45,4 +45,3 @@ select
     ) as video_duration
 from {{ ref("xapi_events_all_parsed") }}
 where verb_id = 'https://w3id.org/xapi/video/verbs/played'
-    and object_id like '%video+block%'
