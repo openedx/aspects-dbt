@@ -328,7 +328,7 @@ models:
         description: "The engagement level of the learner with the section"
         data_tests:
           - accepted_values_xapi:
-              values: 
+              values:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
@@ -354,7 +354,7 @@ models:
         description: "The engagement level of the learner with the subsection"
         data_tests:
           - accepted_values_xapi:
-              values: 
+              values:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'

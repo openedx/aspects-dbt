@@ -289,7 +289,7 @@ models:
         description: "The engagement level of the learner with the section"
         data_tests:
           - accepted_values_xapi:
-              values: 
+              values:
                 - 'No pages viewed yet'
                 - 'All pages viewed'
                 - 'At least one page viewed'
@@ -315,7 +315,7 @@ models:
         description: "The engagement level of the learner with the subsection"
         data_tests:
           - accepted_values_xapi:
-              values: 
+              values:
                 - 'No pages viewed yet'
                 - 'All pages viewed'
                 - 'At least one page viewed'
