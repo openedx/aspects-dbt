@@ -35,12 +35,14 @@ jobs:
           pip install -r requirements.txt
           dbt deps
       - name: Initialize Open edX
-        continue-on-error: true
+        continue-on-error: false
         run: |
           tutor plugins enable aspects
           tutor config save
-          tutor local start -d
-          tutor local do init -l aspects
+          tutor local start ralph -d
+          tutor local do init-clickhouse
+          tutor local do alembic -c "upgrade head"
+          tutor local do dbt
           tutor local do load-xapi-test-data
       - name: Check docs coverage
         run: |
