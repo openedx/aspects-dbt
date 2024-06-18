@@ -30,7 +30,7 @@ models:
         description: "The entity's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: grade_type
         description: "The type of object graded"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["course", "subsection", "problem"]
         data_type: Nullable(String)
@@ -91,7 +91,7 @@ models:
       - name: approving_state
         data_type: string
         description: "The most recent approving_state of the learner's grade"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["passed", "failed"]
 
@@ -149,7 +149,7 @@ models:
         description: "The mode of enrollment"
       - name: enrollment_status
         description: "Whether a learner is actively enrolled in a course"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["registered", "unregistered"]
       - name: course_grade
