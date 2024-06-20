@@ -102,7 +102,7 @@ models:
       - name: rollup_name
         data_type: string
         description: "The level at which page views are counted"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["section", "subsection"]
       - name: block_name
@@ -234,7 +234,7 @@ models:
       - name: content_level
         data_type: string
         description: "The level at which page views are counted"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["section", "subsection"]
       - name: actor_id
@@ -287,12 +287,13 @@ models:
       - name: engagement_level
         data_type: string
         description: "The engagement level of the learner with the section"
-        tests:
-          - accepted_values:
+        data_tests:
+          - accepted_values_xapi:
               values:
-                - 'No problems attempted yet'
-                - 'All problems attempted'
-                - 'At least one problem attempted'
+                - 'No pages viewed yet'
+                - 'All pages viewed'
+                - 'At least one page viewed'
+              table: 'xapi.section_page_engagement'
 
   - name: subsection_page_engagement
     description: "A record per course per subsection per learner with their engagement level"
@@ -312,9 +313,10 @@ models:
       - name: engagement_level
         data_type: string
         description: "The engagement level of the learner with the subsection"
-        tests:
-          - accepted_values:
+        data_tests:
+          - accepted_values_xapi:
               values:
                 - 'No pages viewed yet'
                 - 'All pages viewed'
                 - 'At least one page viewed'
+              table: 'xapi.subsection_page_engagement'

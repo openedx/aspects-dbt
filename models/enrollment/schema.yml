@@ -27,7 +27,7 @@ models:
         description: "The mode of enrollment"
       - name: enrollment_status
         description: "Whether a learner is actively enrolled in a course"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["registered", "unregistered"]
         data_type: String
@@ -84,7 +84,7 @@ models:
       - name: enrollment_status
         data_type: string
         description: "Whether a learner is actively enrolled in a course"
-        tests:
+        data_tests:
           - accepted_values:
               values: ["registered", "unregistered"]
       - name: enrollment_mode
