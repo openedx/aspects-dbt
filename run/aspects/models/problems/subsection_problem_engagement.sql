@@ -1,7 +1,11 @@
-create materialized view if not exists `xapi`.`subsection_problem_engagement_mv` 
+
   
-  to `xapi`.`subsection_problem_engagement`
-  as 
+    
+    
+    
+        
+        insert into `xapi`.`subsection_problem_engagement__dbt_backup`
+        ("org", "course_key", "actor_id", "subsection_block_id", "engagement_level")
 
 with
     responses as (
@@ -149,3 +153,5 @@ with
 
 select org, course_key, actor_id, subsection_block_id, engagement_level
 from subsection_counts
+  
+  

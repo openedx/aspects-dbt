@@ -1,7 +1,11 @@
-create materialized view if not exists `xapi`.`responses_mv` 
+
   
-  to `xapi`.`responses`
-  as -- select one record per (learner, problem, course, org) tuple
+    
+    
+    
+        
+        insert into `xapi`.`responses__dbt_backup`
+        ("org", "course_key", "problem_id", "actor_id", "first_success_at", "last_attempt_at", "emission_time")-- select one record per (learner, problem, course, org) tuple
 -- contains either the first successful attempt
 -- or the most recent unsuccessful attempt
 -- find the timestamp of the earliest successful response
@@ -34,3 +38,5 @@ select
     last_attempt_at,
     coalesce(first_success_at, last_attempt_at) as emission_time
 from response_status
+  
+  

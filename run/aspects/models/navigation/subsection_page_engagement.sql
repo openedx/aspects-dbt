@@ -1,7 +1,11 @@
-create materialized view if not exists `xapi`.`subsection_page_engagement_mv` 
+
   
-  to `xapi`.`subsection_page_engagement`
-  as 
+    
+    
+    
+        
+        insert into `xapi`.`subsection_page_engagement__dbt_backup`
+        ("org", "course_key", "actor_id", "subsection_block_id", "engagement_level")
 
 with
     fact_navigation as (
@@ -100,3 +104,5 @@ with
 
 select org, course_key, actor_id, subsection_block_id, engagement_level
 from subsection_counts
+  
+  
