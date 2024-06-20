@@ -42,6 +42,10 @@ jobs:
           tutor local start -d
           tutor local do init -l aspects
           tutor local do load-xapi-test-data
+      - name: Check dbt tests
+        run: |
+          dbt run
+          dbt test
       - name: Check docs coverage
         run: |
           dbt run
