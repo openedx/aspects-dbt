@@ -1,7 +1,7 @@
 -- Return an ON CLUSTER clause if we are running dbt against a cluster
 {% macro on_cluster() -%}
     {%- if env_var("CLICKHOUSE_CLUSTER_NAME", "") != "" -%}
-    ON CLUSTER {{ env_var("CLICKHOUSE_CLUSTER_NAME") }}
+    ON CLUSTER "{{ env_var("CLICKHOUSE_CLUSTER_NAME") }}"
   {%- endif -%}
 {%- endmacro %}
 

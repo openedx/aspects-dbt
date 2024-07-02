@@ -1,4 +1,4 @@
-dbt-clickhouse==1.7.6
+git+https://github.com/bmtcril/dbt-clickhouse@bmtcril/cluster_dictionaries
 dbt-core==1.7.15
 shandy-sqlfmt[jinjafmt]==0.21.2
 dbt-coverage
