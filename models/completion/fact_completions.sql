@@ -28,27 +28,7 @@ select
     ) as entity_name_with_location,
     completions.actor_id as actor_id,
     cast(completions.scaled_progress as Float) as scaled_progress,
-    case
-        when scaled_progress >= 0.9
-        then '90-100%'
-        when scaled_progress >= 0.8 and scaled_progress < 0.9
-        then '80-89%'
-        when scaled_progress >= 0.7 and scaled_progress < 0.8
-        then '70-79%'
-        when scaled_progress >= 0.6 and scaled_progress < 0.7
-        then '60-69%'
-        when scaled_progress >= 0.5 and scaled_progress < 0.6
-        then '50-59%'
-        when scaled_progress >= 0.4 and scaled_progress < 0.5
-        then '40-49%'
-        when scaled_progress >= 0.3 and scaled_progress < 0.4
-        then '30-39%'
-        when scaled_progress >= 0.2 and scaled_progress < 0.3
-        then '20-29%'
-        when scaled_progress >= 0.1 and scaled_progress < 0.2
-        then '10-19%'
-        else '0-9%'
-    end as completion_bucket,
+    {{ get_bucket("scaled_progress") }} as completion_bucket,
     users.username as username,
     users.name as name,
     users.email as email
