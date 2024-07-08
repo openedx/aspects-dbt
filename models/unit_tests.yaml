@@ -10,14 +10,34 @@ unit_tests:
         format: csv
         fixture: enrollment_events_input
       - input: ref('course_names')
-        format: sql
-        rows: |
-          select * from event_sink.course_names
+        format: csv
+        fixture: course_names
       - input: ref('dim_user_pii')
-        format: sql
-        rows: |
-          select * from reporting.dim_user_pii
+        format: csv
+        fixture: dim_user_pii
 
     expect:
-      format: csv
+      format: sql
+      fixture: enrollment_events_expected
+
+
+  - name: test_fact_completions
+    model: fact_completions
+
+    config:
+      tags: 'ci'
+
+    given:
+      - input: ref('enrollment_events')
+        format: csv
+        fixture: enrollment_events_input
+      - input: ref('course_names')
+        format: csv
+        fixture: course_names
+      - input: ref('dim_user_pii')
+        format: csv
+        fixture: dim_user_pii
+
+    expect:
+      format: sql
       fixture: enrollment_events_expected

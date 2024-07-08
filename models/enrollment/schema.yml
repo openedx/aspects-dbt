@@ -32,13 +32,13 @@ models:
               values: ["registered", "unregistered"]
         data_type: String
       - name: username
-        data_type: String
+        data_type: Nullable(String)
         description: "The username of the learner"
       - name: name
-        data_type: String
+        data_type: Nullable(String)
         description: "The full name of the learner"
       - name: email
-        data_type: String
+        data_type: Nullable(String)
         description: "The email address of the learner"
 
   - name: enrollment_events
