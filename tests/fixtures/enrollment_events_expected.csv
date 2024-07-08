@@ -1,0 +1,10 @@
+emission_time,username,name,email,org,course_key,course_name,course_run,actor_id,enrollment_mode,enrollment_status
+2023-11-03 20:49:47, , , ,edX,course-v1:edX+DemoX+Demo_Course,Demonstration Course,Demo_Course,d234a4c0-f228-4740-8e65-aef2efd6beac,audit,registered
+2023-11-03 20:49:59, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,d234a4c0-f228-4740-8e65-aef2efd6beac,audit,registered
+2023-11-03 20:50:04, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,aa9a6448-3f81-4650-8e52-9e2e40f81eb3,audit,registered
+2023-11-09 10:29:22, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,4bac1804-edd9-47a6-ba77-4ddc685f7c31,audit,registered
+2023-11-13 19:36:53, , , ,edX,course-v1:edX+DemoX+Demo_Course,Demonstration Course,Demo_Course,691e3830-1d06-4830-a581-38f8fa409a49,audit,registered
+2024-05-05 05:06:45, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,0148b552-b2c2-4a1d-a8c8-09b730784ff8,audit,registered
+2024-05-20 14:35:49, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,88f320b5-02b5-4aa6-8b83-c83b39020d06,audit,registered
+2024-05-29 15:54:29, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,35746be4-62c8-4d75-81de-3b8df9902ff3,audit,registered
+2024-05-29 18:30:46, , , ,UMONTREAL,course-v1:UMONTREAL+GPT101+2023_01,ChatGPT pour tous,2023_01,1f56e33b-fe11-4edf-9f1c-322d3913846c,audit,registered
