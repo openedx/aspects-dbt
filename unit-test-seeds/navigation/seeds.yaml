@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: fact_navigation_completion_expected
+    config:
+      column_types:
+        page_count: UInt64

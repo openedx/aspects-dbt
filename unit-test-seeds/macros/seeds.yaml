@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: items_per_subsection_expected
+    config:
+      column_types:
+        item_count: UInt64

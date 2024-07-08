@@ -19,7 +19,7 @@ select
     org,
     verb_id,
     JSON_VALUE(event, '$.result.response') as responses,
-    JSON_VALUE(event, '$.result.score.scaled') as scaled_score,
+    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score,
     if(
         verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated',
         cast(JSON_VALUE(event, '$.result.success') as Bool),

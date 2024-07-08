@@ -1,0 +1,14 @@
+unit_tests:
+  - name: test_xapi_events_all_parsed
+    model: xapi_events_all_parsed
+    config:
+      tags: 'ci'
+    given:
+      - input: source("xapi", "xapi_events_all")
+        format: sql
+        rows: |
+          select * from {{target.schema}}.xapi_events_all
+    expect:
+      format: sql
+      rows: |
+        select * from xapi_events_all_parsed_expected

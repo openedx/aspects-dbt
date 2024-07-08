@@ -33,6 +33,16 @@ Running dbt
 
 ``dbt run`` will compile and create the models defined in the "aspects" dbt project. By default, dbt will look in the ``xapi`` schema to find source tables. The ``XAPI_SCHEMA`` environment variable can be used to specify a different schema.
 
+Testing
+*******
+
+``dbt test`` will run all data AND unit tests and any tests in the 'tests' directory (generic tests).
+- These require tables to be seeded first. To do this, add 'unit-test-seeds' to ``seed-paths:`` in ``dbt_project.yml`` and run ``dbt seed --full-refresh``.
+
+``dbt test --selector ci_unit_tests`` will run all unit tests tagged with 'ci'. 
+``dbt test --selector non_unit_tests`` will run only data & generic tests.
+
+
 More Help
 =========
 

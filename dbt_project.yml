@@ -11,10 +11,10 @@ profile: "aspects"
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
-model-paths: ["models"]
+model-paths: ["models",'ci-models']
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-seed-paths: ["seeds"]
+seed-paths: ["seeds","ci-seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
@@ -34,3 +34,10 @@ models:
     # Config indicated by + and applies to all files under models/example/
     enrollment:
       +materialized: view
+
+# These are for unit test seeds. They will be used when 'unit-test-seeds' is added 
+# to seed-paths above or when CI tests run
+seeds:
+  aspects:
+    +column_types:
+      event_id: UUID

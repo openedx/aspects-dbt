@@ -5,74 +5,74 @@ models:
     description: "A materialized view for xAPI events related to course navigation"
     columns:
       - name: event_id
-        data_type: uuid
+        data_type: UUID
         description: "The unique identifier for the event"
       - name: emission_time
-        data_type: datetime
+        data_type: DateTime
         description: "Timestamp, to the second, of when this event was emitted"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: block_id
-        data_type: string
+        data_type: String
         description: "The LMS object identifier"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course identifier"
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: verb_id
-        data_type: string
+        data_type: String
         description: "The xAPI verb identifier"
       - name: object_type
-        data_type: string
+        data_type: String
         description: "The type of object that the learner interacted with"
       - name: starting_position
-        data_type: int64
+        data_type: Int64
         description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"
       - name: ending_point
-        data_type: string
+        data_type: String
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
 
   - name: fact_navigation
     description: "A view of navigation_events enriched with course and block metadata"
     columns:
       - name: emission_time
-        data_type: datetime
+        data_type: DateTime
         description: "Timestamp, to the second, of when this event was emitted"
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course identifier"
       - name: course_name
-        data_type: string
+        data_type: String
         description: "The name of the course"
       - name: course_run
-        data_type: string
+        data_type: String
         description: "The course run for the course"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: block_id
-        data_type: string
+        data_type: String
         description: "The LMS object identifier"
       - name: block_name
-        data_type: string
+        data_type: String
         description: "The block's name"
       - name: block_name_with_location
-        data_type: string
+        data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: object_type
-        data_type: string
+        data_type: String
         description: "The type of object that the learner interacted with"
       - name: starting_position
-        data_type: int64
+        data_type: Int64
         description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"
       - name: ending_point
-        data_type: string
+        data_type: String
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
       - name: username
         data_type: String
@@ -131,34 +131,34 @@ models:
     description: "A view for analyzing how many pages a learner has visited in a section or subsection"
     columns:
       - name: visited_on
-        data_type: date
-        description: "The date the page was visited"
+        data_type: Date
+        description: "The Date the page was visited"
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course identifier"
       - name: course_name
-        data_type: string
+        data_type: String
         description: "The course name"
       - name: course_run
-        data_type: string
+        data_type: String
         description: "The course run for the course"
       - name: section_with_name
-        data_type: string
+        data_type: String
         description: "The name of the section"
       - name: subsection_with_name
-        data_type: string
+        data_type: String
         description: "The name of the subsection"
       - name: page_count
-        data_type: uint64
+        data_type: UInt64
         description: "The number of pages in the associated subsection"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: block_id
-        data_type: string
+        data_type: String
         description: "The ID of the specific page visited"
       - name: username
         data_type: String
@@ -177,71 +177,71 @@ models:
     description: "A view for analyzing the number of pages in each subsection"
     columns:
       - name: org
-        data_type: string
+        data_type: String
         description: The organization that the course belongs to
       - name: course_key
-        data_type: string
+        data_type: String
         description: The course identifier
       - name: section_number
-        data_type: string
+        data_type: String
         description: The section number
       - name: section_with_name
-        data_type: string
+        data_type: String
         description: The section number and name
       - name: subsection_number
-        data_type: string
+        data_type: String
         description: The subsection number
       - name: subsection_with_name
-        data_type: string
+        data_type: String
         description: The subsection number and name
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
       - name: graded
-        data_type: boolean
+        data_type: Boolean
         description: "Whether the unit is graded"
       - name: item_count
-        data_type: uint64
+        data_type: UInt64
         description: The number of pages in the associated subsection
       - name: subsection_block_id
-        data_type: string
+        data_type: String
         description: The unique identifier for the subsection block
       - name: section_block_id
-        data_type: string
+        data_type: String
         description: The unique identifier for the section block
 
   - name: fact_pageview_engagement
     description: "A view for analyzing the number of page views per learner per section and subsection"
     columns:
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course identifier"
       - name: course_run
-        data_type: string
+        data_type: String
         description: "The course run for the course"
       - name: section_with_name
-        data_type: string
+        data_type: String
         description: "The name of the section"
       - name: subsection_with_name
-        data_type: string
+        data_type: String
         description: "The name of the subsection"
       - name: section_subsection_name
-        data_type: string
+        data_type: String
         description: "The name of the section or subsection"
       - name: content_level
-        data_type: string
+        data_type: String
         description: "The level at which page views are counted"
         data_tests:
           - accepted_values:
               values: ["section", "subsection"]
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: section_subsection_page_engagement
-        data_type: uint64
+        data_type: UInt64
         description: "The total number of times a learner viewed pages in this section or subsection"
       - name: username
         data_type: String
@@ -257,35 +257,35 @@ models:
     description: "A materialized view that stores a learners last navigation event timestamp for a course"
     columns:
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course identifier"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: emission_time
-        data_type: datetime
+        data_type: DateTime
         description: "Timestamp, to the second, of when this event was emitted"
 
   - name: section_page_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course key for the course"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: section_block_id
-        data_type: string
+        data_type: String
         description: "The unique identifier for the section block"
       - name: engagement_level
-        data_type: string
+        data_type: String
         description: "The engagement level of the learner with the section"
         data_tests:
           - accepted_values_xapi:
@@ -299,19 +299,19 @@ models:
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course key for the course"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: subsection_block_id
-        data_type: string
+        data_type: String
         description: "The unique identifier for the subsection block"
       - name: engagement_level
-        data_type: string
+        data_type: String
         description: "The engagement level of the learner with the subsection"
         data_tests:
           - accepted_values_xapi:

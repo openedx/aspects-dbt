@@ -5,37 +5,37 @@ models:
     description: "A materialized view summarizing site-wide course activity"
     columns:
       - name: emission_hour
-        data_type: datetime(64)
+        data_type: DateTime(64)
         description: "Time of summary, rounded to the nearest hour"
       - name: courses_cnt
-        data_type: int
+        data_type: Int
         description: "The number of xAPI courses active in the given hour"
 
   - name: fact_instance_events
     description: "A materialized view summarizing site-wide xAPI event activity"
     columns:
       - name: emission_day
-        data_type: datetime
+        data_type: DateTime
         description: "Time of summary, truncated to the day"
       - name: events_cnt
-        data_type: int
+        data_type: Int
         description: "The number of xAPI events that occurred in the given hour"
 
   - name: fact_instance_actors
     description: "A materialized view summarizing site-wide user activity"
     columns:
       - name: emission_day
-        data_type: datetime
+        data_type: DateTime
         description: "Time of summary, truncated to the day"
       - name: actors_cnt
-        data_type: int
+        data_type: Int
         description: "The number of xAPI actors active in the given hour"
 
   - name: fact_instance_enrollments
     description: "A materialized view for summarizing site-wide enrollment activity"
     columns:
       - name: emission_day
-        data_type: datetime
+        data_type: DateTime
         description: "Time of summary, truncated to the day"
       - name: course_name
         data_type: String
@@ -44,15 +44,15 @@ models:
         data_type: String
         description: "The course key for the course"
       - name: enrollment_mode
-        data_type: string
+        data_type: String
         description: "The name of the enrollment mode (ex: audit, honor)"
       - name: enrollment_status
-        data_type: string
+        data_type: String
         description: "The type of enrollment event  (ex: registered, unregistered)"
         data_tests:
           - accepted_values_xapi:
               values: [ "registered", "unregistered" ]
               table: 'xapi.fact_instance_enrollments'
       - name: course_enrollment_mode_status_cnt
-        data_type: int
+        data_type: Int
         description: "The number of enrollment events for this mode that occurred in the given hour"

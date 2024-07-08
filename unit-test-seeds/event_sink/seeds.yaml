@@ -1,0 +1,20 @@
+version: 2
+
+seeds:
+  - name: course_blocks
+    config:
+      schema: event_sink
+      column_types:
+        dump_id: UUID
+  - name: course_overviews
+    config:
+      schema: event_sink
+  - name: external_id
+    config:
+      schema: event_sink
+  - name: user_profile
+    config:
+      schema: event_sink
+  - name: xapi_events_all
+    config:
+      schema: xapi

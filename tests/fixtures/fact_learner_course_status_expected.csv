@@ -1,0 +1,4 @@
+"org","course_key","actor_id","emission_time","approving_state"
+"Org1","course-v1:Org1+DemoX+1937e7","3f5c36e9-d6ac-422d-9c83-ca3f1d38aa71","2021-07-27 06:30:19","passed"
+"Org3","course-v1:Org3+DemoX+528fdd","465fe6bb-9894-4480-b8ef-e54d97d77fea","2019-11-20 13:49:47","passed"
+"Org8","course-v1:Org8+DemoX+3fefec","c9d7fefc-f8bd-4162-8a2c-bdba6da6b624","2021-04-20 03:12:51","passed"

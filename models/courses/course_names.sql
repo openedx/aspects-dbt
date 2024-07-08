@@ -10,7 +10,7 @@
         ],
         primary_key="course_key",
         layout="COMPLEX_KEY_HASHED()",
-        lifetime="120",
+        lifetime=env_var("ASPECTS_COURSE_NAME_CACHE_LIFETIME", "120"),
         source_type="clickhouse",
         connection_overrides={
             "host": "localhost",
@@ -24,7 +24,11 @@ with
         from {{ source("event_sink", "course_overviews") }}
         group by org, course_key
     )
-select course_key, display_name, splitByString('+', course_key)[-1] as course_run, org
+select
+    course_key,
+    display_name as course_name,
+    splitByString('+', course_key)[-1] as course_run,
+    org
 from {{ source("event_sink", "course_overviews") }} co
 inner join
     most_recent_overviews mro

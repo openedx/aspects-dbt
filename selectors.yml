@@ -1,0 +1,12 @@
+selectors:
+  - name: ci_unit_tests
+    definition: 
+      method: tag
+      value: ci
+
+  - name: non_unit_tests
+    definition: 
+      method: fqn
+      value: "*"
+      exclude:
+        - "@test_type:unit"

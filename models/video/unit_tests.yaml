@@ -1,0 +1,154 @@
+unit_tests:
+  - name: test_video_transcript_events
+    model: video_transcript_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select * from xapi_events_all_parsed
+    expect:
+      format: csv
+      fixture: video_transcript_events_expected
+  
+  - name: test_video_playback_events
+    model: video_playback_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select * from xapi_events_all_parsed
+    expect:
+      format: sql
+      rows: |
+        select * from video_playback_events_expected
+
+  - name: test_fact_transcript_usage
+    model: fact_transcript_usage
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('video_transcript_events')
+        format: sql
+        rows: |
+          select * from video_transcript_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from dim_user_pii
+    expect:
+      format: csv
+      fixture: fact_transcript_usage_expected
+
+  - name: test_fact_video_plays
+    model: fact_video_plays
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('video_playback_events')
+        format: sql
+        rows: |
+          select * from video_playback_events
+      - input: ref('dim_course_blocks_extended')
+        format: sql
+        rows: |
+          select * from dim_course_blocks_extended
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from dim_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_video_plays_expected
+
+  - name: test_section_video_engagement
+    model: section_video_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_video_plays')
+        format: sql
+        rows: |
+          select * from fact_video_plays
+      - input: ref('int_videos_per_subsection')
+        format: sql
+        rows: |
+          select * from int_videos_per_subsection
+    expect:
+      format: sql
+      rows: |
+        select * from section_video_engagement_expected
+
+  # - name: test_subsection_video_engagement
+  #   model: subsection_video_engagement
+  #   config:
+  #     tags: 'ci'
+  #   given:
+  #     - input: ref('fact_video_plays')
+  #       format: sql
+  #       rows: |
+  #         select * from fact_video_plays
+  #     - input: ref('int_videos_per_subsection')
+  #       format: sql
+  #       rows: |
+  #         select * from int_videos_per_subsection
+  #   expect:
+  #     format: sql
+  #     rows: |
+  #       select * from subsection_video_engagement_expected
+
+  # - name: test_fact_watched_video_segments
+  #   model: fact_watched_video_segments
+  #   config:
+  #     tags: 'ci'
+  #   given:
+  #     - input: ref('video_playback_events')
+  #       format: sql
+  #       rows: |
+  #         select * from video_playback_events
+  #     - input: ref('dim_course_blocks_extended')
+  #       format: sql
+  #       rows: |
+  #         select * from dim_course_blocks_extended
+  #     - input: ref('dim_user_pii')
+  #       format: sql
+  #       rows: |
+  #         select * from dim_user_pii
+  #   expect:
+  #     format: sql
+  #     rows: |
+  #       select * from fact_watched_video_segments_expected
+
+  - name: test_fact_video_engagement
+    model: fact_video_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('subsection_video_engagement')
+        format: sql
+        rows: |
+          select * from subsection_video_engagement
+      - input: ref('section_video_engagement')
+        format: sql
+        rows: |
+          select * from section_video_engagement
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from dim_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_video_engagement_expected

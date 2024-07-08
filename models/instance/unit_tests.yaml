@@ -1,0 +1,58 @@
+unit_tests:
+  - name: test_fact_instance_actors
+    model: fact_instance_actors_test
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_instance_actors')
+        format: sql
+        rows: |
+          select * from fact_instance_actors
+    expect:
+      format: sql
+      rows: |
+        select * from fact_instance_actors_expected
+
+  - name: test_fact_instance_courses
+    model: fact_instance_courses_test
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_instance_courses')
+        format: sql
+        rows: |
+          select * from fact_instance_courses
+    expect:
+      format: sql
+      rows: |
+        select * from fact_instance_courses_expected
+
+  - name: test_fact_instance_enrollments
+    model: fact_instance_enrollments
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('enrollment_events')
+        format: sql
+        rows: |
+          select * from enrollment_events
+    expect:
+      format: sql
+      rows: |
+        select * from fact_instance_enrollments_expected
+
+  - name: test_fact_instance_events
+    model: fact_instance_events_test
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_instance_events')
+        format: sql
+        rows: |
+          select * from fact_instance_events
+    expect:
+      format: sql
+      rows: |
+        select * from fact_instance_events_expected
+
+

@@ -1,0 +1,50 @@
+unit_tests:
+  - name: test_fact_enrollments
+    model: fact_enrollments
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('course_names')
+        format: sql
+        rows: |
+          select * from course_names
+      - input: ref('enrollment_events')
+        format: sql
+        rows: |
+          select * from enrollment_events
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from dim_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_enrollments_expected
+
+  - name: test_enrollment_events
+    model: enrollment_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select * from {{target.schema}}.xapi_events_all_parsed
+    expect:
+      format: sql
+      rows: |
+        select * from enrollment_events_expected
+
+  - name: test_fact_enrollment_status
+    model: fact_enrollment_status
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('enrollment_events')
+        format: sql
+        rows: |
+          select * from enrollment_events
+    expect:
+      format: sql
+      rows: |
+        select * from fact_enrollment_status_expected
