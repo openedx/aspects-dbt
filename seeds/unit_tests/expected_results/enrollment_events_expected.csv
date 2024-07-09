@@ -1,4 +1,4 @@
-emission_time,username,name,email,org,course_key,course_name,course_run,actor_id,enrollment_mode,enrollment_status
+emission_time,org,course_key,course_name,course_run,actor_id,enrollment_mode,enrollment_status,username,name,email
 "2018-04-02 14:49:49","Org4","course-v1:Org4+DemoX+81455d","81455d (huge)","81455d","ead482a6-d5cd-45a1-8a39-096d97375fdd","verified","registered","actor_26","Actor 26","actor_26@aspects.invalid"
 "2018-04-03 01:32:28","Org4","course-v1:Org4+DemoX+81455d","81455d (huge)","81455d","6cd56299-d5d0-4920-b3e0-9bef1a336def","honor","registered","actor_29","Actor 29","actor_29@aspects.invalid"
 "2018-04-03 08:03:50","Org4","course-v1:Org4+DemoX+81455d","81455d (huge)","81455d","26bc1139-87de-4407-a859-0302fa7f5734","audit","registered","actor_90","Actor 90","actor_90@aspects.invalid"
