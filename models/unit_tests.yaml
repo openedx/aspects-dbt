@@ -21,23 +21,26 @@ unit_tests:
       fixture: enrollment_events_expected
 
 
-  - name: test_fact_completions
-    model: fact_completions
+  - name: test_fact_grades
+    model: fact_grades
 
     config:
       tags: 'ci'
 
     given:
-      - input: ref('enrollment_events')
+      - input: ref('grading_events')
         format: csv
-        fixture: enrollment_events_input
-      - input: ref('course_names')
+        fixture: grading_events
+      - input: ref('course_block_names')
         format: csv
-        fixture: course_names
+        fixture: course_block_names
       - input: ref('dim_user_pii')
         format: csv
         fixture: dim_user_pii
+      - input: ref('course_names')
+        format: csv
+        fixture: course_names
 
     expect:
-      format: sql
-      fixture: enrollment_events_expected
+      format: csv
+      fixture: fact_grades_expected.csv

@@ -26,4 +26,3 @@ from enrollments
 join {{ ref("course_names") }} courses on enrollments.course_key = courses.course_key
 left outer join
     {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
-order by emission_time
