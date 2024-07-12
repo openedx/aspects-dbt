@@ -28,7 +28,7 @@ select
     ) as entity_name_with_location,
     completions.actor_id as actor_id,
     cast(completions.scaled_progress as Float) as scaled_progress,
-    get_bucket(scaled_progress) as completion_bucket,
+    {{ get_bucket("scaled_progress") }} as completion_bucket,
     users.username as username,
     users.name as name,
     users.email as email

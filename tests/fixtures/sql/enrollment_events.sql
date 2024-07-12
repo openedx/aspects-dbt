@@ -1,1 +1,0 @@
-select * from reporting.enrollment_events_seed

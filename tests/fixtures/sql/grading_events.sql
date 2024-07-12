@@ -1,1 +1,0 @@
-select * from reporting.grading_events_seed

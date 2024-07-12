@@ -1,0 +1,1 @@
+select * from fact_watched_video_segments_expected

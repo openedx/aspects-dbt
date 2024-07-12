@@ -1,0 +1,32 @@
+unit_tests:
+  - name: test_macro_items_per_subsection
+    model: int_pages_per_subsection
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('dim_course_blocks')
+        format: sql
+        fixture: dim_course_blocks
+    expect:
+      format: sql
+      fixture: items_per_subsection_expected
+
+      
+  - name: test_fact_navigation_dropoff
+    model: fact_navigation_dropoff
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('dim_course_blocks')
+        format: sql
+        fixture: dim_course_blocks
+      - input: ref('fact_navigation')
+        format: sql
+        fixture: fact_navigation
+      - input: ref('dim_user_pii')
+        format: sql
+        fixture: dim_user_pii
+    expect:
+      format: sql
+      fixture: fact_navigation_dropoff_expected
+

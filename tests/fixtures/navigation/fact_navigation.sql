@@ -1,0 +1,17 @@
+select 
+emission_time,
+org,
+course_key,
+course_name,
+course_run,
+actor_id,
+block_id,
+block_name,
+block_name_with_location,
+course_order,
+object_type,
+cast(starting_position as UInt64) as starting_position,
+ending_point,
+username,
+name,
+email from fact_navigation_seed

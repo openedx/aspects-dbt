@@ -1,0 +1,1 @@
+select * from dim_course_blocks_extended_seed

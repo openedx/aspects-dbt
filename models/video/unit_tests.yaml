@@ -1,0 +1,20 @@
+unit_tests:
+  - name: test_fact_watched_video_segments
+    model: fact_watched_video_segments
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('video_playback_events')
+        format: sql
+        fixture: video_playback_events
+      - input: ref('dim_course_blocks_extended')
+        format: sql
+        fixture: dim_course_blocks_extended
+      - input: ref('dim_user_pii')
+        format: sql
+        fixture: dim_user_pii
+    expect:
+      format: sql
+      fixture: fact_watched_video_segments_expected
+
+      
