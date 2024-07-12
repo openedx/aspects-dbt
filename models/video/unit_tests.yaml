@@ -16,5 +16,3 @@ unit_tests:
     expect:
       format: sql
       fixture: fact_watched_video_segments_expected
-
-      
