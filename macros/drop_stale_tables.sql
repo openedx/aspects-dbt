@@ -1,14 +1,15 @@
 {% macro drop_stale_tables(dryrun=False) %}
 
-  {% set current_models=[] %}
+    {% set current_models = [] %}
 
-  {% for node in graph.nodes.values()
-     | selectattr("resource_type", "in", ["model", "snapshot"])%}
-    {% do current_models.append(node.name) %}
+    {% for node in graph.nodes.values() | selectattr(
+        "resource_type", "in", ["model", "snapshot"]
+    ) %}
+        {% do current_models.append(node.name) %}
 
-  {% endfor %}
+    {% endfor %}
 
-{% set cleanup_query %}
+    {% set cleanup_query %}
     WITH MODELS_TO_DROP AS (
         SELECT
             CASE 
@@ -31,25 +32,22 @@
     concat('DROP ',RELATION_TYPE,' ',RELATION_NAME,';') as DROP_COMMANDS
     FROM MODELS_TO_DROP
 
-  {% endset %}
+    {% endset %}
     {% do log(cleanup_query, info=True) %}
     {% set drop_commands = run_query(cleanup_query).columns[0].values() %}
 
     {% if drop_commands %}
-    {% if dryrun | as_bool == False %}
-        {% do log('Executing DROP commands...', True) %}
-    {% else %}
-        {% do log('Printing DROP commands...', True) %}
-    {% endif %}
-    {% for drop_command in drop_commands %}
-        {% do log(drop_command, True) %}
         {% if dryrun | as_bool == False %}
-        {% do run_query(drop_command) %}
+            {% do log("Executing DROP commands...", True) %}
+        {% else %} {% do log("Printing DROP commands...", True) %}
         {% endif %}
-    {% endfor %}
-    {% else %}
-    {% do log('No relations to clean.', True) %}
+        {% for drop_command in drop_commands %}
+            {% do log(drop_command, True) %}
+            {% if dryrun | as_bool == False %}
+                {% do run_query(drop_command) %}
+            {% endif %}
+        {% endfor %}
+    {% else %} {% do log("No relations to clean.", True) %}
     {% endif %}
 
 {%- endmacro -%}
-
