@@ -1,0 +1,16 @@
+name: Run all tests & checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        run: dbt test
