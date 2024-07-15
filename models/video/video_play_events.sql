@@ -42,6 +42,7 @@ select
     ) as video_position,
     JSONExtractInt(
         event, 'context', 'extensions', 'https://w3id.org/xapi/video/extensions/length'
-    ) as video_duration
+    ) as video_duration,
+    {{ get_bucket("video_position/video_duration") }} as visualization_bucket
 from {{ ref("xapi_events_all_parsed") }}
 where verb_id = 'https://w3id.org/xapi/video/verbs/played'
