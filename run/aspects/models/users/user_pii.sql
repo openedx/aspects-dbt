@@ -8,7 +8,6 @@ CREATE DICTIONARY `xapi`.`user_pii__dbt_tmp`
       user 'ch_admin'
       password 'ch_password'
       
-      
         query "
 
 with
