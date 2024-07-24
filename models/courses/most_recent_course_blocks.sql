@@ -1,6 +1,7 @@
 {{
     config(
         materialized="materialized_view",
+        schema=env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(location)",
         order_by="(location)",
