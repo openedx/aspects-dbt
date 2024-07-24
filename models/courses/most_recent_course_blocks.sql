@@ -23,6 +23,7 @@ select
     JSONExtractInt(xblock_data_json, 'unit') as unit,
     JSONExtractBool(xblock_data_json, 'graded') as graded,
     course_key,
+    order,
     dump_id,
     time_last_dumped
 from {{ source("event_sink", "course_blocks") }}
