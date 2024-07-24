@@ -25,6 +25,6 @@ select
     block_name,
     course_key,
     graded,
-    order as course_order,
+    course_order,
     display_name_with_location
 from {{ ref("most_recent_course_blocks") }} course_blocks
