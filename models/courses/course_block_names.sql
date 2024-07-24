@@ -21,10 +21,5 @@
 }}
 
 select
-    location as location,
-    block_name,
-    course_key,
-    graded,
-    course_order,
-    display_name_with_location
-from {{ ref("most_recent_course_blocks") }} course_blocks
+    location, block_name, course_key, graded, course_order, display_name_with_location
+from {{ ref("most_recent_course_blocks") }}

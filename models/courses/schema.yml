@@ -44,6 +44,43 @@ models:
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
 
+  - name: most_recent_course_blocks
+    description: "A table with the most recent course blocks"
+    columns:
+      - name: location
+        data_type: String
+        description: "The location of the block"
+      - name: block_name
+        data_type: String
+        description: "The name of the block"
+      - name: display_name_with_location
+        data_type: String
+        description: "The block's display name with section, subsection, and unit prepended to the name."
+      - name: section
+        data_type: Int32
+        description: "The section number"
+      - name: subsection
+        data_type: Int32
+        description: "The subsection number"
+      - name: unit
+        data_type: Int32
+        description: "The unit number"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
+      - name: course_key
+        data_type: String
+        description: "The location of the block"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
+      - name: dump_id
+        data_type: String
+        description: "The UUID for the dump"
+      - name: time_last_dumped
+        data_type: String
+        description: "The time of the dump"
+
   - name: course_block_names
     description: "A table of course blocks with their names"
     columns:
