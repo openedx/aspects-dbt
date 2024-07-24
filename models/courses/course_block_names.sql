@@ -22,7 +22,7 @@
 
 select
     location as location,
-    display_name as block_name,
+    block_name,
     course_key,
     graded,
     order as course_order,
