@@ -10,7 +10,7 @@
         ],
         primary_key="course_key",
         layout="COMPLEX_KEY_HASHED()",
-        lifetime="120",
+        lifetime=env_var("ASPECTS_COURSE_NAME_CACHE_LIFETIME", "120"),
         source_type="clickhouse",
         connection_overrides={
             "host": "localhost",
