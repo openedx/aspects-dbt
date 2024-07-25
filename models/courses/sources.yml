@@ -17,6 +17,18 @@ sources:
           - name: dump_id
           - name: time_last_dumped
 
+      - name: most_recent_course_blocks
+        columns:
+          - name: course_key
+          - name: location
+          - name: display_name
+          - name: display_name_with_location
+          - name: section
+          - name: subection
+          - name: unit
+          - name: dump_id
+          - name: time_last_dumped
+
       - name: course_overviews
         columns:
           - name: org
