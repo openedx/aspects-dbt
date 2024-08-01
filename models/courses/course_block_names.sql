@@ -23,5 +23,13 @@
     )
 }}
 select
-    location, block_name, course_key, graded, course_order, display_name_with_location
+    location,
+    course_key,
+    block_name,
+    display_name_with_location,
+    section_id,
+    subsection_id,
+    unit_id,
+    course_order,
+    graded
 from {{ ref("most_recent_course_blocks") }}

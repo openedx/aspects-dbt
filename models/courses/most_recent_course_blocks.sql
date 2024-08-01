@@ -11,16 +11,16 @@
 select
     location,
     display_name as block_name,
-    toString(section)
+    toString(section_id)
     || ':'
-    || toString(subsection)
+    || toString(subsection_id)
     || ':'
-    || toString(unit)
+    || toString(unit_id)
     || ' - '
     || display_name as display_name_with_location,
-    JSONExtractInt(xblock_data_json, 'section') as section,
-    JSONExtractInt(xblock_data_json, 'subsection') as subsection,
-    JSONExtractInt(xblock_data_json, 'unit') as unit,
+    JSONExtractInt(xblock_data_json, 'section') as section_id,
+    JSONExtractInt(xblock_data_json, 'subsection') as subsection_id,
+    JSONExtractInt(xblock_data_json, 'unit') as unit_id,
     JSONExtractBool(xblock_data_json, 'graded') as graded,
     order as course_order,
     course_key,
