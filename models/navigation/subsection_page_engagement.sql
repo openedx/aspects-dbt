@@ -37,7 +37,8 @@ with
                 visits.org = pages.org
                 and visits.course_key = pages.course_key
                 and visits.section_name_with_location = pages.section_name_with_location
-                and visits.subsection_name_with_location = pages.subsection_name_with_location
+                and visits.subsection_name_with_location
+                = pages.subsection_name_with_location
             )
     ),
     subsection_counts as (

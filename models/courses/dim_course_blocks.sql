@@ -25,12 +25,13 @@ select
         else regexpExtract(block_id, '@([^+]+)\+block@', 1)
     end as block_type
 from {{ ref("course_block_names") }} blocks
+join {{ ref("course_names") }} courses on blocks.course_key = courses.course_key
 join
-    {{ ref("course_names") }} courses on blocks.course_key = courses.course_key
+    {{ ref("section_block_names") }} sections
+    on blocks.course_key = sections.course_key
+    and blocks.section_id = sections.section_id
 join
-    {{ ref("section_block_names") }} sections on blocks.course_key = sections.course_key
-        and blocks.section_id = sections.section_id
-join
-    {{ ref("subsection_block_names") }} subsections on blocks.course_key = subsections.course_key
+    {{ ref("subsection_block_names") }} subsections
+    on blocks.course_key = subsections.course_key
     and blocks.section_id = subsections.section_id
     and blocks.subsection_id = subsections.subsection_id

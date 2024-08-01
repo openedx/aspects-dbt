@@ -17,5 +17,4 @@ select
     navigation.starting_position as starting_position,
     navigation.ending_point as ending_point
 from {{ ref("navigation_events") }} navigation
-join {{ ref("dim_course_blocks") }} blocks on
-    navigation.block_id = blocks.block_id
+join {{ ref("dim_course_blocks") }} blocks on navigation.block_id = blocks.block_id

@@ -25,7 +25,10 @@ select
     section_id as section_id,
     subsection_id as subsection_id,
     location as location,
-    toString(section_id) || ':' || toString(subsection_id) || ':0' as hierarchy_location,
+    toString(section_id)
+    || ':'
+    || toString(subsection_id)
+    || ':0' as hierarchy_location,
     hierarchy_location || ' - ' || block_name as subsection_name_with_location
 from {{ ref("course_block_names") }}
 where location like '%@sequential+block@%'

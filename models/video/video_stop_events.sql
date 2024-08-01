@@ -43,9 +43,10 @@ select
         event, 'context', 'extensions', 'https://w3id.org/xapi/video/extensions/length'
     ) as video_duration
 from {{ ref("xapi_events_all_parsed") }}
-where verb_id in (
-    'http://adlnet.gov/expapi/verbs/completed',
-    'https://w3id.org/xapi/video/verbs/seeked',
-    'https://w3id.org/xapi/video/verbs/paused',
-    'http://adlnet.gov/expapi/verbs/terminated'
-)
+where
+    verb_id in (
+        'http://adlnet.gov/expapi/verbs/completed',
+        'https://w3id.org/xapi/video/verbs/seeked',
+        'https://w3id.org/xapi/video/verbs/paused',
+        'http://adlnet.gov/expapi/verbs/terminated'
+    )
