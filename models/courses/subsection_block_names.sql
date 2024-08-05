@@ -3,17 +3,13 @@
         materialized="dictionary",
         schema=env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink"),
         fields=[
-            ("location", "String"),
             ("course_key", "String"),
-            ("block_name", "String"),
-            ("display_name_with_location", "String"),
             ("section_id", "Int32"),
             ("subsection_id", "Int32"),
-            ("unit_id", "Int32"),
-            ("course_order", "Int32"),
-            ("graded", "Bool"),
+            ("location", "String"),
+            ("subsection_name_with_location", "String"),
         ],
-        primary_key="location",
+        primary_key="course_key, section_id, subsection_id",
         layout="COMPLEX_KEY_SPARSE_HASHED()",
         lifetime=env_var("ASPECTS_BLOCK_NAME_CACHE_LIFETIME", "120"),
         source_type="clickhouse",
@@ -22,14 +18,12 @@
         },
     )
 }}
+
 select
-    location,
-    course_key,
-    block_name,
-    display_name_with_location,
-    section_id,
-    subsection_id,
-    unit_id,
-    course_order,
-    graded
-from {{ ref("most_recent_course_blocks") }}
+    course_key as course_key,
+    section_id as section_id,
+    subsection_id as subsection_id,
+    location as location,
+    display_name_with_location as subsection_name_with_location
+from {{ ref("course_block_names") }}
+where location like '%@sequential+block@%'
