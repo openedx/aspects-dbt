@@ -7,12 +7,11 @@
             ("section_id", "Int32"),
             ("subsection_id", "Int32"),
             ("location", "String"),
-            ("hierarchy_location", "String"),
             ("subsection_name_with_location", "String"),
         ],
         primary_key="course_key, section_id, subsection_id",
         layout="COMPLEX_KEY_SPARSE_HASHED()",
-        lifetime="120",
+        lifetime=env_var("ASPECTS_BLOCK_NAME_CACHE_LIFETIME", "120"),
         source_type="clickhouse",
         connection_overrides={
             "host": "localhost",
@@ -25,10 +24,6 @@ select
     section_id as section_id,
     subsection_id as subsection_id,
     location as location,
-    toString(section_id)
-    || ':'
-    || toString(subsection_id)
-    || ':0' as hierarchy_location,
-    hierarchy_location || ' - ' || block_name as subsection_name_with_location
+    display_name_with_location as subsection_name_with_location
 from {{ ref("course_block_names") }}
 where location like '%@sequential+block@%'

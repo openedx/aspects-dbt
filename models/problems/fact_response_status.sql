@@ -1,4 +1,4 @@
--- select one record per (learner, problem, course, org) tuple
+-- select one record per (problem, learner) tuple
 -- contains either the first successful attempt
 -- or the most recent unsuccessful attempt
 -- find the timestamp of the earliest successful response
