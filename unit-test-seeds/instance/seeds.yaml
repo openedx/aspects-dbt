@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: fact_instance_enrollments_expected
+    config:
+      column_types:
+        course_enrollment_mode_status_cnt: UInt64

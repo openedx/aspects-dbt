@@ -1,0 +1,112 @@
+unit_tests:
+  - name: test_problem_events
+    model: problem_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select * from xapi_events_all_parsed
+    expect:
+      format: sql
+      rows: |
+        select * from problem_events_expected
+
+  - name: test_fact_problem_responses
+    model: fact_problem_responses
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          select * from problem_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from dim_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_problem_responses_expected
+
+  - name: test_int_problem_hints
+    model: int_problem_hints
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          select * from problem_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from int_problem_hints_expected
+
+  - name: test_responses
+    model: responses
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          select * from problem_events
+    expect:
+      format: sql
+      rows: |
+        select * from responses_expected
+
+  - name: test_int_problem_results
+    model: int_problem_results
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          select * from problem_events
+      - input: ref('responses')
+        format: sql
+        rows: |
+          select * from responses
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from int_problem_results_expected
+
+  - name: test_subsection_problem_engagement
+    model: subsection_problem_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          select * from problem_events
+      - input: ref('int_problems_per_subsection')
+        format: sql
+        rows: |
+          select * from int_problems_per_subsection
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from subsection_problem_engagement_expected

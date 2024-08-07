@@ -1,0 +1,17 @@
+unit_tests:
+  - name: test_user_pii
+    model: user_pii
+    config:
+      tags: 'ci'
+    given:
+      - input: source("event_sink", "user_profile")
+        format: sql
+        rows: |
+          select * from event_sink.user_profile
+      - input: source("event_sink", "external_id")
+        format: sql
+        rows: |
+          select * from event_sink.external_id
+    expect:
+      format: csv
+      fixture: user_pii_expected

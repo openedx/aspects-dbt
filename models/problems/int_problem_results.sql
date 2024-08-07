@@ -4,32 +4,6 @@
 -- find the timestamp of the earliest successful response
 -- this will be used to pick the xAPI event corresponding to that submission
 with
-    successful_responses as (
-        select org, course_key, problem_id, actor_id, first_success_at
-        from {{ ref("responses") }}
-        where isNotNull(first_success_at)
-    ),
-    -- for all learners who did not submit a successful response,
-    -- find the timestamp of the most recent unsuccessful response
-    unsuccessful_responses as (
-        select
-            org,
-            course_key,
-            problem_id,
-            actor_id,
-            max(last_attempt_at) as last_attempt_at
-        from {{ ref("responses") }}
-        where actor_id not in (select distinct actor_id from successful_responses)
-        group by org, course_key, problem_id, actor_id
-    ),
-    -- combine result sets for successful and unsuccessful problem submissions
-    responses as (
-        select org, course_key, problem_id, actor_id, first_success_at as emission_time
-        from successful_responses
-        union all
-        select org, course_key, problem_id, actor_id, last_attempt_at as emission_time
-        from unsuccessful_responses
-    ),
     full_responses as (
         select
             events.emission_time as emission_time,
@@ -43,7 +17,10 @@ with
             events.attempts as attempts,
             events.interaction_type as interaction_type
         from {{ ref("problem_events") }} events
-        join responses using (org, course_key, problem_id, actor_id, emission_time)
+        join
+            {{ ref("responses") }} using (
+                org, course_key, problem_id, actor_id, emission_time
+            )
     )
 
 select

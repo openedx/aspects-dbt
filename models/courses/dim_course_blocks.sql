@@ -22,6 +22,4 @@ select
         else regexpExtract(block_id, '@([^+]+)\+block@', 1)
     end as block_type
 from {{ ref("course_block_names") }} blocks
-join
-    {{ ref("course_names") }} courses on blocks.course_key = courses.course_key
-    settings join_algorithm = 'direct'
+join {{ ref("course_names") }} courses on blocks.course_key = courses.course_key

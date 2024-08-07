@@ -1,0 +1,14 @@
+unit_tests:
+  - name: test_fact_instance_enrollments
+    model: fact_instance_enrollments
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('enrollment_events')
+        format: sql
+        rows: |
+          select * from enrollment_events
+    expect:
+      format: sql
+      rows: |
+        select * from fact_instance_enrollments_expected

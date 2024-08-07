@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: xapi_events_all_parsed_expected
+    config:
+      column_types:
+        emission_time: DateTime64(6)

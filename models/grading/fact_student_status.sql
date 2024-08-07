@@ -7,7 +7,7 @@ select
     if(empty(approving_state), 'failed', approving_state) as approving_state,
     enrollment_mode,
     enrollment_status,
-    course_grade as course_grade,
+    course_grade,
     {{ get_bucket("course_grade") }} as grade_bucket,
     users.username as username,
     users.name as name,

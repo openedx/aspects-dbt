@@ -45,51 +45,51 @@ models:
     description: "A materialized view for xAPI events related to course enrollment"
     columns:
       - name: event_id
-        data_type: uuid
+        data_type: UUID
         description: "The unique identifier for the event"
       - name: emission_time
-        data_type: datetime
+        data_type: DateTime
         description: "The time the event was emitted"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: object_id
-        data_type: string
+        data_type: String
         description: "The xAPI object identifier"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course identifier"
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: verb_id
-        data_type: string
+        data_type: String
         description: "The xAPI verb identifier"
       - name: enrollment_mode
-        data_type: string
+        data_type: String
         description: "The mode of enrollment"
 
   - name: fact_enrollment_status
     description: One record per learner per course for the most recent enrollment status
     columns:
       - name: org
-        data_type: string
+        data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
-        data_type: string
+        data_type: String
         description: "The course key for the course"
       - name: actor_id
-        data_type: string
+        data_type: String
         description: "The xAPI actor identifier"
       - name: enrollment_status
-        data_type: string
+        data_type: String
         description: "Whether a learner is actively enrolled in a course"
         data_tests:
           - accepted_values:
               values: ["registered", "unregistered"]
       - name: enrollment_mode
-        data_type: string
+        data_type: String
         description: "The mode of enrollment"
       - name: emission_time
-        data_type: datetime
+        data_type: DateTime
         description: "The time the enrollment status was emitted"

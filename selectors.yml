@@ -1,0 +1,21 @@
+selectors:
+  - name: unit_tests
+    definition: 
+      method: test_type
+      value: unit
+
+  - name: non_unit_tests
+    definition: 
+      union:
+        - method: fqn
+          value: "*"
+        - exclude:
+            - method: test_type
+              value: unit
+              indirect_selection: empty
+    default: true
+
+  - name: all_tests
+    definition:
+      method: fqn
+      value: "*"

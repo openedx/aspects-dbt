@@ -1,6 +1,6 @@
 # Check documentation coverage
 
-name: dbt Docs Coverage
+name: dbt Tests & Coverage
 
 on:
   push:
@@ -17,7 +17,7 @@ env:
 
 jobs:
   build:
-    name: Build docs and check coverage
+    name: Check coverage & run tests
     runs-on: ubuntu-latest
     permissions:
       contents: "read"
@@ -46,10 +46,12 @@ jobs:
           tutor local do load-xapi-test-data
       - name: Check dbt tests
         run: |
-          dbt run
-          dbt test
+          mv unit-test-seeds ci-seeds
+          dbt seed --full-refresh --selector all_tests
+          dbt run --full-refresh --selector all_tests
+          dbt test --selector all_tests
+          mv ci-seeds unit-test-seeds
       - name: Check docs coverage
         run: |
-          dbt run
           dbt docs generate
-          dbt-coverage compute doc --cov-fail-under 1.0
+          dbt-coverage compute doc --cov-fail-under 1.0 --model-path-filter models/
