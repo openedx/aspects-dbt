@@ -7,11 +7,11 @@ unit_tests:
       - input: source("event_sink", "user_profile")
         format: sql
         rows: |
-          select * from {{target.schema}}.user_profile
+          select * from event_sink.user_profile
       - input: source("event_sink", "external_id")
         format: sql
         rows: |
-          select * from {{target.schema}}.external_id
+          select * from event_sink.external_id
     expect:
       format: csv
       fixture: user_pii_expected
