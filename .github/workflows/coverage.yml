@@ -47,13 +47,11 @@ jobs:
       - name: Check dbt tests
         run: |
           mv unit-test-seeds ci-seeds
-          mv unit-test-models ci-models
-          dbt seed --full-refresh
-          dbt run --full-refresh
-          dbt test
+          dbt seed --full-refresh --selector all_tests
+          dbt run --full-refresh --selector all_tests
+          dbt test --selector all_tests
+          mv ci-seeds unit-test-seeds
       - name: Check docs coverage
         run: |
           dbt docs generate
           dbt-coverage compute doc --cov-fail-under 1.0 --model-path-filter models/
-          mv ci-seeds unit-test-seeds
-          mv ci-models unit-test-models

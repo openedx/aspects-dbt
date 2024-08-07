@@ -36,11 +36,12 @@ Running dbt
 Testing
 *******
 
-``dbt test`` will run all data AND unit tests and any tests in the 'tests' directory (generic tests).
+``dbt test`` will only run data & generic tests (NOT unit tests). This is the default mode.
+
+``dbt test --selector unit_tests`` will run all unit tests.
 - These require tables to be seeded first. To do this, add 'unit-test-seeds' to ``seed-paths:`` in ``dbt_project.yml`` and run ``dbt seed --full-refresh``.
 
-``dbt test --selector ci_unit_tests`` will run all unit tests tagged with 'ci'. 
-``dbt test --selector non_unit_tests`` will run only data & generic tests.
+``dbt test --selector all_tests`` will run all data/generic/unit tests.
 
 
 More Help
