@@ -39,6 +39,4 @@ select
         else regexpExtract(block_id, '@([^+]+)\+block@', 1)
     end as block_type
 from `xapi`.`course_block_names` blocks
-join
-    `xapi`.`course_names` courses on blocks.course_key = courses.course_key
-    settings join_algorithm = 'direct'
+join `xapi`.`course_names` courses on blocks.course_key = courses.course_key

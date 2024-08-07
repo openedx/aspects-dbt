@@ -9,7 +9,7 @@ select
     org,
     verb_id,
     JSON_VALUE(event, '$.result.response') as responses,
-    JSON_VALUE(event, '$.result.score.scaled') as scaled_score,
+    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score,
     if(
         verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated',
         cast(JSON_VALUE(event, '$.result.success') as Bool),
@@ -30,7 +30,7 @@ select
     ) as attempts,
     
     regexpExtract(
-        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_]*)(_\d_\d)?', 1
+        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_\/]*)(_\d_\d)?', 1
     )
  as problem_id
 from `xapi`.`xapi_events_all_parsed`

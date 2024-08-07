@@ -14,7 +14,7 @@
     if(empty(approving_state), 'failed', approving_state) as approving_state,
     enrollment_mode,
     enrollment_status,
-    course_grade as course_grade,
+    course_grade,
     case
         when course_grade >= 0.9
         then '90-100%'
