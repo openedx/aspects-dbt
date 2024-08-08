@@ -16,7 +16,17 @@
     {% set reporting = env_var("DBT_PROFILE_TARGET_DATABASE", "reporting") %}
     {% set event_sink = env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink") %}
 
-    {{ print("Running remove_deprecated_models on " ~ xapi ~ ", " ~ reporting ~ ", " ~ event_sink ~ ".") }}
+    {{
+        print(
+            "Running remove_deprecated_models on "
+            ~ xapi
+            ~ ", "
+            ~ reporting
+            ~ ", "
+            ~ event_sink
+            ~ "."
+        )
+    }}
 
     -- https://github.com/openedx/aspects-dbt/pull/111/
     {% do do_drop("mv", xapi, "completion_events") %}
