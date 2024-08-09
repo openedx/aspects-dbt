@@ -32,7 +32,8 @@ select
     visits.block_id as block_id,
     visits.username as username,
     visits.name as name,
-    visits.email as email
+    visits.email as email,
+    1 as tmp
 from visited_subsection_pages visits
 join
     {{ ref("int_pages_per_subsection") }} pages
