@@ -1,4 +1,4 @@
-id,user_id,name,email,meta,coursewhere,language,location,year_of_birth,gender,level_of_education,mailing_address,city,country,state,goals,bio,profile_image_uploaded_at,phone_number,dumnp_id,time_last_dumped
+id,user_id,name,email,meta,courseware,language,location,year_of_birth,gender,level_of_education,mailing_address,city,country,state,goals,bio,profile_image_uploaded_at,phone_number,dump_id,time_last_dumped
 0,0,Actor 0,actor_0@aspects.invalid,{},,,,1907,,none,,,CO,,,,,,cc0a7018-7bc3-4288-8c17-842d5541d9c9,2024-07-10 19:58:24.114194
 1,1,Actor 1,actor_1@aspects.invalid,{},,,,1979,f,b,,,CO,,,,,,0b32ffab-885a-4756-bffa-a0e2d8271855,2024-07-10 19:58:24.114212
 2,2,Actor 2,actor_2@aspects.invalid,{},,,,2002,o,b,,,US,,,,,,f508e40f-44b5-4fdd-ab06-365004898ff8,2024-07-10 19:58:24.114222
