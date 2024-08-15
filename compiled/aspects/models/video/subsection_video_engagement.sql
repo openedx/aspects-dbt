@@ -77,5 +77,5 @@ with
             item_count,
             subsection_block_id
     )
-select org, course_key, actor_id, subsection_block_id, engagement_level
+select distinct org, course_key, actor_id, subsection_block_id, engagement_level
 from subsection_counts
