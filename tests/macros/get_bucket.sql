@@ -86,12 +86,3 @@ select 123 as field
 from system.one
 where 
     {{ get_bucket('field') }} != '90-100%'
-
-
-
-
-
-
-
-
-
