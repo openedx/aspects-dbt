@@ -53,45 +53,24 @@ unit_tests:
       rows: |
         select * from section_video_engagement_expected
 
-  # - name: test_subsection_video_engagement
-  #   model: subsection_video_engagement
-  #   config:
-  #     tags: 'ci'
-  #   given:
-  #     - input: ref('fact_video_plays')
-  #       format: sql
-  #       rows: |
-  #         select * from fact_video_plays
-  #     - input: ref('int_videos_per_subsection')
-  #       format: sql
-  #       rows: |
-  #         select * from int_videos_per_subsection
-  #   expect:
-  #     format: sql
-  #     rows: |
-  #       select * from subsection_video_engagement_expected
-
-  # - name: test_fact_watched_video_segments
-  #   model: fact_watched_video_segments
-  #   config:
-  #     tags: 'ci'
-  #   given:
-  #     - input: ref('video_playback_events')
-  #       format: sql
-  #       rows: |
-  #         select * from video_playback_events
-  #     - input: ref('dim_course_blocks_extended')
-  #       format: sql
-  #       rows: |
-  #         select * from dim_course_blocks_extended
-  #     - input: ref('dim_user_pii')
-  #       format: sql
-  #       rows: |
-  #         select * from dim_user_pii
-  #   expect:
-  #     format: sql
-  #     rows: |
-  #       select * from fact_watched_video_segments_expected
+  - name: test_subsection_video_engagement
+    model: subsection_video_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_video_plays')
+        format: sql
+        rows: |
+          select * from fact_video_plays
+      - input: ref('int_videos_per_subsection')
+        format: sql
+        rows: |
+          select * from int_videos_per_subsection
+    expect:
+      format: sql
+      rows: |
+        select * from subsection_video_engagement_expected
+        order by org, course_key, subsection_block_id, actor_id
 
   - name: test_fact_video_engagement
     model: fact_video_engagement
