@@ -1,0 +1,97 @@
+version: 2
+
+models:
+  - name: course_tags
+    description: "Tag with lineage data for courses (dictionary)"
+    columns:
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
+      - name: tag
+        data_type: String
+        description: "The name of the tag"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: taxonomy_name
+        data_type: String
+        description: "The name of the parent taxonomy of the tag"
+      - name: lineage
+        data_type: String
+        description: "Lineage data of the tag for parent tags"
+
+  - name: most_recent_course_tags
+    description: "Tag with lineage data for objects (view)"
+    columns:
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: tag_id
+        data_type: String
+        description: "The ID of the tag"
+      - name: tag
+        data_type: String
+        description: "The name of the tag"
+      - name: lineage
+        data_type: String
+        description: "Lineage data of the tag for parent tags"
+      - name: taxonomy_name
+        data_type: String
+        description: "The name of the parent taxonomy of the tag"
+
+  - name: most_recent_object_tags
+    description: "Latest object tags"
+    columns:
+      - name: id
+        data_type: Int32
+        description: "The record ID"
+      - name: object_id
+        data_type: String
+        description: "The tagged object"
+      - name: taxonomy
+        data_type: Int32
+        description: "Foreign key to the taxonomy"
+      - name: _value
+        data_type: String
+        description: "Tag string"
+      - name: _export_id
+        data_type: String
+        description: "Export ID"
+      - name: lineage
+        data_type: String
+        description: "Lineage data of the tag for parent tags"
+
+  - name: most_recent_tags
+    description: "Latest object tags"
+    columns:
+      - name: id
+        data_type: Int32
+        description: "The record ID"
+      - name: taxonomy
+        data_type: Int32
+        description: "Foreign key to the taxonomy"
+      - name: parent
+        data_type: Int32
+        description: "Foreign key to the parent tag"
+      - name: value
+        data_type: String
+        description: "Tag string"
+      - name: external_id
+        data_type: String
+        description: "External ID"
+      - name: lineage
+        data_type: String
+        description: "Lineage data of the tag for parent tags"
+
+  - name: most_recent_taxonomies
+    description: "Latest object tags"
+    columns:
+      - name: id
+        data_type: Int32
+        description: "The record ID"
+      - name: name
+        data_type: Int32
+        description: "Name for the taxonomy"
