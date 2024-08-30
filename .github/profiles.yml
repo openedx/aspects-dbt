@@ -9,3 +9,6 @@ aspects: # this needs to match the profile in your dbt_project.yml file
       user: ch_admin
       password: 'ch_password'
       secure: False
+
+      custom_settings:
+        check_table_dependencies: 0
