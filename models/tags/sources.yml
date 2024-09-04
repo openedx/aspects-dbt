@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: event_sink
+    database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
+    tables:
+
+      - name: object_tag
+        columns:
+          - name: id
+          - name: object_id
+          - name: taxonomy
+          - name: tag
+          - name: _value
+          - name: _export_id
+          - name: lineage
+          - name: dump_id
+          - name: time_last_dumped
+
+      - name: taxonomy
+        columns:
+          - name: id
+          - name: name
+          - name: dump_id
+          - name: time_last_dumped
+
+      - name: tag
+        columns:
+          - name: id
+          - name: taxonomy
+          - name: parent
+          - name: value
+          - name: external_id
+          - name: lineage
+          - name: dump_id
+          - name: time_last_dumped
