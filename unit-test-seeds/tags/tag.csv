@@ -1,0 +1,117 @@
+id,taxonomy,parent,value,external_id,lineage,dump_id,time_last_dumped
+1,1,0,Wind instruments,WINDS,"[""Wind instruments""]",91483eb2-745c-485d-9c3c-d212000b1f32,2024-08-29 19:31:27.069568+00:00
+1,1,0,Wind instruments,WINDS,"[""Wind instruments""]",2b91daa9-e3ed-457f-aa9e-e74eea7957e1,2024-08-30 13:40:10.029687+00:00
+1,1,0,Wind instruments,WINDS,"[""Wind instruments""]",dae8d407-e244-43dd-b247-0eb299b43834,2024-08-30 13:53:11.381397+00:00
+2,1,0,Percussion instruments,PERCUSS,"[""Percussion instruments""]",19783754-dbfc-4da6-8e22-d634069fb491,2024-08-29 19:31:27.069606+00:00
+2,1,0,Percussion instruments,PERCUSS,"[""Percussion instruments""]",6fe43897-8b84-4467-96ce-7a1e351f7f9b,2024-08-30 13:40:10.029726+00:00
+2,1,0,Percussion instruments,PERCUSS,"[""Percussion instruments""]",9b726240-75da-4d5e-8e4d-372162f8d396,2024-08-30 13:53:11.381435+00:00
+3,1,0,Electronic instruments,ELECTRIC,"[""Electronic instruments""]",48d38fc7-01c6-4ebc-a5f0-55a2e9fe20ce,2024-08-29 19:31:27.069632+00:00
+3,1,0,Electronic instruments,ELECTRIC,"[""Electronic instruments""]",071d7fdd-8fe3-44a5-bb29-b1539a0a6362,2024-08-30 13:40:10.029785+00:00
+3,1,0,Electronic instruments,ELECTRIC,"[""Electronic instruments""]",f04ce19b-0534-4dc0-986b-3ee3ecfa0a6d,2024-08-30 13:53:11.381459+00:00
+4,1,0,String instruments,STRINGS,"[""String instruments""]",094ca5c7-f4f6-48e8-81cb-bd783ad7bc44,2024-08-29 19:31:27.069662+00:00
+4,1,0,String instruments,STRINGS,"[""String instruments""]",5126381e-4c90-4fef-8af0-4751fe38c82b,2024-08-30 13:40:10.029816+00:00
+4,1,0,String instruments,STRINGS,"[""String instruments""]",e2f8d076-28c3-41b4-80e7-9fdf2c454420,2024-08-30 13:53:11.381489+00:00
+5,1,2,Idiophone,BELLS,"[""Percussion instruments"", ""Idiophone""]",1db6626c-ca2a-4d99-8a27-af94cf580308,2024-08-29 19:31:27.070783+00:00
+5,1,2,Idiophone,BELLS,"[""Percussion instruments"", ""Idiophone""]",597badfd-d5f1-4114-9a6c-7df487a65939,2024-08-30 13:40:10.030899+00:00
+5,1,2,Idiophone,BELLS,"[""Percussion instruments"", ""Idiophone""]",d3656833-224e-4e51-a0e8-3c23c4335aa6,2024-08-30 13:53:11.382621+00:00
+6,1,2,Membranophone,DRUMS,"[""Percussion instruments"", ""Membranophone""]",8c9d7f34-4ed4-4981-a7b0-9f77fa4131e0,2024-08-29 19:31:27.071558+00:00
+6,1,2,Membranophone,DRUMS,"[""Percussion instruments"", ""Membranophone""]",9c1892ba-33c3-425d-bdf4-1f52a8ed9318,2024-08-30 13:40:10.031715+00:00
+6,1,2,Membranophone,DRUMS,"[""Percussion instruments"", ""Membranophone""]",863e792a-b929-4df6-8a2e-029c03b1cda9,2024-08-30 13:53:11.383528+00:00
+7,1,6,Cajón,CAJÓN,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n""]",ada95cfa-0845-403a-ab7f-e0c4525e023f,2024-08-29 19:31:27.072266+00:00
+7,1,6,Cajón,CAJÓN,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n""]",d9f2a49d-6b38-42f9-a18e-01b20276184e,2024-08-30 13:40:10.032451+00:00
+7,1,6,Cajón,CAJÓN,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n""]",2aed6811-2c0a-47c4-9e05-b2d1eb73440b,2024-08-30 13:53:11.384411+00:00
+8,1,7,Pyle Stringed Jam Cajón,PYLE,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n"", ""Pyle Stringed Jam Caj\u00f3n""]",08a2da88-3595-4f24-b2d4-558ca1be83c6,2024-08-29 19:31:27.072984+00:00
+8,1,7,Pyle Stringed Jam Cajón,PYLE,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n"", ""Pyle Stringed Jam Caj\u00f3n""]",4bf98378-2909-48f4-9880-9b67b77b2892,2024-08-30 13:40:10.033148+00:00
+8,1,7,Pyle Stringed Jam Cajón,PYLE,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n"", ""Pyle Stringed Jam Caj\u00f3n""]",f35a9c02-aee3-4be2-88ea-30a2bdc6a2ca,2024-08-30 13:53:11.385243+00:00
+9,1,3,Theramin,THERAMIN,"[""Electronic instruments"", ""Theramin""]",4b12d986-75e8-4b01-a404-11910d9278ee,2024-08-29 19:31:27.073653+00:00
+9,1,3,Theramin,THERAMIN,"[""Electronic instruments"", ""Theramin""]",eebbaaa9-6594-4f9e-a39a-df3b8d7f6e3d,2024-08-30 13:40:10.033920+00:00
+9,1,3,Theramin,THERAMIN,"[""Electronic instruments"", ""Theramin""]",18a3ac60-b0e1-4d15-8a73-38b1097a5e7c,2024-08-30 13:53:11.386138+00:00
+10,1,2,Chordophone,CHORD,"[""Percussion instruments"", ""Chordophone""]",d3fee739-20e8-4ba4-a385-efa1be093b11,2024-08-29 19:31:27.074378+00:00
+10,1,2,Chordophone,CHORD,"[""Percussion instruments"", ""Chordophone""]",3d2c58c1-b916-45ec-a451-b8175b170da7,2024-08-30 13:40:10.034627+00:00
+10,1,2,Chordophone,CHORD,"[""Percussion instruments"", ""Chordophone""]",64b00c66-ebd2-409f-b027-74d5f9ebe2ed,2024-08-30 13:53:11.386937+00:00
+11,1,1,Brass,BRASS,"[""Wind instruments"", ""Brass""]",3dcd44f9-3bcb-49ec-937e-0cd7a9ecb70a,2024-08-29 19:31:27.075118+00:00
+11,1,1,Brass,BRASS,"[""Wind instruments"", ""Brass""]",e3969c16-413d-4753-8493-464be8609f3f,2024-08-30 13:40:10.035276+00:00
+11,1,1,Brass,BRASS,"[""Wind instruments"", ""Brass""]",12632af2-7757-4af7-aa63-ae7c05d329e0,2024-08-30 13:53:11.387685+00:00
+12,1,1,Woodwinds,WOODS,"[""Wind instruments"", ""Woodwinds""]",a884c08a-9c51-4a23-a768-d0512d66ce05,2024-08-29 19:31:27.075799+00:00
+12,1,1,Woodwinds,WOODS,"[""Wind instruments"", ""Woodwinds""]",e5fca156-cf09-4703-8a99-19c804233e07,2024-08-30 13:40:10.035965+00:00
+12,1,1,Woodwinds,WOODS,"[""Wind instruments"", ""Woodwinds""]",1a117673-389e-47c4-a987-11ba28baf700,2024-08-30 13:53:11.388441+00:00
+13,1,12,Flute,FLUTE,"[""Wind instruments"", ""Woodwinds"", ""Flute""]",42e281df-1e57-4d11-95b2-c4de4e6ceee2,2024-08-29 19:31:27.076437+00:00
+13,1,12,Flute,FLUTE,"[""Wind instruments"", ""Woodwinds"", ""Flute""]",f8e80f34-3f4a-4bfa-8ec4-418b4e5cff5c,2024-08-30 13:40:10.036640+00:00
+13,1,12,Flute,FLUTE,"[""Wind instruments"", ""Woodwinds"", ""Flute""]",acd5922d-4ac2-4431-b034-1b107d6c83a5,2024-08-30 13:53:11.389199+00:00
+14,1,4,Plucked strings,PLUCK,"[""String instruments"", ""Plucked strings""]",50508472-4d64-4ff2-b06b-a8b835843b15,2024-08-29 19:31:27.077073+00:00
+14,1,4,Plucked strings,PLUCK,"[""String instruments"", ""Plucked strings""]",5ff789aa-5916-4980-bc16-4181bdad0412,2024-08-30 13:40:10.037281+00:00
+14,1,4,Plucked strings,PLUCK,"[""String instruments"", ""Plucked strings""]",4cfcf576-7d6e-4118-bbeb-5f9fc38f2f51,2024-08-30 13:53:11.389985+00:00
+15,1,14,Mandolin,MANDOLIN,"[""String instruments"", ""Plucked strings"", ""Mandolin""]",f8410e93-5d2f-4826-936e-b1b4ef9ef0dd,2024-08-29 19:31:27.077711+00:00
+15,1,14,Mandolin,MANDOLIN,"[""String instruments"", ""Plucked strings"", ""Mandolin""]",56e9c7a4-f9b8-41e8-9241-37957d15d15a,2024-08-30 13:40:10.037947+00:00
+15,1,14,Mandolin,MANDOLIN,"[""String instruments"", ""Plucked strings"", ""Mandolin""]",4bf55523-528b-4302-b32c-a2dea1b76f6a,2024-08-30 13:53:11.390723+00:00
+16,1,14,Harp,HARP,"[""String instruments"", ""Plucked strings"", ""Harp""]",fbbb1b98-05ff-4f38-8947-b66cab525d79,2024-08-29 19:31:27.078450+00:00
+16,1,14,Harp,HARP,"[""String instruments"", ""Plucked strings"", ""Harp""]",3a057317-5022-4e38-9aff-86712c2054a3,2024-08-30 13:40:10.038570+00:00
+16,1,14,Harp,HARP,"[""String instruments"", ""Plucked strings"", ""Harp""]",dbc1f14e-f1e2-4027-9b87-c83c2d5f6e3e,2024-08-30 13:53:11.391386+00:00
+17,1,14,Banjo,BANJO,"[""String instruments"", ""Plucked strings"", ""Banjo""]",155660b2-eacc-422f-9a49-c3620c1ae4cb,2024-08-29 19:31:27.079083+00:00
+17,1,14,Banjo,BANJO,"[""String instruments"", ""Plucked strings"", ""Banjo""]",35a820bf-0a97-4d1d-b687-ac8219e34381,2024-08-30 13:40:10.039173+00:00
+17,1,14,Banjo,BANJO,"[""String instruments"", ""Plucked strings"", ""Banjo""]",17eed2fd-d155-4d85-8015-a5f6a0d256cb,2024-08-30 13:53:11.392033+00:00
+18,1,4,Bowed strings,BOW,"[""String instruments"", ""Bowed strings""]",80b4da6b-d7ca-4aba-b4d2-937aa974fe1a,2024-08-29 19:31:27.079705+00:00
+18,1,4,Bowed strings,BOW,"[""String instruments"", ""Bowed strings""]",a38c6b99-614a-4837-8752-f1d8ee626525,2024-08-30 13:40:10.039824+00:00
+18,1,4,Bowed strings,BOW,"[""String instruments"", ""Bowed strings""]",39998d00-60b0-4271-a935-4a93b6d049ca,2024-08-30 13:53:11.392673+00:00
+19,1,18,Violin,VIOLIN,"[""String instruments"", ""Bowed strings"", ""Violin""]",45891288-b031-427d-9c6d-4bd3b94a6636,2024-08-29 19:31:27.080319+00:00
+19,1,18,Violin,VIOLIN,"[""String instruments"", ""Bowed strings"", ""Violin""]",ccb032ca-5830-4791-8fb8-5f7faf37684e,2024-08-30 13:40:10.040466+00:00
+19,1,18,Violin,VIOLIN,"[""String instruments"", ""Bowed strings"", ""Violin""]",a5489feb-8818-46c5-ba60-6fb11b2748ce,2024-08-30 13:53:11.393297+00:00
+20,1,18,Cello,CELLO,"[""String instruments"", ""Bowed strings"", ""Cello""]",e1c38bc6-2ba0-4252-aa74-e90ebf3b656e,2024-08-29 19:31:27.080944+00:00
+20,1,18,Cello,CELLO,"[""String instruments"", ""Bowed strings"", ""Cello""]",a47e758e-7bcc-46cb-b9a0-fcc1f176bda5,2024-08-30 13:40:10.041083+00:00
+20,1,18,Cello,CELLO,"[""String instruments"", ""Bowed strings"", ""Cello""]",5e2a93e0-a5a1-4c64-8ff8-dc33092e86c4,2024-08-30 13:53:11.393935+00:00
+21,1,12,Clarinet,CLARINET,"[""Wind instruments"", ""Woodwinds"", ""Clarinet""]",6363a014-816e-4230-b171-43bfc4b75da9,2024-08-29 19:31:27.081572+00:00
+21,1,12,Clarinet,CLARINET,"[""Wind instruments"", ""Woodwinds"", ""Clarinet""]",33ce09c6-b027-423a-ba7c-d6155db92e89,2024-08-30 13:40:10.041690+00:00
+21,1,12,Clarinet,CLARINET,"[""Wind instruments"", ""Woodwinds"", ""Clarinet""]",f5e27025-d67e-47db-8784-77fd5d999f6a,2024-08-30 13:53:11.394589+00:00
+22,1,12,Oboe,OBOE,"[""Wind instruments"", ""Woodwinds"", ""Oboe""]",3f3d0394-4343-4bbf-867d-a752ed814191,2024-08-29 19:31:27.082237+00:00
+22,1,12,Oboe,OBOE,"[""Wind instruments"", ""Woodwinds"", ""Oboe""]",0d5996b1-4880-4a34-b3de-7e963799e6f8,2024-08-30 13:40:10.042393+00:00
+22,1,12,Oboe,OBOE,"[""Wind instruments"", ""Woodwinds"", ""Oboe""]",854c8e33-56b5-4dfe-939e-9aa09f10f8c7,2024-08-30 13:53:11.395215+00:00
+23,1,11,Trumpet,TRUMPET,"[""Wind instruments"", ""Brass"", ""Trumpet""]",732b5e0f-e072-4a7b-b09e-7842a2c282db,2024-08-29 19:31:27.082854+00:00
+23,1,11,Trumpet,TRUMPET,"[""Wind instruments"", ""Brass"", ""Trumpet""]",4d38b91c-8c5b-4492-8d5f-c4533fefd9a6,2024-08-30 13:40:10.043001+00:00
+23,1,11,Trumpet,TRUMPET,"[""Wind instruments"", ""Brass"", ""Trumpet""]",fa301352-3762-47d6-8655-fd743fef4127,2024-08-30 13:53:11.395854+00:00
+24,1,11,Tuba,TUBA,"[""Wind instruments"", ""Brass"", ""Tuba""]",dd02b048-73f4-436d-b564-b067b31b9981,2024-08-29 19:31:27.083492+00:00
+24,1,11,Tuba,TUBA,"[""Wind instruments"", ""Brass"", ""Tuba""]",08260cc8-aac2-4692-b939-3ad8813413da,2024-08-30 13:40:10.043598+00:00
+24,1,11,Tuba,TUBA,"[""Wind instruments"", ""Brass"", ""Tuba""]",2a8e31ba-3e44-4db0-8170-5cdcf64632e7,2024-08-30 13:53:11.396512+00:00
+25,1,3,Synthesizer,SYNTH,"[""Electronic instruments"", ""Synthesizer""]",7df8c0f7-968b-481a-a236-d93e9e91bdd3,2024-08-29 19:31:27.084094+00:00
+25,1,3,Synthesizer,SYNTH,"[""Electronic instruments"", ""Synthesizer""]",5cb00687-5189-43f4-ad00-c9d18a2a123f,2024-08-30 13:40:10.044199+00:00
+25,1,3,Synthesizer,SYNTH,"[""Electronic instruments"", ""Synthesizer""]",acb18e22-e32b-4a48-b604-94a713dbc214,2024-08-30 13:53:11.397100+00:00
+26,1,5,Celesta,CELESTA,"[""Percussion instruments"", ""Idiophone"", ""Celesta""]",1ad5f707-3c83-4c96-b02d-f832c882698b,2024-08-29 19:31:27.084685+00:00
+26,1,5,Celesta,CELESTA,"[""Percussion instruments"", ""Idiophone"", ""Celesta""]",804b7d88-a5a5-49d4-891a-a759cf5c6ae8,2024-08-30 13:40:10.044811+00:00
+26,1,5,Celesta,CELESTA,"[""Percussion instruments"", ""Idiophone"", ""Celesta""]",4701ea5a-60a1-43db-9bda-5f3ff47701f8,2024-08-30 13:53:11.397714+00:00
+27,1,5,Hi-hat,HI-HAT,"[""Percussion instruments"", ""Idiophone"", ""Hi-hat""]",1799b381-d81d-4ac7-8e28-45c6b1ed634e,2024-08-29 19:31:27.085267+00:00
+27,1,5,Hi-hat,HI-HAT,"[""Percussion instruments"", ""Idiophone"", ""Hi-hat""]",5fde315b-df3b-4b4d-9c20-9015dd86a25a,2024-08-30 13:40:10.045404+00:00
+27,1,5,Hi-hat,HI-HAT,"[""Percussion instruments"", ""Idiophone"", ""Hi-hat""]",b17c2c9a-0b7b-4efd-a2fa-93d0ea269096,2024-08-30 13:53:11.398375+00:00
+28,1,6,Tabla,TABLA,"[""Percussion instruments"", ""Membranophone"", ""Tabla""]",27be4f16-5ae7-4b2d-b90c-1f3191346dda,2024-08-29 19:31:27.085902+00:00
+28,1,6,Tabla,TABLA,"[""Percussion instruments"", ""Membranophone"", ""Tabla""]",c61463ff-70ec-48d3-9e2a-e00788b62f9f,2024-08-30 13:40:10.046064+00:00
+28,1,6,Tabla,TABLA,"[""Percussion instruments"", ""Membranophone"", ""Tabla""]",14a87f91-5075-463a-901d-8d2a514f2d5d,2024-08-30 13:53:11.398977+00:00
+29,1,10,Piano,PIANO,"[""Percussion instruments"", ""Chordophone"", ""Piano""]",231af060-fc82-4149-9f09-74e3b3242793,2024-08-29 19:31:27.086543+00:00
+29,1,10,Piano,PIANO,"[""Percussion instruments"", ""Chordophone"", ""Piano""]",bbbe5c04-9094-4cbb-86e0-3cc12086ba16,2024-08-30 13:40:10.046703+00:00
+29,1,10,Piano,PIANO,"[""Percussion instruments"", ""Chordophone"", ""Piano""]",b5e306eb-ce66-4819-a053-896f658cafc4,2024-08-30 13:53:11.399731+00:00
+1,1,0,Wind instruments,WINDS,"[""Wind instruments""]",d61814bc-77b5-4ba5-988d-6defe0f82d29,2024-08-30 14:29:49.683186+00:00
+2,1,0,Percussion instruments,PERCUSS,"[""Percussion instruments""]",0b4cb57b-9f5e-4301-96af-1731db302f92,2024-08-30 14:29:49.683226+00:00
+3,1,0,Electronic instruments,ELECTRIC,"[""Electronic instruments""]",e5bb2f8d-42e0-4163-b9cc-059e7cc15e93,2024-08-30 14:29:49.683250+00:00
+4,1,0,String instruments,STRINGS,"[""String instruments""]",178e9c5a-9bc4-4401-8791-dc1647227b2b,2024-08-30 14:29:49.683280+00:00
+5,1,2,Idiophone,BELLS,"[""Percussion instruments"", ""Idiophone""]",d16933a2-2016-4148-9572-cf680bf9d168,2024-08-30 14:29:49.684293+00:00
+6,1,2,Membranophone,DRUMS,"[""Percussion instruments"", ""Membranophone""]",808febf0-9711-4c5a-8049-9e36112c1b04,2024-08-30 14:29:49.685063+00:00
+7,1,6,Cajón,CAJÓN,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n""]",e77dd144-027e-4b22-ad54-bd75976c7a7e,2024-08-30 14:29:49.685898+00:00
+8,1,7,Pyle Stringed Jam Cajón,PYLE,"[""Percussion instruments"", ""Membranophone"", ""Caj\u00f3n"", ""Pyle Stringed Jam Caj\u00f3n""]",52b71452-ecac-4ff2-bd97-5af5569c6e6f,2024-08-30 14:29:49.686983+00:00
+9,1,3,Theramin,THERAMIN,"[""Electronic instruments"", ""Theramin""]",b3e7ea4d-58ad-4f64-bcda-1e5d512984a8,2024-08-30 14:29:49.687871+00:00
+10,1,2,Chordophone,CHORD,"[""Percussion instruments"", ""Chordophone""]",a19f333f-c421-41d5-a85d-dbedfe104f62,2024-08-30 14:29:49.688605+00:00
+11,1,1,Brass,BRASS,"[""Wind instruments"", ""Brass""]",25afb13e-bd15-48f3-b994-850057311955,2024-08-30 14:29:49.689259+00:00
+12,1,1,Woodwinds,WOODS,"[""Wind instruments"", ""Woodwinds""]",2dce38c1-bbb1-4e56-83d8-5ebaf681d036,2024-08-30 14:29:49.690094+00:00
+13,1,12,Flute,FLUTE,"[""Wind instruments"", ""Woodwinds"", ""Flute""]",4f51f250-bd1d-44ae-b939-63a511c14ac9,2024-08-30 14:29:49.690732+00:00
+14,1,4,Plucked strings,PLUCK,"[""String instruments"", ""Plucked strings""]",bc7f156e-a8af-410c-ad4b-1b3d6bb87e4a,2024-08-30 14:29:49.691337+00:00
+15,1,14,Mandolin,MANDOLIN,"[""String instruments"", ""Plucked strings"", ""Mandolin""]",aa02d3f5-9314-4b60-b9cc-82b92e2cde24,2024-08-30 14:29:49.691974+00:00
+16,1,14,Harp,HARP,"[""String instruments"", ""Plucked strings"", ""Harp""]",a2aae512-6604-4125-abe7-873be1f9c8a9,2024-08-30 14:29:49.692607+00:00
+17,1,14,Banjo,BANJO,"[""String instruments"", ""Plucked strings"", ""Banjo""]",17d560b5-7787-407b-bc99-2bc52cb7c613,2024-08-30 14:29:49.693213+00:00
+18,1,4,Bowed strings,BOW,"[""String instruments"", ""Bowed strings""]",8b93aebd-4a87-45f2-9c72-8645afad40b7,2024-08-30 14:29:49.693848+00:00
+19,1,18,Violin,VIOLIN,"[""String instruments"", ""Bowed strings"", ""Violin""]",587b7c87-26c1-49aa-8ca3-c18c9552fa08,2024-08-30 14:29:49.694482+00:00
+20,1,18,Cello,CELLO,"[""String instruments"", ""Bowed strings"", ""Cello""]",f3f6dcf8-b5c1-413b-a6db-ca319cd58511,2024-08-30 14:29:49.695100+00:00
+21,1,12,Clarinet,CLARINET,"[""Wind instruments"", ""Woodwinds"", ""Clarinet""]",6570c601-b803-4d9c-b75d-a167636ec33b,2024-08-30 14:29:49.695709+00:00
+22,1,12,Oboe,OBOE,"[""Wind instruments"", ""Woodwinds"", ""Oboe""]",c3780ceb-ea91-432a-b9ce-df74c5eed84c,2024-08-30 14:29:49.696355+00:00
+23,1,11,Trumpet,TRUMPET,"[""Wind instruments"", ""Brass"", ""Trumpet""]",28e88c35-54bc-4528-b40b-01c4cff0b413,2024-08-30 14:29:49.696939+00:00
+24,1,11,Tuba,TUBA,"[""Wind instruments"", ""Brass"", ""Tuba""]",2fb332c1-be3d-473d-9b73-ac8def5710d9,2024-08-30 14:29:49.697554+00:00
+25,1,3,Synthesizer,SYNTH,"[""Electronic instruments"", ""Synthesizer""]",b7a3a422-aa3d-438a-abf9-38604d5b7ad1,2024-08-30 14:29:49.698224+00:00
+26,1,5,Celesta,CELESTA,"[""Percussion instruments"", ""Idiophone"", ""Celesta""]",fd856111-f009-46b5-b1c0-aca181cb5d8d,2024-08-30 14:29:49.698811+00:00
+27,1,5,Hi-hat,HI-HAT,"[""Percussion instruments"", ""Idiophone"", ""Hi-hat""]",195a0c31-e708-41d4-a4b1-04501ca44c79,2024-08-30 14:29:49.699397+00:00
+28,1,6,Tabla,TABLA,"[""Percussion instruments"", ""Membranophone"", ""Tabla""]",e6db8a95-8658-48e2-97af-7674e878887b,2024-08-30 14:29:49.699989+00:00
+29,1,10,Piano,PIANO,"[""Percussion instruments"", ""Chordophone"", ""Piano""]",bb28d816-10ff-4cb0-af0f-fea07102b9c4,2024-08-30 14:29:49.700602+00:00

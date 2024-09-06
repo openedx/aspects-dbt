@@ -18,12 +18,3 @@ seeds:
   - name: xapi_events_all
     config:
       schema: xapi
-  - name: object_tag
-    config:
-      schema: event_sink
-  - name: tag
-    config:
-      schema: event_sink
-  - name: taxonomy
-    config:
-      schema: event_sink
