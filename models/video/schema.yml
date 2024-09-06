@@ -237,3 +237,28 @@ models:
                 - 'All videos viewed'
                 - 'At least one video viewed'
               table: 'xapi.subsection_video_engagement'
+
+  - name: watched_video_duration
+    description: "Amount of time in seconds watched by each actor for every video"
+    columns:
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: video_id
+        data_type: String
+        description: "The xAPI object identifier"
+      - name: video_duration
+        data_type: Int32
+        description: "Total duration of the video"
+      - name: watched_time
+        data_type: Int32
+        description: "Seconds of the video watched once"
+      - name: rewatched_time
+        data_type: Int32
+        description: "Seconds of the video rewatched"
