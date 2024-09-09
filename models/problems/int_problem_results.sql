@@ -33,7 +33,8 @@ select
     blocks.block_name as problem_name,
     blocks.display_name_with_location as problem_name_with_location,
     blocks.course_order as course_order,
-    {{ a_tag("full_responses.object_id", "blocks.block_name") }} as problem_link,
+    {{ a_tag("full_responses.object_id", "blocks.display_name_with_location") }}
+    as problem_link,
     full_responses.actor_id as actor_id,
     full_responses.responses as responses,
     full_responses.success as success,
