@@ -8,107 +8,106 @@
     )
 }}
 
-WITH starts AS (
-    SELECT 
-        org,
-        course_key,
-        actor_id,
-        emission_time,
-        cast(video_position AS Int32) AS start_position,
-        splitByString('/xblock/', object_id)[-1] AS video_id,
-        video_duration
-   FROM {{ ref("video_playback_events") }}
-   WHERE verb_id IN ('https://w3id.org/xapi/video/verbs/played') 
-), 
-ends AS (
-    SELECT 
-        org,
-        course_key,
-        actor_id,
-        emission_time,
-        cast(video_position AS Int32) AS end_position,
-        splitByString('/xblock/', object_id)[-1] AS video_id
-   FROM {{ ref("video_playback_events") }}
-   WHERE verb_id IN ('http://adlnet.gov/expapi/verbs/completed',
-                     'https://w3id.org/xapi/video/verbs/paused',
-                     'http://adlnet.gov/expapi/verbs/terminated',
-                     'https://w3id.org/xapi/video/verbs/seeked') 
-),
-range_multi AS (
-    SELECT 
-        starts.org AS org,
-        starts.course_key AS course_key,
-        starts.actor_id AS actor_id,
-        starts.video_id AS video_id,
-        starts.video_duration AS video_duration,
-        starts.start_position AS start_position,
-        ends.end_position AS end_position,
-        generateUUIDv4() AS range_id,
-        starts.emission_time AS start_emission_time,
-        ends.emission_time AS end_emission_time,
-        row_number() OVER (PARTITION BY org,course_key,actor_id,video_id,start_position ORDER BY ends.emission_time) AS rownum
-   FROM starts
-   LEFT JOIN ends ON starts.org = ends.org
-       AND starts.course_key = ends.course_key
-       AND starts.video_id = ends.video_id
-       AND starts.actor_id = ends.actor_id
-   WHERE starts.emission_time < ends.emission_time 
-),
-range AS (SELECT * FROM range_multi WHERE rownum = 1
-), 
-rewatched AS (
-    SELECT 
-        org,
-        course_key,
-        actor_id,
-        video_id,
-        video_duration,
-        a.range_id AS range_id1,
-        b.range_id AS range_id2,
-        a.end_position - a.start_position AS duration1,
-        b.end_position - b.start_position AS duration2
-   FROM range a
-   INNER JOIN range b ON a.org = b.org
-       AND a.course_key = b.course_key
-       AND a.actor_id = b.actor_id
-       AND a.video_id = b.video_id
-   WHERE (
-      (b.start_position > a.start_position AND b.start_position < a.end_position)
-      OR (b.end_position > a.start_position AND b.end_position < a.end_position)
+with
+    starts as (
+        select
+            event_id,
+            org,
+            course_key,
+            actor_id,
+            emission_time,
+            cast(video_position as Int32) as start_position,
+            splitByString('/xblock/', object_id)[-1] as video_id,
+            video_duration
+        from {{ ref("video_playback_events") }}
+        where verb_id in ('https://w3id.org/xapi/video/verbs/played')
+    ),
+    ends as (
+        select
+            org,
+            course_key,
+            actor_id,
+            emission_time,
+            cast(video_position as Int32) as end_position,
+            splitByString('/xblock/', object_id)[-1] as video_id
+        from {{ ref("video_playback_events") }}
+        where
+            verb_id in (
+                'http://adlnet.gov/expapi/verbs/completed',
+                'https://w3id.org/xapi/video/verbs/paused',
+                'http://adlnet.gov/expapi/verbs/terminated',
+                'https://w3id.org/xapi/video/verbs/seeked'
+            )
+    ),
+    range_multi as (
+        select
+            starts.event_id as event_id,
+            starts.org as org,
+            starts.course_key as course_key,
+            starts.actor_id as actor_id,
+            starts.video_id as video_id,
+            starts.video_duration as video_duration,
+            starts.start_position as start_position,
+            ends.end_position as end_position,
+            starts.emission_time as start_emission_time,
+            ends.emission_time as end_emission_time,
+            row_number() over (
+                partition by org, course_key, actor_id, video_id, start_position
+                order by ends.emission_time
+            ) as rownum
+        from starts
+        left join
+            ends
+            on starts.org = ends.org
+            and starts.course_key = ends.course_key
+            and starts.video_id = ends.video_id
+            and starts.actor_id = ends.actor_id
+        where starts.emission_time < ends.emission_time
+    ),
+    range as (select * from range_multi where rownum = 1),
+    rewatched as (
+        select a.event_id as event_id1, b.event_id as event_id2, actor_id
+        from range a
+        inner join
+            range b
+            on a.org = b.org
+            and a.course_key = b.course_key
+            and a.actor_id = b.actor_id
+            and a.video_id = b.video_id
+        where
+            (
+                (
+                    b.start_position > a.start_position
+                    and b.start_position < a.end_position
+                )
+                or (
+                    b.end_position > a.start_position
+                    and b.end_position < a.end_position
+                )
+            )
+            and b.start_emission_time > a.start_emission_time
     )
-    AND b.start_emission_time > a.start_emission_time 
-)
-SELECT 
+select
     org,
     course_key,
-    actor_id,
+    range.actor_id as actor_id,
     video_id,
     video_duration,
-    sum(watched_time) AS watched_time,
-    sum(rewatched_time) AS rewatched_time
-FROM (
-    SELECT 
-        org,
-        course_key,
-        actor_id,
-        video_id,
-        video_duration,
-        sum(end_position - start_position) AS watched_time,
-        0 AS rewatched_time
-    FROM range
-    WHERE range.range_id NOT IN (SELECT range_id1 FROM rewatched)
-      AND range.range_id NOT IN (SELECT range_id2 FROM rewatched)
-    GROUP BY org, course_key, actor_id, video_id, video_duration
-    UNION ALL 
-    SELECT 
-        org,
-        course_key,
-        actor_id,
-        video_id,
-        video_duration,
-        0 AS watched_time,
-        sum(duration1 + duration2) AS rewatched_time
-   FROM rewatched
-   GROUP BY org, course_key, actor_id, video_id, video_duration
-)
-GROUP BY org, course_key, actor_id, video_id, video_duration
+    sum(
+        case
+            when r1.actor_id = '' and r2.actor_id = ''
+            then end_position - start_position
+            else 0
+        end
+    ) as watched_time,
+    sum(
+        case
+            when r1.actor_id <> '' or r2.actor_id <> ''
+            then end_position - start_position
+            else 0
+        end
+    ) as rewatched_time
+from range
+left join rewatched r1 on range.event_id = r1.event_id1
+left join rewatched r2 on range.event_id = r2.event_id2
+group by org, course_key, actor_id, video_id, video_duration
