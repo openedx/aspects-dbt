@@ -11,6 +11,7 @@
 with
     starts as (
         select
+            event_id,
             org,
             course_key,
             actor_id,
@@ -19,13 +20,7 @@ with
             splitByString('/xblock/', object_id)[-1] as video_id,
             video_duration
         from {{ ref("video_playback_events") }}
-        where verb_id = 'https://w3id.org/xapi/video/verbs/played'
-    ),
-    rewatches as (
-        select org, course_key, video_id, actor_id, start_position
-        from starts
-        group by org, course_key, video_id, actor_id, start_position
-        having count(1) > 1
+        where verb_id in ('https://w3id.org/xapi/video/verbs/played')
     ),
     ends as (
         select
@@ -39,45 +34,80 @@ with
         where
             verb_id in (
                 'http://adlnet.gov/expapi/verbs/completed',
-                'https://w3id.org/xapi/video/verbs/seeked',
                 'https://w3id.org/xapi/video/verbs/paused',
-                'http://adlnet.gov/expapi/verbs/terminated'
+                'http://adlnet.gov/expapi/verbs/terminated',
+                'https://w3id.org/xapi/video/verbs/seeked'
             )
     ),
-    subtotals as (
+    range_multi as (
         select
+            starts.event_id as event_id,
             starts.org as org,
             starts.course_key as course_key,
             starts.actor_id as actor_id,
             starts.video_id as video_id,
-            starts.video_duration,
-            sum(starts.start_position - end_position) as duration,
-            case when rewatches.org = '' then duration else 0 end as watched_time,
-            case when rewatches.org <> '' then duration else 0 end as rewatched_time
-        from starts left
-        asof join
+            starts.video_duration as video_duration,
+            starts.start_position as start_position,
+            ends.end_position as end_position,
+            starts.emission_time as start_emission_time,
+            ends.emission_time as end_emission_time,
+            row_number() over (
+                partition by org, course_key, actor_id, video_id, start_position
+                order by ends.emission_time
+            ) as rownum
+        from starts
+        left join
             ends
             on starts.org = ends.org
             and starts.course_key = ends.course_key
             and starts.video_id = ends.video_id
             and starts.actor_id = ends.actor_id
-            and starts.emission_time < ends.emission_time
-        left join
-            rewatches
-            on rewatches.org = starts.org
-            and rewatches.course_key = starts.course_key
-            and rewatches.actor_id = starts.actor_id
-            and rewatches.start_position = starts.start_position
-            and rewatches.video_id = starts.video_id
-        group by org, course_key, actor_id, video_id, video_duration, rewatches.org
+        where starts.emission_time < ends.emission_time
+    ),
+    range as (select * from range_multi where rownum = 1),
+    rewatched as (
+        select a.event_id as event_id1, b.event_id as event_id2, actor_id
+        from range a
+        inner join
+            range b
+            on a.org = b.org
+            and a.course_key = b.course_key
+            and a.actor_id = b.actor_id
+            and a.video_id = b.video_id
+        where
+            (
+                (
+                    b.start_position > a.start_position
+                    and b.start_position < a.end_position
+                )
+                or (
+                    b.end_position > a.start_position
+                    and b.end_position < a.end_position
+                )
+            )
+            and b.start_emission_time > a.start_emission_time
     )
 select
     org,
     course_key,
-    actor_id,
+    range.actor_id as actor_id,
     video_id,
     video_duration,
-    sum(watched_time) as watched_time,
-    sum(rewatched_time) as rewatched_time
-from subtotals
+    sum(
+        case
+            when r1.actor_id = '' and r2.actor_id = ''
+            then end_position - start_position
+            else 0
+        end
+    ) as watched_time,
+    sum(
+        case
+            when r1.actor_id <> '' or r2.actor_id <> ''
+            then end_position - start_position
+            else 0
+        end
+    ) as rewatched_time
+from range
+left join rewatched r1 on range.event_id = r1.event_id1
+left join rewatched r2 on range.event_id = r2.event_id2
 group by org, course_key, actor_id, video_id, video_duration
