@@ -24,7 +24,8 @@ select
     responses.problem_id as problem_id,
     blocks.block_name as problem_name,
     blocks.display_name_with_location as problem_name_with_location,
-    {{ a_tag("responses.object_id", "blocks.block_name") }} as problem_link,
+    {{ a_tag("responses.object_id", "blocks.display_name_with_location") }}
+    as problem_link,
     blocks.graded as graded,
     course_order as course_order,
     responses.actor_id as actor_id,
