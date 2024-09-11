@@ -1,7 +1,7 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink"),
+        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         order_by="(org,course_key,actor_id,video_id)",
         post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
