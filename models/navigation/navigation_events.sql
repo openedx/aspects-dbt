@@ -10,7 +10,7 @@
         projections=[
             {
                 "name": "last_visit_projection",
-                "query": "select course_key, actor_id, MAX(emission_time) as last_visited",
+                "query": "SELECT course_key, actor_id, MAX(emission_time) as last_visited, GROUP BY course_key, actor_id",
             }
         ],
     ),
