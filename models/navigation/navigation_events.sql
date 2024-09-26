@@ -10,6 +10,10 @@
         deduplicate_merge_projection_mode={
             "deduplicate_merge_projection_mode": "throw",
         }
+        projections={
+            "name": "last_visit_projection"
+            "query": "select course_key, actor_id, MAX(emission_time) as last_visited"
+        }
     )
 }}
 
