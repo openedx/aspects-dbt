@@ -7,10 +7,12 @@
         order_by="(org, course_key, object_type, emission_time, actor_id, starting_position, event_id)",
         partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
-        projections={
-            "name": "last_visit_projection"
-            "query": "select course_key, actor_id, MAX(emission_time) as last_visited"
-        }
+        projections=[
+            {
+                "name": "last_visit_projection",
+                "query": "select course_key, actor_id, MAX(emission_time) as last_visited",
+            }
+        ],
     ),
 }}
 
