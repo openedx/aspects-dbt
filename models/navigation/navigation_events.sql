@@ -9,8 +9,8 @@
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
         projections=[
             {
-                "name": "last_visit_projection",
-                "query": "SELECT course_key, actor_id, MAX(emission_time) as last_visited, GROUP BY course_key, actor_id",
+                'name': 'last_visit_projection',
+                'query': 'SELECT course_key, actor_id, MAX(emission_time) as last_visited GROUP BY course_key, actor_id',
             }
         ],
     ),
