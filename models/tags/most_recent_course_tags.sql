@@ -27,7 +27,5 @@ with
     )
 select course_key, course_name, tag_id, value as tag, lineage, mrt.name as taxonomy_name
 from parsed_tags
-inner join {{ source("event_sink", "most_recent_tags") }} mrot FINAL on mrot.id = tag_id
-inner join
-    {{ source("event_sink", "most_recent_taxonomies") }} mrt FINAL
-    on mrt.id = mrot.taxonomy
+inner join {{ ref("most_recent_tags") }} mrot FINAL on mrot.id = tag_id
+inner join {{ ref("most_recent_taxonomies") }} mrt FINAL on mrt.id = mrot.taxonomy
