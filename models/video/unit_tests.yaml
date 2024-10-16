@@ -44,6 +44,10 @@ unit_tests:
         format: sql
         rows: |
           select * from video_playback_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
       - input: ref('int_videos_per_subsection')
         format: sql
         rows: |
@@ -62,6 +66,10 @@ unit_tests:
         format: sql
         rows: |
           select * from video_playback_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
       - input: ref('int_videos_per_subsection')
         format: sql
         rows: |
