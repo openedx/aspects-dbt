@@ -250,9 +250,9 @@ models:
       - name: actor_id
         data_type: string
         description: "The xAPI actor identifier"
-      - name: video_id
-        data_type: String
-        description: "The xAPI object identifier"
+      - name: video_count
+        data_type: Int32
+        description: "Count of videos per course_key"
       - name: video_duration
         data_type: Int32
         description: "Total duration of the video"
