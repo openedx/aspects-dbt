@@ -98,7 +98,7 @@ select
     course_data.course_key as course_key,
     range.actor_id as actor_id,
     video_duration,
-    video_count,
+    cast(video_count as Int32) as video_count,
     sum(
         case
             when r1.actor_id = '' and r2.actor_id = ''
