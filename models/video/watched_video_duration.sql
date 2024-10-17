@@ -89,7 +89,7 @@ with
     ),
     course_data as (
         select org, course_key, count(distinct block_id) video_count
-        from {{ ref('dim_course_blocks') }}
+        from {{ ref("dim_course_blocks") }}
         where block_type = 'video'
         group by org, course_key
     )
