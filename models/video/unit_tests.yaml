@@ -40,10 +40,14 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('fact_video_plays')
+      - input: ref('video_playback_events')
         format: sql
         rows: |
-          select * from fact_video_plays
+          select * from video_playback_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
       - input: ref('int_videos_per_subsection')
         format: sql
         rows: |
@@ -58,10 +62,14 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('fact_video_plays')
+      - input: ref('video_playback_events')
         format: sql
         rows: |
-          select * from fact_video_plays
+          select * from video_playback_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
       - input: ref('int_videos_per_subsection')
         format: sql
         rows: |
