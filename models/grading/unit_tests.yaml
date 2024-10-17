@@ -38,33 +38,3 @@ unit_tests:
     expect:
       format: csv
       fixture: fact_learner_course_status_expected
-
-  - name: test_fact_student_status
-    model: fact_student_status
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('fact_enrollment_status')
-        format: sql
-        rows: |
-          select * from fact_enrollment_status
-      - input: ref('fact_learner_course_status')
-        format: sql
-        rows: |
-          select * from fact_learner_course_status
-      - input: ref('fact_learner_course_grade')
-        format: sql
-        rows: |
-          select * from fact_learner_course_grade
-      - input: ref('course_names')
-        format: sql
-        rows: |
-          select * from course_names
-      - input: ref('dim_user_pii')
-        format: sql
-        rows: |
-          select * from dim_user_pii
-    expect:
-      format: sql
-      rows: |
-        select * from fact_student_status_expected

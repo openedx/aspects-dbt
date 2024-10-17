@@ -115,6 +115,10 @@ unit_tests:
         format: sql
         rows: |
           select * from video_playback_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
     expect:
       format: sql
       rows: |

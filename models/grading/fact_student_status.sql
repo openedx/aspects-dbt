@@ -13,7 +13,7 @@ select
     users.name as name,
     users.email as email,
     fes.emission_time as enrolled_at
-from {{ ref("fact_enrollment_status") }} fes
+from {{ ref("fact_enrollment_status") }} fes FINAL
 left join
     {{ ref("fact_learner_course_status") }} lg
     on fes.org = lg.org

@@ -3,7 +3,7 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        order_by="(org,course_key,actor_id,video_id)",
+        order_by="(org,course_key,actor_id)",
         post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
     )
 }}
@@ -86,13 +86,19 @@ with
                 )
             )
             and b.start_emission_time > a.start_emission_time
+    ),
+    course_data as (
+        select org, course_key, count(distinct block_id) video_count
+        from {{ ref("dim_course_blocks") }}
+        where block_type = 'video'
+        group by org, course_key
     )
 select
-    org,
-    course_key,
+    course_data.org as org,
+    course_data.course_key as course_key,
     range.actor_id as actor_id,
-    video_id,
     video_duration,
+    cast(video_count as Int32) as video_count,
     sum(
         case
             when r1.actor_id = '' and r2.actor_id = ''
@@ -107,7 +113,8 @@ select
             else 0
         end
     ) as rewatched_time
-from range
+from course_data
+left join range on range.course_key = course_data.course_key
 left join rewatched r1 on range.event_id = r1.event_id1
 left join rewatched r2 on range.event_id = r2.event_id2
-group by org, course_key, actor_id, video_id, video_duration
+group by org, course_key, actor_id, video_count, video_duration
