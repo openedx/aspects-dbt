@@ -62,7 +62,9 @@ with
             and starts.course_key = ends.course_key
             and starts.video_id = ends.video_id
             and starts.actor_id = ends.actor_id
-        where starts.emission_time < ends.emission_time
+        where
+            starts.emission_time < ends.emission_time
+            and starts.start_position < ends.end_position
     ),
     range as (select * from range_multi where rownum = 1),
     rewatched as (
