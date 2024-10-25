@@ -262,3 +262,33 @@ models:
       - name: rewatched_time
         data_type: Int32
         description: "Seconds of the video rewatched"
+
+  - name: watched_video_slices
+    description: ""
+    columns:
+      - name: event_id
+        data_type: UUID
+        description: ""
+      - name: org
+        data_type: string
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: string
+        description: "The course key for the course"
+      - name: actor_id
+        data_type: string
+        description: "The xAPI actor identifier"
+      - name: video_id
+        data_type: String
+        description: ""
+      - name: video_duration
+        data_type: Int32
+        description: "Total duration of the video"
+      - name: start_position
+        data_type: Int32
+        description: ""
+      - name: end_position
+        data_type: Int32
+        description: ""
+      - name: start_emission_time
+        data_type: DateTime

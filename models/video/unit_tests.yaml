@@ -111,10 +111,10 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('video_playback_events')
+      - input: ref('watched_video_slices')
         format: sql
         rows: |
-          select * from video_playback_events
+          select * from watched_video_slices
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
