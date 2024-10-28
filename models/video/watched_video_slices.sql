@@ -55,7 +55,8 @@ with
                 order by ends.emission_time
             ) as rownum
         from starts
-        inner join ends
+        inner join
+            ends
             on starts.org = ends.org
             and starts.course_key = ends.course_key
             and starts.video_id = ends.video_id
@@ -64,4 +65,6 @@ with
             starts.emission_time < ends.emission_time
             and starts.start_position < ends.end_position
     )
-    select * except (rownum) from range_multi where rownum = 1
+select * except (rownum)
+from range_multi
+where rownum = 1

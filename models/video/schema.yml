@@ -268,7 +268,7 @@ models:
     columns:
       - name: event_id
         data_type: UUID
-        description: ""
+        description: "The unique identifier for the event"
       - name: org
         data_type: string
         description: "The organization that the course belongs to"
@@ -280,15 +280,16 @@ models:
         description: "The xAPI actor identifier"
       - name: video_id
         data_type: String
-        description: ""
+        description: "The unique identifier of the video"
       - name: video_duration
         data_type: Int32
         description: "Total duration of the video"
       - name: start_position
         data_type: Int32
-        description: ""
+        description: "Starting position of watched segment"
       - name: end_position
         data_type: Int32
-        description: ""
+        description: "Ending position of watched segment"
       - name: start_emission_time
         data_type: DateTime
+        description: "Timestamp of watched event"
