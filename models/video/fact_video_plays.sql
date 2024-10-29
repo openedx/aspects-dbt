@@ -42,4 +42,6 @@ join
     {{ ref("dim_course_blocks_extended") }} blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
 left outer join
-    {{ ref("dim_user_pii") }} users on toUUID(actor_id) = users.external_user_id
+    {{ ref("dim_user_pii") }} users
+    on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
+    or actor_id = toString(users.external_user_id)
