@@ -25,9 +25,19 @@ with
         from {{ source("event_sink", "user_profile") }}
         group by user_id
     )
-select ex.user_id as user_id, ex.external_user_id, ex.username, up.name, up.email
-from {{ source("event_sink", "external_id") }} ex
-left outer join most_recent_user_profile mrup on mrup.user_id = ex.user_id
+select
+    ex.user_id as user_id,
+    if(
+        empty(ex.external_user_id),
+        concat('mailto:', email),
+        ex.external_user_id::String
+    ),
+    ex.username,
+    up.name,
+    up.email
+from most_recent_user_profile mrup
+left outer join
+    {{ source("event_sink", "external_id") }} ex on mrup.user_id = ex.user_id
 left outer join
     {{ source("event_sink", "user_profile") }} up
     on up.user_id = mrup.user_id
