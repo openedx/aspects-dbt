@@ -32,9 +32,9 @@ select
         concat('mailto:', email),
         ex.external_user_id::String
     ) as external_user_id,
-    up.username,
-    up.name,
-    up.email
+    up.username as username,
+    up.name as name,
+    up.email as email
 from most_recent_user_profile mrup
 left outer join
     {{ source("event_sink", "external_id") }} ex on mrup.user_id = ex.user_id
