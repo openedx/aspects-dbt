@@ -47,4 +47,6 @@ join
         and pv.block_id = course_blocks.block_id
     )
 left outer join
-    {{ ref("dim_user_pii") }} users on toUUID(pv.actor_id) = users.external_user_id
+    {{ ref("dim_user_pii") }} users
+    on (pv.actor_id like 'mailto:%' and SUBSTRING(pv.actor_id, 8) = users.email)
+    or pv.actor_id = toString(users.external_user_id)
