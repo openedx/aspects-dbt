@@ -4,7 +4,7 @@
         schema=env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink"),
         fields=[
             ("user_id", "Int32"),
-            ("external_user_id", "UUID"),
+            ("external_user_id", "String"),
             ("username", "String"),
             ("name", "String"),
             ("email", "String"),
