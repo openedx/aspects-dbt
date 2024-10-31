@@ -31,8 +31,8 @@ select
         empty(ex.external_user_id),
         concat('mailto:', email),
         ex.external_user_id::String
-    ),
-    ex.username,
+    ) as external_user_id,
+    up.username,
     up.name,
     up.email
 from most_recent_user_profile mrup
