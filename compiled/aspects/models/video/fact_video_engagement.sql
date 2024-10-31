@@ -46,4 +46,6 @@ join
         and ve.block_id = course_blocks.block_id
     )
 left outer join
-    `xapi`.`dim_user_pii` users on toUUID(ve.actor_id) = users.external_user_id
+    `xapi`.`dim_user_pii` users
+    on (ve.actor_id like 'mailto:%' and SUBSTRING(ve.actor_id, 8) = users.email)
+    or ve.actor_id = toString(users.external_user_id)

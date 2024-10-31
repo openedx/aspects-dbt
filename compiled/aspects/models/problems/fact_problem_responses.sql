@@ -26,9 +26,10 @@ select
     blocks.display_name_with_location as problem_name_with_location,
     
     concat(
-        '<a href="', responses.object_id, '" target="_blank">', blocks.block_name, '</a>'
+        '<a href="', responses.object_id, '" target="_blank">', blocks.display_name_with_location, '</a>'
     )
- as problem_link,
+
+    as problem_link,
     blocks.graded as graded,
     course_order as course_order,
     responses.actor_id as actor_id,
@@ -47,7 +48,9 @@ join
         and responses.problem_id = blocks.block_id
     )
 left outer join
-    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
+    `xapi`.`dim_user_pii` users
+    on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
+    or actor_id = toString(users.external_user_id)
 group by
     -- multi-part questions include an extra record for the response to the first
     -- part of the question. this group by clause eliminates the duplicate record

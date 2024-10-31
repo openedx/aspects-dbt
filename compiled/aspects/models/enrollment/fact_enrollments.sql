@@ -25,4 +25,6 @@ select
 from enrollments
 join `xapi`.`course_names` courses on enrollments.course_key = courses.course_key
 left outer join
-    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
+    `xapi`.`dim_user_pii` users
+    on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
+    or actor_id = toString(users.external_user_id)

@@ -40,7 +40,7 @@
     users.name as name,
     users.email as email,
     fes.emission_time as enrolled_at
-from `xapi`.`fact_enrollment_status` fes
+from `xapi`.`fact_enrollment_status` fes FINAL
 left join
     `xapi`.`fact_learner_course_status` lg
     on fes.org = lg.org
@@ -56,7 +56,9 @@ join
     on fes.org = courses.org
     and fes.course_key = courses.course_key
 left outer join
-    `xapi`.`dim_user_pii` users on toUUID(actor_id) = users.external_user_id
+    `xapi`.`dim_user_pii` users
+    on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
+    or actor_id = toString(users.external_user_id)
   )
       
       

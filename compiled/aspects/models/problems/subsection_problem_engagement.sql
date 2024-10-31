@@ -27,9 +27,10 @@ with
             blocks.display_name_with_location as problem_name_with_location,
             
     concat(
-        '<a href="', responses.object_id, '" target="_blank">', blocks.block_name, '</a>'
+        '<a href="', responses.object_id, '" target="_blank">', blocks.display_name_with_location, '</a>'
     )
- as problem_link,
+
+            as problem_link,
             blocks.graded as graded,
             course_order as course_order,
             responses.actor_id as actor_id,

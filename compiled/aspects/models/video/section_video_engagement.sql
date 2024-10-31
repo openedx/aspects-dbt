@@ -1,34 +1,46 @@
 
 
 with
+    plays as (
+        select
+            emission_time,
+            org,
+            course_key,
+            object_id,
+            video_duration,
+            video_position,
+            splitByString('/xblock/', object_id)[-1] as video_id,
+            actor_id
+        from `xapi`.`video_playback_events`
+        where verb_id = 'https://w3id.org/xapi/video/verbs/played'
+    ),
+    fact_video_plays as (
+        select
+            plays.emission_time as emission_time,
+            plays.org as org,
+            plays.course_key as course_key,
+            plays.video_id as video_id,
+            blocks.section_number as section_number,
+            blocks.subsection_number as subsection_number,
+            plays.actor_id as actor_id
+        from plays
+        join
+            `xapi`.`dim_course_blocks` blocks
+            on (
+                plays.course_key = blocks.course_key
+                and plays.video_id = blocks.block_id
+            )
+    ),
     viewed_subsection_videos as (
         select distinct
             date(emission_time) as viewed_on,
             org,
             course_key,
-            
-    concat(
-        splitByString(
-            ':', splitByString(' - ', video_name_with_location)[1], 1
-        )[1],
-        ':0:0'
-    )
- as section_number,
-            
-    concat(
-        arrayStringConcat(
-            splitByString(
-                ':', splitByString(' - ', video_name_with_location)[1], 2
-            ),
-            ':'
-        ),
-        ':0'
-    )
-
-            as subsection_number,
+            section_number,
+            subsection_number,
             actor_id,
             video_id
-        from `xapi`.`fact_video_plays`
+        from fact_video_plays
     ),
     fact_video_engagement_per_subsection as (
         select
