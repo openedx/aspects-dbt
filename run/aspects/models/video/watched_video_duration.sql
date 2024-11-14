@@ -113,8 +113,8 @@
         group by org, course_key
     )
 select
-    concat(course_data.org, range.org) as org,
-    concat(course_data.course_key, range.course_key) as course_key,
+    coalesce(course_data.org, range.org) as org,
+    coalesce(course_data.course_key, range.course_key) as course_key,
     range.actor_id as actor_id,
     video_duration,
     cast(video_count as Int32) as video_count,
