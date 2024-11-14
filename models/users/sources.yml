@@ -10,6 +10,7 @@ sources:
           - name: id
           - name: user_id
           - name: name
+          - name: username
           - name: email
           - name: meta
           - name: courseware

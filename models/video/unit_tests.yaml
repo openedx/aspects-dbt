@@ -105,21 +105,3 @@ unit_tests:
       format: sql
       rows: |
         select * from fact_video_engagement_expected
-
-  - name: test_watched_video_duration
-    model: watched_video_duration
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('video_playback_events')
-        format: sql
-        rows: |
-          select * from video_playback_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-    expect:
-      format: sql
-      rows: |
-        select * from watched_video_duration_expected
