@@ -22,11 +22,17 @@ with
                 'https://w3id.org/xapi/video/verbs/seeked'
             )
             and (
-                ({org_filter:String} <> '[]' and org in cast({org_filter:String}, 'Array(String)'))
+                (
+                    {org_filter:String} <> '[]'
+                    and org in cast({org_filter:String}, 'Array(String)')
+                )
                 or {org_filter:String} = '[]'
             )
             and (
-                ({course_key_filter:String} <> '[]' and course_key in cast({course_key_filter:String}, 'Array(String)'))
+                (
+                    {course_key_filter:String} <> '[]'
+                    and course_key in cast({course_key_filter:String}, 'Array(String)')
+                )
                 or {course_key_filter:String} = '[]'
             )
     ),
@@ -105,8 +111,8 @@ with
         group by org, course_key
     )
 select
-    coalesce(nullIf(course_data.org,''), range.org) as org,
-    coalesce(nullIf(course_data.course_key,''), range.course_key) as course_key,
+    coalesce(nullIf(course_data.org, ''), range.org) as org,
+    coalesce(nullIf(course_data.course_key, ''), range.course_key) as course_key,
     range.actor_id as actor_id,
     video_duration,
     cast(video_count as Int32) as video_count,
