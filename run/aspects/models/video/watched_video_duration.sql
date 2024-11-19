@@ -28,11 +28,19 @@
                 'http://adlnet.gov/expapi/verbs/terminated',
                 'https://w3id.org/xapi/video/verbs/seeked'
             )
-            and org in cast({org_filter:String}, 'Array(String)')
-            and course_key in (
-                select course_key
-                from `xapi`.`course_names`
-                where course_name in cast({course_name_filter:String}, 'Array(String)')
+            and (
+                (
+                    {org_filter:String} <> '[]'
+                    and org in cast({org_filter:String}, 'Array(String)')
+                )
+                or {org_filter:String} = '[]'
+            )
+            and (
+                (
+                    {course_key_filter:String} <> '[]'
+                    and course_key in cast({course_key_filter:String}, 'Array(String)')
+                )
+                or {course_key_filter:String} = '[]'
             )
     ),
     matches as (
@@ -40,27 +48,24 @@
             *,
             first_value(event_id) filter (where verb = 'start') over (
                 partition by org, course_key, actor_id, object_id
-                order by emission_time
-                rows between unbounded preceding and 1 preceding
-            ) as matching_event_id,
-            first_value(event_id) filter (where verb = 'end') over (
-                partition by org, course_key, actor_id, object_id
-                order by emission_time
+                order by emission_time, verb
                 rows between 1 following and unbounded following
-            ) as matching_event_id2
+            ) as matching_event_id
         from data
     ),
-    ends as (
-        select *
+    final_matches as (
+        select
+            *,
+            last_value(event_id) over (
+                partition by matching_event_id
+                order by emission_time
+                rows between unbounded preceding and unbounded following
+            ) as end_id
         from matches
-        where verb = 'end' and notEmpty(matching_event_id) and empty(matching_event_id2)
+        order by emission_time
     ),
-    starts as (
-        select *
-        from matches
-        where
-            verb = 'start' and notEmpty(matching_event_id2) and empty(matching_event_id)
-    ),
+    ends as (select * from final_matches where verb = 'end' and event_id = end_id),
+    starts as (select * from final_matches where verb = 'start'),
     range as (
         select
             starts.event_id,
@@ -102,7 +107,7 @@
     rewatched_combined as (
         select event_id1 as event_id
         from rewatched
-        union all
+        union distinct
         select event_id2 as event_id
         from rewatched
     ),
@@ -113,8 +118,8 @@
         group by org, course_key
     )
 select
-    coalesce(course_data.org, range.org) as org,
-    coalesce(course_data.course_key, range.course_key) as course_key,
+    coalesce(nullIf(course_data.org, ''), range.org) as org,
+    coalesce(nullIf(course_data.course_key, ''), range.course_key) as course_key,
     range.actor_id as actor_id,
     video_duration,
     cast(video_count as Int32) as video_count,
