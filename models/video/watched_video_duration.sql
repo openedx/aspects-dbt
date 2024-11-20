@@ -50,7 +50,7 @@ with
         select
             *,
             last_value(event_id) over (
-                partition by matching_event_id
+                partition by matching_event_id, object_id, actor_id
                 order by emission_time
                 rows between unbounded preceding and unbounded following
             ) as end_id
@@ -72,11 +72,18 @@ with
             starts.emission_time as start_emission_time,
             ends.emission_time as end_emission_time
         from starts
-        inner join ends on starts.event_id = ends.matching_event_id
+        inner join ends on starts.end_id = ends.event_id
         where ends.video_position > starts.video_position
     ),
     rewatched as (
-        select a.event_id as event_id1, b.event_id as event_id2, actor_id
+        select
+            a.org,
+            a.course_key,
+            a.actor_id,
+            a.object_id,
+            a.video_duration,
+            max(a.end_position) - min(a.start_position) as watched_time,
+            max(b.end_position) - min(b.start_position) as rewatched_time
         from range a
         inner join
             range b
@@ -85,7 +92,8 @@ with
             and a.actor_id = b.actor_id
             and a.object_id = b.object_id
         where
-            (
+            a.event_id <> b.event_id
+            and (
                 (
                     b.start_position > a.start_position
                     and b.start_position < a.end_position
@@ -95,13 +103,27 @@ with
                     and b.end_position < a.end_position
                 )
             )
-            and b.start_emission_time > a.start_emission_time
+        group by a.org, a.course_key, a.actor_id, a.object_id, a.video_duration
     ),
-    rewatched_combined as (
-        select event_id1 as event_id
-        from rewatched
-        union distinct
-        select event_id2 as event_id
+    watched as (
+        select
+            org,
+            course_key,
+            actor_id,
+            object_id,
+            video_duration,
+            end_position - start_position as watched_time,
+            0 as rewatched_time
+        from range
+        where
+            (org, course_key, actor_id, object_id)
+            not in (select org, course_key, actor_id, object_id from rewatched)
+    ),
+    watched_combined as (
+        select *
+        from watched
+        union all
+        select *
         from rewatched
     ),
     course_data as (
@@ -111,26 +133,16 @@ with
         group by org, course_key
     )
 select
-    coalesce(nullIf(course_data.org, ''), range.org) as org,
-    coalesce(nullIf(course_data.course_key, ''), range.course_key) as course_key,
-    range.actor_id as actor_id,
+    coalesce(nullIf(course_data.org, ''), watched_combined.org) as org,
+    coalesce(
+        nullIf(course_data.course_key, ''), watched_combined.course_key
+    ) as course_key,
+    actor_id,
     video_duration,
     cast(video_count as Int32) as video_count,
-    sum(
-        case
-            when empty(rewatched_combined.event_id)
-            then end_position - start_position
-            else 0
-        end
-    ) as watched_time,
-    sum(
-        case
-            when notEmpty(rewatched_combined.event_id)
-            then end_position - start_position
-            else 0
-        end
-    ) as rewatched_time
+    sum(watched_time) as watched_time,
+    sum(rewatched_time) as rewatched_time,
+    object_id
 from course_data
-full join range on range.course_key = course_data.course_key
-left join rewatched_combined on range.event_id = rewatched_combined.event_id
-group by org, course_key, actor_id, video_count, video_duration
+full join watched_combined on watched_combined.course_key = course_data.course_key
+group by org, course_key, actor_id, video_count, video_duration, object_id
