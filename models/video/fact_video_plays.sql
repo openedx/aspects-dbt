@@ -14,6 +14,7 @@ with
             actor_id
         from {{ ref("video_playback_events") }}
         where verb_id = 'https://w3id.org/xapi/video/verbs/played'
+        {{ common_filters() }}
     )
 
 select

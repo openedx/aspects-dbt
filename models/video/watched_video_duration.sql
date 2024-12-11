@@ -21,20 +21,7 @@ with
                 'http://adlnet.gov/expapi/verbs/terminated',
                 'https://w3id.org/xapi/video/verbs/seeked'
             )
-            and (
-                (
-                    {org_filter:String} <> '[]'
-                    and org in cast({org_filter:String}, 'Array(String)')
-                )
-                or {org_filter:String} = '[]'
-            )
-            and (
-                (
-                    {course_key_filter:String} <> '[]'
-                    and course_key in cast({course_key_filter:String}, 'Array(String)')
-                )
-                or {course_key_filter:String} = '[]'
-            )
+            {{ common_filters() }}
     ),
     matches as (
         select
