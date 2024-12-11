@@ -77,7 +77,6 @@ with
                 segments.course_key = blocks.course_key
                 and segments.video_id = blocks.block_id
             )
-        where 1 = 1 {{ common_filters() }}
     )
 
 select
