@@ -21,6 +21,10 @@ Getting Help
 
 Documentation
 =============
+Model naming pattern:
+
+* ``dim_`` - Table/view/dict of attributes pertaining to a noun (actor, course, etc)
+* ``fact_`` - Table/view/dict of events or qualitative data
 
 Installation
 ************

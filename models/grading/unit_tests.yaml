@@ -13,8 +13,8 @@ unit_tests:
       rows: |
        select * from grading_events_expected
 
-  - name: test_fact_learner_course_grade
-    model: fact_learner_course_grade
+  - name: test_dim_learner_most_recent_course_grade
+    model: dim_learner_most_recent_course_grade
     config:
       tags: 'ci'
     given:
@@ -24,10 +24,10 @@ unit_tests:
           select * from grading_events
     expect:
       format: csv
-      fixture: fact_learner_course_grade_expected
+      fixture: dim_learner_most_recent_course_grade_expected
 
-  - name: test_fact_learner_course_status
-    model: fact_learner_course_status
+  - name: test_dim_learner_most_recent_course_state
+    model: dim_learner_most_recent_course_state
     config:
       tags: 'ci'
     given:
@@ -37,4 +37,4 @@ unit_tests:
           select * from grading_events
     expect:
       format: csv
-      fixture: fact_learner_course_status_expected
+      fixture: dim_learner_most_recent_course_state_expected

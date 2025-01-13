@@ -23,7 +23,8 @@ select
             event,
             '$.object.definition.extensions."https://w3id.org/xapi/acrossx/extensions/type"'
         )
-    ) as enrollment_mode
+    ) as enrollment_mode,
+    splitByString('/', verb_id)[-1] as enrollment_status
 from {{ ref("xapi_events_all_parsed") }}
 where
     verb_id in (

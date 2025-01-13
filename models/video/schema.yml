@@ -97,7 +97,7 @@ models:
         description: "The duration of the video in seconds"
 
 
-  - name: int_videos_per_subsection
+  - name: fact_videos_per_subsection
     description: "A dimension table with the number of videos per subsection"
     columns:
       - name: org
@@ -186,7 +186,7 @@ models:
         description: "The email address of the learner"
 
 
-  - name: section_video_engagement
+  - name: fact_section_video_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
@@ -210,9 +210,9 @@ models:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
-              table: 'xapi.section_video_engagement'
+              table: 'fact_section_video_engagement'
 
-  - name: subsection_video_engagement
+  - name: fact_subsection_video_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org
@@ -236,9 +236,9 @@ models:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
-              table: 'xapi.subsection_video_engagement'
+              table: 'fact_subsection_video_engagement'
 
-  - name: watched_video_duration
+  - name: fact_watched_video_duration
     description: "Amount of time in seconds watched by each actor for every video"
     columns:
       - name: org

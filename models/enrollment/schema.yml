@@ -68,8 +68,13 @@ models:
       - name: enrollment_mode
         data_type: String
         description: "The mode of enrollment"
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a course"
+        data_tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
 
-  - name: fact_enrollment_status
+  - name: dim_most_recent_enrollment
     description: One record per learner per course for the most recent enrollment status
     columns:
       - name: org

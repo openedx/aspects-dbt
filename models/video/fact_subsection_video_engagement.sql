@@ -1,7 +1,6 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key)",
         order_by="(org, course_key, subsection_block_id, actor_id)",
@@ -62,7 +61,7 @@ with
             videos.subsection_block_id as subsection_block_id
         from viewed_subsection_videos views
         join
-            {{ ref("int_videos_per_subsection") }} videos
+            {{ ref("fact_videos_per_subsection") }} videos
             on (
                 views.org = videos.org
                 and views.course_key = videos.course_key
