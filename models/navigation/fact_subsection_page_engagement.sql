@@ -1,7 +1,6 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key)",
         order_by="(org, course_key, subsection_block_id, actor_id)",
@@ -37,6 +36,9 @@ with
             block_id
         from fact_navigation
     ),
+    pages_per_subsection as (
+        select * from ({{ items_per_subsection("%@vertical+block@%") }})
+    ),
     fact_navigation_completion as (
         select
             visits.visited_on as visited_on,
@@ -50,7 +52,7 @@ with
             pages.subsection_block_id as subsection_block_id
         from visited_subsection_pages visits
         join
-            {{ ref("int_pages_per_subsection") }} pages
+            pages_per_subsection pages
             on (
                 visits.org = pages.org
                 and visits.course_key = pages.course_key

@@ -2,6 +2,8 @@ version: 2
 
 models:
   - name: navigation_events
+    docs:
+        node_color: '{{ var("color_xapi") }}'
     description: "A materialized view for xAPI events related to course navigation"
     columns:
       - name: event_id
@@ -34,58 +36,6 @@ models:
       - name: ending_point
         data_type: String
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
-
-  - name: fact_navigation
-    description: "A view of navigation_events enriched with course and block metadata"
-    columns:
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: block_id
-        data_type: String
-        description: '{{ doc("block_id") }}'
-      - name: block_name
-        data_type: String
-        description: "The block's name"
-      - name: block_name_with_location
-        data_type: String
-        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
-      - name: object_type
-        data_type: String
-        description: "The type of object that the learner interacted with"
-      - name: starting_position
-        data_type: Int64
-        description: "The tab in the unit navigation bar that the learner was viewing before clicking a link"
-      - name: ending_point
-        data_type: String
-        description: "The tab in the unit navigation bar that the learner selected to navigate to"
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
 
   - name: fact_navigation_completion
     description: "A view for analyzing how many pages a learner has visited in a section or subsection"
@@ -133,43 +83,6 @@ models:
         data_type: Int32
         description: '{{ doc("course_order") }}'
 
-  - name: int_pages_per_subsection
-    description: "A view for analyzing the number of pages in each subsection"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: section_number
-        data_type: String
-        description: '{{ doc("section_number") }}'
-      - name: section_with_name
-        data_type: String
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_number
-        data_type: String
-        description: '{{ doc("subsection_number") }}'
-      - name: subsection_with_name
-        data_type: String
-        description: '{{ doc("subsection_with_name") }}'
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
-      - name: graded
-        data_type: Boolean
-        description: '{{ doc("graded") }}'
-      - name: item_count
-        data_type: UInt64
-        description: The number of pages in the associated subsection
-      - name: subsection_block_id
-        data_type: String
-        description: '{{ doc("subsection_block_id") }}'
-      - name: section_block_id
-        data_type: String
-        description: '{{ doc("section_block_id") }}'
-
   - name: fact_pageview_engagement
     description: "A view for analyzing the number of page views per learner per section and subsection"
     columns:
@@ -213,7 +126,7 @@ models:
         data_type: String
         description: '{{ doc("email") }}'
 
-  - name: fact_learner_last_course_visit
+  - name: dim_learner_last_course_visit
     description: "A materialized view that stores a learners last navigation event timestamp for a course"
     columns:
       - name: org
@@ -229,7 +142,7 @@ models:
         data_type: DateTime
         description: '{{ doc("emission_time") }}'
 
-  - name: section_page_engagement
+  - name: fact_section_page_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
@@ -254,7 +167,7 @@ models:
                 - 'All pages viewed'
                 - 'At least one page viewed'
 
-  - name: subsection_page_engagement
+  - name: fact_subsection_page_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org

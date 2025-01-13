@@ -42,6 +42,8 @@ models:
         description: '{{ doc("email") }}'
 
   - name: enrollment_events
+    docs:
+        node_color: '{{ var("color_xapi") }}'
     description: "A materialized view for xAPI events related to course enrollment"
     columns:
       - name: event_id
@@ -67,9 +69,18 @@ models:
         description: '{{ doc("verb_id") }}'
       - name: enrollment_mode
         data_type: String
+<<<<<<< HEAD
         description: '{{ doc("enrollment_mode") }}'
+=======
+        description: "The mode of enrollment"
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a course"
+        data_tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
+>>>>>>> a713108 (feat: reorganize models, rename to correct dim/fact/int)
 
-  - name: fact_enrollment_status
+  - name: dim_most_recent_enrollment
     description: One record per learner per course for the most recent enrollment status
     columns:
       - name: org
@@ -91,5 +102,5 @@ models:
         data_type: String
         description: '{{ doc("enrollment_mode") }}'
       - name: emission_time
-        data_type: Strin
+        data_type: DateTime
         description: '{{ doc("emission_time") }}'

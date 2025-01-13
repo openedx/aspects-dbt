@@ -1,108 +1,95 @@
 version: 2
 
 models:
-  - name: fact_problem_responses
-    description: "One record for each submitted response to a problem"
+  - name: problem_events
+    docs:
+        node_color: '{{ var("color_xapi") }}'
+    description: "Problem events"
     columns:
+      - name: event_id
+        data_type: UUID
+        description: '{{ doc("event_id") }}'
       - name: emission_time
         data_type: DateTime
         description: '{{ doc("emission_time") }}'
-      - name: org
+      - name: actor_id
         data_type: String
-        description: '{{ doc("org") }}'
+        description: '{{ doc("actor_id") }}'
+      - name: object_id
+        data_type: String
+        description: '{{ doc("object_id") }}'
       - name: course_key
         data_type: String
         description: '{{ doc("course_key") }}'
-      - name: course_name
+      - name: org
         data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
+        description: '{{ doc("org") }}'
+      - name: verb_id
         data_type: String
-        description: '{{ doc("course_run") }}'
+        description: '{{ doc("verb_id") }}'
+      - name: responses
+        data_type: String
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: success
+        data_type: Boolean
+        description: "Boolean indicating whether the responses were correct"
+      - name: interaction_type
+        data_type: String
+        description: "The type of interaction"
+      - name: attempts
+        data_type: Int16
+        description: "Number indicating which attempt this was"
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
-      - name: problem_name
+      - name: course_name
         data_type: String
-        description: "The problem's name"
-      - name: problem_name_with_location
+        description: '{{ doc("course_name") }}'
+      - name: block_name
         data_type: String
-        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+        description: "The name of the block"
+      - name: display_name_with_location
+        data_type: String
+        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"      
       - name: problem_link
         data_type: String
         description: "An anchor tag with a link to the problem"
       - name: graded
-        data_type: Bool
-        description: '{{ doc("graded") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: responses
-        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
-        data_type: String
-      - name: success
-        description: "Boolean indicating whether the responses were correct"
-        data_type: Bool
-      - name: attempts
-        description: "Number indicating which attempt this was"
-        data_type: Int16
-      - name: graded
         data_type: bool
         description: '{{ doc("graded") }}'
-      - name: interaction_type
-        data_type: String
-        description: "The type of interaction - e.g. multiple choice"
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
       - name: course_order
         data_type: Int32
         description: '{{ doc("course_order") }}'
 
-  - name: int_problem_hints
-    description: "Internal table for problem hints"
+  - name: dim_learner_response_attempt
+    description: "A record per course per problem per learner with their last attempt and first success"
     columns:
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
       - name: org
         data_type: String
         description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
         description: '{{ doc("course_key") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
-      - name: problem_name
-        data_type: String
-        description: "The problem's name"
-      - name: problem_name_with_location
-        data_type: String
-        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
-      - name: help_type
-        data_type: String
-        description: "The type of help requested"
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
+      - name: first_success_at
+        data_type: Nullable(DateTime)
+        description: "The timestamp of the first successful attempt"
+      - name: last_attempt_at
+        data_type: DateTime
+        description: "The timestamp of the last attempt"
+      - name: emission_time
+        data_type: DateTime
+        description: '{{ doc("emission_time") }}'
 
-  - name: int_problem_results
+  - name: fact_learner_response_attempts
     description: "Internal table for problem results"
     columns:
       - name: emission_time
@@ -154,112 +141,7 @@ models:
         data_type: Int32
         description: '{{ doc("course_order") }}'
 
-  - name: problem_events
-    description: "Problem events"
-    columns:
-      - name: event_id
-        data_type: UUID
-        description: '{{ doc("event_id") }}'
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: object_id
-        data_type: String
-        description: '{{ doc("object_id") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: verb_id
-        data_type: String
-        description: '{{ doc("verb_id") }}'
-      - name: responses
-        data_type: String
-        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
-      - name: scaled_score
-        data_type: Float32
-        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
-      - name: success
-        data_type: Boolean
-        description: "Boolean indicating whether the responses were correct"
-      - name: interaction_type
-        data_type: String
-        description: "The type of interaction"
-      - name: attempts
-        data_type: Int16
-        description: "Number indicating which attempt this was"
-      - name: problem_id
-        data_type: String
-        description: "The problem's unique identifier"
-
-  - name: int_problems_per_subsection
-    description: "A dimension table with the number of problems per subsection"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: section_number
-        data_type: String
-        description: '{{ doc("section_number") }}'
-      - name: section_with_name
-        data_type: String
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_number
-        data_type: String
-        description: '{{ doc("subsection_number") }}'
-      - name: subsection_with_name
-        data_type: String
-        description: '{{ doc("subsection_with_name") }}'
-      - name: graded
-        data_type: bool
-        description: "Whether this subsection block is graded"
-      - name: item_count
-        data_type: UInt64
-        description: "The number of problems in this subsection"
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
-      - name: subsection_block_id
-        data_type: String
-        description: '{{ doc("subsection_block_id") }}'
-      - name: section_block_id
-        data_type: String
-        description: '{{ doc("section_block_id") }}'
-
-  - name: responses
-    description: "A record per course per problem per learner with their last attempt and first success"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: problem_id
-        data_type: String
-        description: "The problem's unique identifier"
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: first_success_at
-        data_type: Nullable(DateTime)
-        description: "The timestamp of the first successful attempt"
-      - name: last_attempt_at
-        data_type: DateTime
-        description: "The timestamp of the last attempt"
-      - name: emission_time
-        data_type: DateTime
-        description: "The timestamp of the last attempt or the first successful attempt"
-
-  - name: section_problem_engagement
+  - name: fact_section_problem_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
@@ -284,7 +166,7 @@ models:
                 - 'All problems attempted'
                 - 'At least one problem attempted'
 
-  - name: subsection_problem_engagement
+  - name: fact_subsection_problem_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org

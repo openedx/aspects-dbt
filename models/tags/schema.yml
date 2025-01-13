@@ -1,6 +1,7 @@
 version: 2
 
 models:
+<<<<<<< HEAD
   - name: course_tags
     description: "Tag with lineage data for courses (dictionary)"
     columns:
@@ -21,6 +22,9 @@ models:
         description: "Lineage data of the tag for parent tags"
 
   - name: most_recent_course_tags
+=======
+  - name: dim_most_recent_course_tags
+>>>>>>> a713108 (feat: reorganize models, rename to correct dim/fact/int)
     description: "Tag with lineage data for objects (view)"
     columns:
       - name: course_key
@@ -30,7 +34,7 @@ models:
         data_type: String
         description: '{{ doc("course_name") }}'
       - name: tag_id
-        data_type: String
+        data_type: Int32
         description: "The ID of the tag"
       - name: tag
         data_type: String
@@ -42,7 +46,9 @@ models:
         data_type: String
         description: "The name of the parent taxonomy of the tag"
 
-  - name: most_recent_object_tags
+  - name: dim_most_recent_object_tags
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "Latest object tags"
     columns:
       - name: id
@@ -64,7 +70,13 @@ models:
         data_type: String
         description: "Lineage data of the tag for parent tags"
 
+<<<<<<< HEAD
   - name: most_recent_tags
+=======
+  - name: dim_most_recent_tags
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
+>>>>>>> a713108 (feat: reorganize models, rename to correct dim/fact/int)
     description: "Latest tags"
     columns:
       - name: id
@@ -86,7 +98,13 @@ models:
         data_type: String
         description: "Lineage data of the tag for parent tags"
 
+<<<<<<< HEAD
   - name: most_recent_taxonomies
+=======
+  - name: dim_most_recent_taxonomies
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
+>>>>>>> a713108 (feat: reorganize models, rename to correct dim/fact/int)
     description: "Latest taxonomies"
     columns:
       - name: id

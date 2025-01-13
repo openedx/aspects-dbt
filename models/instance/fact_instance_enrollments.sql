@@ -1,7 +1,6 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("SummingMergeTree()"),
         order_by="(emission_day, course_key, enrollment_mode, enrollment_status)",
         partition_by="(toYYYYMM(emission_day))",

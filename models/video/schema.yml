@@ -66,6 +66,8 @@ models:
         description: '{{ doc("course_order") }}'
 
   - name: video_playback_events
+    docs:
+        node_color: '{{ var("color_xapi") }}'
     description: "Events related to video playback"
     columns:
       - name: event_id
@@ -95,44 +97,6 @@ models:
       - name: video_duration
         data_type: int64
         description: "The duration of the video in seconds"
-
-
-  - name: int_videos_per_subsection
-    description: "A dimension table with the number of videos per subsection"
-    columns:
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: section_number
-        data_type: string
-        description: '{{ doc("section_number") }}'
-      - name: section_with_name
-        data_type: string
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_number
-        data_type: string
-        description: '{{ doc("subsection_number") }}'
-      - name: subsection_with_name
-        data_type: string
-        description: '{{ doc("subsection_with_name") }}'
-      - name: graded
-        data_type: Boolean
-        description: '{{ doc("graded") }}'
-      - name: item_count
-        data_type: uint64
-        description: "The number of videos in this subsection"
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
-      - name: subsection_block_id
-        data_type: string
-        description: '{{ doc("subsection_block_id") }}'
-      - name: section_block_id
-        data_type: string
-        description: '{{ doc("section_block_id") }}'
 
   - name: fact_video_engagement
     description: "A dataset with one record representing the engagement of a learner with a video"
@@ -186,7 +150,7 @@ models:
         description: '{{ doc("email") }}'
 
 
-  - name: section_video_engagement
+  - name: fact_section_video_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
@@ -211,7 +175,7 @@ models:
                 - 'All videos viewed'
                 - 'At least one video viewed'
 
-  - name: subsection_video_engagement
+  - name: fact_subsection_video_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org
@@ -236,7 +200,7 @@ models:
                 - 'All videos viewed'
                 - 'At least one video viewed'
 
-  - name: watched_video_duration
+  - name: fact_watched_video_duration
     description: "Amount of time in seconds watched by each actor for every video"
     columns:
       - name: org

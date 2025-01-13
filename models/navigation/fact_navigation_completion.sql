@@ -2,22 +2,35 @@
 with
     visited_subsection_pages as (
         select distinct
-            date(emission_time) as visited_on,
-            org,
-            course_key,
-            course_name,
-            course_run,
-            {{ section_from_display("block_name_with_location") }} as section_number,
-            {{ subsection_from_display("block_name_with_location") }}
+            date(navigation.emission_time) as visited_on,
+            navigation.org as org,
+            navigation.course_key as course_key,
+            blocks.course_name as course_name,
+            blocks.course_run as course_run,
+            {{ section_from_display("blocks.display_name_with_location") }}
+            as section_number,
+            {{ subsection_from_display("blocks.display_name_with_location") }}
             as subsection_number,
-            actor_id,
-            block_id,
-            username,
-            name,
-            email
-        from {{ ref("fact_navigation") }}
+            navigation.actor_id as actor_id,
+            navigation.block_id as block_id,
+            users.username as username,
+            users.name as name,
+            users.email as email
+        from {{ ref("navigation_events") }} navigation
+        join
+            {{ ref("dim_course_blocks") }} blocks
+            on (
+                navigation.course_key = blocks.course_key
+                and navigation.block_id = blocks.block_id
+            )
+        left outer join
+            {{ ref("dim_user_pii") }} users
+            on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
+            or actor_id = toString(users.external_user_id)
+    ),
+    pages_per_subsection as (
+        select * from ({{ items_per_subsection("%@vertical+block@%") }})
     )
-
 select
     visits.visited_on as visited_on,
     visits.org as org,
@@ -35,7 +48,7 @@ select
     visits.email as email
 from visited_subsection_pages visits
 join
-    {{ ref("int_pages_per_subsection") }} pages
+    pages_per_subsection pages
     on (
         visits.org = pages.org
         and visits.course_key = pages.course_key
