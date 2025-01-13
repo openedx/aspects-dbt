@@ -21,5 +21,5 @@ select
         then 'unit'
         else regexpExtract(block_id, '@([^+]+)\+block@', 1)
     end as block_type
-from {{ ref("course_block_names") }} blocks
-join {{ ref("course_names") }} courses on blocks.course_key = courses.course_key
+from {{ ref("dim_course_block_names") }} blocks
+join {{ ref("dim_course_names") }} courses on blocks.course_key = courses.course_key

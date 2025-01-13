@@ -1,11 +1,11 @@
 version: 2
 
 seeds:
-  - name: responses_expected
+  - name: int_responses_expected
     config:
       column_types:
         first_success_at: Nullable(DateTime)
-  - name: problem_events_expected
+  - name: int_problem_events_expected
     config:
       column_types:
         scaled_score: Float64

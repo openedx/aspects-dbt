@@ -12,7 +12,7 @@ with
             if(
                 verb_id = 'https://w3id.org/xapi/video/verbs/played', 'start', 'end'
             ) as verb
-        from {{ ref("video_playback_events") }}
+        from {{ ref("int_video_playback_events") }}
         where
             verb_id in (
                 'https://w3id.org/xapi/video/verbs/played',

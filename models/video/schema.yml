@@ -65,7 +65,7 @@ models:
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
 
-  - name: video_playback_events
+  - name: int_video_playback_events
     description: "Events related to video playback"
     columns:
       - name: event_id
@@ -186,7 +186,7 @@ models:
         description: "The email address of the learner"
 
 
-  - name: section_video_engagement
+  - name: int_section_video_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
@@ -212,7 +212,7 @@ models:
                 - 'At least one video viewed'
               table: 'xapi.section_video_engagement'
 
-  - name: subsection_video_engagement
+  - name: int_subsection_video_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org
@@ -238,7 +238,7 @@ models:
                 - 'At least one video viewed'
               table: 'xapi.subsection_video_engagement'
 
-  - name: watched_video_duration
+  - name: fact_watched_video_duration
     description: "Amount of time in seconds watched by each actor for every video"
     columns:
       - name: org

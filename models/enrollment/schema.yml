@@ -41,7 +41,7 @@ models:
         data_type: String
         description: "The email address of the learner"
 
-  - name: enrollment_events
+  - name: int_enrollment_events
     description: "A materialized view for xAPI events related to course enrollment"
     columns:
       - name: event_id
@@ -68,8 +68,13 @@ models:
       - name: enrollment_mode
         data_type: String
         description: "The mode of enrollment"
+      - name: enrollment_status
+        description: "Whether a learner is actively enrolled in a course"
+        data_tests:
+          - accepted_values:
+              values: ["registered", "unregistered"]
 
-  - name: fact_enrollment_status
+  - name: dim_most_recent_enrollment
     description: One record per learner per course for the most recent enrollment status
     columns:
       - name: org

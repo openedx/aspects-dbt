@@ -18,7 +18,7 @@ with
             row_number() over (
                 partition by org, course_key, actor_id order by emission_time desc
             ) as rn
-        from {{ ref("grading_events") }}
+        from {{ ref("int_grading_events") }}
         where not empty(approving_state)
     )
 

@@ -4,14 +4,14 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('course_names')
+      - input: ref('dim_course_names')
         format: sql
         rows: |
-          select * from course_names
-      - input: ref('enrollment_events')
+          select * from dim_course_names
+      - input: ref('int_enrollment_events')
         format: sql
         rows: |
-          select * from enrollment_events
+          select * from int_enrollment_events
       - input: ref('dim_user_pii')
         format: sql
         rows: |
@@ -21,8 +21,8 @@ unit_tests:
       rows: |
         select * from fact_enrollments_expected
 
-  - name: test_enrollment_events
-    model: enrollment_events
+  - name: test_int_enrollment_events
+    model: int_enrollment_events
     config:
       tags: 'ci'
     given:
@@ -33,18 +33,18 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from enrollment_events_expected
+        select * from int_enrollment_events_expected
 
-  - name: test_fact_enrollment_status
-    model: fact_enrollment_status
+  - name: test_dim_most_recent_enrollment
+    model: dim_most_recent_enrollment
     config:
       tags: 'ci'
     given:
-      - input: ref('enrollment_events')
+      - input: ref('int_enrollment_events')
         format: sql
         rows: |
-          select * from enrollment_events
+          select * from int_enrollment_events
     expect:
       format: sql
       rows: |
-        select * from fact_enrollment_status_expected
+        select * from dim_most_recent_enrollment_expected

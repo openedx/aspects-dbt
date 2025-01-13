@@ -12,10 +12,32 @@ with
             video_position,
             splitByString('/xblock/', object_id)[-1] as video_id,
             actor_id
-        from {{ ref("video_playback_events") }}
+        from {{ ref("int_video_playback_events") }}
         where verb_id = 'https://w3id.org/xapi/video/verbs/played'
+    ),
+    course_blocks_ext as (
+        select
+            blocks.*,
+            section_blocks.display_name_with_location as section_with_name,
+            subsection_blocks.display_name_with_location as subsection_with_name
+        from {{ ref("dim_course_blocks") }} blocks
+        left join
+            {{ ref("dim_course_blocks") }} section_blocks
+            on (
+                blocks.section_number = section_blocks.hierarchy_location
+                and blocks.org = section_blocks.org
+                and blocks.course_key = section_blocks.course_key
+                and section_blocks.block_id like '%@chapter+block@%'
+            )
+        left join
+            {{ ref("dim_course_blocks") }} subsection_blocks
+            on (
+                blocks.subsection_number = subsection_blocks.hierarchy_location
+                and blocks.org = subsection_blocks.org
+                and blocks.course_key = subsection_blocks.course_key
+                and subsection_blocks.block_id like '%@sequential+block@%'
+            )
     )
-
 select
     plays.emission_time as emission_time,
     plays.org as org,
@@ -39,7 +61,7 @@ select
     blocks.course_order as course_order
 from plays
 join
-    {{ ref("dim_course_blocks_extended") }} blocks
+    course_blocks_ext blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
 left outer join
     {{ ref("dim_user_pii") }} users

@@ -6,7 +6,6 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key, problem_id)",
         order_by="(org, course_key, problem_id, actor_id)",
@@ -18,7 +17,7 @@
 with
     responses as (
         select emission_time, org, course_key, object_id, problem_id, actor_id, success
-        from {{ ref("problem_events") }}
+        from {{ ref("int_problem_events") }}
         where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
     ),
     response_status as (

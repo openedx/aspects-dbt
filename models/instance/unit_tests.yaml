@@ -4,10 +4,10 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('enrollment_events')
+      - input: ref('int_enrollment_events')
         format: sql
         rows: |
-          select * from enrollment_events
+          select * from int_enrollment_events
     expect:
       format: sql
       rows: |

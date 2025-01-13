@@ -1,6 +1,6 @@
 unit_tests:
-  - name: test_grading_events
-    model: grading_events
+  - name: test_int_grading_events
+    model: int_grading_events
     config:
       tags: 'ci'
     given:
@@ -11,30 +11,30 @@ unit_tests:
     expect:
       format: sql
       rows: |
-       select * from grading_events_expected
+       select * from int_grading_events_expected
 
-  - name: test_fact_learner_course_grade
-    model: fact_learner_course_grade
+  - name: test_dim_most_recent_course_grade
+    model: dim_most_recent_course_grade
     config:
       tags: 'ci'
     given:
-      - input: ref('grading_events')
+      - input: ref('int_grading_events')
         format: sql
         rows: |
-          select * from grading_events
+          select * from int_grading_events
     expect:
       format: csv
-      fixture: fact_learner_course_grade_expected
+      fixture: dim_most_recent_course_grade_expected
 
-  - name: test_fact_learner_course_status
-    model: fact_learner_course_status
+  - name: test_dim_most_recent_course_state
+    model: dim_most_recent_course_state
     config:
       tags: 'ci'
     given:
-      - input: ref('grading_events')
+      - input: ref('int_grading_events')
         format: sql
         rows: |
-          select * from grading_events
+          select * from int_grading_events
     expect:
       format: csv
-      fixture: fact_learner_course_status_expected
+      fixture: dim_most_recent_course_state_expected

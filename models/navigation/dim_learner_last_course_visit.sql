@@ -1,7 +1,6 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key, actor_id)",
         order_by="(org, course_key, actor_id)",
@@ -11,5 +10,5 @@
 }}
 
 select org, course_key, actor_id, max(emission_time) as emission_time
-from {{ ref("navigation_events") }}
+from {{ ref("int_navigation_events") }}
 group by org, course_key, actor_id

@@ -8,20 +8,20 @@
 }}
 
 with
-    ranked_enrollments as (
+    ranked_grades as (
         select
             emission_time,
             org,
             course_key,
             actor_id,
-            enrollment_mode,
-            splitByString('/', verb_id)[-1] as enrollment_status,
+            scaled_score as course_grade,
             row_number() over (
                 partition by org, course_key, actor_id order by emission_time desc
             ) as rn
-        from {{ ref("enrollment_events") }}
+        from {{ ref("int_grading_events") }}
+        where object_id like '%/course/%'
     )
 
-select org, course_key, actor_id, enrollment_status, enrollment_mode, emission_time
-from ranked_enrollments
+select org, course_key, actor_id, course_grade, emission_time
+from ranked_grades
 where rn = 1
