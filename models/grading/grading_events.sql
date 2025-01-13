@@ -19,7 +19,16 @@ select
     course_key,
     org,
     verb_id,
-    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score
+    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score,
+    CASE 
+      WHEN JSONExtractString(event, 'result', 'extensions', 'http://www.tincanapi.co.uk/activitytypes/grade_classification') = 'Fail' THEN 'failed'
+      WHEN JSONExtractString(event, 'result', 'extensions', 'http://www.tincanapi.co.uk/activitytypes/grade_classification') = 'Pass' THEN 'passed' 
+      WHEN verb_id IN (
+        'http://adlnet.gov/expapi/verbs/passed',
+        'http://adlnet.gov/expapi/verbs/failed'
+    ) THEN splitByString('/', verb_id)[-1]
+    ELSE ''
+    END AS approving_state
 from {{ ref("xapi_events_all_parsed") }}
 where
     verb_id in (
