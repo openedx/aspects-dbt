@@ -7,7 +7,7 @@ with
             actor_id,
             subsection_block_id as block_id,
             engagement_level as section_subsection_video_engagement
-        from {{ ref("subsection_video_engagement") }}
+        from {{ ref("fact_subsection_video_engagement") }}
     ),
     section_engagement as (
         select
@@ -17,7 +17,7 @@ with
             actor_id,
             section_block_id as block_id,
             engagement_level as section_subsection_video_engagement
-        from {{ ref("section_video_engagement") }}
+        from {{ ref("fact_section_video_engagement") }}
     ),
     video_engagement as (
         select *

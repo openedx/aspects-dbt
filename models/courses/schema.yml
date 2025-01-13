@@ -6,28 +6,28 @@ models:
     columns:
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_run
         data_type: String
-        description: "The course run for the course"
+        description: '{{ doc("course_run") }}'
       - name: block_id
         data_type: String
-        description: "The block's unique identifier"
+        description: '{{ doc("block_id") }}'
       - name: block_name
         data_type: String
         description: "The block's name"
       - name: section_number
         data_type: String
-        description: "The section this block belongs to, formatted as <section location>:0:0"
+        description: '{{ doc("section_number") }}'
       - name: subsection_number
         data_type: String
-        description: "The subsection this block belongs to, formatted as <section location>:<subsection location>:0"
+        description: '{{ doc("subsection_number") }}'  
       - name: hierarchy_location
         data_type: String
         description: "The full section:subsection:unit hierarchy in which this block belongs"
@@ -36,15 +36,21 @@ models:
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
       - name: graded
         data_type: Boolean
-        description: "Whether the block is graded"
+        description: '{{ doc("graded") }}'
       - name: block_type
         data_type: String
         description: "The type of block. This can be a section, subsection, unit, or the block type"
+      - name: section_with_name
+        data_type: String
+        description: "The name of the section"
+      - name: subsection_with_name
+        data_type: String
+        description: "The name of the subsection"
 
-  - name: course_block_names
+  - name: dim_course_block_names
     description: "An in-memory dictionary of course blocks with their display names and additional metadata. Only stores the most recent row per block location."
     columns:
       - name: location
@@ -55,16 +61,16 @@ models:
         description: "The name of the block"
       - name: course_key
         data_type: String
-        description: "The course which the block belongs to"
+        description: '{{ doc("course_key") }}'
       - name: graded
         data_type: Boolean
-        description: "Whether the block is graded"
+        description: '{{ doc("graded") }}'
       - name: display_name_with_location
         data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
       - name: section
         data_type: Int32
         description: "The section number that this block falls under in the course. Starts at 1."
@@ -76,12 +82,14 @@ models:
         description: "The unit number that this block falls under in the subsection. Starts at 1."
       - name: dump_id
         data_type: UUID
-        description: "The UUID of the event sink run that published this block to ClickHouse. When a course is published all blocks inside it are sent with the same dump_id."
+        description: '{{ doc("dump_id") }}'
       - name: time_last_dumped
         data_type: String
-        description: "The Datetime of the event sink run that published this block to ClickHouse. When a course is published all blocks inside it are sent with the same time_last_dumped."
+        description: '{{ doc("time_last_dumped") }}'
 
-  - name: most_recent_course_blocks
+  - name: dim_most_recent_course_blocks
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "A materialized view of course blocks with their display names and additional metadata. Only stores the most recent row per block location."
     columns:
       - name: location
@@ -92,16 +100,16 @@ models:
         description: "The name of the block"
       - name: course_key
         data_type: String
-        description: "The course which the block belongs to"
+        description: '{{ doc("course_key") }}'
       - name: graded
         data_type: Boolean
-        description: "Whether the block is graded"
+        description: '{{ doc("graded") }}'
       - name: display_name_with_location
         data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
       - name: section
         data_type: Int32
         description: "The section number that this block falls under in the course. Starts at 1."
@@ -113,72 +121,28 @@ models:
         description: "The unit number that this block falls under in the subsection. Starts at 1."
       - name: dump_id
         data_type: UUID
-        description: "The UUID of the event sink run that published this block to ClickHouse. When a course is published all blocks inside it are sent with the same dump_id."
+        description: '{{ doc("dump_id") }}'
       - name: time_last_dumped
         data_type: String
-        description: "The datetime of the event sink run that published this block to ClickHouse. When a course is published all blocks inside it are sent with the same time_last_dumped."
+        description: '{{ doc("time_last_dumped") }}'
 
-  - name: course_names
-    description: "A table of courses with their names"
+  - name: dim_course_names
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
+    description: "A dictionary of courses with their names"
     columns:
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_run
         data_type: String
-        description: "The course run for the course"
+        description: '{{ doc("course_run") }}'
       - name: org
         data_type: String
         description: "The organization that the course belongs to"
-
-  - name: dim_course_blocks_extended
-    description: "dim_course_blocks with section and subsection names joined into the data."
-    columns:
-      - name: org
+      - name: tags_str
         data_type: String
-        description: "The organization that the course belongs to"
-      - name: course_key
-        data_type: String
-        description: "The course key for the course"
-      - name: course_name
-        data_type: String
-        description: "The name of the course"
-      - name: course_run
-        data_type: String
-        description: "The course run for the course"
-      - name: block_id
-        data_type: String
-        description: "The block's unique identifier"
-      - name: block_name
-        data_type: String
-        description: "The block's name"
-      - name: section_number
-        data_type: String
-        description: "The section this block belongs to, formatted as <section location>:0:0"
-      - name: subsection_number
-        data_type: String
-        description: "The subsection this block belongs to, formatted as <section location>:<subsection location>:0"
-      - name: hierarchy_location
-        data_type: String
-        description: "The full section:subsection:unit hierarchy in which this block belongs"
-      - name: display_name_with_location
-        data_type: String
-        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
-      - name: graded
-        data_type: Boolean
-        description: "Whether the block is graded"
-      - name: block_type
-        data_type: String
-        description: "The type of block. This can be a section, subsection, unit, or the block type"
-      - name: section_with_name
-        data_type: String
-        description: "The name of the section this block belongs to, with section_number prepended"
-      - name: subsection_with_name
-        data_type: String
-        description: "The name of the section this subsection belongs to, with subsection_number prepended"
-      - name: course_order
-        data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: "A list of tags associated with the course"

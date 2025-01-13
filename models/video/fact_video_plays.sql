@@ -15,7 +15,6 @@ with
         from {{ ref("video_playback_events") }}
         where verb_id = 'https://w3id.org/xapi/video/verbs/played'
     )
-
 select
     plays.emission_time as emission_time,
     plays.org as org,
@@ -39,7 +38,7 @@ select
     blocks.course_order as course_order
 from plays
 join
-    {{ ref("dim_course_blocks_extended") }} blocks
+    {{ ref("dim_course_blocks") }} blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
 left outer join
     {{ ref("dim_user_pii") }} users

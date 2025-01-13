@@ -1,20 +1,20 @@
 unit_tests:
-  - name: test_navigation_events
-    model: navigation_events
+  - name: test_dim_learner_last_course_visit
+    model: dim_learner_last_course_visit
     config:
       tags: 'ci'
     given:
-      - input: ref('xapi_events_all_parsed')
+      - input: ref('navigation_events')
         format: sql
         rows: |
-          select * from xapi_events_all_parsed
+          select * from navigation_events
     expect:
       format: sql
       rows: |
-        select * from navigation_events_expected
+        select * from dim_learner_last_course_visit_expected
 
-  - name: test_fact_navigation
-    model: fact_navigation
+  - name: test_fact_navigation_completion
+    model: fact_navigation_completion
     config:
       tags: 'ci'
     given:
@@ -33,83 +33,21 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from fact_navigation_expected
-
-  - name: test_fact_navigation_completion
-    model: fact_navigation_completion
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('fact_navigation')
-        format: sql
-        rows: |
-          select * from fact_navigation
-      - input: ref('int_pages_per_subsection')
-        format: sql
-        rows: |
-          select * from int_pages_per_subsection
-    expect:
-      format: sql
-      rows: |
         select * from fact_navigation_completion_expected
-
-  - name: test_section_page_engagement
-    model: section_page_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('navigation_events')
-        format: sql
-        rows: |
-          select * from navigation_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-      - input: ref('int_pages_per_subsection')
-        format: sql
-        rows: |
-          select * from int_pages_per_subsection
-    expect:
-      format: sql
-      rows: |
-        select * from section_page_engagement_expected
-
-  - name: test_subsection_page_engagement
-    model: subsection_page_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('navigation_events')
-        format: sql
-        rows: |
-          select * from navigation_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-      - input: ref('int_pages_per_subsection')
-        format: sql
-        rows: |
-          select * from int_pages_per_subsection
-    expect:
-      format: sql
-      rows: |
-        select * from subsection_page_engagement_expected
 
   - name: test_fact_pageview_engagement
     model: fact_pageview_engagement
     config:
       tags: 'ci'
     given:
-      - input: ref('subsection_page_engagement')
+      - input: ref('fact_subsection_page_engagement')
         format: sql
         rows: |
-          select * from subsection_page_engagement
-      - input: ref('section_page_engagement')
+          select * from fact_subsection_page_engagement
+      - input: ref('fact_section_page_engagement')
         format: sql
         rows: |
-          select * from section_page_engagement
+          select * from fact_section_page_engagement
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
@@ -123,11 +61,15 @@ unit_tests:
       rows: |
         select * from fact_pageview_engagement_expected
 
-  - name: test_macro_items_per_subsection
-    model: int_pages_per_subsection
+  - name: test_fact_section_page_engagement
+    model: fact_section_page_engagement
     config:
       tags: 'ci'
     given:
+      - input: ref('navigation_events')
+        format: sql
+        rows: |
+          select * from navigation_events
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
@@ -135,4 +77,36 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from items_per_subsection_expected
+        select * from fact_section_page_engagement_expected
+
+  - name: test_fact_subsection_page_engagement
+    model: fact_subsection_page_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('navigation_events')
+        format: sql
+        rows: |
+          select * from navigation_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from fact_subsection_page_engagement_expected
+
+  - name: test_navigation_events
+    model: navigation_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select * from xapi_events_all_parsed
+    expect:
+      format: sql
+      rows: |
+        select * from navigation_events_expected

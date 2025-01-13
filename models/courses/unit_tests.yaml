@@ -1,6 +1,49 @@
 unit_tests:
-  - name: test_most_recent_course_blocks
-    model: most_recent_course_blocks
+  - name: test_dim_course_block_names
+    model: dim_course_block_names
+    given:
+      - input: ref('dim_most_recent_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_most_recent_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from dim_course_block_names_expected
+
+  - name: test_dim_course_blocks
+    model: dim_course_blocks
+    config: 
+      tags: 'dim'
+    given:
+      - input: ref('dim_course_block_names')
+        format: sql
+        rows: |
+          select * from dim_course_block_names
+      - input: ref('dim_course_names')
+        format: sql
+        rows: |
+          select * from dim_course_names
+    expect:
+      format: sql
+      rows: |
+        select * from dim_course_blocks_expected
+
+  - name: test_dim_course_names
+    model: dim_course_names
+    config: 
+      tags: 'ci'
+    given:
+      - input: source("event_sink", "course_overviews")
+        format: sql
+        rows: |
+          select * from event_sink.course_overviews
+    expect:
+      format: csv
+      fixture: dim_course_names_expected
+
+  - name: test_dim_most_recent_course_blocks
+    model: dim_most_recent_course_blocks
     config:
       tags: 'ci'
     given:
@@ -11,49 +54,4 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from most_recent_course_blocks_expected
-
-  - name: test_course_names
-    model: course_names
-    config: 
-      tags: 'ci'
-    given:
-      - input: source("event_sink", "course_overviews")
-        format: sql
-        rows: |
-          select * from event_sink.course_overviews
-    expect:
-      format: csv
-      fixture: course_names_expected
-
-  - name: test_dim_course_blocks
-    model: dim_course_blocks
-    config: 
-      tags: 'dim'
-    given:
-      - input: ref('course_block_names')
-        format: sql
-        rows: |
-          select * from course_block_names
-      - input: ref('course_names')
-        format: sql
-        rows: |
-          select * from course_names
-    expect:
-      format: sql
-      rows: |
-        select * from dim_course_blocks_expected
-
-  - name: test_dim_course_blocks_extended
-    model: dim_course_blocks_extended
-    config: 
-      tags: 'ci'
-    given:
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-    expect:
-      format: sql
-      rows: |
-        select * from dim_course_blocks_extended_expected
+        select * from dim_most_recent_course_blocks_expected

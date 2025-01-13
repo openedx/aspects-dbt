@@ -13,19 +13,19 @@ select
     users.name as name,
     users.email as email,
     fes.emission_time as enrolled_at
-from {{ ref("fact_enrollment_status") }} fes FINAL
+from {{ ref("dim_most_recent_enrollment") }} fes
 left join
-    {{ ref("fact_learner_course_status") }} lg
+    {{ ref("dim_learner_most_recent_course_state") }} lg
     on fes.org = lg.org
     and fes.course_key = lg.course_key
     and fes.actor_id = lg.actor_id
 left join
-    {{ ref("fact_learner_course_grade") }} ls
+    {{ ref("dim_learner_most_recent_course_grade") }} ls
     on fes.org = ls.org
     and fes.course_key = ls.course_key
     and fes.actor_id = ls.actor_id
 join
-    {{ ref("course_names") }} courses
+    {{ ref("dim_course_names") }} courses
     on fes.org = courses.org
     and fes.course_key = courses.course_key
 left outer join

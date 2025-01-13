@@ -1,8 +1,9 @@
 version: 2
 
 models:
-
   - name: user_pii
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "The user PII table for reports."
     columns:
       - name: user_id
@@ -13,26 +14,29 @@ models:
         description: "The external user id"
       - name: username
         data_type: String
-        description: "The username of the user"
+        description: '{{ doc("username") }}'
       - name: name
         data_type: String
-        description: "The name of the user"
+        description: '{{ doc("learner_name") }}'
       - name: email
         data_type: String
-        description: "The email of the user"
+        description: '{{ doc("email") }}'
 
   - name: dim_user_pii
     description: "A denormalized table of user PII information"
     columns:
+      - name: user_id
+        data_type: String
+        description: "The user id"
       - name: external_user_id
         data_type: String
         description: "The external user id"
       - name: username
         data_type: String
-        description: "The username"
+        description: '{{ doc("username") }}'
       - name: name
         data_type: String
-        description: "The name of the user"
+        description: '{{ doc("learner_name") }}'
       - name: email
         data_type: String
-        description: "The email of the user"
+        description: '{{ doc("email") }}'

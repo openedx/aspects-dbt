@@ -6,35 +6,89 @@ sources:
     tables:
 
       - name: user_profile
+        description: Users and associated data from `post_save` Django signal on the UserProfile model
         columns:
           - name: id
+            description: '{{ doc("id") }}'
+            type: String
           - name: user_id
+            description: "The user id"
+            type: String
           - name: name
+            description: '{{ doc("learner_name") }}'
+            type: String
           - name: username
+            description: '{{ doc("username") }}'
+            type: String
           - name: email
+            description: '{{ doc("email") }}'
+            type: String
           - name: meta
           - name: courseware
           - name: language
+            description: "The user's preferred language"
+            type: String
           - name: location
+            description: "The user's location"
+            type: String
           - name: year_of_birth
+            description: "The user's year of birth"
+            type: Int32
           - name: gender
+            description: "The user's gender"
+            type: String
           - name: level_of_education
+            description: "The user's level of education"
+            type: String
           - name: mailing_address
+            description: "The user's mailing address"
+            type: String
           - name: city
+            description: "The user's city"
+            type: String
           - name: country
+            description: "The user's country"
+            type: String
           - name: state
+            description: "The user's state"
+            type: String
           - name: goals
+            description: "The user's goals"
+            type: String
           - name: bio
+            description: "The user's bio"
+            type: String
           - name: profile_image_uploaded_at
+            description: "User's profile image upload date"
+            type: String
           - name: phone_number
+            description: "The user's phone number"
+            type: String
           - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String
 
       - name: external_id
+        description: User ID with external id from `post_save` Django signal on the ExternalId model
         columns:
           - name: external_user_id
+            description: "The external user id"
+            type: String
           - name: external_id_type
+            description: "The type of external user id"
+            type: String
           - name: username
+            description: '{{ doc("username") }}'
+            type: String
           - name: user_id
+            description: "The user id"
+            type: String
           - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String
