@@ -70,6 +70,9 @@ models:
       - name: scaled_score
         data_type: float64
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: approving_state
+        data_type: String
+        description: "The most recent approving_state of the learner's grade"
 
   - name: fact_student_status
     description: "One record per learner per course for the most recent grade and enrollment status"

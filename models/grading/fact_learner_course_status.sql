@@ -13,17 +13,13 @@ with
             org,
             course_key,
             actor_id,
-            splitByString('/', verb_id)[-1] as approving_state,
+            approving_state,
             emission_time,
             row_number() over (
                 partition by org, course_key, actor_id order by emission_time desc
             ) as rn
         from {{ ref("grading_events") }}
-        where
-            verb_id in (
-                'http://adlnet.gov/expapi/verbs/passed',
-                'http://adlnet.gov/expapi/verbs/failed'
-            )
+        where not empty(approving_state)
     )
 
 select org, course_key, actor_id, approving_state, emission_time
