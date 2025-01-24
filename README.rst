@@ -22,6 +22,7 @@ Getting Help
 Documentation
 =============
 File structure:
+
 * `dim` - Table/view/dict of attributes pertaining to a noun
 * `fact` - Table/view/dict of events or qualitative data
 * `int` - Table/view to manipulate data before reporting
