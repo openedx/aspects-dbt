@@ -21,11 +21,11 @@ Getting Help
 
 Documentation
 =============
-File structure:
+Model naming pattern:
 
-* `dim` - Table/view/dict of attributes pertaining to a noun
-* `fact` - Table/view/dict of events or qualitative data
-* `int` - Table/view to manipulate data before reporting
+* ``dim_`` - Table/view/dict of attributes pertaining to a noun (actor, course, etc)
+* ``fact_`` - Table/view/dict of events or qualitative data
+* ``int_`` - Table/view to manipulate data before fact or dim table
 
 Installation
 ************
