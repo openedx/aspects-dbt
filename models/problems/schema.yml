@@ -87,7 +87,7 @@ models:
         data_type: DateTime
         description: "The timestamp of the last attempt or the first successful attempt"
 
-  - name: dim_learner_response_attempt    
+  - name: fact_learner_response_attempts
     description: "Internal table for problem results"
     columns:
       - name: emission_time
