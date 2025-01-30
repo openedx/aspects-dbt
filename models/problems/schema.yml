@@ -87,6 +87,58 @@ models:
         data_type: DateTime
         description: "The timestamp of the last attempt or the first successful attempt"
 
+  - name: dim_learner_response_attempt    
+    description: "Internal table for problem results"
+    columns:
+      - name: emission_time
+        data_type: DateTime
+        description: "Timestamp, to the second, of when this event was emitted"
+      - name: org
+        data_type: String
+        description: "The organization that the course belongs to"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
+      - name: problem_id
+        data_type: String
+        description: "The problem's unique identifier"
+      - name: problem_name
+        data_type: String
+        description: "The problem's name"
+      - name: problem_name_with_location
+        data_type: String
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: problem_link
+        data_type: String
+        description: "An anchor tag with a link to the problem"
+      - name: actor_id
+        data_type: String
+        description: "The xAPI actor identifier"
+      - name: responses
+        data_type: String
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: success
+        data_type: bool
+        description: "Boolean indicating whether the responses were correct"
+      - name: attempts
+        data_type: Int16
+        description: "Number indicating which attempt this was"
+      - name: graded
+        data_type: bool
+        description: "Boolean indicating this block is graded"
+      - name: interaction_type
+        data_type: String
+        description: "The type of interaction - e.g. multiple choice"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
+  
   - name: fact_section_problem_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
