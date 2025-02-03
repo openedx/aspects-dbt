@@ -165,7 +165,7 @@ models:
                 - 'At least one problem attempted'
               table: 'fact_section_problem_engagement'
 
-  - name: fact_subsection_problem_engagement
+- name: fact_subsection_problem_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org

@@ -166,7 +166,7 @@ models:
                 - 'At least one page viewed'
               table: 'fact_section_page_engagement'
 
-  - name: fact_subsection_page_engagement
+- name: fact_subsection_page_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org
