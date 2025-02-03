@@ -283,7 +283,7 @@ models:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-              table: 'xapi.section_problem_engagement'
+              table: 'section_problem_engagement'
 
   - name: subsection_problem_engagement
     description: "A record per course per subsection per learner with their engagement level"
@@ -309,4 +309,4 @@ models:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-              table: 'xapi.subsection_problem_engagement'
+              table: 'subsection_problem_engagement'

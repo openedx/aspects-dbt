@@ -210,7 +210,7 @@ models:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
-              table: 'xapi.section_video_engagement'
+              table: 'section_video_engagement'
 
   - name: subsection_video_engagement
     description: "A record per course per subsection per learner with their engagement level"
@@ -236,7 +236,7 @@ models:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
-              table: 'xapi.subsection_video_engagement'
+              table: 'subsection_video_engagement'
 
   - name: watched_video_duration
     description: "Amount of time in seconds watched by each actor for every video"

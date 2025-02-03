@@ -52,7 +52,7 @@ models:
         data_tests:
           - accepted_values_xapi:
               values: [ "registered", "unregistered" ]
-              table: 'xapi.fact_instance_enrollments'
+              table: 'fact_instance_enrollments'
       - name: course_enrollment_mode_status_cnt
         data_type: Int
         description: "The number of enrollment events for this mode that occurred in the given hour"
