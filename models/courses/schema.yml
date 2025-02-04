@@ -142,3 +142,31 @@ models:
       - name: tags_str
         data_type: String
         description: "A list of tags associated with the course"
+
+  - name: course_information
+    description: "Course information for Aspects Chart"
+    columns:
+      - name: org
+        data_type: String
+        description: "The organization that the course belongs to"
+      - name: course_name
+        data_type: String
+        description: "The name of the course"
+      - name: course_run
+        data_type: String
+        description: "The course run for the course"
+      - name: actor_id
+        data_type: String
+        description: "The xAPI actor identifier"
+      - name: enrollment_mode
+        data_type: String
+        description: "The mode of enrollment"
+      - name: active_learner
+        data_type: String
+        description: "The xAPI actor identifier"
+      - name: course_tag
+        data_type: String
+        description: "A list of tags associated with the course"
+      - name: course_key
+        data_type: String
+        description: "The course key for the course"

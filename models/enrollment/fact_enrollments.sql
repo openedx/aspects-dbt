@@ -10,7 +10,7 @@ select
     users.username as username,
     users.name as name,
     users.email as email
-from {{ ref("enrollment_events") }} enrollments
+from {{ ref("dim_most_recent_enrollment") }} enrollments
 join
     {{ ref("dim_course_names") }} courses on enrollments.course_key = courses.course_key
 left outer join
