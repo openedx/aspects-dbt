@@ -6,31 +6,76 @@ sources:
     tables:
 
       - name: object_tag
+        description: '{{ doc("object_tag_source") }}'
         columns:
           - name: id
+            description: '{{ doc("id") }}'
+            type: Int32
           - name: object_id
+            description: '{{ doc("object_id") }}'
+            type: String
           - name: taxonomy
+            description: "Foreign key to the taxonomy"
+            type: Int32
           - name: tag
+            description: "The name of the tag"
+            type: String
           - name: _value
+            description: "Tag string"
+            type: String
           - name: _export_id
+            description: "Export ID"
+            type: String
           - name: lineage
+            description: "Lineage data of the tag for parent tags"
+            type: String
           - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String
 
       - name: taxonomy
+        description: Taxonomy data from `post_save` Django signal on the Taxonomy model
         columns:
           - name: id
+            description: '{{ doc("id") }}'
+            type: Int32
           - name: name
+            description: "Name for the taxonomy"
+            type: String
           - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String
 
       - name: tag
+        description: Tag data from `post_save` Django signal on the Tag model. Includes parent tag and lineage string for heirarchal relationships.
         columns:
           - name: id
+            description: '{{ doc("id") }}'
+            type: Int32
           - name: taxonomy
+            description: "Foreign key to the taxonomy"
+            type: Int32
           - name: parent
+            description: "Foreign key to the parent tag"
+            type: Int32
           - name: value
+            description: "Tag string"
+            type: String
           - name: external_id
+            description: "External ID"
+            type: String
           - name: lineage
+            description: "Lineage data of the tag for parent tags"
+            type: String
           - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String

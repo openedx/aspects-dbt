@@ -6,19 +6,19 @@ models:
     columns:
       - name: emission_time
         data_type: DateTime
-        description: "Timestamp, to the second, of when this event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_run
         data_type: String
-        description: "The course run for the course"
+        description: '{{ doc("course_run") }}'
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
@@ -33,10 +33,10 @@ models:
         description: "An anchor tag with a link to the problem"
       - name: graded
         data_type: Bool
-        description: "Whether the block is graded"
+        description: '{{ doc("graded") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: responses
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
         data_type: String
@@ -48,41 +48,41 @@ models:
         data_type: Int16
       - name: graded
         data_type: bool
-        description: "Boolean indicating this block is graded"
+        description: '{{ doc("graded") }}'
       - name: interaction_type
         data_type: String
         description: "The type of interaction - e.g. multiple choice"
       - name: username
         data_type: String
-        description: "The username of the learner"
+        description: '{{ doc("username") }}'
       - name: name
         data_type: String
-        description: "The full name of the learner"
+        description: '{{ doc("learner_name") }}'
       - name: email
         data_type: String
-        description: "The email address of the learner"
+        description: '{{ doc("email") }}'
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
 
   - name: int_problem_hints
     description: "Internal table for problem hints"
     columns:
       - name: emission_time
         data_type: DateTime
-        description: "Timestamp, to the second, of when this event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_run
         data_type: String
-        description: "The course run for the course"
+        description: '{{ doc("course_run") }}'
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
@@ -94,32 +94,32 @@ models:
         description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: help_type
         data_type: String
         description: "The type of help requested"
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
 
   - name: int_problem_results
     description: "Internal table for problem results"
     columns:
       - name: emission_time
         data_type: DateTime
-        description: "Timestamp, to the second, of when this event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_run
         data_type: String
-        description: "The course run for the course"
+        description: '{{ doc("course_run") }}'
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
@@ -134,7 +134,7 @@ models:
         description: "An anchor tag with a link to the problem"
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: responses
         data_type: String
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
@@ -146,38 +146,38 @@ models:
         description: "Number indicating which attempt this was"
       - name: graded
         data_type: bool
-        description: "Boolean indicating this block is graded"
+        description: '{{ doc("graded") }}'
       - name: interaction_type
         data_type: String
         description: "The type of interaction - e.g. multiple choice"
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
 
   - name: problem_events
     description: "Problem events"
     columns:
       - name: event_id
         data_type: UUID
-        description: "The unique identifier for the event"
+        description: '{{ doc("event_id") }}'
       - name: emission_time
         data_type: DateTime
-        description: "The time the event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: object_id
         data_type: String
-        description: "The xAPI object identifier"
+        description: '{{ doc("object_id") }}'
       - name: course_key
         data_type: String
-        description: "The course identifier"
+        description: '{{ doc("course_key") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: verb_id
         data_type: String
-        description: "The xAPI verb identifier"
+        description: '{{ doc("verb_id") }}'
       - name: responses
         data_type: String
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
@@ -202,22 +202,22 @@ models:
     columns:
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: section_number
         data_type: String
-        description: "The location of this section in the course, represented as section:0:0"
+        description: '{{ doc("section_number") }}'
       - name: section_with_name
         data_type: String
-        description: "The name of the section this subsection belongs to, with section_number prepended"
+        description: '{{ doc("section_with_name") }}'
       - name: subsection_number
         data_type: String
-        description: "The location of this subsection in the course, represented as section:subsection:0"
+        description: '{{ doc("subsection_number") }}'
       - name: subsection_with_name
         data_type: String
-        description: "The name of the subsection, with section_number prepended"
+        description: '{{ doc("subsection_with_name") }}'
       - name: graded
         data_type: bool
         description: "Whether this subsection block is graded"
@@ -226,29 +226,29 @@ models:
         description: "The number of problems in this subsection"
       - name: course_order
         data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+        description: '{{ doc("course_order") }}'
       - name: subsection_block_id
         data_type: String
-        description: "The unique identifier for the subsection block"
+        description: '{{ doc("subsection_block_id") }}'
       - name: section_block_id
         data_type: String
-        description: "The unique identifier for the section block"
+        description: '{{ doc("section_block_id") }}'
 
   - name: responses
     description: "A record per course per problem per learner with their last attempt and first success"
     columns:
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: first_success_at
         data_type: Nullable(DateTime)
         description: "The timestamp of the first successful attempt"
@@ -264,16 +264,16 @@ models:
     columns:
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: section_block_id
         data_type: String
-        description: "The unique identifier for the section block"
+        description: '{{ doc("section_block_id") }}'
       - name: engagement_level
         data_type: String
         description: "The engagement level of the learner with the section"
@@ -289,16 +289,16 @@ models:
     columns:
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: subsection_block_id
         data_type: String
-        description: "The unique identifier for the subsection block"
+        description: '{{ doc("subsection_block_id") }}'
       - name: engagement_level
         data_type: String
         description: "The engagement level of the learner with the subsection"
