@@ -21,7 +21,7 @@
 
 with
     latest as (
-        select org, course_key, max(time_last_dumped) as last_modified
+        select org, course_key, max(modified) as last_modified
         from {{ source("event_sink", "course_overviews") }}
         group by org, course_key
     )
@@ -36,4 +36,4 @@ inner join
     latest mr
     on mr.org = co.org
     and mr.course_key = co.course_key
-    and co.time_last_dumped = mr.last_modified
+    and co.modified = mr.last_modified
