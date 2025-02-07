@@ -22,10 +22,10 @@ unit_tests:
         format: sql
         rows: |
           select * from video_playback_events
-      - input: ref('dim_course_blocks_extended')
+      - input: ref('dim_course_blocks')
         format: sql
         rows: |
-          select * from dim_course_blocks_extended
+          select * from dim_course_blocks
       - input: ref('dim_user_pii')
         format: sql
         rows: |
@@ -35,8 +35,8 @@ unit_tests:
       rows: |
         select * from fact_video_plays_expected
 
-  - name: test_section_video_engagement
-    model: section_video_engagement
+  - name: test_fact_section_video_engagement
+    model: fact_section_video_engagement
     config:
       tags: 'ci'
     given:
@@ -48,17 +48,17 @@ unit_tests:
         format: sql
         rows: |
           select * from dim_course_blocks
-      - input: ref('int_videos_per_subsection')
+      - input: ref('fact_videos_per_subsection')
         format: sql
         rows: |
-          select * from int_videos_per_subsection
+          select * from fact_videos_per_subsection
     expect:
       format: sql
       rows: |
-        select * from section_video_engagement_expected
+        select * from fact_section_video_engagement_expected
 
-  - name: test_subsection_video_engagement
-    model: subsection_video_engagement
+  - name: test_fact_subsection_video_engagement
+    model: fact_subsection_video_engagement
     config:
       tags: 'ci'
     given:
@@ -70,14 +70,14 @@ unit_tests:
         format: sql
         rows: |
           select * from dim_course_blocks
-      - input: ref('int_videos_per_subsection')
+      - input: ref('fact_videos_per_subsection')
         format: sql
         rows: |
-          select * from int_videos_per_subsection
+          select * from fact_videos_per_subsection
     expect:
       format: sql
       rows: |
-        select * from subsection_video_engagement_expected
+        select * from fact_subsection_video_engagement_expected
         order by org, course_key, subsection_block_id, actor_id
 
   - name: test_fact_video_engagement
@@ -85,14 +85,14 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('subsection_video_engagement')
+      - input: ref('fact_subsection_video_engagement')
         format: sql
         rows: |
-          select * from subsection_video_engagement
-      - input: ref('section_video_engagement')
+          select * from fact_subsection_video_engagement
+      - input: ref('fact_section_video_engagement')
         format: sql
         rows: |
-          select * from section_video_engagement
+          select * from fact_section_video_engagement
       - input: ref('dim_course_blocks')
         format: sql
         rows: |

@@ -1,7 +1,6 @@
 {{
     config(
         materialized="dictionary",
-        schema=env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink"),
         fields=[
             ("location", "String"),
             ("block_name", "String"),
@@ -21,4 +20,4 @@
 }}
 select
     location, block_name, course_key, graded, course_order, display_name_with_location
-from {{ ref("most_recent_course_blocks") }}
+from {{ ref("dim_most_recent_course_blocks") }}

@@ -5,7 +5,7 @@ seeds:
     config:
       column_types:
         scaled_score: Float64
-  - name: fact_student_status_expected
+  - name: dim_student_status_expected
     config:
       column_types:
         course_grade: Float64

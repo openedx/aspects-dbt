@@ -1,108 +1,93 @@
 version: 2
 
 models:
-  - name: fact_problem_responses
-    description: "One record for each submitted response to a problem"
+  - name: problem_events
+    description: "Problem events"
     columns:
+      - name: event_id
+        data_type: UUID
+        description: "The unique identifier for the event"
       - name: emission_time
         data_type: DateTime
-        description: "Timestamp, to the second, of when this event was emitted"
+        description: "The time the event was emitted"
+      - name: actor_id
+        data_type: String
+        description: "The xAPI actor identifier"
+      - name: object_id
+        data_type: String
+        description: "The xAPI object identifier"
+      - name: course_key
+        data_type: String
+        description: "The course identifier"
       - name: org
         data_type: String
         description: "The organization that the course belongs to"
-      - name: course_key
+      - name: verb_id
         data_type: String
-        description: "The course key for the course"
-      - name: course_name
+        description: "The xAPI verb identifier"
+      - name: responses
         data_type: String
-        description: "The name of the course"
-      - name: course_run
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: success
+        data_type: Boolean
+        description: "Boolean indicating whether the responses were correct"
+      - name: interaction_type
         data_type: String
-        description: "The course run for the course"
+        description: "The type of interaction"
+      - name: attempts
+        data_type: Int16
+        description: "Number indicating which attempt this was"
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
-      - name: problem_name
+      - name: course_name
         data_type: String
-        description: "The problem's name"
-      - name: problem_name_with_location
+        description: "The name of the course"
+      - name: block_name
         data_type: String
-        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+        description: "The name of the block"
+      - name: graded
+        data_type: Boolean
+        description: "Whether the block is graded"
+      - name: display_name_with_location
+        data_type: String
+        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
+      - name: course_order
+        data_type: Int32
+        description: "The sort order of this block in the course across all course blocks"
       - name: problem_link
         data_type: String
         description: "An anchor tag with a link to the problem"
-      - name: graded
-        data_type: Bool
-        description: "Whether the block is graded"
-      - name: actor_id
-        data_type: String
-        description: "The xAPI actor identifier"
-      - name: responses
-        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
-        data_type: String
-      - name: success
-        description: "Boolean indicating whether the responses were correct"
-        data_type: Bool
-      - name: attempts
-        description: "Number indicating which attempt this was"
-        data_type: Int16
-      - name: graded
-        data_type: bool
-        description: "Boolean indicating this block is graded"
-      - name: interaction_type
-        data_type: String
-        description: "The type of interaction - e.g. multiple choice"
-      - name: username
-        data_type: String
-        description: "The username of the learner"
-      - name: name
-        data_type: String
-        description: "The full name of the learner"
-      - name: email
-        data_type: String
-        description: "The email address of the learner"
-      - name: course_order
-        data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
 
-  - name: int_problem_hints
-    description: "Internal table for problem hints"
+  - name: dim_learner_response_attempt
+    description: "A record per course per problem per learner with their last attempt and first success"
     columns:
-      - name: emission_time
-        data_type: DateTime
-        description: "Timestamp, to the second, of when this event was emitted"
       - name: org
         data_type: String
         description: "The organization that the course belongs to"
       - name: course_key
         data_type: String
         description: "The course key for the course"
-      - name: course_name
-        data_type: String
-        description: "The name of the course"
-      - name: course_run
-        data_type: String
-        description: "The course run for the course"
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
-      - name: problem_name
-        data_type: String
-        description: "The problem's name"
-      - name: problem_name_with_location
-        data_type: String
-        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
       - name: actor_id
         data_type: String
         description: "The xAPI actor identifier"
-      - name: help_type
-        data_type: String
-        description: "The type of help requested"
-      - name: course_order
-        data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
+      - name: first_success_at
+        data_type: Nullable(DateTime)
+        description: "The timestamp of the first successful attempt"
+      - name: last_attempt_at
+        data_type: DateTime
+        description: "The timestamp of the last attempt"
+      - name: emission_time
+        data_type: DateTime
+        description: "The timestamp of the last attempt or the first successful attempt"
 
-  - name: int_problem_results
+  - name: fact_learner_response_attempts
     description: "Internal table for problem results"
     columns:
       - name: emission_time
@@ -153,113 +138,8 @@ models:
       - name: course_order
         data_type: Int32
         description: "The sort order of this block in the course across all course blocks"
-
-  - name: problem_events
-    description: "Problem events"
-    columns:
-      - name: event_id
-        data_type: UUID
-        description: "The unique identifier for the event"
-      - name: emission_time
-        data_type: DateTime
-        description: "The time the event was emitted"
-      - name: actor_id
-        data_type: String
-        description: "The xAPI actor identifier"
-      - name: object_id
-        data_type: String
-        description: "The xAPI object identifier"
-      - name: course_key
-        data_type: String
-        description: "The course identifier"
-      - name: org
-        data_type: String
-        description: "The organization that the course belongs to"
-      - name: verb_id
-        data_type: String
-        description: "The xAPI verb identifier"
-      - name: responses
-        data_type: String
-        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
-      - name: scaled_score
-        data_type: Float32
-        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
-      - name: success
-        data_type: Boolean
-        description: "Boolean indicating whether the responses were correct"
-      - name: interaction_type
-        data_type: String
-        description: "The type of interaction"
-      - name: attempts
-        data_type: Int16
-        description: "Number indicating which attempt this was"
-      - name: problem_id
-        data_type: String
-        description: "The problem's unique identifier"
-
-  - name: int_problems_per_subsection
-    description: "A dimension table with the number of problems per subsection"
-    columns:
-      - name: org
-        data_type: String
-        description: "The organization that the course belongs to"
-      - name: course_key
-        data_type: String
-        description: "The course key for the course"
-      - name: section_number
-        data_type: String
-        description: "The location of this section in the course, represented as section:0:0"
-      - name: section_with_name
-        data_type: String
-        description: "The name of the section this subsection belongs to, with section_number prepended"
-      - name: subsection_number
-        data_type: String
-        description: "The location of this subsection in the course, represented as section:subsection:0"
-      - name: subsection_with_name
-        data_type: String
-        description: "The name of the subsection, with section_number prepended"
-      - name: graded
-        data_type: bool
-        description: "Whether this subsection block is graded"
-      - name: item_count
-        data_type: UInt64
-        description: "The number of problems in this subsection"
-      - name: course_order
-        data_type: Int32
-        description: "The sort order of this block in the course across all course blocks"
-      - name: subsection_block_id
-        data_type: String
-        description: "The unique identifier for the subsection block"
-      - name: section_block_id
-        data_type: String
-        description: "The unique identifier for the section block"
-
-  - name: responses
-    description: "A record per course per problem per learner with their last attempt and first success"
-    columns:
-      - name: org
-        data_type: String
-        description: "The organization that the course belongs to"
-      - name: course_key
-        data_type: String
-        description: "The course key for the course"
-      - name: problem_id
-        data_type: String
-        description: "The problem's unique identifier"
-      - name: actor_id
-        data_type: String
-        description: "The xAPI actor identifier"
-      - name: first_success_at
-        data_type: Nullable(DateTime)
-        description: "The timestamp of the first successful attempt"
-      - name: last_attempt_at
-        data_type: DateTime
-        description: "The timestamp of the last attempt"
-      - name: emission_time
-        data_type: DateTime
-        description: "The timestamp of the last attempt or the first successful attempt"
-
-  - name: section_problem_engagement
+  
+  - name: fact_section_problem_engagement
     description: "A record per course per section per learner with their engagement level"
     columns:
       - name: org
@@ -283,9 +163,9 @@ models:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-              table: 'section_problem_engagement'
+              table: 'fact_section_problem_engagement'
 
-  - name: subsection_problem_engagement
+  - name: fact_subsection_problem_engagement
     description: "A record per course per subsection per learner with their engagement level"
     columns:
       - name: org
@@ -309,4 +189,4 @@ models:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-              table: 'subsection_problem_engagement'
+              table: 'fact_subsection_problem_engagement'

@@ -1,7 +1,7 @@
-version: 2
+version: 3
 
 seeds:
-  - name: responses_expected
+  - name: dim_learner_response_attempt_expected
     config:
       column_types:
         first_success_at: Nullable(DateTime)
