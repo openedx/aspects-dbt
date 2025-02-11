@@ -278,12 +278,11 @@ models:
         data_type: String
         description: "The engagement level of the learner with the section"
         data_tests:
-          - accepted_values_xapi:
+          - accepted_values:
               values:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-              table: 'section_problem_engagement'
 
   - name: subsection_problem_engagement
     description: "A record per course per subsection per learner with their engagement level"
@@ -304,9 +303,8 @@ models:
         data_type: String
         description: "The engagement level of the learner with the subsection"
         data_tests:
-          - accepted_values_xapi:
+          - accepted_values:
               values:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-              table: 'subsection_problem_engagement'

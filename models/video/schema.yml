@@ -205,12 +205,11 @@ models:
         data_type: string
         description: "The engagement level of the learner with the section"
         data_tests:
-          - accepted_values_xapi:
+          - accepted_values:
               values:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
-              table: 'section_video_engagement'
 
   - name: subsection_video_engagement
     description: "A record per course per subsection per learner with their engagement level"
@@ -231,12 +230,11 @@ models:
         data_type: string
         description: "The engagement level of the learner with the subsection"
         data_tests:
-          - accepted_values_xapi:
+          - accepted_values:
               values:
                 - 'No videos viewed yet'
                 - 'All videos viewed'
                 - 'At least one video viewed'
-              table: 'subsection_video_engagement'
 
   - name: watched_video_duration
     description: "Amount of time in seconds watched by each actor for every video"

@@ -50,9 +50,8 @@ models:
         data_type: String
         description: "The type of enrollment event  (ex: registered, unregistered)"
         data_tests:
-          - accepted_values_xapi:
+          - accepted_values:
               values: [ "registered", "unregistered" ]
-              table: 'fact_instance_enrollments'
       - name: course_enrollment_mode_status_cnt
         data_type: Int
         description: "The number of enrollment events for this mode that occurred in the given hour"
