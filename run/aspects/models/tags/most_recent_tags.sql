@@ -1,7 +1,16 @@
-create materialized view if not exists `xapi`.`most_recent_tags_mv` 
+
   
-  to `xapi`.`most_recent_tags`
-  as 
+    
+  
+    
+    
+    
+        
+         
+
+
+        insert into `xapi`.`most_recent_tags`
+        ("id", "taxonomy", "parent", "value", "external_id", "lineage")
 with
     latest as (
         select id, max(time_last_dumped) as last_modified
@@ -16,3 +25,6 @@ with
     )
 select *
 from most_recent
+  
+  
+  

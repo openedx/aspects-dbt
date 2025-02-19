@@ -1,7 +1,16 @@
-create materialized view if not exists `xapi`.`fact_enrollment_status_mv` 
+
   
-  to `xapi`.`fact_enrollment_status`
-  as 
+    
+  
+    
+    
+    
+        
+         
+
+
+        insert into `xapi`.`fact_enrollment_status`
+        ("org", "course_key", "actor_id", "enrollment_status", "enrollment_mode", "emission_time")
 
 with
     ranked_enrollments as (
@@ -21,3 +30,6 @@ with
 select org, course_key, actor_id, enrollment_status, enrollment_mode, emission_time
 from ranked_enrollments
 where rn = 1
+  
+  
+  

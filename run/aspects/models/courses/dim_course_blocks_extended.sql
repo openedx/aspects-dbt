@@ -38,6 +38,7 @@ left join
         and blocks.course_key = subsection_blocks.course_key
         and subsection_blocks.block_id like '%@sequential+block@%'
     )
+    
   )
       
       

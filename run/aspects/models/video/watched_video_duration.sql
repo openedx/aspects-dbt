@@ -1,6 +1,6 @@
 
 
-  create view `xapi`.`watched_video_duration__dbt_backup` 
+  create view `xapi`.`watched_video_duration` 
   
     
     
@@ -153,6 +153,7 @@ select
 from course_data
 full join watched_combined on watched_combined.course_key = course_data.course_key
 group by org, course_key, actor_id, video_count, video_duration, object_id
+    
   )
       
       

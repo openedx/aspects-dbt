@@ -59,6 +59,7 @@ join
         full_responses.course_key = blocks.course_key
         and full_responses.problem_id = blocks.block_id
     )
+    
   )
       
       

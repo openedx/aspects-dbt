@@ -1,7 +1,16 @@
-create materialized view if not exists `xapi`.`most_recent_course_blocks_mv` 
+
   
-  to `xapi`.`most_recent_course_blocks`
-  as 
+    
+  
+    
+    
+    
+        
+         
+
+
+        insert into `xapi`.`most_recent_course_blocks`
+        ("location", "block_name", "display_name_with_location", "section", "subsection", "unit", "graded", "course_order", "course_key", "dump_id", "time_last_dumped")
 
 select
     location,
@@ -30,3 +39,6 @@ join
     ) latest_course_blocks
     on course_blocks.location = latest_course_blocks.location
     and course_blocks.time_last_dumped = latest_course_blocks.max_time_last_dumped
+  
+  
+  

@@ -40,6 +40,7 @@ from hints
 join
     `xapi`.`dim_course_blocks` blocks
     on (hints.course_key = blocks.course_key and hints.problem_id = blocks.block_id)
+    
   )
       
       

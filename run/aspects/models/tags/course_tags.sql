@@ -1,4 +1,4 @@
-CREATE DICTIONARY `xapi`.`course_tags__dbt_tmp` 
+CREATE OR REPLACE DICTIONARY `xapi`.`course_tags` 
   
   (course_key String,tag String,course_name String,taxonomy_name String,lineage String)
   

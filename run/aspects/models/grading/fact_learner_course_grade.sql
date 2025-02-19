@@ -1,7 +1,16 @@
-create materialized view if not exists `xapi`.`fact_learner_course_grade_mv` 
+
   
-  to `xapi`.`fact_learner_course_grade`
-  as 
+    
+  
+    
+    
+    
+        
+         
+
+
+        insert into `xapi`.`fact_learner_course_grade`
+        ("org", "course_key", "actor_id", "course_grade", "emission_time")
 
 with
     ranked_grades as (
@@ -21,3 +30,6 @@ with
 select org, course_key, actor_id, course_grade, emission_time
 from ranked_grades
 where rn = 1
+  
+  
+  

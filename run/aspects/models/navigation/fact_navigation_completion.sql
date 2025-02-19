@@ -66,6 +66,7 @@ join
         and visits.section_number = pages.section_number
         and visits.subsection_number = pages.subsection_number
     )
+    
   )
       
       

@@ -36,6 +36,7 @@ select course_key, course_name, tag_id, value as tag, lineage, mrt.name as taxon
 from parsed_tags
 inner join `xapi`.`most_recent_tags` mrot FINAL on mrot.id = tag_id
 inner join `xapi`.`most_recent_taxonomies` mrt FINAL on mrt.id = mrot.taxonomy
+    
   )
       
       

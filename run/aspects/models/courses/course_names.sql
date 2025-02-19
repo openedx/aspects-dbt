@@ -1,4 +1,4 @@
-CREATE DICTIONARY `xapi`.`course_names__dbt_tmp` 
+CREATE OR REPLACE DICTIONARY `xapi`.`course_names` 
   
   (course_key String,course_name String,course_run String,org String)
   

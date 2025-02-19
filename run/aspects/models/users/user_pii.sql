@@ -1,4 +1,4 @@
-CREATE DICTIONARY `xapi`.`user_pii__dbt_tmp` 
+CREATE OR REPLACE DICTIONARY `xapi`.`user_pii` 
   
   (user_id Int32,external_user_id String,username String,name String,email String)
   

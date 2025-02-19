@@ -56,6 +56,7 @@ left outer join
     `xapi`.`dim_user_pii` users
     on (ve.actor_id like 'mailto:%' and SUBSTRING(ve.actor_id, 8) = users.email)
     or ve.actor_id = toString(users.external_user_id)
+    
   )
       
       

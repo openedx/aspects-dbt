@@ -6,6 +6,7 @@
     
   as (
     select external_user_id, username, name, email from `xapi`.`user_pii` user_pii
+    
   )
       
       
