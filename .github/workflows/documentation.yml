@@ -46,7 +46,7 @@ jobs:
           tutor local do load-xapi-test-data
       - name: Build docs
         run: |
-          dbt run
+          dbt run --full-refresh
           dbt docs generate
       - name: Deploy
         if: github.event_name == 'push'
