@@ -13,13 +13,13 @@ models:
         description: "The external user id"
       - name: username
         data_type: String
-        description: "The username of the user"
+        description: '{{ doc("username") }}'
       - name: name
         data_type: String
-        description: "The name of the user"
+        description: '{{ doc("learner_name") }}'
       - name: email
         data_type: String
-        description: "The email of the user"
+        description: '{{ doc("email") }}'
 
   - name: dim_user_pii
     description: "A denormalized table of user PII information"
@@ -29,10 +29,10 @@ models:
         description: "The external user id"
       - name: username
         data_type: String
-        description: "The username"
+        description: '{{ doc("username") }}'
       - name: name
         data_type: String
-        description: "The name of the user"
+        description: '{{ doc("learner_name") }}'
       - name: email
         data_type: String
-        description: "The email of the user"
+        description: '{{ doc("email") }}'

@@ -6,90 +6,90 @@ models:
     columns:
       - name: emission_time
         data_type: DateTime
-        description: "Timestamp, to the second, of when this event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_run
         data_type: String
-        description: "The course run for the course"
+        description: '{{ doc("course_run") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: enrollment_mode
         data_type: LowCardinality(String)
-        description: "The mode of enrollment"
+        description: '{{ doc("enrollment_mode") }}'
       - name: enrollment_status
-        description: "Whether a learner is actively enrolled in a course"
+        description: '{{ doc("enrollment_status") }}'
         data_tests:
           - accepted_values:
               values: ["registered", "unregistered"]
         data_type: String
       - name: username
         data_type: String
-        description: "The username of the learner"
+        description: '{{ doc("username") }}'
       - name: name
         data_type: String
-        description: "The full name of the learner"
+        description: '{{ doc("learner_name") }}'
       - name: email
         data_type: String
-        description: "The email address of the learner"
+        description: '{{ doc("email") }}'
 
   - name: enrollment_events
     description: "A materialized view for xAPI events related to course enrollment"
     columns:
       - name: event_id
         data_type: UUID
-        description: "The unique identifier for the event"
+        description: '{{ doc("event_id") }}'
       - name: emission_time
         data_type: DateTime
-        description: "The time the event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: object_id
         data_type: String
-        description: "The xAPI object identifier"
+        description: '{{ doc("object_id") }}'
       - name: course_key
         data_type: String
-        description: "The course identifier"
+        description: '{{ doc("course_key") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: verb_id
         data_type: String
-        description: "The xAPI verb identifier"
+        description: '{{ doc("verb_id") }}'
       - name: enrollment_mode
         data_type: String
-        description: "The mode of enrollment"
+        description: '{{ doc("enrollment_mode") }}'
 
   - name: fact_enrollment_status
     description: One record per learner per course for the most recent enrollment status
     columns:
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: enrollment_status
         data_type: String
-        description: "Whether a learner is actively enrolled in a course"
+        description: '{{ doc("enrollment_status") }}'
         data_tests:
           - accepted_values:
               values: ["registered", "unregistered"]
       - name: enrollment_mode
         data_type: String
-        description: "The mode of enrollment"
+        description: '{{ doc("enrollment_mode") }}'
       - name: emission_time
-        data_type: DateTime
-        description: "The time the enrollment status was emitted"
+        data_type: Strin
+        description: '{{ doc("emission_time") }}'

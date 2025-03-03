@@ -3,12 +3,18 @@ version: 2
 sources:
   - name: xapi
     database: "{{ env_var('ASPECTS_XAPI_DATABASE', 'xapi') }}"
-    description: "the xapi database in clickhouse"
+    description: "Clickhouse database for xapi events"
     tables:
       - name: xapi_events_all
         identifier: "{{ env_var('ASPECTS_VECTOR_RAW_XAPI_TABLE', 'xapi_events_all') }}"
         description: "Base table for raw xAPI events"
         columns:
           - name: event_id
+            type: UUID
+            description: '{{ doc("event_id") }}'
           - name: emission_time
+            type: DateTime64(6)
+            description: '{{ doc("emission_time") }}'
           - name: event
+            type: String
+            description: "The JSON representation of this xAPI event, stored as a String"

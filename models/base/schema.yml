@@ -6,28 +6,28 @@ models:
     columns:
       - name: event_id
         data_type: UUID
-        description: "The unique identifier for the event"
+        description: '{{ doc("event_id") }}'
       - name: verb_id
         data_type: String
-        description: "The xAPI verb identifier"
+        description: '{{ doc("verb_id") }}'
       - name: actor_id
         data_type: String
-        description: "The xAPI actor identifier"
+        description: '{{ doc("actor_id") }}'
       - name: object_id
         data_type: String
-        description: "The xAPI object identifier"
+        description: '{{ doc("object_id") }}'
       - name: course_id
         data_type: String
         description: "The fully-qualified course identifier URL"
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: emission_time
         data_type: DateTime64(6)
-        description: "The time the event was emitted"
+        description: '{{ doc("emission_time") }}'
       - name: event
         data_type: String
         description: "The xAPI event as a String"

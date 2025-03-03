@@ -3,32 +3,79 @@ version: 2
 sources:
   - name: event_sink
     database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
+    description: "Clickhouse database for event driven and reporting tables"
     tables:
 
       - name: course_blocks
+        description: XBlock data from CMS `COURSE_PUBLISHED` events
         columns:
           - name: org
+            description: '{{ doc("org")}}'
+            type: String
           - name: course_key
+            description: '{{ doc("course_key")}}'
+            type: String
           - name: location
+            description: "The location of the block"
+            type: String
           - name: display_name
+            description: "The name of the block"
+            type: String
           - name: xblock_data_json
+            description: "Json string containing xblock data"
+            type: String
           - name: order
+            description: '{{ doc("course_order")}}'
+            type: Int32
           - name: edited_on
+            description: "Date the course block was edited"
+            type: String
           - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String
 
       - name: course_overviews
+        description: Course metadata from CMS `COURSE_PUBLISHED` events
         columns:
           - name: org
+            description: '{{ doc("org")}}' 
+            type: String
           - name: course_key
+            description: '{{ doc("course_key")}}'
+            type: String
           - name: display_name
+            description: "The name of the block"
+            type: String
           - name: course_start
+            description: "Course start date"
+            type: String
           - name: course_end
+            description: "Course end date"
+            type: String
           - name: enrollment_start
+            description: "Enrollment start date"
+            type: String
           - name: enrollment_end
+            description: "Enrollment end date"
+            type: String
           - name: self_paced
+            description: "If the course is self paced"
+            type: Boolean
           - name: course_data_json
+            description: "Json string containing course data"
+            type: String
           - name: created
+            description: "Course create date"
+            type: String
           - name: modified
-          - name: dump_id
+            description: "Course modified date"
+            type: String
+          - name: dump_id            
+            description: '{{ doc("dump_id") }}'
+            type: UUID
           - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String

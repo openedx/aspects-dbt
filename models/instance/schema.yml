@@ -39,16 +39,16 @@ models:
         description: "Time of summary, truncated to the day"
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: enrollment_mode
         data_type: String
-        description: "The name of the enrollment mode (ex: audit, honor)"
+        description: '{{ doc("enrollment_mode") }}'
       - name: enrollment_status
         data_type: String
-        description: "The type of enrollment event  (ex: registered, unregistered)"
+        description: '{{ doc("enrollment_status") }}'
         data_tests:
           - accepted_values:
               values: [ "registered", "unregistered" ]
