@@ -6,12 +6,14 @@ The LMS can be configured to send different identifiers for an actor, but they a
 
 {% enddocs %}
 
+# TODO: link to Opaque Keys docs
 {% docs block_id %}
-The block's unique identifier
+The unique XBlock usage key for this block
 {% enddocs %}
 
+# TODO: link to Opaque Keys docs
 {% docs course_key %}
-The course key for the course
+The CourseKey for this course run
 {% enddocs %}
 
 {% docs course_name %}
