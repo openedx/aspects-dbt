@@ -142,7 +142,7 @@ models:
         description: '{{ doc("course_run") }}'
       - name: org
         data_type: String
-        description: "The organization that the course belongs to"
+        description: '{{ doc("org") }}'
       - name: tags_str
         data_type: String
         description: "A list of tags associated with the course"

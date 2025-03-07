@@ -69,7 +69,7 @@ models:
         description: '{{ doc("verb_id") }}'
       - name: enrollment_mode
         data_type: String
-        description: "The mode of enrollment"
+        description: '{{ doc("enrollment_mode") }}'
       - name: enrollment_status
         description: "Whether a learner is actively enrolled in a course"
         data_tests:
