@@ -57,6 +57,12 @@ models:
       - name: problem_link
         data_type: String
         description: "An anchor tag with a link to the problem"
+      - name: graded
+        data_type: bool
+        description: '{{ doc("graded") }}'
+      - name: course_order
+        data_type: Int32
+        description: '{{ doc("course_order") }}'
 
   - name: dim_learner_response_attempt
     description: "A record per course per problem per learner with their last attempt and first success"
