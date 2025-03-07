@@ -58,10 +58,6 @@ models:
         data_tests:
           - accepted_values:
               values: [ "registered", "unregistered" ]
-<<<<<<< HEAD
-=======
-              table: 'fact_instance_enrollments'
->>>>>>> b30b6db (feat: reorganize models, rename to correct dim/fact/int)
       - name: course_enrollment_mode_status_cnt
         data_type: Int
         description: "The number of enrollment events for this mode that occurred in the given hour"
