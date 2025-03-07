@@ -6,13 +6,13 @@ models:
     columns:
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: tag
         data_type: String
         description: "The name of the tag"
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: taxonomy_name
         data_type: String
         description: "The name of the parent taxonomy of the tag"
@@ -25,10 +25,10 @@ models:
     columns:
       - name: course_key
         data_type: String
-        description: "The course key for the course"
+        description: '{{ doc("course_key") }}'
       - name: course_name
         data_type: String
-        description: "The name of the course"
+        description: '{{ doc("course_name") }}'
       - name: tag_id
         data_type: String
         description: "The ID of the tag"
@@ -47,10 +47,10 @@ models:
     columns:
       - name: id
         data_type: Int32
-        description: "The record ID"
+        description: '{{ doc("id") }}'
       - name: object_id
         data_type: String
-        description: "The tagged object"
+        description: '{{ doc("object_id") }}'
       - name: taxonomy
         data_type: Int32
         description: "Foreign key to the taxonomy"
@@ -65,11 +65,11 @@ models:
         description: "Lineage data of the tag for parent tags"
 
   - name: most_recent_tags
-    description: "Latest object tags"
+    description: "Latest tags"
     columns:
       - name: id
         data_type: Int32
-        description: "The record ID"
+        description: '{{ doc("id") }}'
       - name: taxonomy
         data_type: Int32
         description: "Foreign key to the taxonomy"
@@ -87,11 +87,11 @@ models:
         description: "Lineage data of the tag for parent tags"
 
   - name: most_recent_taxonomies
-    description: "Latest object tags"
+    description: "Latest taxonomies"
     columns:
       - name: id
         data_type: Int32
-        description: "The record ID"
+        description: '{{ doc("id") }}'
       - name: name
-        data_type: Int32
+        data_type: String
         description: "Name for the taxonomy"
