@@ -1,3 +1,0 @@
-{% colors xapi %}
-yellow
-{% endcolors %}
