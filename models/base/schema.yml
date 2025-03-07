@@ -2,6 +2,8 @@ version: 2
 
 models:
   - name: xapi_events_all_parsed
+    docs:
+        node_color: '{{ var("color_xapi") }}'
     description: "A materialized view for xAPI events"
     columns:
       - name: event_id

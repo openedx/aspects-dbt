@@ -1,8 +1,9 @@
 version: 2
 
 models:
-
   - name: user_pii
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "The user PII table for reports."
     columns:
       - name: user_id
@@ -24,6 +25,9 @@ models:
   - name: dim_user_pii
     description: "A denormalized table of user PII information"
     columns:
+      - name: user_id
+        data_type: String
+        description: "The user id"
       - name: external_user_id
         data_type: String
         description: "The external user id"

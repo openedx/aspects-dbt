@@ -1,4 +1,60 @@
 unit_tests:
+  - name: test_dim_learner_most_recent_course_grade
+    model: dim_learner_most_recent_course_grade
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('grading_events')
+        format: sql
+        rows: |
+          select * from grading_events
+    expect:
+      format: csv
+      fixture: dim_learner_most_recent_course_grade_expected
+
+  - name: test_dim_learner_most_recent_course_state
+    model: dim_learner_most_recent_course_state
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('grading_events')
+        format: sql
+        rows: |
+          select * from grading_events
+    expect:
+      format: csv
+      fixture: dim_learner_most_recent_course_state_expected
+
+  - name: test_dim_student_status
+    model: dim_student_status
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('dim_most_recent_enrollment')
+        format: sql
+        rows: |
+          select * from dim_most_recent_enrollment
+      - input: ref('dim_learner_most_recent_course_state')
+        format: sql
+        rows: |
+          select * from dim_learner_most_recent_course_state
+      - input: ref('dim_learner_most_recent_course_grade')
+        format: sql
+        rows: |
+          select * from dim_learner_most_recent_course_grade
+      - input: ref('dim_course_names')
+        format: sql
+        rows: |
+          select * from dim_course_names
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from dim_user_pii
+    expect:
+      format: sql
+      rows: |
+       select * from dim_student_status_expected
+
   - name: test_grading_events
     model: grading_events
     config:
@@ -12,29 +68,3 @@ unit_tests:
       format: sql
       rows: |
        select * from grading_events_expected
-
-  - name: test_fact_learner_course_grade
-    model: fact_learner_course_grade
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('grading_events')
-        format: sql
-        rows: |
-          select * from grading_events
-    expect:
-      format: csv
-      fixture: fact_learner_course_grade_expected
-
-  - name: test_fact_learner_course_status
-    model: fact_learner_course_status
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('grading_events')
-        format: sql
-        rows: |
-          select * from grading_events
-    expect:
-      format: csv
-      fixture: fact_learner_course_status_expected

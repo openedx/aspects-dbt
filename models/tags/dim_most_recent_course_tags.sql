@@ -1,10 +1,10 @@
 {{
     config(
         materialized="dictionary",
-        schema=env_var("ASPECTS_EVENT_SINK_DATABASE", "event_sink"),
         fields=[
             ("course_key", "String"),
             ("tag", "String"),
+            ("tag_id", "Int32"),
             ("course_name", "String"),
             ("taxonomy_name", "String"),
             ("lineage", "String"),
@@ -19,6 +19,15 @@
     )
 }}
 
-select course_key, tag, course_name, taxonomy_name, lineage
-from {{ ref("most_recent_course_tags") }}
-order by course_key
+with
+    parsed_tags as (
+        select
+            course_key,
+            course_name,
+            arrayJoin(JSONExtractArrayRaw(tags_str))::Int32 as tag_id
+        from {{ ref("dim_course_names") }}
+    )
+select course_key, course_name, tag_id, value as tag, lineage, mrt.name as taxonomy_name
+from parsed_tags
+inner join {{ ref("dim_most_recent_tags") }} mrot FINAL on mrot.id = tag_id
+inner join {{ ref("dim_most_recent_taxonomies") }} mrt FINAL on mrt.id = mrot.taxonomy

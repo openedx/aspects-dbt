@@ -1,10 +1,9 @@
 {{
     config(
         materialized="materialized_view",
-        schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key)",
-        order_by="(org, course_key, section_block_id, actor_id)",
+        order_by="(org, course_key, subsection_block_id, actor_id)",
     )
 }}
 
@@ -50,6 +49,9 @@ with
             video_id
         from fact_video_plays
     ),
+    fact_videos_per_subsection as (
+        select * from ({{ items_per_subsection("%@video+block@%") }})
+    ),
     fact_video_engagement_per_subsection as (
         select
             views.org as org,
@@ -59,10 +61,10 @@ with
             videos.item_count as item_count,
             views.actor_id as actor_id,
             views.video_id as video_id,
-            videos.section_block_id as section_block_id
+            videos.subsection_block_id as subsection_block_id
         from viewed_subsection_videos views
         join
-            {{ ref("int_videos_per_subsection") }} videos
+            fact_videos_per_subsection videos
             on (
                 views.org = videos.org
                 and views.course_key = videos.course_key
@@ -86,7 +88,7 @@ with
                 then 'All videos viewed'
                 else 'At least one video viewed'
             end as engagement_level,
-            section_block_id
+            subsection_block_id
         from fact_video_engagement_per_subsection
         group by
             org,
@@ -95,25 +97,7 @@ with
             subsection_with_name,
             actor_id,
             item_count,
-            section_block_id
-    ),
-    section_counts as (
-        select
-            org,
-            course_key,
-            actor_id,
-            sum(item_count) as item_count,
-            sum(videos_viewed) as videos_viewed,
-            case
-                when videos_viewed = 0
-                then 'No videos viewed yet'
-                when videos_viewed = item_count
-                then 'All videos viewed'
-                else 'At least one video viewed'
-            end as engagement_level,
-            section_block_id
-        from subsection_counts
-        group by org, course_key, section_block_id, actor_id
+            subsection_block_id
     )
-select org, course_key, actor_id, section_block_id, engagement_level
-from section_counts
+select distinct org, course_key, actor_id, subsection_block_id, engagement_level
+from subsection_counts

@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: fact_learner_course_grade
+  - name: dim_learner_most_recent_course_grade
     description: "One record per learner per course for the most recent grade"
     columns:
       - name: org
@@ -21,7 +21,7 @@ models:
         description: '{{ doc("emission_time") }}'
 
 
-  - name: fact_learner_course_status
+  - name: dim_learner_most_recent_course_state
     description: "One record per learner per course for the most recent approving status"
     columns:
       - name: org
@@ -44,6 +44,8 @@ models:
               values: ["passed", "failed"]
 
   - name: grading_events
+    docs:
+        node_color: '{{ var("color_xapi") }}'
     description: "Events related to grading"
     columns:
       - name: event_id
@@ -74,7 +76,7 @@ models:
         data_type: String
         description: "The most recent approving_state of the learner's grade"
 
-  - name: fact_student_status
+  - name: dim_student_status
     description: "One record per learner per course for the most recent grade and enrollment status"
     columns:
       - name: org
