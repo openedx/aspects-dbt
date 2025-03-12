@@ -126,13 +126,9 @@ models:
         data_type: String
         description: '{{ doc("time_last_dumped") }}'
 
-<<<<<<< HEAD
-  - name: course_names
-=======
   - name: dim_course_names
     docs:
         node_color: '{{ var("color_event_sink") }}'
->>>>>>> a713108 (feat: reorganize models, rename to correct dim/fact/int)
     description: "A dictionary of courses with their names"
     columns:
       - name: course_key
