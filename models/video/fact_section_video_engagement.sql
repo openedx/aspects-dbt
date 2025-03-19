@@ -22,8 +22,8 @@ with
         where verb_id = 'https://w3id.org/xapi/video/verbs/played'
     ),
     fact_video_plays as (
-        select
-            plays.emission_time as emission_time,
+        select distinct
+            date(plays.emission_time) as viewed_on,
             plays.org as org,
             plays.course_key as course_key,
             plays.video_id as video_id,
@@ -37,17 +37,6 @@ with
                 plays.course_key = blocks.course_key
                 and plays.video_id = blocks.block_id
             )
-    ),
-    viewed_subsection_videos as (
-        select distinct
-            date(emission_time) as viewed_on,
-            org,
-            course_key,
-            section_number,
-            subsection_number,
-            actor_id,
-            video_id
-        from fact_video_plays
     ),
     fact_videos_per_subsection as (
         select * from ({{ items_per_subsection("%@video+block@%") }})
