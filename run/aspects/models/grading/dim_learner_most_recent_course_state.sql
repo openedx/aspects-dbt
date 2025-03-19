@@ -1,0 +1,35 @@
+
+  
+    
+  
+    
+    
+    
+        
+         
+
+
+        insert into `xapi`.`dim_learner_most_recent_course_state`
+        ("org", "course_key", "actor_id", "approving_state", "emission_time")
+
+with
+    ranked_status as (
+        select
+            org,
+            course_key,
+            actor_id,
+            approving_state,
+            emission_time,
+            row_number() over (
+                partition by org, course_key, actor_id order by emission_time desc
+            ) as rn
+        from `xapi`.`grading_events`
+        where not empty(approving_state)
+    )
+
+select org, course_key, actor_id, approving_state, emission_time
+from ranked_status
+where rn = 1
+  
+  
+  

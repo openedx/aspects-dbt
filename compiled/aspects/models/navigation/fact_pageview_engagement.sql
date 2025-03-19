@@ -7,7 +7,7 @@ with
             actor_id,
             subsection_block_id as block_id,
             engagement_level as section_subsection_page_engagement
-        from `xapi`.`subsection_page_engagement`
+        from `xapi`.`fact_subsection_page_engagement`
     ),
     section_engagement as (
         select
@@ -17,7 +17,7 @@ with
             actor_id,
             section_block_id as block_id,
             engagement_level as section_subsection_page_engagement
-        from `xapi`.`section_page_engagement`
+        from `xapi`.`fact_section_page_engagement`
     ),
     page_engagement as (
         select *

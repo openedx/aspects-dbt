@@ -22,7 +22,6 @@ with
         from `xapi`.`video_playback_events`
         where verb_id = 'https://w3id.org/xapi/video/verbs/played'
     )
-
 select
     plays.emission_time as emission_time,
     plays.org as org,
@@ -70,7 +69,7 @@ select
     blocks.course_order as course_order
 from plays
 join
-    `xapi`.`dim_course_blocks_extended` blocks
+    `xapi`.`dim_course_blocks` blocks
     on (plays.course_key = blocks.course_key and plays.video_id = blocks.block_id)
 left outer join
     `xapi`.`dim_user_pii` users
