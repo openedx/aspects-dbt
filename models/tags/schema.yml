@@ -1,26 +1,7 @@
 version: 2
 
 models:
-  - name: course_tags
-    description: "Tag with lineage data for courses (dictionary)"
-    columns:
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: tag
-        data_type: String
-        description: "The name of the tag"
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: taxonomy_name
-        data_type: String
-        description: "The name of the parent taxonomy of the tag"
-      - name: lineage
-        data_type: String
-        description: "Lineage data of the tag for parent tags"
-
-  - name: most_recent_course_tags
+  - name: dim_most_recent_course_tags
     description: "Tag with lineage data for objects (view)"
     columns:
       - name: course_key
@@ -30,7 +11,7 @@ models:
         data_type: String
         description: '{{ doc("course_name") }}'
       - name: tag_id
-        data_type: String
+        data_type: Int32
         description: "The ID of the tag"
       - name: tag
         data_type: String
@@ -42,7 +23,9 @@ models:
         data_type: String
         description: "The name of the parent taxonomy of the tag"
 
-  - name: most_recent_object_tags
+  - name: dim_most_recent_object_tags
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "Latest object tags"
     columns:
       - name: id
@@ -64,7 +47,9 @@ models:
         data_type: String
         description: "Lineage data of the tag for parent tags"
 
-  - name: most_recent_tags
+  - name: dim_most_recent_tags
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "Latest tags"
     columns:
       - name: id
@@ -86,7 +71,9 @@ models:
         data_type: String
         description: "Lineage data of the tag for parent tags"
 
-  - name: most_recent_taxonomies
+  - name: dim_most_recent_taxonomies
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "Latest taxonomies"
     columns:
       - name: id

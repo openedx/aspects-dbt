@@ -43,8 +43,14 @@ models:
       - name: block_type
         data_type: String
         description: "The type of block. This can be a section, subsection, unit, or the block type"
+      - name: section_with_name
+        data_type: String
+        description: "The name of the section"
+      - name: subsection_with_name
+        data_type: String
+        description: "The name of the subsection"
 
-  - name: course_block_names
+  - name: dim_course_block_names
     description: "An in-memory dictionary of course blocks with their display names and additional metadata. Only stores the most recent row per block location."
     columns:
       - name: location
@@ -81,7 +87,9 @@ models:
         data_type: String
         description: '{{ doc("time_last_dumped") }}'
 
-  - name: most_recent_course_blocks
+  - name: dim_most_recent_course_blocks
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "A materialized view of course blocks with their display names and additional metadata. Only stores the most recent row per block location."
     columns:
       - name: location
@@ -118,7 +126,9 @@ models:
         data_type: String
         description: '{{ doc("time_last_dumped") }}'
 
-  - name: course_names
+  - name: dim_course_names
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
     description: "A dictionary of courses with their names"
     columns:
       - name: course_key
@@ -133,52 +143,6 @@ models:
       - name: org
         data_type: String
         description: '{{ doc("org") }}'
-
-  - name: dim_course_blocks_extended
-    description: "dim_course_blocks with section and subsection names joined into the data."
-    columns:
-      - name: org
+      - name: tags_str
         data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
-      - name: block_id
-        data_type: String
-        description: '{{ doc("block_id") }}'
-      - name: block_name
-        data_type: String
-        description: "The block's name"
-      - name: section_number
-        data_type: String
-        description: '{{ doc("section_number") }}'
-      - name: subsection_number
-        data_type: String
-        description: '{{ doc("subsection_number") }}'
-      - name: hierarchy_location
-        data_type: String
-        description: "The full section:subsection:unit hierarchy in which this block belongs"
-      - name: display_name_with_location
-        data_type: String
-        description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"
-      - name: graded
-        data_type: Boolean
-        description: '{{ doc("graded") }}'
-      - name: block_type
-        data_type: String
-        description: "The type of block. This can be a section, subsection, unit, or the block type"
-      - name: section_with_name
-        data_type: String
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_with_name
-        data_type: String
-        description: '{{ doc("subsection_with_name") }}'
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
+        description: "A list of tags associated with the course"

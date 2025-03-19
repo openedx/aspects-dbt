@@ -15,10 +15,11 @@ with
             events.responses as responses,
             events.success as success,
             events.attempts as attempts,
-            events.interaction_type as interaction_type
+            events.interaction_type as interaction_type,
+            events.problem_link as problem_link
         from {{ ref("problem_events") }} events
         join
-            {{ ref("responses") }} using (
+            {{ ref("dim_learner_response_attempt") }} using (
                 org, course_key, problem_id, actor_id, emission_time
             )
     )
@@ -33,8 +34,7 @@ select
     blocks.block_name as problem_name,
     blocks.display_name_with_location as problem_name_with_location,
     blocks.course_order as course_order,
-    {{ a_tag("full_responses.object_id", "blocks.display_name_with_location") }}
-    as problem_link,
+    full_responses.problem_link as problem_link,
     full_responses.actor_id as actor_id,
     full_responses.responses as responses,
     full_responses.success as success,

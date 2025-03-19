@@ -41,3 +41,7 @@ seeds:
   aspects:
     +column_types:
       event_id: UUID
+
+vars:
+  color_xapi: '#cc9900'
+  color_event_sink: '#9999ff'

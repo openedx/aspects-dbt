@@ -1,7 +1,7 @@
 version: 2
 
 seeds:
-  - name: most_recent_course_blocks_expected
+  - name: dim_most_recent_course_blocks_expected
     config:
       column_types:
         dump_id: UUID
