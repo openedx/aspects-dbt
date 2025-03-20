@@ -1,5 +1,6 @@
 -- model to support number of watches per video
--- how many partial and completed videos they have seen and how many times each five-second increment of video was viewed
+-- how many partial and completed videos they have seen and how many times each 
+-- five-second increment of video was viewed
 -- ref:
 -- https://docs.openedx.org/projects/openedx-aspects/en/latest/reference/course_overview_dashboard.html#engagement-metrics
 with
