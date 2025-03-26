@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`fact_instance_enrollments__dbt_backup`
+        insert into `xapi`.`fact_instance_enrollments`
         ("emission_day", "course_key", "enrollment_mode", "enrollment_status", "course_enrollment_mode_status_cnt")
 
 with
@@ -28,4 +30,6 @@ select
     count() as course_enrollment_mode_status_cnt
 from enrollments
 group by emission_day, course_key, enrollment_mode, enrollment_status
+  
+  
   
