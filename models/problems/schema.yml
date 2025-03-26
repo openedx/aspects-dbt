@@ -89,6 +89,117 @@ models:
         data_type: DateTime
         description: '{{ doc("emission_time") }}'
 
+  - name: dim_learner_first_response
+    description: "A record per course per problem per learner with their first attempt"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: problem_id
+        data_type: String
+        description: "The problem's unique identifier"
+      - name: object_id
+        data_type: String
+        description: '{{ doc("object_id") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: interaction_type
+        data_type: String
+        description: 'The type of problem (choice, numeric, etc)'
+      - name: attempt
+        data_type: Int16
+        description: "Number indicating which attempt this was"
+      - name: success
+        data_type: Boolean
+        description: "Boolean indicating whether the responses were correct"
+      - name: responses
+        data_type: String
+        description: "The responses for the first submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: emission_time
+        data_type: DateTime
+        description: "The timestamp of the first attempt"
+
+  - name: dim_learner_last_response
+    description: "A record per course per problem per learner with their last attempt"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: problem_id
+        data_type: String
+        description: "The problem's unique identifier"
+      - name: object_id
+        data_type: String
+        description: '{{ doc("object_id") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: interaction_type
+        data_type: String
+        description: 'The type of problem (choice, numeric, etc)'
+      - name: attempt
+        data_type: Int16
+        description: "Number indicating which attempt this was"
+      - name: success
+        data_type: Boolean
+        description: "Boolean indicating whether the responses were correct"
+      - name: responses
+        data_type: String
+        description: "The responses for the last submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: emission_time
+        data_type: DateTime
+        description: "The timestamp of the last attempt"
+
+  - name: dim_learner_first_success_response
+    description: "A record per course per problem per learner with their first successful attempt"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: problem_id
+        data_type: String
+        description: "The problem's unique identifier"
+      - name: object_id
+        data_type: String
+        description: '{{ doc("object_id") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: interaction_type
+        data_type: String
+        description: 'The type of problem (choice, numeric, etc)'
+      - name: attempt
+        data_type: Int16
+        description: "Number indicating which attempt this was"
+      - name: success
+        data_type: Boolean
+        description: "Boolean indicating whether the responses were correct"
+      - name: responses
+        data_type: String
+        description: "The responses for the first successful submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: emission_time
+        data_type: DateTime
+        description: "The timestamp of the first successful attempt"
+
   - name: fact_learner_response_attempts
     description: "Internal table for problem results"
     columns:
