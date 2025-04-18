@@ -26,7 +26,6 @@ with
         select *
         from section_engagement
     )
-
 select
     pv.org as org,
     pv.course_key as course_key,

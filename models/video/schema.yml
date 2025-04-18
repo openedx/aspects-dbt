@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: fact_video_plays
-    description: "One record for each time a learner played a video"
+    description: "One record for each 5 second increment of a video watched by a learner"
     columns:
       - name: emission_time
         data_type: DateTime
@@ -148,57 +148,6 @@ models:
       - name: email
         data_type: String
         description: '{{ doc("email") }}'
-
-
-  - name: fact_section_video_engagement
-    description: "A record per course per section per learner with their engagement level"
-    columns:
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: string
-        description: '{{ doc("actor_id") }}'
-      - name: section_block_id
-        data_type: string
-        description: '{{ doc("section_block_id") }}'
-      - name: engagement_level
-        data_type: string
-        description: "The engagement level of the learner with the section"
-        data_tests:
-          - accepted_values:
-              values:
-                - 'No videos viewed yet'
-                - 'All videos viewed'
-                - 'At least one video viewed'
-
-  - name: fact_subsection_video_engagement
-    description: "A record per course per subsection per learner with their engagement level"
-    columns:
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: string
-        description: '{{ doc("actor_id") }}'
-      - name: subsection_block_id
-        data_type: string
-        description: '{{ doc("subsection_block_id") }}'
-      - name: engagement_level
-        data_type: string
-        description: "The engagement level of the learner with the subsection"
-        data_tests:
-          - accepted_values:
-              values:
-                - 'No videos viewed yet'
-                - 'All videos viewed'
-                - 'At least one video viewed'
 
   - name: fact_watched_video_duration
     description: "Amount of time in seconds watched by each actor for every video"

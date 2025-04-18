@@ -65,7 +65,7 @@ models:
         description: '{{ doc("course_order") }}'
 
   - name: dim_learner_response_attempt
-    description: "A record per course per problem per learner with their last attempt and first success"
+    description: "One record per course per problem per learner with their last attempt and first success"
     columns:
       - name: org
         data_type: String

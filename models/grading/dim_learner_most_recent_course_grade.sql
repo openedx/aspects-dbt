@@ -2,26 +2,21 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, actor_id)",
         order_by="(org, course_key, actor_id)",
     )
 }}
 
 with
-    ranked_grades as (
+    final_results as (
         select
-            emission_time,
+            max(emission_time) as emission_time_max,
             org,
             course_key,
             actor_id,
-            scaled_score as course_grade,
-            row_number() over (
-                partition by org, course_key, actor_id order by emission_time desc
-            ) as rn
+            argMax(scaled_score, emission_time) as course_grade
         from {{ ref("grading_events") }}
         where object_id like '%/course/%'
+        group by org, course_key, actor_id
     )
-
-select org, course_key, actor_id, course_grade, emission_time
-from ranked_grades
-where rn = 1
+select org, course_key, actor_id, course_grade, emission_time_max as emission_time
+from final_results

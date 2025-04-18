@@ -2,7 +2,6 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key)",
         order_by="(org, course_key, subsection_block_id, actor_id)",
     )
 }}
@@ -36,8 +35,20 @@ with
             block_id
         from fact_navigation
     ),
-    pages_per_subsection as (
-        select * from ({{ items_per_subsection("%@vertical+block@%") }})
+    pages as (
+        select 
+            org,
+            course_key,
+            section_number,
+            subsection_number,
+            section_with_name, 
+            subsection_with_name, 
+            course_order, 
+            count(original_block_id) as item_count,
+            subsection_block_id
+        from {{ ref('items_per_subsection') }} 
+        where original_block_id like '%@vertical+block@%'
+        group by section_with_name, subsection_with_name, course_order, org, course_key, section_number, subsection_number, subsection_block_id
     ),
     fact_navigation_completion as (
         select
@@ -51,8 +62,7 @@ with
             visits.block_id as block_id,
             pages.subsection_block_id as subsection_block_id
         from visited_subsection_pages visits
-        join
-            pages_per_subsection pages
+        join pages
             on (
                 visits.org = pages.org
                 and visits.course_key = pages.course_key

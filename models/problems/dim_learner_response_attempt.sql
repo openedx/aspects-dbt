@@ -1,13 +1,8 @@
--- select one record per (learner, problem, course, org) tuple
--- contains either the first successful attempt
--- or the most recent unsuccessful attempt
--- find the timestamp of the earliest successful response
--- this will be used to pick the xAPI event corresponding to that submission
+
 {{
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, problem_id)",
         order_by="(org, course_key, problem_id, actor_id)",
         partition_by="toYYYYMM(emission_time)",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
