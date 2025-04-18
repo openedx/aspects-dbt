@@ -28,18 +28,25 @@ with
             or actor_id = toString(users.external_user_id)
     ),
     pages as (
-        select 
+        select
             org,
             course_key,
             section_number,
             subsection_number,
-            section_with_name, 
-            subsection_with_name, 
-            course_order, 
+            section_with_name,
+            subsection_with_name,
+            course_order,
             count(pages.original_block_id) as item_count
-        from {{ ref('items_per_subsection') }} pages
+        from {{ ref("items_per_subsection") }} pages
         where original_block_id like '%@vertical+block@%'
-        group by section_with_name, subsection_with_name, course_order, org, course_key, section_number, subsection_number
+        group by
+            section_with_name,
+            subsection_with_name,
+            course_order,
+            org,
+            course_key,
+            section_number,
+            subsection_number
     )
 select
     visits.visited_on as visited_on,
@@ -57,7 +64,8 @@ select
     visits.name as name,
     visits.email as email
 from visited_subsection_pages visits
-join pages
+join
+    pages
     on (
         visits.org = pages.org
         and visits.course_key = pages.course_key

@@ -8,8 +8,6 @@
     )
 }}
 
-select 
-    id, 
-    argMax(name, time_last_dumped) as name
+select id, argMax(name, time_last_dumped) as name
 from {{ source("event_sink", "taxonomy") }}
 group by id

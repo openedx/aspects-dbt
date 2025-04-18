@@ -32,7 +32,8 @@ with
                 plays.course_key = blocks.course_key
                 and plays.video_id = blocks.block_id
             )
-        group by org, course_key, course_run, section_number, subsection_number, actor_id
+        group by
+            org, course_key, course_run, section_number, subsection_number, actor_id
     ),
     section_subsection_blocks as (
         select
@@ -48,8 +49,9 @@ with
             videos.section_with_name as section_with_name,
             'section' as section_content_level,
             'subsection' as subsection_content_level
-        from {{ ref('items_per_subsection') }} views
-        join videos
+        from {{ ref("items_per_subsection") }} views
+        join
+            videos
             on (
                 views.org = videos.org
                 and views.course_key = videos.course_key
@@ -57,10 +59,18 @@ with
                 and views.subsection_number = videos.subsection_number
             )
         where original_block_id like '%@video+block@%'
-        group by org, course_key, actor_id, subsection_block_id, section_block_id, subsection_with_name, section_with_name,course_run
+        group by
+            org,
+            course_key,
+            actor_id,
+            subsection_block_id,
+            section_block_id,
+            subsection_with_name,
+            section_with_name,
+            course_run
     ),
     combined as (
-        select 
+        select
             org,
             course_key,
             course_run,
@@ -75,11 +85,24 @@ with
             block_id,
             section_subsection_name,
             content_level
-        from section_subsection_blocks
-        ARRAY JOIN arrayConcat([subsection_block_id],[section_block_id]) as block_id,
-            arrayConcat([subsection_with_name],[section_with_name]) as section_subsection_name,
-            arrayConcat([subsection_content_level],[section_content_level]) as content_level
-        group by org, course_key, course_run, actor_id, section_subsection_video_engagement, block_id, section_subsection_name, content_level
+        from section_subsection_blocks ARRAY
+        join
+            arrayConcat([subsection_block_id], [section_block_id]) as block_id,
+            arrayConcat(
+                [subsection_with_name], [section_with_name]
+            ) as section_subsection_name,
+            arrayConcat(
+                [subsection_content_level], [section_content_level]
+            ) as content_level
+        group by
+            org,
+            course_key,
+            course_run,
+            actor_id,
+            section_subsection_video_engagement,
+            block_id,
+            section_subsection_name,
+            content_level
     ),
     final_results as (
         select
@@ -89,7 +112,8 @@ with
             ve.section_subsection_name as section_subsection_name,
             ve.content_level as content_level,
             ve.actor_id as actor_id,
-            ve.section_subsection_video_engagement as section_subsection_video_engagement,
+            ve.section_subsection_video_engagement
+            as section_subsection_video_engagement,
             users.username as username,
             users.name as name,
             users.email as email
@@ -100,4 +124,5 @@ with
             or ve.actor_id = toString(users.external_user_id)
         where section_subsection_name <> ''
     )
-    select * from final_results
+select *
+from final_results

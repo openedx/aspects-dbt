@@ -19,11 +19,11 @@ with
         from {{ ref("enrollment_events") }}
         group by org, course_key, actor_id
     )
-select 
-    org, 
-    course_key, 
-    actor_id, 
-    enrollment_status, 
-    enrollment_mode, 
+select
+    org,
+    course_key,
+    actor_id,
+    enrollment_status,
+    enrollment_mode,
     emission_time_max as emission_time
 from final_results

@@ -18,5 +18,10 @@ with
         where not empty(approving_state)
         group by org, course_key, actor_id
     )
-select org, course_key, actor_id, approving_state_max as approving_state, emission_time_max as emission_time
+select
+    org,
+    course_key,
+    actor_id,
+    approving_state_max as approving_state,
+    emission_time_max as emission_time
 from final_results

@@ -48,21 +48,22 @@ with
             )
     ),
     problems as (
-        select 
+        select
             attempts.org,
             attempts.course_key,
             attempts.section_number,
             attempts.subsection_number,
-            problems.section_with_name, 
-            problems.subsection_with_name, 
+            problems.section_with_name,
+            problems.subsection_with_name,
             attempts.course_order,
             count(original_block_id) as item_count,
             count(distinct problem_id) as problems_attempted,
             attempts.section_block_id,
             'section' as section_content_level,
             'subsection' as subsection_content_level
-        from {{ ref('items_per_subsection') }} problems
-        join attempted_subsection_problems attempts
+        from {{ ref("items_per_subsection") }} problems
+        join
+            attempted_subsection_problems attempts
             on (
                 attempts.org = problems.org
                 and attempts.course_key = problems.course_key
@@ -70,7 +71,15 @@ with
                 and attempts.subsection_number = problems.subsection_number
             )
         where original_block_id like '%@problem+block@%'
-        group by section_with_name, subsection_with_name, course_order, org, course_key, section_number, subsection_number, section_block_id
+        group by
+            section_with_name,
+            subsection_with_name,
+            course_order,
+            org,
+            course_key,
+            section_number,
+            subsection_number,
+            section_block_id
     ),
     problem_engagement as (
         select
@@ -90,10 +99,15 @@ with
             block_id,
             section_subsection_name,
             content_level
-        from problems
-        ARRAY JOIN arrayConcat([subsection_block_id],[section_block_id]) as block_id,
-            arrayConcat([subsection_with_name],[section_with_name]) as section_subsection_name,
-            arrayConcat([subsection_content_level],[section_content_level]) as content_level
+        from problems ARRAY
+        join
+            arrayConcat([subsection_block_id], [section_block_id]) as block_id,
+            arrayConcat(
+                [subsection_with_name], [section_with_name]
+            ) as section_subsection_name,
+            arrayConcat(
+                [subsection_content_level], [section_content_level]
+            ) as content_level
         group by
             org,
             course_key,
@@ -111,7 +125,8 @@ with
             pe.section_subsection_name as section_subsection_name,
             pe.content_level as content_level,
             pe.actor_id as actor_id,
-            pe.section_subsection_problem_engagement as section_subsection_problem_engagement,
+            pe.section_subsection_problem_engagement
+            as section_subsection_problem_engagement,
             users.username as username,
             users.name as name,
             users.email as email
@@ -121,4 +136,5 @@ with
             on (pe.actor_id like 'mailto:%' and SUBSTRING(pe.actor_id, 8) = users.email)
             or pe.actor_id = toString(users.external_user_id)
     )
-    select * from final_results
+select *
+from final_results
