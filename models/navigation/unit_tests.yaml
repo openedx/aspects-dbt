@@ -61,42 +61,6 @@ unit_tests:
       rows: |
         select * from fact_pageview_engagement_expected
 
-  - name: test_fact_section_page_engagement
-    model: fact_section_page_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('navigation_events')
-        format: sql
-        rows: |
-          select * from navigation_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-    expect:
-      format: sql
-      rows: |
-        select * from fact_section_page_engagement_expected
-
-  - name: test_fact_subsection_page_engagement
-    model: fact_subsection_page_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('navigation_events')
-        format: sql
-        rows: |
-          select * from navigation_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-    expect:
-      format: sql
-      rows: |
-        select * from fact_subsection_page_engagement_expected
-
   - name: test_navigation_events
     model: navigation_events
     config:

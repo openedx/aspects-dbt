@@ -110,12 +110,6 @@ models:
       - name: course_run
         data_type: String
         description: '{{ doc("course_run") }}'
-      - name: section_with_name
-        data_type: string
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_with_name
-        data_type: string
-        description: '{{ doc("subsection_with_name") }}'
       - name: section_subsection_name
         data_type: string
         description: "The name of the section or the subsection"
