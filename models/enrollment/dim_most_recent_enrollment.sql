@@ -3,7 +3,6 @@
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
         order_by="(org, course_key, actor_id)",
-        post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
     )
 }}
 

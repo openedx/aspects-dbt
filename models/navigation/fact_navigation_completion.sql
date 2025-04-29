@@ -38,7 +38,7 @@ with
             course_order,
             count(pages.original_block_id) as item_count
         from {{ ref("items_per_subsection") }} pages
-        where original_block_id like '%@vertical+block@%'
+        where pages.original_block_id like '%@vertical+block@%'
         group by
             section_with_name,
             subsection_with_name,
