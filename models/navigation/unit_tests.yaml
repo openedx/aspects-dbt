@@ -40,14 +40,10 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('fact_subsection_page_engagement')
+      - input: ref('fact_navigation_section_subsection')
         format: sql
         rows: |
-          select * from fact_subsection_page_engagement
-      - input: ref('fact_section_page_engagement')
-        format: sql
-        rows: |
-          select * from fact_section_page_engagement
+          select * from fact_navigation_section_subsection
       - input: ref('dim_course_blocks')
         format: sql
         rows: |

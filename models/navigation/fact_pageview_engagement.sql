@@ -35,7 +35,7 @@ with
             content_level
     ),
     final_results as (
-        select
+        select distinct
             pageview_engagement.org as org,
             pageview_engagement.course_key as course_key,
             pageview_engagement.section_subsection_name as section_subsection_name,

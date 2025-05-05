@@ -5,7 +5,7 @@ with
             attempts.course_key as course_key,
             items.subsection_course_order as course_order,
             attempts.actor_id as actor_id,
-            items.original_block_id as original_block_id,
+            items.item_count as item_count,
             attempts.problem_id as problem_id,
             items.section_block_id as section_block_id,
             items.subsection_block_id as subsection_block_id,
@@ -20,7 +20,7 @@ with
                 and attempts.section_number = items.section_number
                 and attempts.subsection_number = items.subsection_number
             )
-        where items.original_block_id like '%@problem+block@%'
+        where items.block_type = 'problem+block'
     )
 select
     org,
@@ -29,7 +29,7 @@ select
     actor_id,
     'section' as section_content_level,
     'subsection' as subsection_content_level,
-    count(original_block_id) as item_count,
+    item_count,
     count(distinct problem_id) as problems_attempted,
     section_block_id,
     subsection_block_id,
@@ -41,6 +41,7 @@ group by
     course_key,
     course_order,
     actor_id,
+    item_count,
     section_block_id,
     subsection_block_id,
     section_with_name,

@@ -5,7 +5,7 @@ select
     plays.actor_id as actor_id,
     'section' as section_content_level,
     'subsection' as subsection_content_level,
-    count(items.original_block_id) as item_count,
+    items.item_count as item_count,
     sum(plays.videos_viewed) as videos_viewed,
     items.section_block_id as section_block_id,
     items.subsection_block_id as subsection_block_id,
@@ -20,12 +20,13 @@ join
         and items.section_number = plays.section_number
         and items.subsection_number = plays.subsection_number
     )
-where items.original_block_id like '%@video+block@%'
+where items.block_type = 'video+block'
 group by
     org,
     course_key,
     course_order,
     actor_id,
+    item_count,
     section_block_id,
     subsection_block_id,
     section_with_name,

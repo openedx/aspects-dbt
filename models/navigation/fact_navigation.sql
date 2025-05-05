@@ -7,7 +7,7 @@ with
             blocks.course_run as course_run,
             items.subsection_course_order as course_order,
             navigation.actor_id as actor_id,
-            items.original_block_id as original_block_id,
+            items.item_count as item_count,
             navigation.block_id as block_id,
             items.section_block_id as section_block_id,
             items.section_number as section_number,
@@ -31,7 +31,7 @@ with
                 and items.section_number = blocks.section_number
                 and items.subsection_number = blocks.subsection_number
             )
-        where items.original_block_id like '%@vertical+block@%'
+        where items.block_type = 'vertical+block'
     )
 select
     org,
@@ -45,5 +45,5 @@ select
     subsection_block_id,
     section_with_name,
     subsection_with_name,
-    original_block_id
+    item_count
 from final_results
