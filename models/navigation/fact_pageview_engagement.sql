@@ -1,11 +1,3 @@
-{{
-    config(
-        materialized="materialized_view",
-        engine=get_engine("ReplacingMergeTree()"),
-        order_by="(org, course_key, actor_id)",
-    )
-}}
-
 with
     pageview_engagement as (
         select

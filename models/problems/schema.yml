@@ -64,31 +64,6 @@ models:
         data_type: Int32
         description: '{{ doc("course_order") }}'
 
-  - name: dim_learner_response_attempt
-    description: "One record per course per problem per learner with their last attempt and first success"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: problem_id
-        data_type: String
-        description: "The problem's unique identifier"
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: first_success_at
-        data_type: Nullable(DateTime)
-        description: "The timestamp of the first successful attempt"
-      - name: last_attempt_at
-        data_type: DateTime
-        description: "The timestamp of the last attempt"
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
-
   - name: fact_problem_engagement
     description: "A record per course per section and subsection per learner with their engagement level"
     columns:

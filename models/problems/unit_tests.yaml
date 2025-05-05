@@ -1,18 +1,4 @@
 unit_tests:
-  - name: test_dim_learner_response_attempt
-    model: dim_learner_response_attempt
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('problem_events')
-        format: sql
-        rows: |
-          select * from problem_events
-    expect:
-      format: sql
-      rows: |
-        select * from dim_learner_response_attempt_expected
-
   - name: test_problem_events
     model: problem_events
     config:

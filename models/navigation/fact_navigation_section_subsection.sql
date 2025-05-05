@@ -11,7 +11,7 @@ select
     subsection_block_id,
     section_with_name,
     subsection_with_name
-from {{ ref('fact_navigation') }}
+from {{ ref("fact_navigation") }}
 group by
     org,
     course_key,

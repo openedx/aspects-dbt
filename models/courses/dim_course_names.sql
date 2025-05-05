@@ -6,8 +6,8 @@
             ("course_key", "String"),
             ("course_name", "String"),
             ("course_run", "String"),
-            ("tags_str", "String"),
             ("org", "String"),
+            ("tags_str", "String"),
         ],
         primary_key="course_key",
         layout="COMPLEX_KEY_HASHED()",
@@ -23,7 +23,7 @@ select
     course_key,
     argMax(display_name, modified) as course_name,
     splitByString('+', course_key)[-1] as course_run,
-    JSONExtract(argMax(course_data_json, modified), 'tags', 'String') as tags_str,
-    org
+    org,
+    JSONExtract(argMax(course_data_json, modified), 'tags', 'String') as tags_str
 from {{ source("event_sink", "course_overviews") }}
 group by org, course_key, course_data_json

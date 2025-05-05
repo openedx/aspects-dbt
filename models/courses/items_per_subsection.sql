@@ -19,12 +19,14 @@ select
     course_blocks.course_order as original_block_course_order,
     section.course_order as section_course_order,
     subsection.course_order as subsection_course_order
-from {{ ref('dim_course_blocks') }} course_blocks
-join {{ ref('dim_course_blocks') }} section on 
-    course_blocks.org = section.org
+from {{ ref("dim_course_blocks") }} course_blocks
+join
+    {{ ref("dim_course_blocks") }} section
+    on course_blocks.org = section.org
     and course_blocks.course_key = section.course_key
     and course_blocks.section_block_id = section.block_id
-join {{ ref('dim_course_blocks') }} subsection on 
-    course_blocks.org = subsection.org
+join
+    {{ ref("dim_course_blocks") }} subsection
+    on course_blocks.org = subsection.org
     and course_blocks.course_key = subsection.course_key
     and course_blocks.subsection_block_id = subsection.block_id
