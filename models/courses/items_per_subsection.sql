@@ -18,7 +18,7 @@ select
     course_blocks.course_order as original_block_course_order,
     section.course_order as section_course_order,
     subsection.course_order as subsection_course_order,
-    regexpExtract(course_blocks.block_id,'(?:@)(\S+)(?:@)') as block_type,
+    regexpExtract(course_blocks.block_id, '(?:@)(\S+)(?:@)') as block_type,
     count(course_blocks.block_id) as item_count
 from {{ ref("dim_course_blocks") }} course_blocks
 join
@@ -31,7 +31,7 @@ join
     on course_blocks.org = subsection.org
     and course_blocks.course_key = subsection.course_key
     and course_blocks.subsection_block_id = subsection.block_id
-group by 
+group by
     org,
     course_key,
     section_number,
