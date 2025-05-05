@@ -37,7 +37,7 @@ models:
         data_type: String
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
 
-  - name: fact_navigation_completion
+  - name: fact_navigation
     description: "A view for analyzing how many pages a learner has visited in a section or subsection"
     columns:
       - name: visited_on

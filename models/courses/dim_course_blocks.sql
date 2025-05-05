@@ -1,10 +1,3 @@
-{{
-    config(
-        materialized="materialized_view",
-        engine=get_engine("ReplacingMergeTree()"),
-        order_by="(course_key, block_id)"
-    )
-}}
 
 with
     dim_course_blocks as (

@@ -3,7 +3,7 @@ with
         select
             attempts.org as org,
             attempts.course_key as course_key,
-            attempts.course_order as course_order,
+            items.subsection_course_order as course_order,
             attempts.actor_id as actor_id,
             items.original_block_id as original_block_id,
             attempts.problem_id as problem_id,

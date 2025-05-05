@@ -1,7 +1,7 @@
 select
     plays.org as org,
     plays.course_key as course_key,
-    plays.course_order as course_order,
+    items.subsection_course_order as course_order,
     plays.actor_id as actor_id,
     'section' as section_content_level,
     'subsection' as subsection_content_level,

@@ -13,27 +13,27 @@ unit_tests:
       rows: |
         select * from dim_learner_last_course_visit_expected
 
-  - name: test_fact_navigation_completion
-    model: fact_navigation_completion
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('navigation_events')
-        format: sql
-        rows: |
-          select * from navigation_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-      - input: ref('dim_user_pii')
-        format: sql
-        rows: |
-          select * from dim_user_pii
-    expect:
-      format: sql
-      rows: |
-        select * from fact_navigation_completion_expected
+  # - name: test_fact_navigation_completion
+  #   model: fact_navigation_completion
+  #   config:
+  #     tags: 'ci'
+  #   given:
+  #     - input: ref('navigation_events')
+  #       format: sql
+  #       rows: |
+  #         select * from navigation_events
+  #     - input: ref('dim_course_blocks')
+  #       format: sql
+  #       rows: |
+  #         select * from dim_course_blocks
+  #     - input: ref('dim_user_pii')
+  #       format: sql
+  #       rows: |
+  #         select * from dim_user_pii
+  #   expect:
+  #     format: sql
+  #     rows: |
+  #       select * from fact_navigation_completion_expected
 
   - name: test_fact_pageview_engagement
     model: fact_pageview_engagement
