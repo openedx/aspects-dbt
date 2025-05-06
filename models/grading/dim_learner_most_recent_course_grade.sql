@@ -19,7 +19,12 @@ with
                 partition by org, course_key, actor_id order by emission_time desc
             ) as rn
         from {{ ref("grading_events") }}
-        where object_id like '%/course/%'
+        where
+            object_id like '%/course/%'
+            and (
+                (verb_id like '%passed%' and scaled_score <> 0)
+                or (verb_id not like '%passed%')
+            )
     )
 
 select org, course_key, actor_id, course_grade, emission_time
