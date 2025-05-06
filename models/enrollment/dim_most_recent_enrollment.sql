@@ -2,6 +2,7 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
+        primary_key="(org, course_key, actor_id)",	
         order_by="(org, course_key, actor_id)",
         post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
     )

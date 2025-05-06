@@ -3,8 +3,8 @@
         materialized="materialized_view",
         schema=env_var("ASPECTS_XAPI_DATABASE", "xapi"),
         engine=get_engine("ReplacingMergeTree()"),
-        order_by="(org, course_key, actor_id, verb_id)",
-        partition_by="(toYYYYMM(emission_time))",
+        primary_key="(org, course_key, verb_id)",	
+        order_by="(org, course_key, verb_id, emission_time, actor_id, object_id, scaled_score, event_id)",	        partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
         full_refresh=true,
     )
