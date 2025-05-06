@@ -37,7 +37,7 @@ models:
         data_type: String
         description: "The tab in the unit navigation bar that the learner selected to navigate to"
 
-  - name: fact_navigation_completion
+  - name: fact_navigation
     description: "A view for analyzing how many pages a learner has visited in a section or subsection"
     columns:
       - name: visited_on
@@ -141,53 +141,3 @@ models:
       - name: emission_time
         data_type: DateTime
         description: '{{ doc("emission_time") }}'
-
-  - name: fact_section_page_engagement
-    description: "A record per course per section per learner with their engagement level"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: section_block_id
-        data_type: String
-        description: '{{ doc("section_block_id") }}'
-      - name: engagement_level
-        data_type: String
-        description: "The engagement level of the learner with the section"
-        data_tests:
-          - accepted_values:
-              values:
-                - 'No pages viewed yet'
-                - 'All pages viewed'
-                - 'At least one page viewed'
-
-  - name: fact_subsection_page_engagement
-    description: "A record per course per subsection per learner with their engagement level"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: subsection_block_id
-        data_type: String
-        description: '{{ doc("subsection_block_id") }}'
-      - name: engagement_level
-        data_type: String
-        description: "The engagement level of the learner with the subsection"
-        data_tests:
-          - accepted_values:
-              values:
-                - 'No pages viewed yet'
-                - 'All pages viewed'
-                - 'At least one page viewed'

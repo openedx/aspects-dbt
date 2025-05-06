@@ -110,21 +110,6 @@ models:
       - name: course_order
         data_type: Int32
         description: '{{ doc("course_order") }}'
-      - name: section
-        data_type: Int32
-        description: "The section number that this block falls under in the course. Starts at 1."
-      - name: subsection
-        data_type: Int32
-        description: "The subsection number that this block falls under in the section. Starts at 1."
-      - name: unit
-        data_type: Int32
-        description: "The unit number that this block falls under in the subsection. Starts at 1."
-      - name: dump_id
-        data_type: UUID
-        description: '{{ doc("dump_id") }}'
-      - name: time_last_dumped
-        data_type: String
-        description: '{{ doc("time_last_dumped") }}'
 
   - name: dim_course_names
     docs:
