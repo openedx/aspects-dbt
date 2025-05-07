@@ -1,18 +1,11 @@
 
+
+  create view `xapi`.`dim_course_blocks` 
   
     
-  
     
-    
-    
-        
-         
-
-
-        insert into `xapi`.`dim_course_blocks`
-        ("org", "course_key", "course_name", "course_run", "block_id", "block_name", "section_number", "subsection_number", "hierarchy_location", "display_name_with_location", "course_order", "graded", "block_type", "section_with_name", "subsection_with_name")
-
-with
+  as (
+    with
     dim_course_blocks as (
         select
             courses.org as org,
@@ -95,6 +88,10 @@ left join
         and blocks.course_key = subsection_blocks.course_key
         and subsection_blocks.block_id like '%@sequential+block@%'
     )
-  
-  
-  
+    
+  )
+      
+      
+                    -- end_of_sql
+                    
+                    

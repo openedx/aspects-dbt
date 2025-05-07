@@ -1,5 +1,3 @@
-
-
 with
     dim_course_blocks as (
         select
