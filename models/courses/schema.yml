@@ -1,6 +1,6 @@
 version: 2
 
-models:
+models:  
   - name: dim_course_blocks
     description: "A denormalized table of course block information. This should be preferred over dim_course_blocks_extended when section and subsection names are not necessary to include in a model"
     columns:
