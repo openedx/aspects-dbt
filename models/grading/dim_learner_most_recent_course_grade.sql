@@ -22,8 +22,11 @@ with
         where
             object_id like '%/course/%'
             and (
-                (verb_id like '%passed%' and scaled_score <> 0)
-                or (verb_id not like '%passed%')
+                (
+                    verb_id = 'http://adlnet.gov/expapi/verbs/passed'
+                    and scaled_score <> 0
+                )
+                or (verb_id <> 'http://adlnet.gov/expapi/verbs/passed')
             )
     )
 
