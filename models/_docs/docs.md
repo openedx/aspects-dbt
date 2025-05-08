@@ -112,6 +112,17 @@ The username of the learner from the LMS user table. When Aspects PII syncing is
 The "id" portion of the xAPI Verb for this event. See: https://xapi.com/statements-101/#verb
 {% enddocs %}
 
+{% docs attempt %}
+Number indicating which attempt this was
+{% enddocs %}
+
+{% docs problem_number %}
+The section, subsection, unit, and part number of the problem block. In the format 1:2:3_1
+{% enddocs %}
+
+{% docs success %}
+Boolean indicating whether the responses were correct
+{% enddocs %}
 
 {% docs object_tag_source %}
 Course objects and their associated tags from CMS events:  
