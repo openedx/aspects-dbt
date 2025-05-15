@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized="materialized_view",
+        engine=get_engine("ReplacingMergeTree()"),
+        order_by="(org, course_key, problem_id, actor_id)",
+    )
+}}
+
 select
     org,
     course_key,
