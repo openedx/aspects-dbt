@@ -35,13 +35,13 @@ models:
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: success
         data_type: Boolean
-        description: "Boolean indicating whether the responses were correct"
+        description: '{{ doc("success") }}'
       - name: interaction_type
         data_type: String
         description: "The type of interaction"
       - name: attempts
         data_type: Int16
-        description: "Number indicating which attempt this was"
+        description: '{{ doc("attempt") }}'
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
@@ -112,10 +112,10 @@ models:
         description: 'The type of problem (choice, numeric, etc)'
       - name: attempt
         data_type: Int16
-        description: "Number indicating which attempt this was"
+        description: '{{ doc("attempt") }}'
       - name: success
         data_type: Boolean
-        description: "Boolean indicating whether the responses were correct"
+        description: '{{ doc("success") }}'
       - name: responses
         data_type: String
         description: "The responses for the first submission. If a problem has multiple parts, values for all parts will be in this field"
@@ -149,10 +149,10 @@ models:
         description: 'The type of problem (choice, numeric, etc)'
       - name: attempt
         data_type: Int16
-        description: "Number indicating which attempt this was"
+        description: '{{ doc("attempt") }}'
       - name: success
         data_type: Boolean
-        description: "Boolean indicating whether the responses were correct"
+        description: '{{ doc("success") }}'
       - name: responses
         data_type: String
         description: "The responses for the last submission. If a problem has multiple parts, values for all parts will be in this field"
@@ -186,10 +186,10 @@ models:
         description: 'The type of problem (choice, numeric, etc)'
       - name: attempt
         data_type: Int16
-        description: "Number indicating which attempt this was"
+        description: '{{ doc("attempt") }}'
       - name: success
         data_type: Boolean
-        description: "Boolean indicating whether the responses were correct"
+        description: '{{ doc("success") }}'
       - name: responses
         data_type: String
         description: "The responses for the first successful submission. If a problem has multiple parts, values for all parts will be in this field"
@@ -238,10 +238,10 @@ models:
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
       - name: success
         data_type: bool
-        description: "Boolean indicating whether the responses were correct"
+        description: '{{ doc("success") }}'
       - name: attempts
         data_type: Int16
-        description: "Number indicating which attempt this was"
+        description: '{{ doc("attempt") }}'
       - name: graded
         data_type: bool
         description: '{{ doc("graded") }}'
@@ -301,3 +301,96 @@ models:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
+
+  - name: dim_problem_responses
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: interaction_type
+        data_type: String
+        description: 'The type of problem (choice, numeric, etc)'
+      - name: success
+        data_type: Boolean
+        description: '{{ doc("success") }}'
+      - name: response
+        data_type: String
+        description: "The response for the first submission for a single part of a single problem. All formatting is removed."
+      - name: emission_time
+        data_type: DateTime
+        description: '{{ doc("emission_time") }}'
+      - name: block_id_short
+        data_type: String
+        description: '{{ doc("block_id") }}'
+      - name: problem_number
+        data_type: String
+        description: '{{ doc("problem_number") }}'
+      - name: problem_name_location
+        data_type: String
+        description: "problem_number followed by the name of the problem"
+      - name: response_count
+        data_type: Int64
+        description: "Count of each response per problem part"
+
+  - name: dim_problem_results
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: success
+        data_type: Boolean
+        description: '{{ doc("success") }}'
+      - name: attempt
+        data_type: Int16
+        description: '{{ doc("attempt") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: problem_number
+        data_type: String
+        description: '{{ doc("problem_number") }}'
+      - name: problem_name_location
+        data_type: String
+        description: "problem_number followed by the name of the problem"
+      - name: block_id_short
+        data_type: String
+        description: '{{ doc("block_id") }}'
+
+  - name: dim_subsection_problem_results
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: success
+        data_type: Boolean
+        description: '{{ doc("success") }}'
+      - name: block_id_short
+        data_type: String
+        description: '{{ doc("block_id") }}'
+      - name: problem_number
+        data_type: String
+        description: '{{ doc("problem_number") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: subsection_number
+        data_type: String
+        description: 'Subsection location in the format 1:2:0'
+      - name: subsection_with_name
+        data_type: String
+        description: 'subsection_number followed by subsection name'
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: problem_name_location
+        data_type: String
+        description: "problem_number followed by the name of the problem"
