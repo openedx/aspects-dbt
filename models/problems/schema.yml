@@ -64,8 +64,8 @@ models:
         data_type: Int32
         description: '{{ doc("course_order") }}'
 
-  - name: dim_learner_response_attempt
-    description: "A record per course per problem per learner with their last attempt and first success"
+  - name: fact_problem_engagement
+    description: "A record per course per section and subsection per learner with their engagement level"
     columns:
       - name: org
         data_type: String
@@ -218,18 +218,12 @@ models:
       - name: course_run
         data_type: String
         description: '{{ doc("course_run") }}'
-      - name: problem_id
+      - name: section_subsection_name
         data_type: String
-        description: "The problem's unique identifier"
-      - name: problem_name
+        description: '{{ doc("section_with_name") }}'
+      - name: content_level
         data_type: String
-        description: "The problem's name"
-      - name: problem_name_with_location
-        data_type: String
-        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
-      - name: problem_link
-        data_type: String
-        description: "An anchor tag with a link to the problem"
+        description: 'Identifies section data vs subsection data'
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
@@ -276,17 +270,13 @@ models:
                 - 'No problems attempted yet'
                 - 'All problems attempted'
                 - 'At least one problem attempted'
-
-  - name: fact_subsection_problem_engagement
-    description: "A record per course per subsection per learner with their engagement level"
-    columns:
-      - name: org
+      - name: username
         data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
+        description: '{{ doc("username") }}'
+      - name: name
         data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
+        description: '{{ doc("learner_name") }}'
+      - name: email
         data_type: String
         description: '{{ doc("actor_id") }}'
       - name: subsection_block_id

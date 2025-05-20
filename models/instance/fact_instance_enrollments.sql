@@ -16,7 +16,6 @@ with
             splitByString('/', verb_id)[-1] as enrollment_status
         from {{ ref("enrollment_events") }}
     )
-
 select
     date_trunc('day', emission_time) as emission_day,
     enrollments.course_key,
