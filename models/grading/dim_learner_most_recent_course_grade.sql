@@ -16,8 +16,15 @@ with
             actor_id,
             argMax(scaled_score, emission_time) as course_grade
         from {{ ref("grading_events") }}
-        where object_id like '%/course/%'
-        group by org, course_key, actor_id
+        where
+            object_id like '%/course/%'
+            and (
+                (
+                    verb_id = 'http://adlnet.gov/expapi/verbs/passed'
+                    and scaled_score <> 0
+                )
+                or (verb_id <> 'http://adlnet.gov/expapi/verbs/passed')
+            )
     )
 select org, course_key, actor_id, course_grade, emission_time_max as emission_time
 from final_results

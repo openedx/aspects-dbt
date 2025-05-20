@@ -1,7 +1,8 @@
--- Return an ON CLUSTER clause if we are running dbt against a cluster
+-- Return an ON CLUSTER clause if we are running dbt against a cluster.
+-- The unusual use of concatenation is to work around bugs in sqlfmt
 {% macro on_cluster() -%}
-    {%- if env_var("CLICKHOUSE_CLUSTER_NAME", "") != "" -%}
-        {on CLUSTER "{{ env_var(" CLICKHOUSE_CLUSTER_NAME ") }}"}
+    {%- if env_var("CLICKHOUSE_CLUSTER_NAME", "") -%}
+        {{ 'ON CLUSTER "' + env_var("CLICKHOUSE_CLUSTER_NAME") + '"' }}
     {%- endif -%}
 {%- endmacro %}
 
