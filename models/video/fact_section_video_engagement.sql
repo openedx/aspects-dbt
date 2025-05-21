@@ -10,7 +10,6 @@
 with
     plays as (
         select
-            emission_time,
             org,
             course_key,
             object_id,
@@ -23,7 +22,6 @@ with
     ),
     fact_video_plays as (
         select
-            plays.emission_time as emission_time,
             plays.org as org,
             plays.course_key as course_key,
             plays.video_id as video_id,
@@ -40,7 +38,6 @@ with
     ),
     viewed_subsection_videos as (
         select distinct
-            date(emission_time) as viewed_on,
             org,
             course_key,
             section_number,
@@ -62,9 +59,9 @@ with
             views.actor_id as actor_id,
             views.video_id as video_id,
             videos.section_block_id as section_block_id
-        from viewed_subsection_videos views
-        join
-            fact_videos_per_subsection videos
+        from fact_videos_per_subsection videos
+        left join
+            viewed_subsection_videos views
             on (
                 views.org = videos.org
                 and views.course_key = videos.course_key
@@ -80,7 +77,7 @@ with
             subsection_with_name,
             actor_id,
             item_count,
-            count(distinct video_id) as videos_viewed,
+            sum(case when video_id='' then 0 else 1 end) as videos_viewed,
             case
                 when videos_viewed = 0
                 then 'No videos viewed yet'

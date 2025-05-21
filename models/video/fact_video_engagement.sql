@@ -29,7 +29,6 @@ with
 select
     ve.org as org,
     ve.course_key as course_key,
-    course_blocks.course_run as course_run,
     course_blocks.display_name_with_location as section_subsection_name,
     ve.content_level as content_level,
     ve.actor_id as actor_id,
