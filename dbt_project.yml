@@ -14,7 +14,7 @@ profile: "aspects"
 model-paths: ["models",'ci-models']
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-seed-paths: ["seeds","ci-seeds"]
+seed-paths: ["seeds","ci-seeds",'unit-test-seeds']
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
