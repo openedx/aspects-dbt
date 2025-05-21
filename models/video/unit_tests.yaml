@@ -57,6 +57,10 @@ unit_tests:
         format: sql
         rows: |
           select * from dim_user_pii
+      - input: ref('fact_video_section_subsection')
+        format: sql
+        rows: |
+          select * from fact_video_section_subsection
     expect:
       format: sql
       rows: |
