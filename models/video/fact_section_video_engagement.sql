@@ -10,7 +10,6 @@
 with
     plays as (
         select
-            emission_time,
             org,
             course_key,
             object_id,
