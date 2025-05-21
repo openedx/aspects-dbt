@@ -10,7 +10,7 @@ models:
         data_type: UUID
         description: '{{ doc("event_id") }}'
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: '{{ doc("emission_time") }}'
       - name: actor_id
         data_type: String
@@ -86,7 +86,7 @@ models:
         data_type: DateTime
         description: "The timestamp of the last attempt"
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: '{{ doc("emission_time") }}'
 
   - name: dim_learner_first_response
@@ -123,7 +123,7 @@ models:
         data_type: Float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: "The timestamp of the first attempt"
 
   - name: dim_learner_last_response
@@ -160,7 +160,7 @@ models:
         data_type: Float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: "The timestamp of the last attempt"
 
   - name: dim_learner_first_success_response
@@ -197,14 +197,14 @@ models:
         data_type: Float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: "The timestamp of the first successful attempt"
 
   - name: fact_learner_response_attempts
     description: "Internal table for problem results"
     columns:
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: '{{ doc("emission_time") }}'
       - name: org
         data_type: String
@@ -320,7 +320,7 @@ models:
         data_type: String
         description: "The response for the first submission for a single part of a single problem. All formatting is removed."
       - name: emission_time
-        data_type: DateTime
+        data_type: DateTime64(6)
         description: '{{ doc("emission_time") }}'
       - name: block_id_short
         data_type: String
