@@ -38,7 +38,7 @@ with
             )
     ),
     viewed_subsection_videos as (
-        select
+        select distinct
             org,
             course_key,
             section_number,
@@ -46,13 +46,6 @@ with
             actor_id,
             video_id
         from fact_video_plays
-        group by 
-        	org,
-        	course_key,
-        	section_number,
-        	subsection_number,
-        	actor_id,
-        	video_id
     ),
     fact_videos_per_subsection as (
         select * from ({{ items_per_subsection("%@video+block@%") }})

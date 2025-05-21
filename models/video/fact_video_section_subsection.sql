@@ -10,7 +10,7 @@ select
     'section' as section_content_level,
     'subsection' as subsection_content_level,
     videos.item_count as item_count,
-    sum(case when plays.videos_viewed = '' then 0 else plays.videos_viewed end) as videos_viewed,
+    sum(plays.videos_viewed) as videos_viewed,
     videos.section_block_id as section_block_id,
     videos.subsection_block_id as subsection_block_id,
     videos.section_with_name as section_with_name,
