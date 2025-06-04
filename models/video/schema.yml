@@ -3,7 +3,7 @@ version: 2
 models:
   - name: dim_video_watch_time
     columns:
-      - name: org,
+      - name: org
         data_type: string
         description: '{{ doc("org") }}'
       - name: course_key
@@ -73,7 +73,7 @@ models:
   - name: fact_video_section_subsection
     description: "A record per course per section and subsection per learner with their engagement level"
     columns:
-      - name: org,
+      - name: org
         data_type: string
         description: '{{ doc("org") }}'
       - name: course_key
@@ -138,7 +138,7 @@ models:
   - name: fact_video_segments
     description: "Each second of every video that has been watched"
     columns:
-      - name: org,
+      - name: org
         data_type: string
         description: '{{ doc("org") }}'
       - name: course_key
