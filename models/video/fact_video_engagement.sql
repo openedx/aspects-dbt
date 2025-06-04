@@ -1,3 +1,11 @@
+{{
+    config(
+        materialized="materialized_view",
+        primary_key="(org, course_key, actor_id, section_subsection_name)",
+        order_by="(org, course_key, actor_id, section_subsection_name)",
+    )
+}}
+
 with
     video_engagment as (
         select
