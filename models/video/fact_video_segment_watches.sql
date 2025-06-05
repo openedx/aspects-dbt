@@ -40,7 +40,7 @@ with
             actor_id,
             object_id,
             video_duration,
-            watched_segment,
+            watched_segment as watched_segment_combine,
             0 as rewatched_segment
         from watched
         union all
@@ -50,7 +50,7 @@ with
             actor_id,
             object_id,
             video_duration,
-            0 as watched_segment,
+            0 as watched_segment_combine,
             watched_segment as rewatched_segment
         from rewatched
     )
@@ -60,7 +60,7 @@ select
     actor_id,
     object_id,
     video_duration,
-    watched_segment,
+    watched_segment_combine as watched_segment,
     rewatched_segment
 from watched_combined
 where watched_segment <> 0 or rewatched_segment <> 0
