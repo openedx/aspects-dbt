@@ -18,7 +18,7 @@ with
             splitByChar('@', blocks.block_id)[3] as block_id_short,
             {{
                 format_problem_number_location(
-                    "first_success.object_id", "blocks.display_name_with_location"
+                    "events.object_id", "blocks.display_name_with_location"
                 )
             }}
         from
