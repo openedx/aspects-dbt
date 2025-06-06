@@ -1,6 +1,7 @@
 {{
     config(
         materialized="materialized_view",
+        engine=get_engine("ReplacingMergeTree()"),
         primary_key="(org, course_key, actor_id, section_subsection_name)",
         order_by="(org, course_key, actor_id, section_subsection_name)",
     )
