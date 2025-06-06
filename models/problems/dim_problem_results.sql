@@ -24,7 +24,7 @@ with
         from
             (
                 select distinct org, course_key, object_id, problem_id
-                from {{ ref("problem_events") }}
+                from {{ ref("problem_events") }} events
             ) events
         join
             {{ ref("dim_course_blocks") }} as blocks
