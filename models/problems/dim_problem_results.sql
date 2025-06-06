@@ -22,7 +22,8 @@ with
                 )
             }}
         from {{ ref("dim_course_blocks") }} as blocks
-        left join {{ ref("dim_learner_first_success_response") }} as first_success
+        left join
+            {{ ref("dim_learner_first_success_response") }} as first_success
             on (
                 first_success.course_key = blocks.course_key
                 and first_success.problem_id = blocks.block_id
