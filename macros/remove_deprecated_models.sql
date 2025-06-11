@@ -73,6 +73,8 @@
         ("mv", xapi, "subsection_video_engagement"),
         ("mv", xapi, "fact_instance_enrollments"),
         ("mv", reporting, "int_videos_per_subsection"),
+        ("mv", reporting, "fact_section_video_engagement"),
+        ("mv", reporting, "fact_subsection_video_engagement"),
         ("dictionary", event_sink, "course_names"),
         ("dictionary", event_sink, "course_block_names"),
         ("dictionary", event_sink, "course_tags"),
