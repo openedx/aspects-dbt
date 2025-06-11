@@ -11,7 +11,7 @@ unit_tests:
       - input: ref('dim_user_pii')
         format: sql
         rows: |
-          select * from 
+          select * from dim_user_pii
       - input: ref('fact_video_segments')
         format: sql
         rows: |
