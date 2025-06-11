@@ -1,52 +1,60 @@
 with
-    subsection_engagement as (
+    pageview_engagement as (
         select
             org,
             course_key,
-            'subsection' as content_level,
+            course_order,
             actor_id,
-            subsection_block_id as block_id,
-            engagement_level as section_subsection_page_engagement
-        from {{ ref("fact_subsection_page_engagement") }}
-    ),
-    section_engagement as (
-        select
+            case
+                when pages_visited = 0
+                then 'No pages viewed yet'
+                when pages_visited = item_count
+                then 'All pages viewed'
+                else 'At least one page viewed'
+            end as section_subsection_page_engagement,
+            block_id,
+            section_subsection_name,
+            content_level
+        from {{ ref("fact_navigation_section_subsection") }} ARRAY
+        join
+            arrayConcat([subsection_block_id], [section_block_id]) as block_id,
+            arrayConcat(
+                [subsection_with_name], [section_with_name]
+            ) as section_subsection_name,
+            arrayConcat(
+                [subsection_content_level], [section_content_level]
+            ) as content_level
+        group by
             org,
             course_key,
-            'section' as content_level,
+            course_order,
             actor_id,
-            section_block_id as block_id,
-            engagement_level as section_subsection_page_engagement
-        from {{ ref("fact_section_page_engagement") }}
+            section_subsection_page_engagement,
+            block_id,
+            section_subsection_name,
+            content_level
     ),
-    page_engagement as (
-        select *
-        from subsection_engagement
-        union all
-        select *
-        from section_engagement
+    final_results as (
+        select distinct
+            pageview_engagement.org as org,
+            pageview_engagement.course_key as course_key,
+            pageview_engagement.section_subsection_name as section_subsection_name,
+            pageview_engagement.content_level as content_level,
+            pageview_engagement.actor_id as actor_id,
+            pageview_engagement.section_subsection_page_engagement
+            as section_subsection_page_engagement,
+            users.username as username,
+            users.name as name,
+            users.email as email
+        from pageview_engagement
+        left outer join
+            {{ ref("dim_user_pii") }} users
+            on (
+                pageview_engagement.actor_id like 'mailto:%'
+                and SUBSTRING(pageview_engagement.actor_id, 8) = users.email
+            )
+            or pageview_engagement.actor_id = toString(users.external_user_id)
+        where section_subsection_name <> ''
     )
-
-select
-    pv.org as org,
-    pv.course_key as course_key,
-    course_blocks.course_run as course_run,
-    course_blocks.display_name_with_location as section_subsection_name,
-    pv.content_level as content_level,
-    pv.actor_id as actor_id,
-    pv.section_subsection_page_engagement as section_subsection_page_engagement,
-    users.username as username,
-    users.name as name,
-    users.email as email
-from page_engagement pv
-join
-    {{ ref("dim_course_blocks") }} course_blocks
-    on (
-        pv.org = course_blocks.org
-        and pv.course_key = course_blocks.course_key
-        and pv.block_id = course_blocks.block_id
-    )
-left outer join
-    {{ ref("dim_user_pii") }} users
-    on (pv.actor_id like 'mailto:%' and SUBSTRING(pv.actor_id, 8) = users.email)
-    or pv.actor_id = toString(users.external_user_id)
+select *
+from final_results

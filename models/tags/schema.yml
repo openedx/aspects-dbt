@@ -37,10 +37,10 @@ models:
       - name: taxonomy
         data_type: Int32
         description: "Foreign key to the taxonomy"
-      - name: _value
+      - name: value
         data_type: String
         description: "Tag string"
-      - name: _export_id
+      - name: export_id
         data_type: String
         description: "Export ID"
       - name: lineage

@@ -37,6 +37,8 @@ select
     blocks.course_name as course_name,
     blocks.course_run as course_run,
     blocks.block_id as block_id,
+    section_blocks.block_id as section_block_id,
+    subsection_blocks.block_id as subsection_block_id,
     blocks.block_name as block_name,
     blocks.section_number as section_number,
     blocks.subsection_number as subsection_number,
