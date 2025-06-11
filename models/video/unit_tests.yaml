@@ -1,54 +1,9 @@
 unit_tests:
-  - name: test_fact_section_video_engagement
-    model: fact_section_video_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('video_playback_events')
-        format: sql
-        rows: |
-          select * from video_playback_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-    expect:
-      format: sql
-      rows: |
-        select * from fact_section_video_engagement_expected
-
-  - name: test_fact_subsection_video_engagement
-    model: fact_subsection_video_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('video_playback_events')
-        format: sql
-        rows: |
-          select * from video_playback_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-    expect:
-      format: sql
-      rows: |
-        select * from fact_subsection_video_engagement_expected
-        order by org, course_key, subsection_block_id, actor_id
-
   - name: test_fact_video_engagement
     model: fact_video_engagement
     config:
       tags: 'ci'
     given:
-      - input: ref('fact_subsection_video_engagement')
-        format: sql
-        rows: |
-          select * from fact_subsection_video_engagement
-      - input: ref('fact_section_video_engagement')
-        format: sql
-        rows: |
-          select * from fact_section_video_engagement
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
@@ -56,33 +11,15 @@ unit_tests:
       - input: ref('dim_user_pii')
         format: sql
         rows: |
-          select * from dim_user_pii
+          select * from 
+      - input: ref('fact_video_segments')
+        format: sql
+        rows: |
+          select * from fact_video_segments
     expect:
       format: sql
       rows: |
         select * from fact_video_engagement_expected
-
-  - name: test_fact_video_plays
-    model: fact_video_plays
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('video_playback_events')
-        format: sql
-        rows: |
-          select * from video_playback_events
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-      - input: ref('dim_user_pii')
-        format: sql
-        rows: |
-          select * from dim_user_pii
-    expect:
-      format: sql
-      rows: |
-        select * from fact_video_plays_expected
 
   - name: test_video_playback_events
     model: video_playback_events
