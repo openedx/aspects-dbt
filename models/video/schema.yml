@@ -46,49 +46,6 @@ models:
         data_type: String
         description: '{{ doc("email") }}'
 
-  - name: fact_video_segment_watches
-    description: "Amount of time in seconds watched by each actor for every video"
-    columns:
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: string
-        description: '{{ doc("actor_id") }}'
-      - name: object_id
-        data_type: string
-        description: '{{ doc("object_id") }}'
-      - name: video_duration
-        data_type: Int32
-        description: "Total duration of the video"
-      - name: watched_segment
-        data_type: Int32
-        description: "Watched second of the video"
-      - name: rewatched
-        data_type: boolean
-        description: "If video second has been watched more than once"
-      - name: time_stamp
-        data_type: Time
-        description: "Video second shown as a timestamp"
-      - name: video_number
-        data_type: String
-        description: "Location of video with invisible padding"
-      - name: video_name_location
-        data_type: String
-        description: "Name and section/subsection"
-      - name: video_link
-        data_type: String
-        description: "HTML for link to video within the course"
-      - name: section_with_name
-        data_type: string
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_with_name
-        data_type: string
-        description: '{{ doc("subsection_with_name") }}'
-
   - name: fact_video_segments
     description: "Each second of every video that has been watched"
     columns:
