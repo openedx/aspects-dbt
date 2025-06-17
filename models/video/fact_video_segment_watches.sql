@@ -25,6 +25,7 @@ select
     segments.object_id,
     segments.video_duration,
     segments.watched_segment,
+    segments.watch_count,
     segments.watch_count > 1 as rewatched,
     formatDateTime(
         toDate(now()) + toIntervalSecond(segments.watched_segment), '%T'
@@ -50,7 +51,7 @@ select
     ) as video_link,
     blocks.section_with_name as section_with_name,
     blocks.subsection_with_name as subsection_with_name
-from watched_segments
+from watched_segments as segments
 join
     {{ ref("dim_course_blocks") }} blocks
     on (
