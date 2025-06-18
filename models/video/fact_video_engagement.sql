@@ -2,15 +2,12 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, actor_id, block_id)",
-        order_by="(org, course_key, actor_id, block_id)",
+        primary_key="(org, course_key, actor_id, block_id, section_subsection_video_engagement)",
+        order_by="(org, course_key, actor_id, block_id, section_subsection_video_engagement)",
     )
 }}
 
 with
-    fact_videos_per_subsection as (
-        select * from ({{ items_per_subsection("%@video+block@%") }})
-    ),
     fact_video_segments as (
         select
             segments.org as org,
@@ -27,6 +24,9 @@ with
                 and splitByString('/xblock/', segments.object_id)[-1] = blocks.block_id
             )
         group by org, course_key, section_number, subsection_number, actor_id
+    ),
+    fact_videos_per_subsection as (
+        select * from ({{ items_per_subsection("%@video+block@%") }})
     ),
     fact_video_section_subsection as (
         select
