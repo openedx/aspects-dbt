@@ -1,3 +1,12 @@
+{{
+    config(
+        materialized="materialized_view",
+        engine=get_engine("ReplacingMergeTree()"),
+        primary_key="(org, course_key, object_id, actor_id, watched_segment, watch_count)",
+        order_by="(org, course_key, object_id, actor_id, watched_segment, watch_count)",
+    )
+}}
+
 with
     watched_segments as (
         select *
@@ -26,7 +35,6 @@ select
     segments.video_duration,
     segments.watched_segment,
     segments.watch_count,
-    segments.watch_count > 1 as rewatched,
     formatDateTime(
         toDate(now()) + toIntervalSecond(segments.watched_segment), '%T'
     ) as time_stamp,

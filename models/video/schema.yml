@@ -67,9 +67,9 @@ models:
       - name: watched_segment
         data_type: Int32
         description: "Watched second of the video"
-      - name: rewatched
-        data_type: boolean
-        description: "If video second has been watched more than once"
+      - name: watch_count
+        data_type: Int32
+        description: "The number of times this video second has been watched"
       - name: time_stamp
         data_type: Time
         description: "Video second shown as a timestamp"

@@ -1,12 +1,3 @@
-{{
-    config(
-        materialized="materialized_view",
-        engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, object_id, actor_id, watched_segment, watch_count)",
-        order_by="(org, course_key, object_id, actor_id, watched_segment, watch_count)",
-    )
-}}
-
 with
     data as (
         select
