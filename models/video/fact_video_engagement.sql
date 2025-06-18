@@ -42,9 +42,9 @@ with
             videos.subsection_block_id as subsection_block_id,
             videos.section_with_name as section_with_name,
             videos.subsection_with_name as subsection_with_name
-        from fact_videos_per_subsection videos
-        left join
-            fact_video_segments plays
+        from fact_video_segments plays
+        outer join
+            fact_videos_per_subsection videos
             on (
                 videos.org = plays.org
                 and videos.course_key = plays.course_key
