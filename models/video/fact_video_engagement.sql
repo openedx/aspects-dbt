@@ -43,7 +43,7 @@ with
             videos.section_with_name as section_with_name,
             videos.subsection_with_name as subsection_with_name
         from fact_video_segments plays
-        outer join
+        full join
             fact_videos_per_subsection videos
             on (
                 videos.org = plays.org
