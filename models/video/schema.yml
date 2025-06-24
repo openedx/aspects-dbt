@@ -1,103 +1,6 @@
 version: 2
 
 models:
-  - name: fact_video_plays
-    description: "One record for each time a learner played a video"
-    columns:
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
-      - name: video_id
-        data_type: String
-        description: '{{ doc("object_id") }}'
-      - name: video_name
-        data_type: String
-        description: "The name of the video"
-      - name: video_name_with_location
-        data_type: String
-        description: "The name of the video with the section and subsection"
-      - name: video_link
-        data_type: String
-        description: "An anchor tag with a link to the video"
-      - name: graded
-        data_type: Boolean
-        description: '{{ doc("graded") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: video_duration
-        data_type: Int64
-        description: "The duration of the video in seconds"
-      - name: video_position
-        data_type: Int64
-        description: "The seconds into the video where the play event occurred"
-      - name: visualization_bucket
-        data_type: String
-        description: "The percentile bucket for the video play event"
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
-      - name: section_with_name
-        data_type: string
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_with_name
-        data_type: string
-        description: '{{ doc("subsection_with_name") }}'
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
-
-  - name: video_playback_events
-    docs:
-        node_color: '{{ var("color_xapi") }}'
-    description: "Events related to video playback"
-    columns:
-      - name: event_id
-        data_type: uuid
-        description: '{{ doc("event_id") }}'
-      - name: emission_time
-        data_type: datetime
-        description: '{{ doc("emission_time") }}'
-      - name: actor_id
-        data_type: string
-        description: '{{ doc("actor_id") }}'
-      - name: object_id
-        data_type: string
-        description: '{{ doc("object_id") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: verb_id
-        data_type: string
-        description: '{{ doc("verb_id") }}'
-      - name: video_position
-        data_type: decimal(9, 2)
-        description: "The position in the video where the event occurred"
-      - name: video_duration
-        data_type: int64
-        description: "The duration of the video in seconds"
-
   - name: fact_video_engagement
     description: "A dataset with one record representing the engagement of a learner with a video"
     columns:
@@ -107,15 +10,6 @@ models:
       - name: course_key
         data_type: string
         description: '{{ doc("course_key") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
-      - name: section_with_name
-        data_type: string
-        description: '{{ doc("section_with_name") }}'
-      - name: subsection_with_name
-        data_type: string
-        description: '{{ doc("subsection_with_name") }}'
       - name: section_subsection_name
         data_type: string
         description: "The name of the section or the subsection"
@@ -139,6 +33,9 @@ models:
                 - 'No videos viewed yet'
                 - 'At least one video viewed'
                 - 'All videos viewed'
+      - name: block_id
+        data_type: String
+        description: '{{ doc("block_id") }}'
       - name: username
         data_type: String
         description: '{{ doc("username") }}'
@@ -149,9 +46,8 @@ models:
         data_type: String
         description: '{{ doc("email") }}'
 
-
-  - name: fact_section_video_engagement
-    description: "A record per course per section per learner with their engagement level"
+  - name: fact_video_segments
+    description: "Each second of every video that has been watched"
     columns:
       - name: org
         data_type: string
@@ -162,65 +58,52 @@ models:
       - name: actor_id
         data_type: string
         description: '{{ doc("actor_id") }}'
-      - name: section_block_id
+      - name: object_id
         data_type: string
-        description: '{{ doc("section_block_id") }}'
-      - name: engagement_level
-        data_type: string
-        description: "The engagement level of the learner with the section"
-        data_tests:
-          - accepted_values:
-              values:
-                - 'No videos viewed yet'
-                - 'All videos viewed'
-                - 'At least one video viewed'
-
-  - name: fact_subsection_video_engagement
-    description: "A record per course per subsection per learner with their engagement level"
-    columns:
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: string
-        description: '{{ doc("actor_id") }}'
-      - name: subsection_block_id
-        data_type: string
-        description: '{{ doc("subsection_block_id") }}'
-      - name: engagement_level
-        data_type: string
-        description: "The engagement level of the learner with the subsection"
-        data_tests:
-          - accepted_values:
-              values:
-                - 'No videos viewed yet'
-                - 'All videos viewed'
-                - 'At least one video viewed'
-
-  - name: fact_watched_video_duration
-    description: "Amount of time in seconds watched by each actor for every video"
-    columns:
-      - name: org
-        data_type: string
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: string
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: string
-        description: '{{ doc("actor_id") }}'
-      - name: video_count
-        data_type: Int32
-        description: "Count of videos per course_key"
+        description: '{{ doc("object_id") }}'
       - name: video_duration
         data_type: Int32
         description: "Total duration of the video"
-      - name: watched_time
+      - name: watched_segment
         data_type: Int32
-        description: "Seconds of the video watched once"
-      - name: rewatched_time
+        description: "Watched second of the video"
+      - name: watch_count
         data_type: Int32
-        description: "Seconds of the video rewatched"
+        description: "Number of times the segment has been watched"
+
+  - name: video_playback_events
+    docs:
+        node_color: '{{ var("color_xapi") }}'
+    description: "Events related to video playback"
+    columns:
+      - name: event_id
+        data_type: uuid
+        description: '{{ doc("event_id") }}'
+      - name: emission_time_long
+        data_type: DateTime64(6)
+        description: 'Emission time with extra time digits'
+      - name: emission_time
+        data_type: DateTime
+        description: '{{ doc("emission_time") }}'
+      - name: actor_id
+        data_type: string
+        description: '{{ doc("actor_id") }}'
+      - name: object_id
+        data_type: string
+        description: '{{ doc("object_id") }}'
+      - name: course_key
+        data_type: string
+        description: '{{ doc("course_key") }}'
+      - name: org
+        data_type: string
+        description: '{{ doc("org") }}'
+      - name: verb_id
+        data_type: string
+        description: '{{ doc("verb_id") }}'
+      - name: video_position
+        data_type: decimal(9, 2)
+        description: "The position in the video where the event occurred"
+      - name: video_duration
+        data_type: int64
+        description: "The duration of the video in seconds"
+
