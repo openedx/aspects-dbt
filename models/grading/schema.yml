@@ -17,7 +17,7 @@ models:
         data_type: float64
         description: "The most recent grade for the learner"
       - name: emission_time
-        data_type: DateTime64(6)
+        data_type: DateTime
         description: '{{ doc("emission_time") }}'
 
 
@@ -34,7 +34,7 @@ models:
         data_type: String
         description: '{{ doc("actor_id") }}'
       - name: emission_time
-        data_type: DateTime64(6)
+        data_type: DateTime
         description: '{{ doc("emission_time") }}'
       - name: approving_state
         data_type: String
@@ -52,7 +52,7 @@ models:
         data_type: UUID
         description: '{{ doc("event_id") }}'
       - name: emission_time
-        data_type: DateTime64(6)
+        data_type: DateTime
         description: '{{ doc("emission_time") }}'
       - name: actor_id
         data_type: String
