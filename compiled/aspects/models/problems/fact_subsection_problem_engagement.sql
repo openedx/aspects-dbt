@@ -81,13 +81,12 @@ with
                 course_key,
                 section_number,
                 subsection_number,
-                course_order,
+                min(course_order) as course_order,
                 graded,
                 count(*) as item_count
             from `xapi`.`dim_course_blocks`
             where block_id like '%@problem+block@%'
-            group by
-                org, course_key, section_number, subsection_number, course_order, graded
+            group by org, course_key, section_number, subsection_number, graded
         )
 
     select
@@ -101,7 +100,9 @@ with
         ips.graded as graded,
         ips.item_count as item_count,
         subsection_blocks.block_id as subsection_block_id,
-        section_blocks.block_id as section_block_id
+        section_blocks.block_id as section_block_id,
+        section_blocks.course_order as section_course_order,
+        subsection_blocks.course_order as subsection_course_order
     from items_per_subsection ips
     left join
         `xapi`.`dim_course_blocks` section_blocks

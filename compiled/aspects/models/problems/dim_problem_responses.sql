@@ -22,10 +22,11 @@ with
             first_response.interaction_type as interaction_type,
             
     substring(
-        regexpExtract(object_id, '(@problem\+block@[\w\d][^_\/]*)(_\d)?', 2), 2
+        regexpExtract(first_response.object_id, '(@problem\+block@[\w\d][^_\/]*)(_\d)?', 2),
+        2
     ) as _problem_id_number,
     ifNull(nullIf(_problem_id_number, ''), '1') as _problem_id_or_1,
-    splitByString(' - ', display_name_with_location) as _problem_with_name,
+    splitByString(' - ', blocks.display_name_with_location) as _problem_with_name,
     arrayStringConcat(
         arrayMap(
             x -> (leftPad(x, 2, char(917768))),
