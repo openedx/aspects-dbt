@@ -33,6 +33,9 @@ models:
                 - 'No videos viewed yet'
                 - 'At least one video viewed'
                 - 'All videos viewed'
+      - name: block_id
+        data_type: String
+        description: '{{ doc("block_id") }}'
       - name: username
         data_type: String
         description: '{{ doc("username") }}'
@@ -92,9 +95,6 @@ models:
   - name: fact_video_segments
     description: "Each second of every video that has been watched"
     columns:
-      - name: event_id
-        data_type: uuid
-        description: '{{ doc("event_id") }}'
       - name: org
         data_type: string
         description: '{{ doc("org") }}'
@@ -113,6 +113,9 @@ models:
       - name: watched_segment
         data_type: Int32
         description: "Watched second of the video"
+      - name: watch_count
+        data_type: Int32
+        description: "Number of times the segment has been watched"
 
   - name: video_playback_events
     docs:
@@ -122,8 +125,11 @@ models:
       - name: event_id
         data_type: uuid
         description: '{{ doc("event_id") }}'
-      - name: emission_time
+      - name: emission_time_long
         data_type: DateTime64(6)
+        description: 'Emission time with extra time digits'
+      - name: emission_time
+        data_type: DateTime
         description: '{{ doc("emission_time") }}'
       - name: actor_id
         data_type: string

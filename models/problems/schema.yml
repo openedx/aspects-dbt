@@ -200,6 +200,108 @@ models:
         data_type: DateTime64(6)
         description: "The timestamp of the first successful attempt"
 
+  - name: fact_learner_response_attempts
+    description: "Internal table for problem results"
+    columns:
+      - name: emission_time
+        data_type: DateTime64(6)
+        description: '{{ doc("emission_time") }}'
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: course_name
+        data_type: String
+        description: '{{ doc("course_name") }}'
+      - name: course_run
+        data_type: String
+        description: '{{ doc("course_run") }}'
+      - name: problem_id
+        data_type: String
+        description: "The problem's unique identifier"
+      - name: problem_name
+        data_type: String
+        description: "The problem's name"
+      - name: problem_name_with_location
+        data_type: String
+        description: "The problem's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at problem names and can help data consumers understand which problem they are analyzing"
+      - name: problem_link
+        data_type: String
+        description: "An anchor tag with a link to the problem"
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: responses
+        data_type: String
+        description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
+      - name: success
+        data_type: bool
+        description: '{{ doc("success") }}'
+      - name: attempts
+        data_type: Int16
+        description: '{{ doc("attempt") }}'
+      - name: graded
+        data_type: bool
+        description: '{{ doc("graded") }}'
+      - name: interaction_type
+        data_type: String
+        description: "The type of interaction - e.g. multiple choice"
+      - name: course_order
+        data_type: Int32
+        description: '{{ doc("course_order") }}'
+
+  - name: fact_section_problem_engagement
+    description: "A record per course per section per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: section_block_id
+        data_type: String
+        description: '{{ doc("section_block_id") }}'
+      - name: engagement_level
+        data_type: String
+        description: "The engagement level of the learner with the section"
+        data_tests:
+          - accepted_values:
+              values:
+                - 'No problems attempted yet'
+                - 'All problems attempted'
+                - 'At least one problem attempted'
+
+  - name: fact_subsection_problem_engagement
+    description: "A record per course per subsection per learner with their engagement level"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: subsection_block_id
+        data_type: String
+        description: '{{ doc("subsection_block_id") }}'
+      - name: engagement_level
+        data_type: String
+        description: "The engagement level of the learner with the subsection"
+        data_tests:
+          - accepted_values:
+              values:
+                - 'No problems attempted yet'
+                - 'All problems attempted'
+                - 'At least one problem attempted'
+
   - name: dim_problem_responses
     columns:
       - name: org

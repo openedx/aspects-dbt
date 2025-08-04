@@ -2,8 +2,8 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, actor_id, section_subsection_name)",
-        order_by="(org, course_key, actor_id, section_subsection_name)",
+        primary_key="(org, course_key, actor_id, block_id)",
+        order_by="(org, course_key, actor_id, block_id)",
     )
 }}
 
@@ -100,6 +100,7 @@ with
             video_engagment.actor_id as actor_id,
             video_engagment.section_subsection_video_engagement
             as section_subsection_video_engagement,
+            video_engagment.block_id as block_id,
             users.username as username,
             users.name as name,
             users.email as email

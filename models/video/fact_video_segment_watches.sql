@@ -17,42 +17,15 @@ with
                 )
                 or {course_key_filter:String} = '[]'
             )
-    ),
-    rewatched as (
-        select org, course_key, actor_id, object_id, video_duration, watched_segment
-        from watched_segments
-        group by org, course_key, actor_id, object_id, video_duration, watched_segment
-        having count(1) > 1
-    ),
-    segments as (
-        select
-            event_id,
-            org,
-            course_key,
-            actor_id,
-            object_id,
-            video_duration,
-            watched_segment,
-            case
-                when
-                    (org, course_key, actor_id, object_id, watched_segment) in (
-                        select org, course_key, actor_id, object_id, watched_segment
-                        from rewatched
-                    )
-                then 1
-                else 0
-            end as rewatched
-        from watched_segments
     )
 select
-    segments.event_id,
     segments.org,
     segments.course_key,
     segments.actor_id,
     segments.object_id,
     segments.video_duration,
     segments.watched_segment,
-    segments.rewatched,
+    segments.watch_count > 1 as rewatched,
     formatDateTime(
         toDate(now()) + toIntervalSecond(segments.watched_segment), '%T'
     ) as time_stamp,
@@ -77,7 +50,7 @@ select
     ) as video_link,
     blocks.section_with_name as section_with_name,
     blocks.subsection_with_name as subsection_with_name
-from segments
+from watched_segments
 join
     {{ ref("dim_course_blocks") }} blocks
     on (

@@ -52,6 +52,8 @@
         ("view", reporting, "most_recent_course_tags"),
         ("view", reporting, "fact_student_status"),
         ("view", reporting, "watched_video_duration"),
+        ("view", reporting, "fact_video_plays"),
+        ("view", reporting, "fact_watched_video_duration"),
         ("mv", event_sink, "course_enrollment"),
         ("mv", event_sink, "course_relationships"),
         ("mv", xapi, "forum_events"),

@@ -64,7 +64,8 @@ with
     )
 select
     event_id,
-    emission_time,
+    emission_time as emission_time_long,
+    CAST(emission_time, 'DateTime') as emission_time,
     actor_id,
     object_id,
     course_key,

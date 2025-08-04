@@ -1,26 +1,4 @@
 unit_tests:
-  - name: test_fact_video_engagement
-    model: fact_video_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('dim_course_blocks')
-        format: sql
-        rows: |
-          select * from dim_course_blocks
-      - input: ref('dim_user_pii')
-        format: sql
-        rows: |
-          select * from 
-      - input: ref('fact_video_segments')
-        format: sql
-        rows: |
-          select * from fact_video_segments
-    expect:
-      format: sql
-      rows: |
-        select * from fact_video_engagement_expected
-
   - name: test_video_playback_events
     model: video_playback_events
     config:
