@@ -2,15 +2,12 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, actor_id, block_id)",
-        order_by="(org, course_key, actor_id, block_id)",
+        primary_key="(org, course_key, actor_id, block_id, section_subsection_video_engagement)",
+        order_by="(org, course_key, actor_id, block_id, section_subsection_video_engagement)",
     )
 }}
 
 with
-    fact_videos_per_subsection as (
-        select * from ({{ items_per_subsection("%@video+block@%") }})
-    ),
     fact_video_segments as (
         select
             segments.org as org,
@@ -28,6 +25,9 @@ with
             )
         group by org, course_key, section_number, subsection_number, actor_id
     ),
+    fact_videos_per_subsection as (
+        select * from ({{ items_per_subsection("%@video+block@%") }})
+    ),
     fact_video_section_subsection as (
         select
             videos.org as org,
@@ -42,9 +42,9 @@ with
             videos.subsection_block_id as subsection_block_id,
             videos.section_with_name as section_with_name,
             videos.subsection_with_name as subsection_with_name
-        from fact_videos_per_subsection videos
-        left join
-            fact_video_segments plays
+        from fact_video_segments plays
+        full join
+            fact_videos_per_subsection videos
             on (
                 videos.org = plays.org
                 and videos.course_key = plays.course_key
