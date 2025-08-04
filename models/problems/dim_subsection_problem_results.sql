@@ -14,7 +14,7 @@ with
             last_response.course_key as course_key,
             last_response.actor_id as actor_id,
             splitByChar('@', subsection_blocks.block_id)[3] as block_id_short,
-            problem_blocks.block_id as problem_id,
+            last_response.problem_id as problem_id,
             last_response.success as success,
             last_response.scaled_score as scaled_score,
             splitByString(
@@ -33,7 +33,7 @@ with
             {{
                 format_problem_number_location(
                     "last_response.object_id",
-                    "problem_blocks.display_name_with_location",
+                    "last_response.display_name_with_location",
                 )
             }}
         from {{ ref("dim_learner_last_response") }} last_response
@@ -50,7 +50,7 @@ with
                 subsection_blocks.block_id like '%@sequential+block@%'
                 or subsection_blocks.block_id like '%@chapter+block@%'
             )
-        where problem_blocks.graded
+        where last_response.graded
     )
 select
     org,

@@ -1,11 +1,18 @@
 version: 3
 
 seeds:
-  - name: dim_learner_response_attempt_expected
+  - name: problem_events_expected
     config:
       column_types:
-        first_success_at: Nullable(DateTime)
-  - name: problem_events_expected
+        scaled_score: Float64
+        emission_time: DateTime64(6)
+        # use toTimeZone(emission_time, 'UTC') when populating seed file
+        # daylight savings time messes up a few records so those manually adjusted
+  - name: dim_problem_responses_expected
+    config:
+      column_types:
+        response_count: UInt64
+  - name: dim_learner_last_response_expected
     config:
       column_types:
         scaled_score: Float64
