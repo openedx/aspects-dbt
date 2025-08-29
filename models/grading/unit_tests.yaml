@@ -42,6 +42,10 @@ unit_tests:
         format: sql
         rows: |
           select * from dim_learner_most_recent_course_grade
+      - input: ref('dim_learner_last_course_visit')
+        format: sql
+        rows: |
+          select * from dim_learner_last_course_visit
       - input: ref('dim_course_names')
         format: sql
         rows: |

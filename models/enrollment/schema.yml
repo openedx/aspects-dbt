@@ -13,12 +13,6 @@ models:
       - name: course_key
         data_type: String
         description: '{{ doc("course_key") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'

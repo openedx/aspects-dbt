@@ -14,7 +14,7 @@ models:
         data_type: String
         description: '{{ doc("actor_id") }}'
       - name: course_grade
-        data_type: float64
+        data_type: float32
         description: "The most recent grade for the learner"
       - name: emission_time
         data_type: DateTime
@@ -70,7 +70,7 @@ models:
         data_type: String
         description: '{{ doc("verb_id") }}'
       - name: scaled_score
-        data_type: float64
+        data_type: float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: approving_state
         data_type: String
@@ -88,12 +88,6 @@ models:
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
       - name: approving_state
         data_type: String
         description: "The most recent approving state for the learner"
@@ -106,7 +100,7 @@ models:
           - accepted_values:
               values: ["registered", "unregistered"]
       - name: course_grade
-        data_type: float64
+        data_type: float32
         description: "The most recent grade for the learner"
       - name: grade_bucket
         data_type: String
@@ -123,3 +117,9 @@ models:
       - name: enrolled_at
         data_type: DateTime
         description: "The timestamp, to the second, of the most recent enrollment action for this learner and course."
+      - name: last_navigated
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent navigation action for this learner and course."
+      - name: last_visited
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent navigation action OR enrollment date for this learner and course."

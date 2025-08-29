@@ -7,12 +7,12 @@
         post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
     )
 }}
-with
-    latest as (
-        select id, max(time_last_dumped) as last_modified
-        from {{ source("event_sink", "object_tag") }}
-        group by id
-    )
-select id, object_id, taxonomy, _value, _export_id, lineage
-from {{ source("event_sink", "object_tag") }} ot
-inner join latest mrot on mrot.id = ot.id and ot.time_last_dumped = mrot.last_modified
+select
+    id,
+    object_id,
+    argMax(taxonomy, time_last_dumped) as taxonomy,
+    argMax(_value, time_last_dumped) as _value,
+    argMax(_export_id, time_last_dumped) as _export_id,
+    argMax(lineage, time_last_dumped) as lineage
+from {{ source("event_sink", "object_tag") }}
+group by id, object_id

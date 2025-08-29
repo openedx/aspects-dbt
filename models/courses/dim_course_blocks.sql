@@ -7,10 +7,12 @@ with
             courses.course_run as course_run,
             blocks.location as block_id,
             blocks.block_name as block_name,
-            {{ section_from_display("blocks.display_name_with_location") }}
-            as section_number,
-            {{ subsection_from_display("blocks.display_name_with_location") }}
-            as subsection_number,
+            concat(
+                regexpExtract(blocks.display_name_with_location, '(\d+):'), ':0:0'
+            ) as section_number,
+            concat(
+                regexpExtract(blocks.display_name_with_location, '(.+):'), ':0'
+            ) as subsection_number,
             splitByString(' - ', blocks.display_name_with_location)[
                 1
             ] as hierarchy_location,

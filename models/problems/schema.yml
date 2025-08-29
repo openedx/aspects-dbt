@@ -31,7 +31,7 @@ models:
         data_type: String
         description: "The responses for this submission. If a problem has multiple parts, values for all parts will be in this field"
       - name: scaled_score
-        data_type: Float64
+        data_type: Float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: success
         data_type: Boolean
@@ -45,12 +45,6 @@ models:
       - name: problem_id
         data_type: String
         description: "The problem's unique identifier"
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: block_name
-        data_type: String
-        description: "The name of the block"
 
   - name: dim_learner_last_response
     description: "A record per course per problem per learner with their last attempt"
@@ -221,6 +215,9 @@ models:
       - name: section_subsection_problem_engagement
         data_type: UInt64
         description: "The total number of times a learner engaged with a problem in this section or subsection" 
+      - name: block_id
+        data_type: String
+        description: '{{ doc("block_id") }}'
       - name: username
         data_type: String
         description: '{{ doc("username") }}'

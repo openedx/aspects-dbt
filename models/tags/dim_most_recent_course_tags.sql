@@ -27,7 +27,15 @@ with
             arrayJoin(JSONExtractArrayRaw(tags_str))::Int32 as tag_id
         from {{ ref("dim_course_names") }}
     )
-select course_key, value as tag, course_name, mrt.name as taxonomy_name, lineage, tag_id
+select
+    parsed_tags.course_key as course_key,
+    tags.value as tag,
+    parsed_tags.course_name as course_name,
+    taxonomy.name as taxonomy_name,
+    tags.lineage as lineage,
+    parsed_tags.tag_id as tag_id
 from parsed_tags
-inner join {{ ref("dim_most_recent_tags") }} mrot FINAL on mrot.id = tag_id
-inner join {{ ref("dim_most_recent_taxonomies") }} mrt FINAL on mrt.id = mrot.taxonomy
+inner join {{ ref("dim_most_recent_tags") }} tags FINAL on tags.id = parsed_tags.tag_id
+inner join
+    {{ ref("dim_most_recent_taxonomies") }} taxonomy FINAL
+    on taxonomy.id = tags.taxonomy

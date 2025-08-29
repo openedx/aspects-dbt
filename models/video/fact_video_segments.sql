@@ -2,8 +2,8 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, object_id, actor_id, watched_segment, watch_count)",
-        order_by="(org, course_key, object_id, actor_id, watched_segment, watch_count)",
+        primary_key="(org, course_key, object_id, actor_id, watched_segment)",
+        order_by="(org, course_key, object_id, actor_id, watched_segment)",
     )
 }}
 
@@ -57,7 +57,7 @@ with
             starts.video_duration as video_duration,
             arrayJoin(
                 range(
-                    cast(starts.video_position as int) + 1,
+                    greatest(cast(starts.video_position as int), 1),
                     cast(ends.video_position as int) + 1,
                     1
                 )
