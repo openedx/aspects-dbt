@@ -221,6 +221,9 @@ models:
       - name: section_subsection_problem_engagement
         data_type: UInt64
         description: "The total number of times a learner engaged with a problem in this section or subsection" 
+      - name: block_id
+        data_type: String
+        description: '{{ doc("block_id") }}'
       - name: username
         data_type: String
         description: '{{ doc("username") }}'
