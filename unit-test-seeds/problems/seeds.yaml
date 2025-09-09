@@ -4,7 +4,7 @@ seeds:
   - name: problem_events_expected
     config:
       column_types:
-        scaled_score: Float64
+        scaled_score: Float32
         emission_time: DateTime64(6)
         # use toTimeZone(emission_time, 'UTC') when populating seed file
         # daylight savings time messes up a few records so those manually adjusted
@@ -15,4 +15,4 @@ seeds:
   - name: dim_learner_last_response_expected
     config:
       column_types:
-        scaled_score: Float64
+        scaled_score: Float32

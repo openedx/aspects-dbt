@@ -14,7 +14,7 @@ models:
         data_type: String
         description: '{{ doc("actor_id") }}'
       - name: course_grade
-        data_type: float64
+        data_type: float32
         description: "The most recent grade for the learner"
       - name: emission_time
         data_type: DateTime
@@ -70,7 +70,7 @@ models:
         data_type: String
         description: '{{ doc("verb_id") }}'
       - name: scaled_score
-        data_type: float64
+        data_type: float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: approving_state
         data_type: String
@@ -106,7 +106,7 @@ models:
           - accepted_values:
               values: ["registered", "unregistered"]
       - name: course_grade
-        data_type: float64
+        data_type: float32
         description: "The most recent grade for the learner"
       - name: grade_bucket
         data_type: String
