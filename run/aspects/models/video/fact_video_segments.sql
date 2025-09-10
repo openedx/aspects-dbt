@@ -62,7 +62,7 @@ with
             starts.video_duration as video_duration,
             arrayJoin(
                 range(
-                    cast(starts.video_position as int) + 1,
+                    greatest(cast(starts.video_position as int), 1),
                     cast(ends.video_position as int) + 1,
                     1
                 )

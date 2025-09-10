@@ -19,7 +19,7 @@ with
             last_response.course_key as course_key,
             last_response.actor_id as actor_id,
             splitByChar('@', subsection_blocks.block_id)[3] as block_id_short,
-            problem_blocks.block_id as problem_id,
+            last_response.problem_id as problem_id,
             last_response.success as success,
             last_response.scaled_score as scaled_score,
             splitByString(
@@ -41,7 +41,7 @@ with
         2
     ) as _problem_id_number,
     ifNull(nullIf(_problem_id_number, ''), '1') as _problem_id_or_1,
-    splitByString(' - ', problem_blocks.display_name_with_location) as _problem_with_name,
+    splitByString(' - ', last_response.display_name_with_location) as _problem_with_name,
     arrayStringConcat(
         arrayMap(
             x -> (leftPad(x, 2, char(917768))),
@@ -66,7 +66,7 @@ with
                 subsection_blocks.block_id like '%@sequential+block@%'
                 or subsection_blocks.block_id like '%@chapter+block@%'
             )
-        where problem_blocks.graded
+        where last_response.graded
     )
 select
     org,

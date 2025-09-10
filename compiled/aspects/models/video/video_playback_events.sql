@@ -66,7 +66,7 @@ select
         when
             _video_position = video_duration
             and verb_id = 'https://w3id.org/xapi/video/verbs/played'
-        then 0
+        then 1
         else _video_position
     end as video_position,
     video_duration

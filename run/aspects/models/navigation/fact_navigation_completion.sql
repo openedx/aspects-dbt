@@ -5,53 +5,7 @@
     
     
   as (
-    -- number of learners who've viewed all pages in a section/subsection
-with
-    visited_subsection_pages as (
-        select distinct
-            date(navigation.emission_time) as visited_on,
-            navigation.org as org,
-            navigation.course_key as course_key,
-            blocks.course_name as course_name,
-            blocks.course_run as course_run,
-            
-    concat(
-        splitByString(
-            ':', splitByString(' - ', blocks.display_name_with_location)[1], 1
-        )[1],
-        ':0:0'
-    )
-
-            as section_number,
-            
-    concat(
-        arrayStringConcat(
-            splitByString(
-                ':', splitByString(' - ', blocks.display_name_with_location)[1], 2
-            ),
-            ':'
-        ),
-        ':0'
-    )
-
-            as subsection_number,
-            navigation.actor_id as actor_id,
-            navigation.block_id as block_id,
-            users.username as username,
-            users.name as name,
-            users.email as email
-        from `xapi`.`navigation_events` navigation
-        join
-            `xapi`.`dim_course_blocks` blocks
-            on (
-                navigation.course_key = blocks.course_key
-                and navigation.block_id = blocks.block_id
-            )
-        left outer join
-            `xapi`.`dim_user_pii` users
-            on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
-            or actor_id = toString(users.external_user_id)
-    ),
+    with
     pages_per_subsection as (
         select * from (
     with
@@ -103,28 +57,29 @@ with
 )
     )
 select
-    visits.visited_on as visited_on,
-    visits.org as org,
-    visits.course_key as course_key,
-    visits.course_name as course_name,
-    visits.course_run as course_run,
+    navigation.org as org,
+    navigation.course_key as course_key,
+    navigation.block_id as block_id,
+    pages.subsection_course_order as course_order,
+    navigation.actor_id as actor_id,
+    pages.item_count as page_count,
     pages.section_with_name as section_with_name,
     pages.subsection_with_name as subsection_with_name,
-    pages.course_order as course_order,
-    pages.item_count as page_count,
-    visits.actor_id as actor_id,
-    visits.block_id as block_id,
-    visits.username as username,
-    visits.name as name,
-    visits.email as email
-from visited_subsection_pages visits
+    date(navigation.emission_time) as visited_on
+from `xapi`.`navigation_events` navigation
+join
+    `xapi`.`dim_course_blocks` blocks
+    on (
+        navigation.course_key = blocks.course_key
+        and navigation.block_id = blocks.block_id
+    )
 join
     pages_per_subsection pages
     on (
-        visits.org = pages.org
-        and visits.course_key = pages.course_key
-        and visits.section_number = pages.section_number
-        and visits.subsection_number = pages.subsection_number
+        pages.org = navigation.org
+        and pages.course_key = navigation.course_key
+        and pages.section_number = blocks.section_number
+        and pages.subsection_number = blocks.subsection_number
     )
     
   )

@@ -19,7 +19,9 @@ select
     course_key,
     org,
     verb_id,
-    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score,
+    cast(
+        JSONExtractFloat(event, 'result', 'score', 'scaled') as Float32
+    ) as scaled_score,
     case
         when
             JSONExtractString(

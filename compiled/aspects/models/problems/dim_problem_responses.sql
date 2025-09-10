@@ -1,12 +1,28 @@
 
 
 with
+    first_response as (
+        select
+            org,
+            course_key,
+            object_id,
+            problem_id,
+            actor_id,
+            interaction_type,
+            argMin(success, attempts) as success,
+            argMin(emission_time, attempts) as emission_time,
+            argMin(responses, attempts) as responses,
+            argMin(scaled_score, attempts) as scaled_score
+        from `xapi`.`problem_events`
+        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
+        group by org, course_key, object_id, problem_id, actor_id, interaction_type
+    ),
     final_results as (
         select
             first_response.org as org,
             first_response.course_key as course_key,
             first_response.emission_time as emission_time,
-            splitByChar('@', blocks.block_id)[3] as block_id_short,
+            splitByChar('@', first_response.problem_id)[3] as block_id_short,
             replaceRegexpAll(
                 first_response.responses,
                 '<.*?hint.*?<\/.*?hint>|</div>|<div>|\[|\]',
@@ -37,7 +53,7 @@ with
     concat(_problem_number, '_', _problem_id_or_1) as problem_number,
     concat(problem_number, ' - ', _problem_with_name[2]) as problem_name_location
 
-        from `xapi`.`dim_learner_first_response` as first_response
+        from first_response
         left join
             `xapi`.`dim_course_blocks` blocks
             on (
