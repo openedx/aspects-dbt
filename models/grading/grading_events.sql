@@ -7,7 +7,6 @@
         order_by="(org, course_key, verb_id, emission_time, actor_id, object_id, scaled_score, event_id)",
         partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
-        full_refresh=true,
     )
 }}
 
@@ -20,7 +19,9 @@ select
     course_key,
     org,
     verb_id,
-    JSONExtractFloat(event, 'result', 'score', 'scaled') as scaled_score,
+    cast(
+        JSONExtractFloat(event, 'result', 'score', 'scaled') as Float32
+    ) as scaled_score,
     case
         when
             JSONExtractString(

@@ -4,8 +4,8 @@ seeds:
   - name: grading_events_expected
     config:
       column_types:
-        scaled_score: Float64
+        scaled_score: Float32
   - name: dim_student_status_expected
     config:
       column_types:
-        course_grade: Float64
+        course_grade: Float32

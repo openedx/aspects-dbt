@@ -112,7 +112,7 @@ The username of the learner from the LMS user table. When Aspects PII syncing is
 The "id" portion of the xAPI Verb for this event. See: https://xapi.com/statements-101/#verb
 {% enddocs %}
 
-{% docs attempt %}
+{% docs attempts %}
 Number indicating which attempt this was
 {% enddocs %}
 

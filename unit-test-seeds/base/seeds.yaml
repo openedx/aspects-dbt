@@ -5,3 +5,5 @@ seeds:
     config:
       column_types:
         emission_time: DateTime64(6)
+        # use toTimeZone(emission_time, 'UTC') when populating seed file
+        # daylight savings time messes up a few records so those manually adjusted

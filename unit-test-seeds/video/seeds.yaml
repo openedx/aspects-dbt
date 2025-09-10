@@ -1,0 +1,7 @@
+version: 2
+
+seeds:
+  - name: fact_video_segments_expected
+    config:
+      column_types:
+        watch_count: UInt64
