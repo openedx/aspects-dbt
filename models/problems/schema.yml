@@ -227,3 +227,72 @@ models:
       - name: email
         data_type: String
         description: '{{ doc("email") }}'
+
+  - name: dim_subsection_performance
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: block_id
+        data_type: String
+        description: '{{ doc("block_id") }}'
+      - name: avg_score
+        data_type: Float32
+        description: Average scaled score per actor/course/problem
+      - name: total_avg
+        data_type: Float32
+        description: Average scaled score per course/problem
+
+  - name: dim_problem_coursewide_avg
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: course_order
+        data_type: String
+        description: '{{ doc("course_order") }}'
+      - name: problem_link
+        data_type: String
+        description: '{{ doc("problem_link") }}'
+      - name: graded
+        data_type: Boolean
+        description: '{{ doc("graded") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: avg_correct_attempts_coursewide
+        data_type: Float32
+        description: Avg number of correct attempts for the problem
+      - name: avg_incorrect_attempts_coursewide
+        data_type: Float32
+        description: Avg number of incorrect attempts for the problem
+      - name: coursewide_percent_correct
+        data_type: Float32
+        description: Percent correct for the problem
+      - name: correct_attempts_by_learner
+        data_type: Float32
+        description: Total correct attempts per learner
+      - name: incorrect_attempts_by_learner
+        data_type: Float32
+        description: Total incorrect attempts per learner
+      - name: selected_learner_percent_correct
+        data_type: Float32
+        description: Percent correct per learner
+      - name: selected_learner_percent_incorrect
+        data_type: Float32
+        description: Percent incorrect per learner
+      - name: username
+        data_type: String
+        description: '{{ doc("username") }}'
+      - name: name
+        data_type: String
+        description: '{{ doc("learner_name") }}'
+      - name: email
+        data_type: String
+        description: '{{ doc("email") }}'
