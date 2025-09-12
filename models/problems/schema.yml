@@ -259,7 +259,7 @@ models:
         description: '{{ doc("course_order") }}'
       - name: problem_link
         data_type: String
-        description: '{{ doc("problem_link") }}'
+        description: "An anchor tag with a link to the problem"
       - name: graded
         data_type: Boolean
         description: '{{ doc("graded") }}'
