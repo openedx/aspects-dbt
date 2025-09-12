@@ -5,9 +5,6 @@ seeds:
     config:
       column_types:
         scaled_score: Float32
-        emission_time: DateTime64(6)
-        # use toTimeZone(emission_time, 'UTC') when populating seed file
-        # daylight savings time messes up a few records so those manually adjusted
   - name: dim_problem_responses_expected
     config:
       column_types:

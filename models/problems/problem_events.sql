@@ -40,7 +40,9 @@ select
         ),
         0
     ) as attempts,
-    {{ get_problem_id("object_id") }} as problem_id
+    regexpExtract(
+        object_id, 'xblock/([\w\d-\+:@]*@problem\+block@[\w\d][^_\/]*)(_\d_\d)?', 1
+    ) as problem_id
 from {{ ref("xapi_events_all_parsed") }} xapi
 where
     verb_id in (

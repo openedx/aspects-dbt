@@ -54,30 +54,26 @@ with
             section_subsection_name,
             section_with_name,
             content_level
-    ),
-    final_results as (
-        select
-            pageview_engagement.org as org,
-            pageview_engagement.course_key as course_key,
-            pageview_engagement.section_subsection_name as section_subsection_name,
-            pageview_engagement.content_level as content_level,
-            pageview_engagement.actor_id as actor_id,
-            pageview_engagement.section_subsection_page_engagement
-            as section_subsection_page_engagement,
-            pageview_engagement.section_with_name as section_with_name,
-            pageview_engagement.course_order as course_order,
-            users.username as username,
-            users.name as name,
-            users.email as email
-        from pageview_engagement
-        left outer join
-            {{ ref("dim_user_pii") }} users
-            on (
-                pageview_engagement.actor_id like 'mailto:%'
-                and SUBSTRING(pageview_engagement.actor_id, 8) = users.email
-            )
-            or pageview_engagement.actor_id = toString(users.external_user_id)
-        where section_subsection_name <> ''
     )
-select *
-from final_results
+select
+    pageview_engagement.org as org,
+    pageview_engagement.course_key as course_key,
+    pageview_engagement.section_subsection_name as section_subsection_name,
+    pageview_engagement.content_level as content_level,
+    pageview_engagement.actor_id as actor_id,
+    pageview_engagement.section_subsection_page_engagement
+    as section_subsection_page_engagement,
+    pageview_engagement.section_with_name as section_with_name,
+    pageview_engagement.course_order as course_order,
+    users.username as username,
+    users.name as name,
+    users.email as email
+from pageview_engagement
+left outer join
+    {{ ref("dim_user_pii") }} users
+    on (
+        pageview_engagement.actor_id like 'mailto:%'
+        and SUBSTRING(pageview_engagement.actor_id, 8) = users.email
+    )
+    or pageview_engagement.actor_id = toString(users.external_user_id)
+where pageview_engagement.section_subsection_name <> ''
