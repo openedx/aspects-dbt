@@ -3,7 +3,6 @@ with
         select
             problems.org as org,
             problems.course_key as course_key,
-            items.subsection_course_order as course_order,
             problems.actor_id as actor_id,
             items.item_count as item_count,
             problems.problem_id as problem_id,
@@ -79,7 +78,6 @@ with
         select
             org,
             course_key,
-            course_order,
             actor_id,
             'section' as section_content_level,
             'subsection' as subsection_content_level,
@@ -93,7 +91,6 @@ with
         group by
             org,
             course_key,
-            course_order,
             actor_id,
             item_count,
             section_block_id,

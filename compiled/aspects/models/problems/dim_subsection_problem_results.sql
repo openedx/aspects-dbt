@@ -60,6 +60,7 @@ select
     org,
     course_key,
     block_id_short,
+    problem_id,
     problem_number,
     problem_name_location,
     actor_id,

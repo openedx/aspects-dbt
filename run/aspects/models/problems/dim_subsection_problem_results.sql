@@ -10,7 +10,7 @@
 
 
         insert into `xapi`.`dim_subsection_problem_results`
-        ("org", "course_key", "block_id_short", "problem_number", "problem_name_location", "actor_id", "success", "subsection_number", "subsection_with_name", "scaled_score")
+        ("org", "course_key", "block_id_short", "problem_id", "problem_number", "problem_name_location", "actor_id", "success", "subsection_number", "subsection_with_name", "scaled_score")
 
 with
     final_results as (
@@ -72,6 +72,7 @@ select
     org,
     course_key,
     block_id_short,
+    problem_id,
     problem_number,
     problem_name_location,
     actor_id,
