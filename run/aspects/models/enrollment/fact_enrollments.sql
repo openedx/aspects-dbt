@@ -1,6 +1,9 @@
 
 
-  create view `xapi`.`fact_enrollments` 
+  create or replace view `xapi`.`fact_enrollments` 
+  
+    
+  
   
     
     

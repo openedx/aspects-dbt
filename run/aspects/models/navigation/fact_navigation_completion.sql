@@ -1,6 +1,9 @@
 
 
-  create view `xapi`.`fact_navigation_completion` 
+  create or replace view `xapi`.`fact_navigation_completion` 
+  
+    
+  
   
     
     

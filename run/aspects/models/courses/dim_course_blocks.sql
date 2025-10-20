@@ -1,6 +1,9 @@
 
 
-  create view `xapi`.`dim_course_blocks` 
+  create or replace view `xapi`.`dim_course_blocks` 
+  
+    
+  
   
     
     

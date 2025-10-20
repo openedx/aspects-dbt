@@ -1,6 +1,9 @@
 
 
-  create view `xapi`.`dim_user_pii` 
+  create or replace view `xapi`.`dim_user_pii` 
+  
+    
+  
   
     
     

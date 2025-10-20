@@ -1,6 +1,9 @@
 
 
-  create view `xapi`.`dim_student_status` 
+  create or replace view `xapi`.`dim_student_status` 
+  
+    
+  
   
     
     

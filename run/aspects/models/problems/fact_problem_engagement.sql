@@ -1,6 +1,9 @@
 
 
-  create view `xapi`.`fact_problem_engagement` 
+  create or replace view `xapi`.`fact_problem_engagement` 
+  
+    
+  
   
     
     
