@@ -36,15 +36,6 @@ models:
       - name: block_id
         data_type: String
         description: '{{ doc("block_id") }}'
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
 
   - name: fact_video_segments
     description: "Each second of every video that has been watched"
@@ -70,6 +61,21 @@ models:
       - name: watch_count
         data_type: Int32
         description: "Number of times the segment has been watched"
+      - name: video_location
+        data_type: String
+        description: "Section and subsection of the video"
+      - name: video_name_location
+        data_type: String
+        description: "Location and name of the video"
+      - name: video_link
+        data_type: String
+        description: "Link to the video within the course"
+      - name: section_with_name
+        data_type: String
+        description: '{{ doc("section_with_name") }}'
+      - name: subsection_with_name
+        data_type: String
+        description: '{{ doc("subsection_with_name") }}'
 
   - name: video_playback_events
     docs:
@@ -106,4 +112,9 @@ models:
       - name: video_duration
         data_type: int64
         description: "The duration of the video in seconds"
-
+      - name: section_with_name
+        data_type: String
+        description: '{{ doc("section_with_name") }}'
+      - name: subsection_with_name
+        data_type: String
+        description: '{{ doc("subsection_with_name") }}'

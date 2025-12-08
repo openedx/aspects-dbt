@@ -44,13 +44,7 @@ models:
         description: '{{ doc("attempts") }}'
       - name: problem_id
         data_type: String
-        description: "The problem's unique identifier"
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: block_name
-        data_type: String
-        description: "The name of the block"
+        description: '{{ doc("problem_id") }}'
 
   - name: dim_learner_last_response
     description: "A record per course per problem per learner with their last attempt"
@@ -63,7 +57,7 @@ models:
         description: '{{ doc("course_key") }}'
       - name: problem_id
         data_type: String
-        description: "The problem's unique identifier"
+        description: '{{ doc("problem_id") }}'
       - name: display_name_with_location
         data_type: String
         description: "The block's display name with section, subsection, and unit prepended to the name. This provides additional context when looking at block names and can help data consumers understand which block they are analyzing"      
@@ -97,9 +91,12 @@ models:
       - name: scaled_score
         data_type: Float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: subsection_block_id
+        data_type: String
+        description: '{{ doc("subsection_block_id") }}'
       - name: emission_time
         data_type: DateTime
-        description: "The timestamp of the last attempt"
+        description: '{{ doc("emission_time") }}'
 
   - name: dim_problem_responses
     columns:
@@ -124,12 +121,12 @@ models:
       - name: block_id_short
         data_type: String
         description: '{{ doc("block_id") }}'
-      - name: problem_number
+      - name: problem_location
         data_type: String
-        description: '{{ doc("problem_number") }}'
+        description: '{{ doc("problem_location") }}'
       - name: problem_name_location
         data_type: String
-        description: "problem_number followed by the name of the problem"
+        description: '{{ doc("problem_name_location") }}'
       - name: response_count
         data_type: Int64
         description: "Count of each response per problem part"
@@ -151,15 +148,54 @@ models:
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
-      - name: problem_number
+      - name: problem_location
         data_type: String
-        description: '{{ doc("problem_number") }}'
+        description: '{{ doc("problem_location") }}'
       - name: problem_name_location
         data_type: String
-        description: "problem_number followed by the name of the problem"
+        description: '{{ doc("problem_name_location") }}'
       - name: block_id_short
         data_type: String
         description: '{{ doc("block_id") }}'
+
+  - name: dim_subsection_problem_results_pre
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: success
+        data_type: Boolean
+        description: '{{ doc("success") }}'
+      - name: block_id_short
+        data_type: String
+        description: '{{ doc("block_id") }}'
+      - name: problem_location
+        data_type: String
+        description: '{{ doc("problem_location") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: subsection_number
+        data_type: String
+        description: '{{ doc("subsection_number") }}'
+      - name: subsection_with_name
+        data_type: String
+        description: '{{ doc("subsection_with_name") }}'
+      - name: scaled_score
+        data_type: Float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
+      - name: problem_name_location
+        data_type: String
+        description: '{{ doc("problem_name_location") }}'
+      - name: graded
+        data_type: Boolean
+        description: '{{ doc("graded") }}'
+      - name: problem_id
+        data_type: String
+        description: '{{ doc("problem_id") }}'
 
   - name: dim_subsection_problem_results
     columns:
@@ -175,27 +211,27 @@ models:
       - name: block_id_short
         data_type: String
         description: '{{ doc("block_id") }}'
-      - name: problem_id
+      - name: problem_location
         data_type: String
-        description: '{{ doc("problem_id") }}'
-      - name: problem_number
-        data_type: String
-        description: '{{ doc("problem_number") }}'
+        description: '{{ doc("problem_location") }}'
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
       - name: subsection_number
         data_type: String
-        description: 'Subsection location in the format 1:2:0'
+        description: '{{ doc("subsection_number") }}'
       - name: subsection_with_name
         data_type: String
-        description: 'subsection_number followed by subsection name'
+        description: '{{ doc("subsection_with_name") }}'
       - name: scaled_score
         data_type: Float32
         description: "A ratio between 0 and 1, inclusive, of the learner's grade"
       - name: problem_name_location
         data_type: String
-        description: "problem_number followed by the name of the problem"
+        description: '{{ doc("problem_name_location") }}'
+      - name: problem_id
+        data_type: String
+        description: '{{ doc("problem_id") }}'
 
   - name: fact_problem_engagement
     description: "A record per course per section and subsection per learner with engagement level"
@@ -227,13 +263,16 @@ models:
       - name: block_id
         data_type: String
         description: '{{ doc("block_id") }}'
-      - name: username
+
+  - name: dim_subsection_performance
+    columns:
+      - name: org
         data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
+        description: '{{ doc("org") }}'
+      - name: course_key
         data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
+        description: '{{ doc("course_key") }}'
+      - name: block_id
         data_type: String
         description: '{{ doc("email") }}'
 

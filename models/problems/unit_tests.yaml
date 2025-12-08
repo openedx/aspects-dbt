@@ -17,6 +17,24 @@ unit_tests:
       rows: |
         select * from dim_learner_last_response_expected
 
+  - name: test_dim_problem_coursewide_avg
+    model: dim_problem_coursewide_avg
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('dim_learner_last_response')
+        format: sql
+        rows: |
+          select * from dim_learner_last_response
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from dim_problem_coursewide_avg_expected
+
   - name: test_dim_problem_responses
     model: dim_problem_responses
     config:
@@ -66,10 +84,10 @@ unit_tests:
         format: sql
         rows: |
           select * from dim_course_blocks
-      - input: ref('dim_user_pii')
+      - input: ref('dim_items_per_subsection')
         format: sql
         rows: |
-          select * from dim_user_pii
+          select * from dim_items_per_subsection
     expect:
       format: sql
       rows: |
@@ -93,6 +111,19 @@ unit_tests:
       rows: |
         select * from problem_events_expected
 
+  - name: test_dim_subsection_problem_results
+    model: dim_subsection_problem_results_pre
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('dim_learner_last_response')
+        format: sql
+        rows: |
+          select * from dim_learner_last_response
+    expect:
+      format: sql
+      rows: |
+        select * from dim_subsection_problem_results_expected
   - name: test_dim_problem_coursewide_avg
     model: dim_problem_coursewide_avg
     config:

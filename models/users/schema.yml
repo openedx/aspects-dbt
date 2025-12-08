@@ -21,22 +21,3 @@ models:
       - name: email
         data_type: String
         description: '{{ doc("email") }}'
-
-  - name: dim_user_pii
-    description: "A denormalized table of user PII information"
-    columns:
-      - name: user_id
-        data_type: String
-        description: "The user id"
-      - name: external_user_id
-        data_type: String
-        description: "The external user id"
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'

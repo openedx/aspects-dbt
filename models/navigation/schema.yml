@@ -101,31 +101,6 @@ models:
       - name: section_with_name
         data_type: String
         description: '{{ doc("section_with_name") }}'
-      - name: course_order
-        data_type: Int32
-        description: '{{ doc("course_order") }}'
-      - name: username
+      - name: block_id
         data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
-
-  - name: dim_learner_last_course_visit
-    description: "A materialized view that stores a learners last navigation event timestamp for a course"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
+        description: 'Block ID of subsection or section'

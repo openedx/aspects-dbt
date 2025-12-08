@@ -1,4 +1,4 @@
-"org","course_key","emission_time","block_id_short","response","success","interaction_type","problem_number","problem_name_location","response_count"
+"org","course_key","emission_time","block_id_short","response","success","interaction_type","problem_location","problem_name_location","response_count"
 "Org8","course-v1:Org8+DemoX+3fefec","2021-02-02 02:28:05","7785f400","A correct answer","true","other","4:8:0_1","4:8:0_1 - Problem 35","1"
 "Org4","course-v1:Org4+DemoX+db4c73","2021-07-05 09:57:35","05d5da6f","An incorrect answer","false","other","2:6:5_1","2:6:5_1 - Problem 46","1"
 "Org2","course-v1:Org2+DemoX+682526","2021-12-01 00:43:13","6399c9ea","An incorrect answer","false","other","2:8:2_1","2:8:2_1 - Problem 41","1"

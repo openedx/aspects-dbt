@@ -7,6 +7,7 @@
         post_hook="OPTIMIZE TABLE {{ this }} {{ on_cluster() }} FINAL",
     )
 }}
+
 with
     latest as (
         select id, max(time_last_dumped) as last_modified

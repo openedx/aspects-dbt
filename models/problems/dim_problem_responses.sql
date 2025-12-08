@@ -44,7 +44,7 @@ with
             first_response.success as success,
             first_response.interaction_type as interaction_type,
             {{
-                format_problem_number_location(
+                format_problem_location(
                     "first_response.object_id", "blocks.display_name_with_location"
                 )
             }}
@@ -64,7 +64,7 @@ select
     response,
     success,
     interaction_type,
-    problem_number,
+    problem_location,
     problem_name_location,
     count(1) as response_count
 from final_results
@@ -76,5 +76,5 @@ group by
     response,
     success,
     interaction_type,
-    problem_number,
+    problem_location,
     problem_name_location

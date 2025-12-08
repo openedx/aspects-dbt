@@ -1,26 +1,6 @@
 version: 2
 
 models:
-  - name: dim_learner_most_recent_course_grade
-    description: "One record per learner per course for the most recent grade"
-    columns:
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: course_grade
-        data_type: float32
-        description: "The most recent grade for the learner"
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
-
-
   - name: dim_learner_most_recent_course_state
     description: "One record per learner per course for the most recent approving status"
     columns:
@@ -33,15 +13,15 @@ models:
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
       - name: approving_state
         data_type: String
         description: "The most recent approving_state of the learner's grade"
         data_tests:
           - accepted_values:
               values: ["passed", "failed"]
+      - name: course_grade
+        data_type: float32
+        description: "A ratio between 0 and 1, inclusive, of the learner's grade"
 
   - name: grading_events
     docs:
@@ -88,12 +68,6 @@ models:
       - name: actor_id
         data_type: String
         description: '{{ doc("actor_id") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
       - name: approving_state
         data_type: String
         description: "The most recent approving state for the learner"
@@ -111,15 +85,12 @@ models:
       - name: grade_bucket
         data_type: String
         description: "A displayable value of grades sorted into 10% buckets. Useful for grouping grades together to show high-level learner performance"
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
       - name: enrolled_at
         data_type: DateTime
         description: "The timestamp, to the second, of the most recent enrollment action for this learner and course."
+      - name: last_navigated
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent navigation action for this learner and course."
+      - name: last_visited
+        data_type: DateTime
+        description: "The timestamp, to the second, of the most recent navigation action OR enrollment date for this learner and course."

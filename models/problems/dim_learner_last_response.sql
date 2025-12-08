@@ -26,25 +26,41 @@ with
         group by org, course_key, object_id, problem_id, actor_id, interaction_type
     )
 select
-    org,
-    course_key,
-    object_id,
-    problem_id,
-    {{ a_tag("object_id", "blocks.display_name_with_location") }} as problem_link,
+    final_results.org as org,
+    final_results.course_key as course_key,
+    final_results.object_id as object_id,
+    final_results.problem_id as problem_id,
+    concat(
+        '<a href="',
+        final_results.object_id,
+        '" target="_blank">',
+        blocks.display_name_with_location,
+        '</a>'
+    ) as problem_link,
     blocks.display_name_with_location as display_name_with_location,
     blocks.graded as graded,
-    actor_id,
+    final_results.actor_id as actor_id,
     blocks.course_order as course_order,
-    interaction_type,
-    _attempt as attempts,
-    success,
-    emission_time,
-    responses,
-    scaled_score
+    final_results.interaction_type as interaction_type,
+    final_results._attempt as attempts,
+    final_results.success as success,
+    final_results.emission_time as emission_time,
+    final_results.responses as responses,
+    final_results.scaled_score as scaled_score,
+    subsection_blocks.block_id as subsection_block_id
 from final_results
 left join
     {{ ref("dim_course_blocks") }} blocks
     on (
         final_results.course_key = blocks.course_key
         and final_results.problem_id = blocks.block_id
+    )
+left join
+    {{ ref("dim_course_blocks") }} subsection_blocks
+    on blocks.subsection_number = subsection_blocks.hierarchy_location
+    and final_results.org = subsection_blocks.org
+    and final_results.course_key = subsection_blocks.course_key
+    and (
+        subsection_blocks.block_id like '%@sequential+block@%'
+        or subsection_blocks.block_id like '%@chapter+block@%'
     )

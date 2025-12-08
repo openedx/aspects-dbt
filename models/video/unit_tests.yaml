@@ -12,10 +12,10 @@ unit_tests:
         format: sql
         rows: |
           select * from dim_course_blocks
-      - input: ref('dim_user_pii')
+      - input: ref('dim_items_per_subsection')
         format: sql
         rows: |
-          select * from dim_user_pii
+          select * from dim_items_per_subsection
     expect:
       format: sql
       rows: |
@@ -30,6 +30,10 @@ unit_tests:
         format: sql
         rows: |
           select * from video_playback_events
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
     expect:
       format: sql
       rows: |

@@ -5,6 +5,10 @@ seeds:
     config:
       column_types:
         dump_id: UUID
+  - name: dim_items_per_subsection_expected
+    config:
+      column_types:
+        item_count: UInt64
   - name: dim_course_names_expected
     config:
       column_types:

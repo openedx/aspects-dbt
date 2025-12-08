@@ -1,46 +1,6 @@
 version: 2
 
 models:
-  - name: fact_enrollments
-    description: "A record for each enrollment event"
-    columns:
-      - name: emission_time
-        data_type: DateTime
-        description: '{{ doc("emission_time") }}'
-      - name: org
-        data_type: String
-        description: '{{ doc("org") }}'
-      - name: course_key
-        data_type: String
-        description: '{{ doc("course_key") }}'
-      - name: course_name
-        data_type: String
-        description: '{{ doc("course_name") }}'
-      - name: course_run
-        data_type: String
-        description: '{{ doc("course_run") }}'
-      - name: actor_id
-        data_type: String
-        description: '{{ doc("actor_id") }}'
-      - name: enrollment_mode
-        data_type: LowCardinality(String)
-        description: '{{ doc("enrollment_mode") }}'
-      - name: enrollment_status
-        description: '{{ doc("enrollment_status") }}'
-        data_tests:
-          - accepted_values:
-              values: ["registered", "unregistered"]
-        data_type: String
-      - name: username
-        data_type: String
-        description: '{{ doc("username") }}'
-      - name: name
-        data_type: String
-        description: '{{ doc("learner_name") }}'
-      - name: email
-        data_type: String
-        description: '{{ doc("email") }}'
-
   - name: enrollment_events
     docs:
         node_color: '{{ var("color_xapi") }}'

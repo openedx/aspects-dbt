@@ -47,7 +47,7 @@ with
     ),
     ends as (select * from final_matches where verb = 'end' and event_id = end_id),
     starts as (select * from final_matches where verb = 'start'),
-    final_results as (
+    joined as (
         select
             starts.event_id as event_id,
             starts.org as org,
@@ -65,6 +65,45 @@ with
         from starts
         inner join ends on starts.end_id = ends.event_id
         where ends.video_position > starts.video_position
+    ),
+    final_results as (
+        select
+            joined.org,
+            joined.course_key,
+            joined.actor_id,
+            joined.object_id,
+            joined.video_duration,
+            joined.watched_segment,
+            count(1) as watch_count,
+            {{ format_object_location("blocks.display_name_with_location") }},  -- object_number, object_name_location
+            concat(
+                '<a href="',
+                joined.object_id,
+                '" target="_blank">',
+                object_name_location,
+                '</a>'
+            ) as video_link,
+            blocks.section_with_name as section_with_name,
+            blocks.subsection_with_name as subsection_with_name
+        from joined
+        join
+            {{ ref("dim_course_blocks") }} blocks
+            on (
+                joined.course_key = blocks.course_key
+                and splitByString('/xblock/', joined.object_id)[-1] = blocks.block_id
+            )
+        group by
+            org,
+            course_key,
+            actor_id,
+            object_id,
+            video_duration,
+            watched_segment,
+            object_location,
+            object_name_location,
+            video_link,
+            section_with_name,
+            subsection_with_name
     )
 select
     org,
@@ -73,6 +112,10 @@ select
     object_id,
     video_duration,
     watched_segment,
-    count(1) as watch_count
+    watch_count,
+    object_location as video_location,
+    object_name_location as video_name_location,
+    video_link,
+    section_with_name,
+    subsection_with_name
 from final_results
-group by org, course_key, actor_id, object_id, video_duration, watched_segment

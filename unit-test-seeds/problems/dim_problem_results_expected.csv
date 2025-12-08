@@ -1,4 +1,4 @@
-"org","course_key","success","attempts","actor_id","problem_number","problem_name_location","block_id_short"
+"org","course_key","success","attempts","actor_id","problem_location","problem_name_location","block_id_short"
 "Org0","course-v1:Org0+DemoX+2bc51b","true","3","f376194f-4c5c-4357-aae6-780707fcf36a","1:4:0_1","1:4:0_1 - Problem 29","f116ead5"
 "Org0","course-v1:Org0+DemoX+2bc51b","true","3","ed2421ea-45e4-4610-85b1-d58b2cdf628a","1:4:0_1","1:4:0_1 - Problem 29","f116ead5"
 "Org0","course-v1:Org0+DemoX+2bc51b","true","4","44b445b8-97e5-4208-abcd-5e1b08ee9569","3:0:6_1","3:0:6_1 - Problem 13","7a3352db"
