@@ -58,10 +58,10 @@ select
     last_response.success_attempt as correct_attempts_by_learner,
     last_response.incorrect_attempt as incorrect_attempts_by_learner,
     cast(
-        CountIf(success_attempt > 0) / count(1) as Float32
+        CountIf(last_response.success_attempt > 0) / count(1) as Float32
     ) as selected_learner_percent_correct,
     cast(
-        CountIf(incorrect_attempt > 0) / count(1) as Float32
+        CountIf(last_response.incorrect_attempt > 0) / count(1) as Float32
     ) as selected_learner_percent_incorrect
 from last_response
 join

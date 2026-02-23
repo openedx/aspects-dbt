@@ -164,9 +164,19 @@ with
                 and SUBSTRING(video_engagment.actor_id, 8) = users.email
             )
             or video_engagment.actor_id = toString(users.external_user_id)
-        where section_subsection_name <> ''
+        where video_engagment.section_subsection_name <> ''
     )
-select *
+select
+    org,
+    course_key,
+    section_subsection_name,
+    content_level,
+    actor_id,
+    section_subsection_video_engagement,
+    block_id,
+    username,
+    name,
+    email
 from final_results
   
   

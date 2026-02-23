@@ -79,4 +79,4 @@ left outer join
         and SUBSTRING(pageview_engagement.actor_id, 8) = users.email
     )
     or pageview_engagement.actor_id = toString(users.external_user_id)
-where section_subsection_name <> ''
+where pageview_engagement.section_subsection_name <> ''

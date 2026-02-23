@@ -7,14 +7,14 @@ with
         group by org, course_key
     )
 select
-    course_key,
-    display_name as course_name,
-    splitByString('+', course_key)[-1] as course_run,
-    org,
-    JSONExtract(course_data_json, 'tags', 'String') as tags_str
-from `event_sink`.`course_overviews` co
+    course_overviews.course_key as course_key,
+    course_overviews.display_name as course_name,
+    splitByString('+', course_overviews.course_key)[-1] as course_run,
+    course_overviews.org as org,
+    JSONExtract(course_overviews.course_data_json, 'tags', 'String') as tags_str
+from `event_sink`.`course_overviews` course_overviews
 inner join
-    latest mr
-    on mr.org = co.org
-    and mr.course_key = co.course_key
-    and co.modified = mr.last_modified
+    latest
+    on latest.org = course_overviews.org
+    and latest.course_key = course_overviews.course_key
+    and course_overviews.modified = latest.last_modified

@@ -17,9 +17,12 @@ with
         from `event_sink`.`taxonomy`
         group by id
     )
-select id, name
-from `event_sink`.`taxonomy` ot
-inner join latest mrot on mrot.id = ot.id and ot.time_last_dumped = mrot.last_modified
+select taxonomy.id as id, taxonomy.name as name
+from `event_sink`.`taxonomy` taxonomy
+inner join
+    latest
+    on latest.id = taxonomy.id
+    and taxonomy.time_last_dumped = latest.last_modified
   
   
   

@@ -25,8 +25,11 @@ join
     `xapi`.`dim_course_names` courses on enrollments.course_key = courses.course_key
 left outer join
     `xapi`.`dim_user_pii` users
-    on (actor_id like 'mailto:%' and SUBSTRING(actor_id, 8) = users.email)
-    or actor_id = toString(users.external_user_id)
+    on (
+        enrollments.actor_id like 'mailto:%'
+        and SUBSTRING(enrollments.actor_id, 8) = users.email
+    )
+    or enrollments.actor_id = toString(users.external_user_id)
     
   )
       

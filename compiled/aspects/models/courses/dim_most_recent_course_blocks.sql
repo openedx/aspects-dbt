@@ -1,23 +1,23 @@
 
 
 select
-    location,
-    display_name as block_name,
+    course_blocks.location as location,
+    course_blocks.display_name as block_name,
     toString(section)
     || ':'
     || toString(subsection)
     || ':'
     || toString(unit)
     || ' - '
-    || display_name as display_name_with_location,
-    JSONExtractInt(xblock_data_json, 'section') as section,
-    JSONExtractInt(xblock_data_json, 'subsection') as subsection,
-    JSONExtractInt(xblock_data_json, 'unit') as unit,
-    JSONExtractBool(xblock_data_json, 'graded') as graded,
-    order as course_order,
-    course_key,
-    dump_id,
-    time_last_dumped
+    || course_blocks.display_name as display_name_with_location,
+    JSONExtractInt(course_blocks.xblock_data_json, 'section') as section,
+    JSONExtractInt(course_blocks.xblock_data_json, 'subsection') as subsection,
+    JSONExtractInt(course_blocks.xblock_data_json, 'unit') as unit,
+    JSONExtractBool(course_blocks.xblock_data_json, 'graded') as graded,
+    course_blocks.order as course_order,
+    course_blocks.course_key as course_key,
+    course_blocks.dump_id as dump_id,
+    course_blocks.time_last_dumped as time_last_dumped
 from `event_sink`.`course_blocks` course_blocks
 join
     (
