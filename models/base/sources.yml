@@ -6,7 +6,7 @@ sources:
     description: "Clickhouse database for xapi events"
     tables:
       - name: xapi_events_all
-        identifier: "{{ env_var('ASPECTS_VECTOR_RAW_XAPI_TABLE', 'xapi_events_all') }}"
+        identifier: "{{ env_var('ASPECTS_RAW_XAPI_TABLE', 'xapi_events_all') }}"
         description: "Base table for raw xAPI events"
         columns:
           - name: event_id
