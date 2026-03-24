@@ -53,13 +53,19 @@ These require tables to be seeded first. To do this, add 'unit-test-seeds' to ``
 
 
 Removing old models
-*******************
+******************
 
 dbt does not automatically remove models that have been deleted from this project. As we remove models we will add them to a macro that can be manually run to clean up things which are no longer needed. This can be important to prevent stale materialized views from breaking when schemas change, and to prevent unnecessary inserts writes to tables that aren't used.
 
 If you need a model that has been removed due to custom reporting you should either move that model to the system you use to manage your custom schema (such as your own dbt package) instead of letting the old version remain. This will let you explicitly upgrade it as necessary.
 
 ``dbt run-operation remove_deprecated_models`` will drop the relations and ``dbt -d run-operation remove_deprecated_models`` will drop with debug information showing the commands that are run.
+
+
+Breaking Changes
+***************
+
+As of version 7.0.0 this project uses ASPECTS_RAW_XAPI_TABLE as the source for xAPI events for both Ralph and Vector pipelines. If you have previously customized ASPECTS_VECTOR_RAW_XAPI_TABLE in your configuration, you will need to update it to use ASPECTS_RAW_XAPI_TABLE instead.
 
 More Help
 =========
