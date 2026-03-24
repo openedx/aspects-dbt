@@ -65,7 +65,7 @@ If you need a model that has been removed due to custom reporting you should eit
 Breaking Changes
 ***************
 
-This project uses ``ASPECTS_RAW_XAPI_TABLE`` as the source for xAPI events. If you have customized ``ASPECTS_VECTOR_RAW_XAPI_TABLE`` in your configuration, update it to use ``ASPECTS_RAW_XAPI_TABLE`` instead.
+As of version 7.0.0 this project uses ASPECTS_RAW_XAPI_TABLE as the source for xAPI events for both Ralph and Vector pipelines. If you have previously customized ASPECTS_VECTOR_RAW_XAPI_TABLE in your configuration, you will need to update it to use ASPECTS_RAW_XAPI_TABLE instead.
 
 More Help
 =========
