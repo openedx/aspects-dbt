@@ -27,13 +27,13 @@ spec:
   #
   # If you need a new team created, create an issue with Axim engineering:
   # https://github.com/openedx/axim-engineering/issues/new/choose
-  owner: user:bmtcril
+  owner: group:committers-analytics
 
   # (Required) Acceptable Type Values: service, website, library
   type: 'library'
 
   # (Required) Acceptable Lifecycle Values: experimental, production, deprecated
-  lifecycle: 'experimental'
+  lifecycle: 'production'
 
   # (Optional) The value can be the name of any known component.
   subcomponentOf: 'tutor-contrib-aspects'
