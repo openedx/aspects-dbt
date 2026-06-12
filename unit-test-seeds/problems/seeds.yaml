@@ -21,8 +21,3 @@ seeds:
         avg_correct_attempts_coursewide: Float32
         avg_incorrect_attempts_coursewide: Float32
         coursewide_percent_correct: Float32
-  - name: dim_subsection_performance_expected
-    config: 
-      column_types:
-        score_range_count: UInt64
-        total_avg: Float32
