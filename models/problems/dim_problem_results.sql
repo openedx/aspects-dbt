@@ -8,52 +8,28 @@
 }}
 
 with
-    first_success as (
-        select
-            org,
-            course_key,
-            object_id,
-            argMin(attempts, emission_time) as attempts,
-            success,
-            actor_id
-        from {{ ref("problem_events") }}
-        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated' and success
-        group by org, course_key, object_id, actor_id, success
-    ),
-    events as (
-        select distinct org, course_key, object_id, problem_id
-        from {{ ref("problem_events") }} events
-        where verb_id = 'https://w3id.org/xapi/acrossx/verbs/evaluated'
-    ),
     final_results as (
         select
-            events.org as org,
-            events.course_key as course_key,
-            first_success.success as success,
-            first_success.attempts as attempts,
-            first_success.actor_id as actor_id,
-            splitByChar('@', events.problem_id)[3] as block_id_short,
+            last_response.org as org,
+            last_response.course_key as course_key,
+            last_response.success as success,
+            last_response.attempts as attempts,
+            last_response.actor_id as actor_id,
+            splitByChar('@', last_response.problem_id)[3] as block_id_short,
             {{
                 format_problem_number_location(
-                    "events.object_id", "blocks.display_name_with_location"
+                    "last_response.object_id", "blocks.display_name_with_location"
                 )
             }}
-        from events
+        from {{ ref("dim_learner_last_response") }} last_response
         left join
             {{ ref("dim_course_blocks") }} blocks
             on (
-                events.course_key = blocks.course_key
-                and events.problem_id = blocks.block_id
-            )
-        left join
-            first_success
-            on (
-                first_success.org = events.org
-                and first_success.course_key = events.course_key
-                and first_success.object_id = events.object_id
+                last_response.course_key = blocks.course_key
+                and last_response.problem_id = blocks.block_id
             )
     )
-select distinct
+select
     org,
     course_key,
     success,

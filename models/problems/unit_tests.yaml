@@ -40,10 +40,10 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('problem_events')
+      - input: ref('dim_learner_last_response')
         format: sql
         rows: |
-          select * from problem_events
+          select * from dim_learner_last_response
       - input: ref('dim_course_blocks')
         format: sql
         rows: |

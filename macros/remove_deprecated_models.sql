@@ -61,6 +61,7 @@
         ("mv", reporting, "video_transcript_events"),
         ("mv", reporting, "fact_learner_course_grade"),
         ("mv", reporting, "fact_learner_course_status"),
+        ("mv", reporting, "dim_subsection_performance"),
         ("mv", event_sink, "most_recent_course_blocks"),
         ("mv", reporting, "fact_enrollment_status"),
         ("mv", event_sink, "most_recent_object_tags"),
