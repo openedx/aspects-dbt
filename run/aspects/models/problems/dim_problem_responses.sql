@@ -10,7 +10,7 @@
 
 
         insert into `xapi`.`dim_problem_responses`
-        ("org", "course_key", "emission_time", "block_id_short", "response", "success", "interaction_type", "problem_number", "problem_name_location", "response_count")
+        ("org", "course_key", "block_id_short", "response", "success", "interaction_type", "problem_number", "problem_name_location", "response_count")
 
 with
     first_response as (
@@ -76,7 +76,6 @@ with
 select
     org,
     course_key,
-    emission_time,
     block_id_short,
     response,
     success,
@@ -88,7 +87,6 @@ from final_results
 group by
     org,
     course_key,
-    emission_time,
     block_id_short,
     response,
     success,
