@@ -59,7 +59,6 @@ with
 select
     org,
     course_key,
-    emission_time,
     block_id_short,
     response,
     success,
@@ -71,7 +70,6 @@ from final_results
 group by
     org,
     course_key,
-    emission_time,
     block_id_short,
     response,
     success,
