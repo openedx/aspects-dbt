@@ -7,10 +7,15 @@
 -- replayed ones, are only paired by the post_hook's full-history insert on the
 -- next `dbt run`.
 --
--- catchup=False: the post_hook already fills history.
--- The forced refresh + wait makes a broken refresh query fail `dbt run`.
--- dbt-clickhouse names the refreshable view `<model>_mv`.
+-- Post-hooks, in order:
+-- 1. Refresh and wait, so a broken query fails `dbt run`. On a full refresh this
+-- queues behind the refresh ClickHouse starts on creation instead of running
+-- next to the back-fill.
+-- 2. Back-fill all of history, in chunks (see video_watch_intervals_backfill).
+-- catchup=False: the back-fill fills history. dbt-clickhouse names the view
+-- `<model>_mv`.
 {%- set lookback = env_var("ASPECTS_VIDEO_WATCH_INTERVALS_LOOKBACK", "1 DAY") -%}
+{%- set view = "{{ this.schema }}.{{ this.identifier }}_mv" -%}
 
 {{
     config(
@@ -29,9 +34,9 @@
         },
         catchup=False,
         post_hook=[
-            "insert into {{ this }} {{ video_watch_intervals(min_emission_time='toDateTime(0)') }}",
-            "system refresh view {{ this.schema }}.{{ this.identifier }}_mv",
-            "system wait view {{ this.schema }}.{{ this.identifier }}_mv",
+            "system refresh view " ~ view,
+            "system wait view " ~ view,
+            "{{ video_watch_intervals_backfill(this) }}",
         ],
     )
 }}

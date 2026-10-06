@@ -29,13 +29,57 @@ with
         where intervals.is_watched
         group by org, course_key, section_number, subsection_number, actor_id
     ),
+    -- Like videos_viewed without learners: much less memory to aggregate.
+    watched_subsections as (
+        select
+            intervals.org as org,
+            intervals.course_key as course_key,
+            blocks.section_number as section_number,
+            blocks.subsection_number as subsection_number
+        from {{ ref("fact_video_watch_intervals") }} as intervals
+        join
+            {{ ref("dim_course_blocks") }} blocks
+            on (
+                intervals.course_key = blocks.course_key
+                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
+            )
+        where intervals.is_watched
+        group by org, course_key, section_number, subsection_number
+    ),
     fact_videos_per_subsection as (
         select * from ({{ items_per_subsection("%@video+block@%") }})
     ),
+    -- A row per learner and subsection, plus one with an empty actor_id for each
+    -- subsection nobody watched. Built without an outer join so that a course
+    -- filter on this view reaches the intervals scan: ClickHouse does not push a
+    -- filter across join keys.
+    subsection_viewers as (
+        select
+            org, course_key, section_number, subsection_number, actor_id, videos_viewed
+        from videos_viewed
+        union all
+        select
+            org,
+            course_key,
+            section_number,
+            subsection_number,
+            '' as actor_id,
+            0 as videos_viewed
+        from
+            (
+                select org, course_key, section_number, subsection_number, 1 as watched
+                from watched_subsections
+                union all
+                select org, course_key, section_number, subsection_number, 0 as watched
+                from fact_videos_per_subsection
+            )
+        group by org, course_key, section_number, subsection_number
+        having max(watched) = 0
+    ),
     fact_video_section_subsection as (
         select
-            videos.org as org,
-            videos.course_key as course_key,
+            plays.org as org,
+            plays.course_key as course_key,
             videos.subsection_course_order as course_order,
             plays.actor_id as actor_id,
             'section' as section_content_level,
@@ -46,8 +90,8 @@ with
             videos.subsection_block_id as subsection_block_id,
             videos.section_with_name as section_with_name,
             videos.subsection_with_name as subsection_with_name
-        from videos_viewed plays
-        full join
+        from subsection_viewers plays
+        join
             fact_videos_per_subsection videos
             on (
                 videos.org = plays.org

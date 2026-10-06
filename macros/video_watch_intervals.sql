@@ -1,7 +1,9 @@
 -- The SELECT behind fact_video_watch_intervals: each `played` event paired with
 -- the next event for the same learner and video, which closes it.
 -- `min_emission_time` is a SQL expression; "toDateTime(0)" reads all of history.
-{% macro video_watch_intervals(min_emission_time) %}
+-- With `chunks` > 1, only learners with cityHash64(actor_id) % chunks = chunk;
+-- each learner's events stay whole, so pairing is exact.
+{% macro video_watch_intervals(min_emission_time, chunk=0, chunks=1) %}
     {%- set verb_played = "https://w3id.org/xapi/video/verbs/played" -%}
     {%- set verb_initialized = "http://adlnet.gov/expapi/verbs/initialized" -%}
 
@@ -21,6 +23,9 @@
             where
                 verb_id != '{{ verb_initialized }}'
                 and emission_time >= {{ min_emission_time }}
+                {% if chunks > 1 -%}
+                    and cityHash64(actor_id) % {{ chunks }} = {{ chunk }}
+                {%- endif %}
             -- Unmerged duplicates would close a play with its own copy.
             limit 1 by event_id
         ),
@@ -60,6 +65,24 @@
         {{ video_watch_intervals_computed_at() }} as computed_at
     from sequenced
     where verb_id = '{{ verb_played }}'
+{% endmacro %}
+
+-- Inserts all of history into `relation`, one learner chunk at a time to cap
+-- memory: up to ~1 GiB per million video events in a chunk. A post_hook
+-- needs a statement, hence the trailing `select 1`.
+{% macro video_watch_intervals_backfill(relation) %}
+    {%- set chunks = (
+        env_var("ASPECTS_VIDEO_WATCH_INTERVALS_BACKFILL_CHUNKS", "16") | int
+    ) -%}
+    {%- for chunk in range(chunks) -%}
+        {%- do run_query(
+            "insert into "
+            ~ relation
+            ~ " "
+            ~ video_watch_intervals("toDateTime(0)", chunk, chunks)
+        ) -%}
+    {%- endfor -%}
+    select 1
 {% endmacro %}
 
 -- A macro so the unit test can pin it.
