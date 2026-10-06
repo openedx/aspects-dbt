@@ -4,10 +4,10 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('fact_video_segments')
+      - input: ref('fact_video_watch_intervals')
         format: sql
         rows: |
-          select * from fact_video_segments
+          select * from fact_video_watch_intervals
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
@@ -26,6 +26,27 @@ unit_tests:
     config:
       tags: 'ci'
     given:
+      - input: ref('fact_video_watch_intervals')
+        format: sql
+        rows: |
+          select * from fact_video_watch_intervals
+    expect:
+      format: sql
+      rows: |
+        select * from fact_video_segments_expected
+
+  - name: test_fact_video_watch_intervals
+    model: fact_video_watch_intervals
+    config:
+      tags: 'ci'
+    overrides:
+      env_vars:
+        # The fixture events are older than the default window.
+        ASPECTS_VIDEO_WATCH_INTERVALS_LOOKBACK: "100 YEAR"
+      macros:
+        # Pin the wall-clock version column.
+        video_watch_intervals_computed_at: "toDateTime64('2024-01-01 00:00:00.000000', 6)"
+    given:
       - input: ref('video_playback_events')
         format: sql
         rows: |
@@ -33,7 +54,7 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from fact_video_segments_expected
+        select * from fact_video_watch_intervals_expected
 
   - name: test_video_playback_events
     model: video_playback_events
