@@ -1,37 +1,78 @@
+-- None, some or all videos watched per learner, section and subsection.
 {{
     config(
-        materialized="materialized_view",
-        engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(org, course_key, actor_id, block_id, section_subsection_video_engagement)",
-        order_by="(org, course_key, actor_id, block_id, section_subsection_video_engagement)",
+        materialized="view",
+        pre_hook=[
+            "drop view if exists {{ this.schema }}.fact_video_engagement_mv {{ on_cluster() }}",
+        ],
     )
 }}
 
 with
-    fact_video_segments as (
+    videos_viewed as (
         select
-            segments.org as org,
-            segments.course_key as course_key,
+            intervals.org as org,
+            intervals.course_key as course_key,
             blocks.section_number as section_number,
             blocks.subsection_number as subsection_number,
-            segments.actor_id as actor_id,
+            intervals.actor_id as actor_id,
             count(distinct blocks.block_id) as videos_viewed
-        from {{ ref("fact_video_segments") }} segments
+        from {{ ref("fact_video_watch_intervals") }} as intervals
         join
             {{ ref("dim_course_blocks") }} blocks
             on (
-                segments.course_key = blocks.course_key
-                and splitByString('/xblock/', segments.object_id)[-1] = blocks.block_id
+                intervals.course_key = blocks.course_key
+                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
             )
+        where intervals.is_watched
         group by org, course_key, section_number, subsection_number, actor_id
+    ),
+    watched_subsections as (
+        select
+            intervals.org as org,
+            intervals.course_key as course_key,
+            blocks.section_number as section_number,
+            blocks.subsection_number as subsection_number
+        from {{ ref("fact_video_watch_intervals") }} as intervals
+        join
+            {{ ref("dim_course_blocks") }} blocks
+            on (
+                intervals.course_key = blocks.course_key
+                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
+            )
+        where intervals.is_watched
+        group by org, course_key, section_number, subsection_number
     ),
     fact_videos_per_subsection as (
         select * from ({{ items_per_subsection("%@video+block@%") }})
     ),
+    subsection_viewers as (
+        select
+            org, course_key, section_number, subsection_number, actor_id, videos_viewed
+        from videos_viewed
+        union all
+        select
+            org,
+            course_key,
+            section_number,
+            subsection_number,
+            '' as actor_id,
+            0 as videos_viewed
+        from
+            (
+                select org, course_key, section_number, subsection_number, 1 as watched
+                from watched_subsections
+                union all
+                select org, course_key, section_number, subsection_number, 0 as watched
+                from fact_videos_per_subsection
+            )
+        group by org, course_key, section_number, subsection_number
+        having max(watched) = 0
+    ),
     fact_video_section_subsection as (
         select
-            videos.org as org,
-            videos.course_key as course_key,
+            plays.org as org,
+            plays.course_key as course_key,
             videos.subsection_course_order as course_order,
             plays.actor_id as actor_id,
             'section' as section_content_level,
@@ -42,8 +83,8 @@ with
             videos.subsection_block_id as subsection_block_id,
             videos.section_with_name as section_with_name,
             videos.subsection_with_name as subsection_with_name
-        from fact_video_segments plays
-        full join
+        from subsection_viewers plays
+        join
             fact_videos_per_subsection videos
             on (
                 videos.org = plays.org

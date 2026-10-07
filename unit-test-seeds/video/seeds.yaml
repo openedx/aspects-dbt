@@ -5,3 +5,13 @@ seeds:
     config:
       column_types:
         watch_count: UInt64
+  - name: fact_video_watch_intervals_expected
+    config:
+      column_types:
+        start_event_id: UUID
+        start_video_position: Decimal(9, 2)
+        end_video_position: Nullable(Decimal(9, 2))
+        video_duration: Int64
+        is_interval_closed: UInt8
+        is_watched: UInt8
+        computed_at: DateTime64(6)

@@ -67,6 +67,8 @@ Breaking Changes
 
 As of version 7.0.0 this project uses ASPECTS_RAW_XAPI_TABLE as the source for xAPI events for both Ralph and Vector pipelines. If you have previously customized ASPECTS_VECTOR_RAW_XAPI_TABLE in your configuration, you will need to update it to use ASPECTS_RAW_XAPI_TABLE instead.
 
+``fact_video_segments`` and ``fact_video_engagement`` are now views over the new ``fact_video_watch_intervals``, a refreshable materialized view (ClickHouse 24.10 or later). ``fact_video_segments`` has one row per second of each watched interval and ``watch_count`` is always 1: sum it instead of reading it per row. Video events loaded with an emission time older than ``ASPECTS_VIDEO_WATCH_INTERVALS_LOOKBACK`` (default 1 day), such as a replay or backfill, are only paired by the next ``dbt run -s fact_video_watch_intervals``.
+
 More Help
 =========
 
