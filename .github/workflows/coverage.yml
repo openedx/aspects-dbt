@@ -39,7 +39,6 @@ jobs:
         run: |
           tutor plugins enable aspects
           tutor config save
-          tutor local start ralph -d
           tutor local do init-clickhouse
           tutor local do alembic -c "upgrade head"
           tutor local do dbt
