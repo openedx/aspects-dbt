@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`xapi_events_all_parsed__dbt_backup`
+        insert into `xapi`.`xapi_events_all_parsed`
         ("event_id", "verb_id", "actor_id", "object_id", "course_id", "course_key", "org", "emission_time", "event")
 
 select
@@ -52,4 +54,6 @@ select
     emission_time as emission_time,
     event::String as event
 from `xapi`.`xapi_events_all`
+  
+  
   

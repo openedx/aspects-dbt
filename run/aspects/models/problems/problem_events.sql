@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`problem_events__dbt_backup`
+        insert into `xapi`.`problem_events`
         ("event_id", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "responses", "scaled_score", "success", "interaction_type", "attempts", "problem_id")
 
 select
@@ -52,4 +54,6 @@ where
         'http://adlnet.gov/expapi/verbs/passed',
         'http://adlnet.gov/expapi/verbs/asked'
     )
+  
+  
   

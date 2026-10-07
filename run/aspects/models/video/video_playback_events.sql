@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`video_playback_events__dbt_backup`
+        insert into `xapi`.`video_playback_events`
         ("event_id", "emission_time_long", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "video_position", "video_duration")
 
 with
@@ -81,4 +83,6 @@ select
     end as video_position,
     video_duration
 from final_results
+  
+  
   

@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`fact_instance_courses__dbt_backup`
+        insert into `xapi`.`fact_instance_courses`
         ("emission_hour", "courses_cnt")
 
 select
@@ -15,4 +17,6 @@ select
     uniqCombinedState(course_id) as courses_cnt
 from `xapi`.`xapi_events_all_parsed`
 group by emission_hour
+  
+  
   

@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`navigation_events__dbt_backup`
+        insert into `xapi`.`navigation_events`
         ("event_id", "emission_time", "actor_id", "block_id", "course_key", "org", "verb_id", "object_type", "starting_position", "ending_point")
 
 select
@@ -38,4 +40,6 @@ select
     ) as ending_point
 from `xapi`.`xapi_events_all_parsed`
 where verb_id in ('https://w3id.org/xapi/dod-isd/verbs/navigated')
+  
+  
   

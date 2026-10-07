@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`fact_instance_events__dbt_backup`
+        insert into `xapi`.`fact_instance_events`
         ("emission_day", "events_cnt")
 
 select
@@ -15,4 +17,6 @@ select
     uniqCombinedState(event_id) as events_cnt
 from `xapi`.`xapi_events_all_parsed`
 group by emission_day
+  
+  
   

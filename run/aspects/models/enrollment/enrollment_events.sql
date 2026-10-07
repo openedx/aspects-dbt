@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`enrollment_events__dbt_backup`
+        insert into `xapi`.`enrollment_events`
         ("event_id", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "enrollment_mode", "enrollment_status")
 
 select
@@ -31,4 +33,6 @@ where
         'http://adlnet.gov/expapi/verbs/registered',
         'http://id.tincanapi.com/verb/unregistered'
     )
+  
+  
   

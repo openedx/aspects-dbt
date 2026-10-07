@@ -1,13 +1,15 @@
 
   
     
+  
+    
     
     
         
          
 
 
-        insert into `xapi`.`grading_events__dbt_backup`
+        insert into `xapi`.`grading_events`
         ("event_id", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "scaled_score", "approving_state")
 
 
@@ -63,4 +65,6 @@ where
         and JSON_VALUE(event::String, '$.object.definition.type')
         = 'http://adlnet.gov/expapi/activities/course'
     )
+  
+  
   
