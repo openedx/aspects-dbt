@@ -1,5 +1,4 @@
--- Whether each learner watched none, some or all videos of each section and
--- subsection. A view; the pre_hook drops the old MV (#176).
+-- None, some or all videos watched per learner, section and subsection.
 {{
     config(
         materialized="view",
@@ -18,7 +17,6 @@ with
             blocks.subsection_number as subsection_number,
             intervals.actor_id as actor_id,
             count(distinct blocks.block_id) as videos_viewed
-        -- No FINAL: rarely, an unmerged stale version counts one extra video.
         from {{ ref("fact_video_watch_intervals") }} as intervals
         join
             {{ ref("dim_course_blocks") }} blocks
@@ -29,7 +27,6 @@ with
         where intervals.is_watched
         group by org, course_key, section_number, subsection_number, actor_id
     ),
-    -- Like videos_viewed without learners: much less memory to aggregate.
     watched_subsections as (
         select
             intervals.org as org,
@@ -49,10 +46,6 @@ with
     fact_videos_per_subsection as (
         select * from ({{ items_per_subsection("%@video+block@%") }})
     ),
-    -- A row per learner and subsection, plus one with an empty actor_id for each
-    -- subsection nobody watched. Built without an outer join so that a course
-    -- filter on this view reaches the intervals scan: ClickHouse does not push a
-    -- filter across join keys.
     subsection_viewers as (
         select
             org, course_key, section_number, subsection_number, actor_id, videos_viewed

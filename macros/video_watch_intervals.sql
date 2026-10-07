@@ -1,8 +1,5 @@
--- The SELECT behind fact_video_watch_intervals: each `played` event paired with
--- the next event for the same learner and video, which closes it.
--- `min_emission_time` is a SQL expression; "toDateTime(0)" reads all of history.
--- With `chunks` > 1, only learners with cityHash64(actor_id) % chunks = chunk;
--- each learner's events stay whole, so pairing is exact.
+-- Pairs each `played` event with the next event for the same learner and video.
+-- `chunks` splits by learner, so each learner's events stay in one chunk.
 {% macro video_watch_intervals(min_emission_time, chunk=0, chunks=1) %}
     {%- set verb_played = "https://w3id.org/xapi/video/verbs/played" -%}
     {%- set verb_initialized = "http://adlnet.gov/expapi/verbs/initialized" -%}
@@ -34,14 +31,12 @@
                 *,
                 leadInFrame(toNullable(event_id)) over w as next_event_id,
                 leadInFrame(toNullable(video_position)) over w as next_video_position,
-                -- Empty, not null, while open; is_interval_closed tells them apart.
                 leadInFrame(verb_id) over w as next_verb_id
             from events
             window
                 w as (
                     partition by org, course_key, actor_id, object_id
-                    -- On equal timestamps a closing event goes before a play;
-                    -- event_id makes the order the same on every refresh.
+                    -- On ties a closing event sorts before a play.
                     order by
                         emission_time_long asc,
                         verb_id = '{{ verb_played }}' asc,
@@ -67,9 +62,8 @@
     where verb_id = '{{ verb_played }}'
 {% endmacro %}
 
--- Inserts all of history into `relation`, one learner chunk at a time to cap
--- memory: up to ~1 GiB per million video events in a chunk. A post_hook
--- needs a statement, hence the trailing `select 1`.
+-- Inserts all of history one learner chunk at a time to cap memory.
+-- The trailing `select 1` is because a post_hook needs a statement.
 {% macro video_watch_intervals_backfill(relation) %}
     {%- set chunks = (
         env_var("ASPECTS_VIDEO_WATCH_INTERVALS_BACKFILL_CHUNKS", "16") | int

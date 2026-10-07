@@ -47,7 +47,7 @@ models:
         description: '{{ doc("email") }}'
 
   - name: fact_video_watch_intervals
-    description: "One row per played event and the event that closed it, if any; filter on is_watched for watched time. Rows are replaced as later events arrive: read with FINAL for one row per interval."
+    description: "One row per played event and the event that closed it"
     columns:
       - name: org
         data_type: string
@@ -81,13 +81,13 @@ models:
         description: "The duration of the video in seconds"
       - name: is_interval_closed
         data_type: UInt8
-        description: "Whether an event closing this play has been seen. Plays never closed (e.g. the tab was closed) stay open."
+        description: "Whether an event closing this play has been seen"
       - name: is_watched
         data_type: UInt8
         description: "Whether this interval is closed and moved forward in the video"
       - name: computed_at
         data_type: DateTime64(6)
-        description: "When this row was computed; the newest version of an interval wins"
+        description: "When this row was computed"
 
   - name: fact_video_segments
     description: "One row per second of each watched interval; a second watched twice appears twice"

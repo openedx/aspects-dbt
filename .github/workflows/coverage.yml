@@ -51,7 +51,6 @@ jobs:
           dbt test --selector all_tests
           mv ci-seeds unit-test-seeds
       - name: Check that video events are picked up incrementally
-        # Unit tests can't see this: a play and its pause in separate inserts (#176).
         run: |
           set -euo pipefail
           ch() {

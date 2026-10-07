@@ -29,7 +29,6 @@
     }}
 
     -- https://github.com/openedx/aspects-dbt/pull/111/
-    -- fact_video_*_mv: #176; their models' pre_hooks also drop them.
     {% set models_to_drop = [
         ("view", reporting, "fact_completions"),
         ("view", xapi, "fact_forum_interactions"),

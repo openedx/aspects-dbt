@@ -1,6 +1,4 @@
 -- One row per second of each watched interval; sum watch_count to count views.
--- A view, not a plain MV: see fact_video_watch_intervals. The pre_hook drops
--- the old MV, which would otherwise fail xAPI inserts once this is a view.
 {{
     config(
         materialized="view",
@@ -10,7 +8,7 @@
     )
 }}
 
--- `final = 1` is FINAL that still works when a unit test swaps in a fixture.
+-- `settings final = 1` instead of FINAL, which breaks the unit test fixture.
 select
     org,
     course_key,

@@ -1,6 +1,4 @@
--- Fails while the last refresh of fact_video_watch_intervals errored on any
--- replica. Refresh errors otherwise only reach system.view_refreshes, and
--- SYSTEM WAIT VIEW has no ON CLUSTER.
+-- Fails if the last fact_video_watch_intervals refresh errored on any replica.
 {% set intervals = ref("fact_video_watch_intervals") %}
 {% set cluster = env_var("CLICKHOUSE_CLUSTER_NAME", "") %}
 
