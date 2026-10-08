@@ -8,6 +8,8 @@
             ("graded", "Bool"),
             ("course_order", "Int32"),
             ("display_name_with_location", "String"),
+            ("video_start_time", "Float64"),
+            ("video_end_time", "Float64"),
         ],
         primary_key="location",
         layout="COMPLEX_KEY_SPARSE_HASHED()",
@@ -19,5 +21,12 @@
     )
 }}
 select
-    location, block_name, course_key, graded, course_order, display_name_with_location
+    location,
+    block_name,
+    course_key,
+    graded,
+    course_order,
+    display_name_with_location,
+    video_start_time,
+    video_end_time
 from {{ ref("dim_most_recent_course_blocks") }}

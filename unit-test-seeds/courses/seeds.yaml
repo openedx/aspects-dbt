@@ -5,6 +5,13 @@ seeds:
     config:
       column_types:
         dump_id: UUID
+        video_start_time: Float64
+        video_end_time: Float64
+  - name: dim_course_block_names_expected
+    config:
+      column_types:
+        video_start_time: Float64
+        video_end_time: Float64
   - name: dim_course_names_expected
     config:
       column_types:

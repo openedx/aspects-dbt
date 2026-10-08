@@ -20,34 +20,33 @@ with
             course_key,
             org,
             verb_id,
-            ceil(
-                CAST(
-                    coalesce(
-                        nullIf(
-                            JSON_VALUE(
-                                event,
-                                '$.result.extensions."https://w3id.org/xapi/video/extensions/time"'
-                            ),
-                            ''
+            CAST(
+                coalesce(
+                    nullIf(
+                        JSON_VALUE(
+                            event,
+                            '$.result.extensions."https://w3id.org/xapi/video/extensions/time"'
                         ),
-                        nullIf(
-                            JSON_VALUE(
-                                event,
-                                '$.result.extensions."https://w3id.org/xapi/video/extensions/time-from"'
-                            ),
-                            ''
-                        ),
-                        '0.0'
+                        ''
                     ),
-                    'Decimal32(2)'
-                )
-            ) as _video_position,
+                    nullIf(
+                        JSON_VALUE(
+                            event,
+                            '$.result.extensions."https://w3id.org/xapi/video/extensions/time-from"'
+                        ),
+                        ''
+                    ),
+                    '0.0'
+                ),
+                'Decimal32(2)'
+            ) as _raw_video_position,
             JSONExtractInt(
                 event,
                 'context',
                 'extensions',
                 'https://w3id.org/xapi/video/extensions/length'
-            ) as video_duration
+            ) as video_duration,
+            splitByString('/xblock/', object_id)[-1] as block_id
         from {{ ref("xapi_events_all_parsed") }}
         where
             (
@@ -61,6 +60,45 @@ with
                 )
             )
             and (object_id like '%video+block%')
+    ),
+    clip_results as (
+        select
+            final_results.event_id as event_id,
+            final_results.emission_time as emission_time,
+            final_results.actor_id as actor_id,
+            final_results.object_id as object_id,
+            final_results.course_key as course_key,
+            final_results.org as org,
+            final_results.verb_id as verb_id,
+            final_results.video_duration as video_duration,
+            -- Videos can be configured to play only a clip of the source video.
+            -- The player reports positions against the full source video but
+            -- the duration of just the clip, so shift positions to the start of
+            -- the clip. Only shift when the reported duration matches the clip,
+            -- in case a player ignored the clip and played the full video.
+            ceil(
+                if(
+                    blocks.video_start_time > 0
+                    and (
+                        blocks.video_end_time = 0
+                        or abs(
+                            final_results.video_duration
+                            - (blocks.video_end_time - blocks.video_start_time)
+                        )
+                        <= 1
+                    ),
+                    greatest(
+                        final_results._raw_video_position
+                        - toDecimal32(blocks.video_start_time, 2),
+                        toDecimal32(0, 2)
+                    ),
+                    final_results._raw_video_position
+                )
+            ) as _video_position
+        from final_results
+        left join
+            {{ ref("dim_course_block_names") }} blocks
+            on final_results.block_id = blocks.location
     )
 select
     event_id,
@@ -80,4 +118,4 @@ select
         else _video_position
     end as video_position,
     video_duration
-from final_results
+from clip_results

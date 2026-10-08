@@ -22,6 +22,12 @@ select
     JSONExtractInt(course_blocks.xblock_data_json, 'subsection') as subsection,
     JSONExtractInt(course_blocks.xblock_data_json, 'unit') as unit,
     JSONExtractBool(course_blocks.xblock_data_json, 'graded') as graded,
+    JSONExtractFloat(
+        course_blocks.xblock_data_json, 'video_start_time'
+    ) as video_start_time,
+    JSONExtractFloat(
+        course_blocks.xblock_data_json, 'video_end_time'
+    ) as video_end_time,
     course_blocks.order as course_order,
     course_blocks.course_key as course_key,
     course_blocks.dump_id as dump_id,

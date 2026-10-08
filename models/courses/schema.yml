@@ -77,6 +77,12 @@ models:
       - name: course_order
         data_type: Int32
         description: '{{ doc("course_order") }}'
+      - name: video_start_time
+        data_type: Float64
+        description: "For video blocks, the time in seconds of the source video where playback starts. 0 if the full video is played."
+      - name: video_end_time
+        data_type: Float64
+        description: "For video blocks, the time in seconds of the source video where playback ends. 0 if the video plays to the end."
 
   - name: dim_most_recent_course_blocks
     docs:
@@ -110,6 +116,12 @@ models:
       - name: unit
         data_type: Int32
         description: "The unit number that this block falls under in the subsection. Starts at 1."
+      - name: video_start_time
+        data_type: Float64
+        description: "For video blocks, the time in seconds of the source video where playback starts. 0 if the full video is played."
+      - name: video_end_time
+        data_type: Float64
+        description: "For video blocks, the time in seconds of the source video where playback ends. 0 if the video plays to the end."
       - name: dump_id
         data_type: UUID
         description: '{{ doc("dump_id") }}'

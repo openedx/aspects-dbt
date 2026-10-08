@@ -48,3 +48,85 @@ unit_tests:
       format: sql
       rows: |
         select * from video_playback_events_expected
+
+  - name: test_video_playback_events_clipped_videos
+    description: "Positions in videos that play a clip of the source video are shifted to the start of the clip"
+    model: video_playback_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select
+              toUUID(concat('00000000-0000-0000-0000-00000000000', toString(n))) as event_id,
+              'https://w3id.org/xapi/video/verbs/played' as verb_id,
+              'learner1' as actor_id,
+              concat('http://lms.test/xblock/block-v1:Org1+Clip+R1+type@video+block@', block) as object_id,
+              'http://lms.test/course/course-v1:Org1+Clip+R1' as course_id,
+              'course-v1:Org1+Clip+R1' as course_key,
+              'Org1' as org,
+              toDateTime64('2026-03-01 00:00:00', 6) + n as emission_time,
+              concat(
+                  '{"result": {"extensions": {"https://w3id.org/xapi/video/extensions/time": ',
+                  toString(time),
+                  '}}, "context": {"extensions": {"https://w3id.org/xapi/video/extensions/length": ',
+                  toString(length),
+                  '}}}'
+              ) as event
+          from values(
+              'n UInt8, block String, time Float64, length Int64',
+              (1, 'clipped', 60.0, 180),
+              (2, 'clipped', 120.4, 180),
+              (3, 'clipped', 50.0, 180),
+              (4, 'fullplayer', 100.0, 600),
+              (5, 'noclip', 30.2, 300),
+              (6, 'startonly', 45.0, 270)
+          )
+      - input: ref('dim_course_block_names')
+        format: sql
+        rows: |
+          select
+              concat('block-v1:Org1+Clip+R1+type@video+block@', block) as location,
+              block as block_name,
+              'course-v1:Org1+Clip+R1' as course_key,
+              false as graded,
+              n as course_order,
+              block as display_name_with_location,
+              start_time as video_start_time,
+              end_time as video_end_time
+          from values(
+              'n Int32, block String, start_time Float64, end_time Float64',
+              (1, 'clipped', 60.0, 240.0),
+              (2, 'fullplayer', 60.0, 240.0),
+              (3, 'startonly', 30.0, 0.0)
+          )
+    expect:
+      format: sql
+      rows: |
+        select
+            toUUID(concat('00000000-0000-0000-0000-00000000000', toString(n))) as event_id,
+            toDateTime64('2026-03-01 00:00:00', 6) + n as emission_time_long,
+            toDateTime(toDateTime64('2026-03-01 00:00:00', 6) + n) as emission_time,
+            'learner1' as actor_id,
+            concat('http://lms.test/xblock/block-v1:Org1+Clip+R1+type@video+block@', block) as object_id,
+            'course-v1:Org1+Clip+R1' as course_key,
+            'Org1' as org,
+            'https://w3id.org/xapi/video/verbs/played' as verb_id,
+            toDecimal32(position, 2) as video_position,
+            length as video_duration
+        from values(
+            'n UInt8, block String, position Float64, length Int64',
+            -- start of the clip
+            (1, 'clipped', 0, 180),
+            -- shifted by the clip start, then rounded up
+            (2, 'clipped', 61, 180),
+            -- before the clip start
+            (3, 'clipped', 0, 180),
+            -- duration does not match the clip, so the full video was played
+            (4, 'fullplayer', 100, 600),
+            -- no clip configured
+            (5, 'noclip', 31, 300),
+            -- clip with only a start time
+            (6, 'startonly', 15, 270)
+        )
