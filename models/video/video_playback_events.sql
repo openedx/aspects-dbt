@@ -76,9 +76,13 @@ with
             -- the duration of just the clip, so shift positions to the start of
             -- the clip. Only shift when the reported duration matches the clip,
             -- in case a player ignored the clip and played the full video.
+            -- Completed events report the duration as the position, which is
+            -- already relative to the clip.
             ceil(
                 if(
                     blocks.video_start_time > 0
+                    and final_results.verb_id
+                    <> 'http://adlnet.gov/expapi/verbs/completed'
                     and (
                         blocks.video_end_time = 0
                         or abs(
