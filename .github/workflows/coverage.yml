@@ -104,6 +104,13 @@ jobs:
             exit 1
           fi
 
+      - name: Check that course filters reach the event tables
+        env:
+          CLICKHOUSE_URL: http://localhost:8123
+          CLICKHOUSE_USER: ch_admin
+          CLICKHOUSE_PASSWORD: ch_password
+        run: python scripts/ci/check_course_pruning.py
+
       - name: Check docs coverage
         run: |
           dbt docs generate
