@@ -16,10 +16,10 @@ unit_tests:
     config: 
       tags: 'dim'
     given:
-      - input: ref('dim_course_block_names')
+      - input: ref('dim_most_recent_course_blocks')
         format: sql
         rows: |
-          select * from dim_course_block_names
+          select * from dim_most_recent_course_blocks
       - input: ref('dim_course_names')
         format: sql
         rows: |
@@ -56,3 +56,17 @@ unit_tests:
       format: sql
       rows: |
         select * from dim_most_recent_course_blocks_expected
+
+  - name: test_dim_course_subsection_items
+    model: dim_course_subsection_items
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from dim_course_blocks
+    expect:
+      format: sql
+      rows: |
+        select * from dim_course_subsection_items_expected
