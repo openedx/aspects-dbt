@@ -105,3 +105,73 @@ unit_tests:
             'https://w3id.org/xapi/video/verbs/paused' as verb_id,
             toDecimal32(10, 2) as video_position,
             toInt64(60) as video_duration
+
+  - name: test_fact_video_watches
+    description: "Overlapping and re-watched intervals; open intervals don't count"
+    model: fact_video_watches
+    config:
+      tags: 'ci'
+    overrides:
+      env_vars:
+        ASPECTS_VIDEO_WATCH_INTERVALS_LOOKBACK: "100 YEAR"
+      macros:
+        video_watch_intervals_computed_at: "toDateTime64('2024-01-01 00:00:00.000000', 6)"
+    given:
+      - input: ref('fact_video_watch_intervals')
+        format: sql
+        rows: |
+          select 'Org0' as org, 'course-v1:Org0+C+R' as course_key,
+              'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1' as object_id,
+              'a' as actor_id, toUUID('00000000-0000-4000-8000-000000000001') as start_event_id,
+              toDateTime64('2024-01-01 00:00:01', 6) as start_emission_time,
+              toDecimal32(0, 2) as start_video_position, toNullable(toDecimal32(30, 2)) as end_video_position,
+              'https://w3id.org/xapi/video/verbs/paused' as end_verb_id, toInt64(60) as video_duration,
+              1 as is_interval_closed, 1 as is_watched,
+              toDateTime64('2024-01-01 00:00:00', 6) as computed_at
+          union all
+          select 'Org0' as org, 'course-v1:Org0+C+R' as course_key,
+              'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1' as object_id,
+              'a' as actor_id, toUUID('00000000-0000-4000-8000-000000000002') as start_event_id,
+              toDateTime64('2024-01-01 00:00:02', 6) as start_emission_time,
+              toDecimal32(10, 2) as start_video_position, toNullable(toDecimal32(20, 2)) as end_video_position,
+              'https://w3id.org/xapi/video/verbs/paused' as end_verb_id, toInt64(60) as video_duration,
+              1 as is_interval_closed, 1 as is_watched,
+              toDateTime64('2024-01-01 00:00:00', 6) as computed_at
+          union all
+          select 'Org0' as org, 'course-v1:Org0+C+R' as course_key,
+              'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1' as object_id,
+              'a' as actor_id, toUUID('00000000-0000-4000-8000-000000000003') as start_event_id,
+              toDateTime64('2024-01-01 00:00:03', 6) as start_emission_time,
+              toDecimal32(40, 2) as start_video_position, toNullable(toDecimal32(50, 2)) as end_video_position,
+              'https://w3id.org/xapi/video/verbs/paused' as end_verb_id, toInt64(60) as video_duration,
+              1 as is_interval_closed, 1 as is_watched,
+              toDateTime64('2024-01-01 00:00:00', 6) as computed_at
+          union all
+          select 'Org0' as org, 'course-v1:Org0+C+R' as course_key,
+              'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1' as object_id,
+              'a' as actor_id, toUUID('00000000-0000-4000-8000-000000000004') as start_event_id,
+              toDateTime64('2024-01-01 00:00:04', 6) as start_emission_time,
+              toDecimal32(50, 2) as start_video_position, CAST(NULL, 'Nullable(Decimal(9, 2))') as end_video_position,
+              'https://w3id.org/xapi/video/verbs/paused' as end_verb_id, toInt64(60) as video_duration,
+              0 as is_interval_closed, 0 as is_watched,
+              toDateTime64('2024-01-01 00:00:00', 6) as computed_at
+          union all
+          select 'Org0' as org, 'course-v1:Org0+C+R' as course_key,
+              'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1' as object_id,
+              'b' as actor_id, toUUID('00000000-0000-4000-8000-000000000005') as start_event_id,
+              toDateTime64('2024-01-01 00:00:05', 6) as start_emission_time,
+              toDecimal32(5, 2) as start_video_position, toNullable(toDecimal32(6, 2)) as end_video_position,
+              'https://w3id.org/xapi/video/verbs/paused' as end_verb_id, toInt64(60) as video_duration,
+              1 as is_interval_closed, 1 as is_watched,
+              toDateTime64('2024-01-01 00:00:00', 6) as computed_at
+    expect:
+      format: sql
+      rows: |
+        select 'Org0' as org, 'course-v1:Org0+C+R' as course_key,
+            'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1' as object_id,
+            'a' as actor_id, toInt64(60) as video_duration, toUInt64(40) as watched_seconds,
+            toUInt64(2) as max_views, toDateTime64('2024-01-01 00:00:00', 6) as computed_at
+        union all
+        select 'Org0', 'course-v1:Org0+C+R',
+            'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v1',
+            'b', toInt64(60), toUInt64(1), toUInt64(1), toDateTime64('2024-01-01 00:00:00', 6)
