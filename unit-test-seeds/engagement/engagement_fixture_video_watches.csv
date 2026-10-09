@@ -1,0 +1,2 @@
+"org","course_key","object_id","actor_id","video_duration","watched_seconds","max_views","computed_at"
+"Org0","course-v1:Org0+Fixture+Run","http://localhost:18000/xblock/block-v1:Org0+Fixture+Run+type@video+block@v1","aaaaaaaa-0000-4000-8000-000000000001","30","30","1","2024-01-01 00:00:00"

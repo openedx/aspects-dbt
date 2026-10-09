@@ -9,161 +9,76 @@
 }}
 
 with
-    videos_viewed as (
-        select
-            intervals.org as org,
-            intervals.course_key as course_key,
-            blocks.section_number as section_number,
-            blocks.subsection_number as subsection_number,
-            intervals.actor_id as actor_id,
-            count(distinct blocks.block_id) as videos_viewed
-        from {{ ref("fact_video_watch_intervals") }} as intervals
-        join
-            {{ ref("dim_course_blocks") }} blocks
-            on (
-                intervals.course_key = blocks.course_key
-                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
+    engagement as (
+        -- Skips FINAL: watched_seconds never drops back to 0, so an older row can only repeat
+        -- a video already counted.
+        {{
+            engagement_by_section(
+                "select org, course_key, actor_id,"
+                ~ " splitByString('/xblock/', object_id)[-1] as block_id from "
+                ~ ref("fact_video_watches")
+                ~ " where watched_seconds > 0",
+                "video",
+                ("No videos viewed yet", "At least one video viewed", "All videos viewed"),
             )
-        where intervals.is_watched
-        group by org, course_key, section_number, subsection_number, actor_id
+        }}
     ),
-    watched_subsections as (
-        select
-            intervals.org as org,
-            intervals.course_key as course_key,
-            blocks.section_number as section_number,
-            blocks.subsection_number as subsection_number
-        from {{ ref("fact_video_watch_intervals") }} as intervals
-        join
-            {{ ref("dim_course_blocks") }} blocks
-            on (
-                intervals.course_key = blocks.course_key
-                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
-            )
-        where intervals.is_watched
-        group by org, course_key, section_number, subsection_number
+    subsection_items as (
+        select *
+        from {{ ref("dim_course_subsection_items") }}
+        where block_type = 'video'
     ),
-    fact_videos_per_subsection as (
-        select * from ({{ items_per_subsection("%@video+block@%") }})
-    ),
-    subsection_viewers as (
+    -- Subsections with videos nobody has watched get a row with a blank learner, and so do their
+    -- sections, so they still show up in the charts.
+    unwatched as (
         select
-            org, course_key, section_number, subsection_number, actor_id, videos_viewed
-        from videos_viewed
-        union all
-        select
-            org,
-            course_key,
-            section_number,
-            subsection_number,
+            subsection_items.org as org,
+            subsection_items.course_key as course_key,
             '' as actor_id,
-            0 as videos_viewed
-        from
+            level.1 as content_level,
+            level.2 as section_subsection_name,
+            level.3 as block_id,
+            'No videos viewed yet' as status
+        from subsection_items
+        left anti join
             (
-                select org, course_key, section_number, subsection_number, 1 as watched
-                from watched_subsections
-                union all
-                select org, course_key, section_number, subsection_number, 0 as watched
-                from fact_videos_per_subsection
-            )
-        group by org, course_key, section_number, subsection_number
-        having max(watched) = 0
-    ),
-    fact_video_section_subsection as (
-        select
-            plays.org as org,
-            plays.course_key as course_key,
-            videos.subsection_course_order as course_order,
-            plays.actor_id as actor_id,
-            'section' as section_content_level,
-            'subsection' as subsection_content_level,
-            videos.item_count as item_count,
-            sum(plays.videos_viewed) as videos_viewed,
-            videos.section_block_id as section_block_id,
-            videos.subsection_block_id as subsection_block_id,
-            videos.section_with_name as section_with_name,
-            videos.subsection_with_name as subsection_with_name
-        from subsection_viewers plays
-        join
-            fact_videos_per_subsection videos
-            on (
-                videos.org = plays.org
-                and videos.course_key = plays.course_key
-                and videos.section_number = plays.section_number
-                and videos.subsection_number = plays.subsection_number
-            )
-        group by
-            org,
-            course_key,
-            course_order,
-            actor_id,
-            item_count,
-            section_block_id,
-            subsection_block_id,
-            section_with_name,
-            subsection_with_name
-    ),
-    video_engagment as (
-        select
-            org,
-            course_key,
-            actor_id,
-            sum(videos_viewed) as videos_viewed,
-            sum(item_count) as item_count,
-            case
-                when videos_viewed = 0
-                then 'No videos viewed yet'
-                when videos_viewed = item_count
-                then 'All videos viewed'
-                else 'At least one video viewed'
-            end as section_subsection_video_engagement,
-            block_id,
-            section_subsection_name,
-            content_level
-        from fact_video_section_subsection ARRAY
-        join
-            arrayConcat([subsection_block_id], [section_block_id]) as block_id,
-            arrayConcat(
-                [subsection_with_name], [section_with_name]
-            ) as section_subsection_name,
-            arrayConcat(
-                [subsection_content_level], [section_content_level]
-            ) as content_level
-        group by
-            org, course_key, actor_id, block_id, section_subsection_name, content_level
+                select distinct org, course_key, block_id
+                from engagement
+                where content_level = 'subsection'
+            ) watched
+            on subsection_items.org = watched.org
+            and subsection_items.course_key = watched.course_key
+            and subsection_items.subsection_block_id = watched.block_id
+        array join
+            [
+                ('subsection', subsection_with_name, subsection_block_id),
+                ('section', section_with_name, section_block_id)
+            ] as level
     ),
     final_results as (
-        select
-            video_engagment.org as org,
-            video_engagment.course_key as course_key,
-            video_engagment.section_subsection_name as section_subsection_name,
-            video_engagment.content_level as content_level,
-            video_engagment.actor_id as actor_id,
-            video_engagment.section_subsection_video_engagement
-            as section_subsection_video_engagement,
-            video_engagment.block_id as block_id,
-            users.username as username,
-            users.name as name,
-            users.email as email
-        from video_engagment
-        left outer join
-            {{ ref("dim_user_pii") }} users
-            on (
-                video_engagment.actor_id like 'mailto:%'
-                and SUBSTRING(video_engagment.actor_id, 8) = users.email
-            )
-            or video_engagment.actor_id = toString(users.external_user_id)
-        where video_engagment.section_subsection_name <> ''
+        select org, course_key, actor_id, content_level, section_subsection_name, block_id, status
+        from engagement
+        union distinct
+        select org, course_key, actor_id, content_level, section_subsection_name, block_id, status
+        from unwatched
     )
 select
-    org,
-    course_key,
-    section_subsection_name,
-    content_level,
-    actor_id,
-    section_subsection_video_engagement,
-    block_id,
-    username,
-    name,
-    email
+    final_results.org as org,
+    final_results.course_key as course_key,
+    final_results.section_subsection_name as section_subsection_name,
+    final_results.content_level as content_level,
+    final_results.actor_id as actor_id,
+    final_results.status as section_subsection_video_engagement,
+    final_results.block_id as block_id,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from final_results
+left outer join
+    {{ ref("dim_user_pii") }} users
+    on (
+        final_results.actor_id like 'mailto:%'
+        and SUBSTRING(final_results.actor_id, 8) = users.email
+    )
+    or final_results.actor_id = toString(users.external_user_id)
+where final_results.section_subsection_name <> ''
