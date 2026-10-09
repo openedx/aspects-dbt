@@ -23,33 +23,55 @@ with
             )
         }}
     ),
-    subsection_items as (
-        select *
-        from {{ ref("dim_course_subsection_items") }}
-        where block_type = 'video'
-    ),
     -- Subsections with videos nobody has watched get a row with a blank learner, and so do their
-    -- sections, so they still show up in the charts.
+    -- sections, so they still show up in the charts. A union rather than an anti-join, so a course
+    -- filter reaches both sides.
     unwatched as (
         select
-            subsection_items.org as org,
-            subsection_items.course_key as course_key,
+            org,
+            course_key,
             '' as actor_id,
             level.1 as content_level,
             level.2 as section_subsection_name,
             level.3 as block_id,
             'No videos viewed yet' as status
-        from subsection_items
-        left anti join
+        from
             (
-                select distinct org, course_key, block_id
-                from engagement
-                where content_level = 'subsection'
-            ) watched
-            on subsection_items.org = watched.org
-            and subsection_items.course_key = watched.course_key
-            and subsection_items.subsection_block_id = watched.block_id
-        array join
+                select
+                    org,
+                    course_key,
+                    subsection_block_id,
+                    any(subsection_with_name) as subsection_with_name,
+                    any(section_block_id) as section_block_id,
+                    any(section_with_name) as section_with_name
+                from
+                    (
+                        select
+                            org,
+                            course_key,
+                            block_id as subsection_block_id,
+                            '' as subsection_with_name,
+                            '' as section_block_id,
+                            '' as section_with_name,
+                            1 as watched
+                        from engagement
+                        where content_level = 'subsection'
+                        union all
+                        select
+                            org,
+                            course_key,
+                            subsection_block_id,
+                            subsection_with_name,
+                            section_block_id,
+                            section_with_name,
+                            0 as watched
+                        from {{ ref("dim_course_subsection_items") }}
+                        where block_type = 'video'
+                    )
+                group by org, course_key, subsection_block_id
+                having max(watched) = 0
+            ) array
+        join
             [
                 ('subsection', subsection_with_name, subsection_block_id),
                 ('section', section_with_name, section_block_id)
