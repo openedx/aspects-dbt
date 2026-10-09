@@ -15,10 +15,12 @@ select
     actor_id,
     object_id,
     video_duration,
+    -- Second n is playback from n - 1 to n. ifNull: ClickHouse may evaluate this before
+    -- the is_watched filter has removed the open intervals.
     arrayJoin(
         range(
-            greatest(cast(start_video_position as int), 1),
-            cast(end_video_position as int) + 1,
+            cast(start_video_position as int) + 1,
+            cast(ifNull(end_video_position, 0) as int) + 1,
             1
         )
     ) as watched_segment,
