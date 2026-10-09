@@ -281,3 +281,22 @@ models:
       - name: selected_learner_percent_incorrect
         data_type: Float32
         description: Percent incorrect per learner
+
+  - name: fact_learner_problem_attempts
+    description: "One row per learner and problem they submitted, with the time of the latest submission"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: problem_id
+        data_type: String
+        description: '{{ doc("problem_id") }}'
+      - name: emission_time
+        data_type: DateTime
+        description: "When the learner last did this"

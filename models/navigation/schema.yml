@@ -129,3 +129,22 @@ models:
       - name: emission_time
         data_type: DateTime
         description: '{{ doc("emission_time") }}'
+
+  - name: fact_learner_page_visits
+    description: "One row per learner and unit they navigated away from, with the time of the latest visit"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: actor_id
+        data_type: String
+        description: '{{ doc("actor_id") }}'
+      - name: block_id
+        data_type: String
+        description: '{{ doc("block_id") }}'
+      - name: emission_time
+        data_type: DateTime
+        description: "When the learner last did this"

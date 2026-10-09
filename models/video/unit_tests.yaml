@@ -4,14 +4,18 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('fact_video_watch_intervals')
+      - input: ref('fact_video_watches')
         format: sql
         rows: |
-          select * from fact_video_watch_intervals
+          select * from fact_video_watches
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
           select * from dim_course_blocks
+      - input: ref('dim_course_subsection_items')
+        format: sql
+        rows: |
+          select * from dim_course_subsection_items
       - input: ref('dim_user_pii')
         format: sql
         rows: |
@@ -20,7 +24,6 @@ unit_tests:
       format: sql
       rows: |
         select * from fact_video_engagement_expected
-
   - name: test_fact_video_segments
     model: fact_video_segments
     config:
@@ -105,6 +108,32 @@ unit_tests:
             'https://w3id.org/xapi/video/verbs/paused' as verb_id,
             toDecimal32(10, 2) as video_position,
             toInt64(60) as video_duration
+
+  - name: test_fact_video_engagement_sections
+    model: fact_video_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_video_watches')
+        format: sql
+        rows: |
+          select * from engagement_fixture_video_watches
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from engagement_fixture_course_blocks
+      - input: ref('dim_course_subsection_items')
+        format: sql
+        rows: |
+          select * from engagement_fixture_subsection_items
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from engagement_fixture_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_video_engagement_fixture_expected
 
   - name: test_fact_video_watches
     description: "Overlapping and re-watched intervals; open intervals don't count"
