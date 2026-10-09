@@ -89,9 +89,14 @@ jobs:
                               where actor_id = '$learner' and is_watched
                                 and start_video_position = 0 and end_video_position = 40")
           seconds=$(scalar "select count() from xapi.fact_video_segments where actor_id = '$learner'")
-          echo "closed intervals for the new learner: $intervals, watched seconds: $seconds"
 
-          if [ "$intervals" != "1" ] || [ "$seconds" != "40" ]; then
+          # Scheduled refreshes chain after the intervals view; a manual one doesn't.
+          echo "system refresh view xapi.fact_video_watches_mv" | ch
+          echo "system wait view xapi.fact_video_watches_mv" | ch
+          summary=$(scalar "select watched_seconds from xapi.fact_video_watches final where actor_id = '$learner'")
+          echo "closed intervals for the new learner: $intervals, watched seconds: $seconds, in the summary: $summary"
+
+          if [ "$intervals" != "1" ] || [ "$seconds" != "40" ] || [ "$summary" != "40" ]; then
             echo "A play and a pause inserted separately did not produce one 0-40 interval" >&2
             echo "and its 40 watched seconds. This is the regression in issue #176." >&2
             echo "select * from xapi.fact_video_watch_intervals final where actor_id = '$learner' format Vertical" | ch >&2
