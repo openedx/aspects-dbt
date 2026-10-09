@@ -104,6 +104,47 @@ jobs:
             exit 1
           fi
 
+      - name: Check that page and problem events reach the per-learner tables
+        run: |
+          set -euo pipefail
+          ch() {
+            local out
+            out=$(curl -sS --fail-with-body -u ch_admin:ch_password http://localhost:8123/ --data-binary @-) \
+              || { echo "$out" >&2; return 1; }
+            echo "$out"
+          }
+          scalar() { echo "$1" | ch | tr -d '[:space:]'; }
+          learner=ci-per-learner-tables
+          course=course-v1:Org0+DemoX+2bc51b
+          lms=http://localhost:18000
+          parent="{\"contextActivities\": {\"parent\": [{\"id\": \"$lms/course/$course\", \"objectType\": \"Activity\", \"definition\": {\"type\": \"http://adlnet.gov/expapi/activities/course\"}}]}}"
+          actor="{\"objectType\": \"Agent\", \"account\": {\"homePage\": \"$lms\", \"name\": \"$learner\"}}"
+
+          nav="{\"id\": \"33333333-3333-3333-3333-333333333333\", \"actor\": $actor,
+            \"verb\": {\"id\": \"https://w3id.org/xapi/dod-isd/verbs/navigated\"},
+            \"object\": {\"id\": \"$lms/xblock/block-v1:Org0+DemoX+2bc51b+type@vertical+block@ciunit\", \"objectType\": \"Activity\",
+                         \"definition\": {\"type\": \"http://id.tincanapi.com/activitytype/resource\"}},
+            \"context\": $parent, \"version\": \"1.0.3\"}"
+          problem="{\"id\": \"44444444-4444-4444-4444-444444444444\", \"actor\": $actor,
+            \"verb\": {\"id\": \"https://w3id.org/xapi/acrossx/verbs/evaluated\"},
+            \"object\": {\"id\": \"$lms/xblock/block-v1:Org0+DemoX+2bc51b+type@problem+block@ciproblem\", \"objectType\": \"Activity\",
+                         \"definition\": {\"type\": \"http://adlnet.gov/expapi/activities/cmi.interaction\",
+                                          \"extensions\": {\"http://id.tincanapi.com/extension/attempt-id\": 1}}},
+            \"result\": {\"success\": true, \"score\": {\"scaled\": 1}}, \"context\": $parent, \"version\": \"1.0.3\"}"
+          for e in "$nav" "$problem"; do
+            id=$(echo "$e" | grep -o '"id": "[0-9-]*"' | head -1 | cut -d'"' -f4)
+            echo "insert into xapi.xapi_events_all (event_id, emission_time, event) values ('$id', now(), '$(echo "$e" | tr -d '\n')')" | ch
+          done
+
+          pages=$(scalar "select count() from xapi.fact_learner_page_visits where actor_id = '$learner'")
+          problems=$(scalar "select count() from xapi.fact_learner_problem_attempts where actor_id = '$learner'")
+          echo "page visits: $pages, problem attempts: $problems"
+          if [ "$pages" != "1" ] || [ "$problems" != "1" ]; then
+            echo "Events inserted into xapi_events_all did not reach fact_learner_page_visits" >&2
+            echo "and fact_learner_problem_attempts through the materialized views." >&2
+            exit 1
+          fi
+
       - name: Check that course filters reach the event tables
         env:
           CLICKHOUSE_URL: http://localhost:8123
