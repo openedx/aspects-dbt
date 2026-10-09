@@ -55,6 +55,61 @@ models:
       - name: subsection_with_name
         data_type: String
         description: "The name of the subsection"
+      - name: section_course_order
+        data_type: Int32
+        description: "The course_order of the section this block is in"
+      - name: subsection_course_order
+        data_type: Int32
+        description: "The course_order of the subsection this block is in"
+      - name: in_latest_publish
+        data_type: Boolean
+        description: "Whether the block is in the latest publish of its course; false for deleted blocks"
+
+  - name: dim_course_subsection_items
+    description: "The number of units, problems and videos in each subsection, counting only blocks in the latest publish of the course"
+    columns:
+      - name: org
+        data_type: String
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: String
+        description: '{{ doc("course_key") }}'
+      - name: block_type
+        data_type: String
+        description: "unit, problem or video"
+      - name: section_number
+        data_type: String
+        description: '{{ doc("section_number") }}'
+      - name: subsection_number
+        data_type: String
+        description: '{{ doc("subsection_number") }}'
+      - name: section_block_id
+        data_type: String
+        description: '{{ doc("section_block_id") }}'
+      - name: subsection_block_id
+        data_type: String
+        description: '{{ doc("subsection_block_id") }}'
+      - name: section_with_name
+        data_type: String
+        description: '{{ doc("section_with_name") }}'
+      - name: subsection_with_name
+        data_type: String
+        description: '{{ doc("subsection_with_name") }}'
+      - name: section_course_order
+        data_type: Int32
+        description: "The course_order of the section"
+      - name: subsection_course_order
+        data_type: Int32
+        description: "The course_order of the subsection"
+      - name: course_order
+        data_type: Int32
+        description: "The lowest course_order of the items"
+      - name: graded
+        data_type: Boolean
+        description: '{{ doc("graded") }}'
+      - name: item_count
+        data_type: UInt64
+        description: "How many items of this type the subsection has"
 
   - name: dim_course_block_names
     description: "An in-memory dictionary of course blocks with their display names and additional metadata. Only stores the most recent row per block location."
