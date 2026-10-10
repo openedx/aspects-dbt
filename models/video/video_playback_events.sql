@@ -19,7 +19,8 @@ with
         select
             event_id,
             emission_time,
-            -- In the final select, emission_time would resolve to its DateTime alias there.
+            -- In the final select, emission_time would resolve to its DateTime alias
+            -- there.
             toDateTime64(emission_time, 6) as _emission_time_long,
             actor_id,
             object_id,

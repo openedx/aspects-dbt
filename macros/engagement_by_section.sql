@@ -1,12 +1,14 @@
--- Per learner, how many of each subsection's and section's items of `block_type` they engaged
--- with, as one row per subsection and per section they engaged with at all.
+-- Per learner, how many of each subsection's and section's items of `block_type` they
+-- engaged with, as one row per subsection and per section they engaged with at all.
 --
--- `engaged` is a query returning (org, course_key, actor_id, block_id) for each item a learner
--- engaged with. A section's total is every item in the section, including subsections the learner
--- never opened, and only items in the course's latest publish count.
+-- `engaged` is a query returning (org, course_key, actor_id, block_id) for each item a
+-- learner engaged with. A section's total is every item in the section, including
+-- subsections the learner never opened, and only items in the course's latest publish
+-- count.
 --
--- Returns org, course_key, actor_id, content_level, section_subsection_name, section_with_name,
--- block_id, engaged and item_count, plus `status`, built from `labels`: (none, some, all).
+-- Returns org, course_key, actor_id, content_level, section_subsection_name,
+-- section_with_name, block_id, engaged and item_count, plus `status`, built from
+-- `labels`: (none, some, all).
 {% macro engagement_by_section(engaged, block_type, labels) %}
     with
         items as (
@@ -63,7 +65,8 @@
                 on per_subsection.org = subsection_items.org
                 and per_subsection.course_key = subsection_items.course_key
                 and per_subsection.section_number = subsection_items.section_number
-                and per_subsection.subsection_number = subsection_items.subsection_number
+                and per_subsection.subsection_number
+                = subsection_items.subsection_number
             union all
             select
                 per_subsection.org as org,

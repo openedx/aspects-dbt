@@ -1,10 +1,11 @@
--- Per learner and video, the distinct seconds watched and the most times any second was watched,
--- from the watched intervals. Instead of one row per second, it sweeps the interval ends: +1 where
--- an interval starts covering seconds, -1 after its last second, so the running total is how many
--- times each stretch was watched.
+-- Per learner and video, the distinct seconds watched and the most times any second was
+-- watched, from the watched intervals. Instead of one row per second, it sweeps the
+-- interval ends: +1 where an interval starts covering seconds, -1 after its last
+-- second, so the running total is how many times each stretch was watched.
 --
--- Only learner/video pairs with an interval starting at or after `min_emission_time` are
--- recomputed, from all of their intervals. `chunks` splits by learner to cap memory.
+-- Only learner/video pairs with an interval starting at or after `min_emission_time`
+-- are recomputed, from all of their intervals. `chunks` splits by learner to cap
+-- memory.
 {% macro video_watches(min_emission_time, chunk=0, chunks=1) %}
     with
         changed as (
@@ -30,7 +31,7 @@
             where
                 is_watched
                 and (org, course_key, object_id, actor_id) in (select * from changed)
-            settings final = 1
+                settings final = 1
         ),
         sweeps as (
             select
@@ -44,8 +45,8 @@
                         groupArray((first_second, 1)), groupArray((last_second + 1, -1))
                     )
                 ) as points,
-                arrayMap(p -> p.1, points) as positions,
-                arrayCumSum(arrayMap(p -> p.2, points)) as depths
+                arrayMap(p -> tupleElement(p, 1), points) as positions,
+                arrayCumSum(arrayMap(p -> tupleElement(p, 2), points)) as depths
             from intervals
             group by org, course_key, object_id, actor_id
         )

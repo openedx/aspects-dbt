@@ -1,5 +1,5 @@
--- One row per learner and problem they submitted, with the latest submission. Kept up to date as
--- events arrive, so engagement reports don't regroup every problem event.
+-- One row per learner and problem they submitted, with the latest submission. Kept up
+-- to date as events arrive, so engagement reports don't regroup every problem event.
 {{
     config(
         materialized="materialized_view",

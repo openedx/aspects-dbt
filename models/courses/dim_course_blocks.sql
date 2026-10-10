@@ -1,6 +1,7 @@
--- Course structure, rebuilt from the latest block data on a timer so reports don't recompute it on
--- every query. Blocks missing from their course's latest publish (deleted) are kept for reports
--- on past activity, flagged with in_latest_publish = false.
+-- Course structure, rebuilt from the latest block data on a timer so reports don't
+-- recompute it on every query. Blocks missing from their course's latest publish
+-- (deleted) are kept for reports on past activity, flagged with in_latest_publish =
+-- false.
 {{
     config(
         materialized="materialized_view",
@@ -53,13 +54,17 @@ with
                 then 'unit'
                 else regexpExtract(block_id, '@([^+]+)\+block@', 1)
             end as block_type,
-            toBool(blocks.time_last_dumped = latest_publish.time_last_dumped) as in_latest_publish
+            toBool(
+                blocks.time_last_dumped = latest_publish.time_last_dumped
+            ) as in_latest_publish
         from {{ ref("dim_most_recent_course_blocks") }} blocks
-        join {{ ref("dim_course_names") }} courses on blocks.course_key = courses.course_key
+        join
+            {{ ref("dim_course_names") }} courses
+            on blocks.course_key = courses.course_key
         join latest_publish on blocks.course_key = latest_publish.course_key
     ),
-    -- Only sections and subsections in the latest publish name the blocks under them, so a
-    -- deleted one can't duplicate rows.
+    -- Only sections and subsections in the latest publish name the blocks under them,
+    -- so a deleted one can't duplicate rows.
     sections as (
         select
             org,
@@ -118,5 +123,5 @@ left join
         and blocks.org = subsection_blocks.org
         and blocks.course_key = subsection_blocks.course_key
     )
--- `settings final = 1` instead of FINAL, which breaks the unit test fixture.
-settings final = 1
+    -- `settings final = 1` instead of FINAL, which breaks the unit test fixture.
+    settings final = 1

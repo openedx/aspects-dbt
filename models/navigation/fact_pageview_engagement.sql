@@ -5,7 +5,11 @@ with
                 "select org, course_key, actor_id, block_id from "
                 ~ ref("fact_learner_page_visits"),
                 "unit",
-                ("No pages viewed yet", "At least one page viewed", "All pages viewed"),
+                (
+                    "No pages viewed yet",
+                    "At least one page viewed",
+                    "All pages viewed",
+                ),
             )
         }}
     )

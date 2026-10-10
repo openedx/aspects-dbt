@@ -1,5 +1,5 @@
--- One row per learner and unit they navigated away from, with the latest visit. Kept up to date
--- as events arrive, so engagement reports don't regroup every navigation event.
+-- One row per learner and unit they navigated away from, with the latest visit. Kept up
+-- to date as events arrive, so engagement reports don't regroup every navigation event.
 {{
     config(
         materialized="materialized_view",
