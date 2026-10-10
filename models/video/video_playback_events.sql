@@ -1,3 +1,4 @@
+-- The post_hook fixes tables created when emission_time_long was stored as DateTime.
 {{
     config(
         materialized="materialized_view",
@@ -7,6 +8,9 @@
         order_by="(org, course_key, verb_id, emission_time, actor_id, video_position, event_id)",
         partition_by="(toYYYYMM(emission_time))",
         ttl=env_var("ASPECTS_DATA_TTL_EXPRESSION", ""),
+        post_hook=[
+            "alter table {{ this }} {{ on_cluster() }} modify column emission_time_long DateTime64(6)",
+        ],
     )
 }}
 
@@ -15,6 +19,9 @@ with
         select
             event_id,
             emission_time,
+            -- In the final select, emission_time would resolve to its DateTime alias
+            -- there.
+            toDateTime64(emission_time, 6) as _emission_time_long,
             actor_id,
             object_id,
             course_key,
@@ -64,7 +71,7 @@ with
     )
 select
     event_id,
-    emission_time as emission_time_long,
+    _emission_time_long as emission_time_long,
     CAST(emission_time, 'DateTime') as emission_time,
     actor_id,
     object_id,

@@ -9,3 +9,11 @@ seeds:
     config:
       column_types:
         tags_str: String
+  - name: dim_course_subsection_items_expected
+    config:
+      column_types:
+        section_course_order: Int32
+        subsection_course_order: Int32
+        course_order: Int32
+        graded: Bool
+        item_count: UInt64

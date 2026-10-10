@@ -18,37 +18,22 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('navigation_events')
+      - input: ref('fact_learner_page_visits')
         format: sql
         rows: |
-          select * from navigation_events
+          select * from fact_learner_page_visits
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
           select * from dim_course_blocks
+      - input: ref('dim_course_subsection_items')
+        format: sql
+        rows: |
+          select * from dim_course_subsection_items
     expect:
       format: sql
       rows: |
         select * from fact_navigation_completion_expected
-
-  - name: test_fact_pageview_engagement
-    model: fact_pageview_engagement
-    config:
-      tags: 'ci'
-    given:
-      - input: ref('fact_navigation_completion')
-        format: sql
-        rows: |
-          select * from fact_navigation_completion
-      - input: ref('dim_user_pii')
-        format: sql
-        rows: |
-          select * from dim_user_pii
-    expect:
-      format: sql
-      rows: |
-        select * from fact_pageview_engagement_expected
-
   - name: test_navigation_events
     model: navigation_events
     config:
@@ -62,3 +47,43 @@ unit_tests:
       format: sql
       rows: |
         select * from navigation_events_expected
+
+  - name: test_fact_learner_page_visits
+    model: fact_learner_page_visits
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('navigation_events')
+        format: sql
+        rows: |
+          select * from navigation_events
+    expect:
+      format: sql
+      rows: |
+        select * from fact_learner_page_visits_expected
+
+  - name: test_fact_pageview_engagement_sections
+    model: fact_pageview_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_learner_page_visits')
+        format: sql
+        rows: |
+          select * from engagement_fixture_page_visits
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from engagement_fixture_course_blocks
+      - input: ref('dim_course_subsection_items')
+        format: sql
+        rows: |
+          select * from engagement_fixture_subsection_items
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from engagement_fixture_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_pageview_engagement_fixture_expected
