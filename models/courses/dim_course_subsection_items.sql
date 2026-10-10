@@ -1,4 +1,5 @@
--- How many units, problems and videos each subsection has in its course's latest publish.
+-- How many units, problems and videos each subsection has in its course's latest
+-- publish.
 {{
     config(
         materialized="materialized_view",

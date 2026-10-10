@@ -10,8 +10,8 @@
 
 with
     engagement as (
-        -- Skips FINAL: watched_seconds never drops back to 0, so an older row can only repeat
-        -- a video already counted.
+        -- Skips FINAL: watched_seconds never drops back to 0, so an older row can only
+        -- repeat a video already counted.
         {{
             engagement_by_section(
                 "select org, course_key, actor_id,"
@@ -19,21 +19,25 @@ with
                 ~ ref("fact_video_watches")
                 ~ " where watched_seconds > 0",
                 "video",
-                ("No videos viewed yet", "At least one video viewed", "All videos viewed"),
+                (
+                    "No videos viewed yet",
+                    "At least one video viewed",
+                    "All videos viewed",
+                ),
             )
         }}
     ),
-    -- Subsections with videos nobody has watched get a row with a blank learner, and so do their
-    -- sections, so they still show up in the charts. A union rather than an anti-join, so a course
-    -- filter reaches both sides.
+    -- Subsections with videos nobody has watched get a row with a blank learner, and so
+    -- do their sections, so they still show up in the charts. A union rather than an
+    -- anti-join, so a course filter reaches both sides.
     unwatched as (
         select
             org,
             course_key,
             '' as actor_id,
-            level.1 as content_level,
-            level.2 as section_subsection_name,
-            level.3 as block_id,
+            tupleElement(level, 1) as content_level,
+            tupleElement(level, 2) as section_subsection_name,
+            tupleElement(level, 3) as block_id,
             'No videos viewed yet' as status
         from
             (
@@ -78,10 +82,24 @@ with
             ] as level
     ),
     final_results as (
-        select org, course_key, actor_id, content_level, section_subsection_name, block_id, status
+        select
+            org,
+            course_key,
+            actor_id,
+            content_level,
+            section_subsection_name,
+            block_id,
+            status
         from engagement
         union distinct
-        select org, course_key, actor_id, content_level, section_subsection_name, block_id, status
+        select
+            org,
+            course_key,
+            actor_id,
+            content_level,
+            section_subsection_name,
+            block_id,
+            status
         from unwatched
     )
 select
