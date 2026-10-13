@@ -69,3 +69,39 @@ unit_tests:
       format: sql
       rows: |
         select * from video_playback_events_expected
+
+  - name: test_video_playback_events_keeps_sub_second_time
+    description: "emission_time_long keeps the microseconds that order events within a second"
+    model: video_playback_events
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('xapi_events_all_parsed')
+        format: sql
+        rows: |
+          select
+              toUUID('00000000-0000-0000-0000-000000000001') as event_id,
+              'https://w3id.org/xapi/video/verbs/paused' as verb_id,
+              'learner' as actor_id,
+              'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v' as object_id,
+              'http://localhost:18000/course/course-v1:Org0+C+R' as course_id,
+              'course-v1:Org0+C+R' as course_key,
+              'Org0' as org,
+              toDateTime64('2024-01-01 00:00:10.250000', 6) as emission_time,
+              '{"result": {"extensions": {"https://w3id.org/xapi/video/extensions/time": 10}},
+                "context": {"extensions": {"https://w3id.org/xapi/video/extensions/length": 60}}}'
+              as event
+    expect:
+      format: sql
+      rows: |
+        select
+            toUUID('00000000-0000-0000-0000-000000000001') as event_id,
+            toDateTime64('2024-01-01 00:00:10.250000', 6) as emission_time_long,
+            toDateTime('2024-01-01 00:00:10') as emission_time,
+            'learner' as actor_id,
+            'http://localhost:18000/xblock/block-v1:Org0+C+R+type@video+block@v' as object_id,
+            'course-v1:Org0+C+R' as course_key,
+            'Org0' as org,
+            'https://w3id.org/xapi/video/verbs/paused' as verb_id,
+            toDecimal32(10, 2) as video_position,
+            toInt64(60) as video_duration
