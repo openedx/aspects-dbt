@@ -50,6 +50,55 @@ jobs:
           dbt run --full-refresh --selector all_tests
           dbt test --selector all_tests
           mv ci-seeds unit-test-seeds
+      - name: Check that video events are picked up incrementally
+        run: |
+          set -euo pipefail
+          ch() {
+            local out
+            out=$(curl -sS --fail-with-body -u ch_admin:ch_password http://localhost:8123/ --data-binary @-) \
+              || { echo "$out" >&2; return 1; }
+            echo "$out"
+          }
+          scalar() { echo "$1" | ch | tr -d '[:space:]'; }
+          learner=ci-incremental-learner
+
+          event() {
+            cat <<JSON | tr -d '\n'
+          {"id": "$1", "actor": {"objectType": "Agent", "account": {"homePage": "http://localhost:18000", "name": "$learner"}},
+           "verb": {"id": "$2"},
+           "object": {"id": "http://localhost:18000/xblock/block-v1:course-v1:Org0+DemoX+2bc51b+type@video+block@ciincremental",
+                      "objectType": "Activity", "definition": {"type": "https://w3id.org/xapi/video/activity-type/video"}},
+           "context": {"contextActivities": {"parent": [{"id": "http://localhost:18000/course/course-v1:Org0+DemoX+2bc51b",
+                       "objectType": "Activity", "definition": {"type": "http://adlnet.gov/expapi/activities/course"}}]},
+                       "extensions": {"https://w3id.org/xapi/video/extensions/length": 195}},
+           "result": {"extensions": {"https://w3id.org/xapi/video/extensions/time": $3}},
+           "version": "1.0.3"}
+          JSON
+          }
+          insert() {
+            echo "insert into xapi.xapi_events_all (event_id, emission_time, event) values ('$1', now() - $4, '$(event "$1" "$2" "$3")')" | ch
+          }
+
+          insert 11111111-1111-1111-1111-111111111111 https://w3id.org/xapi/video/verbs/played 0 120
+          insert 22222222-2222-2222-2222-222222222222 https://w3id.org/xapi/video/verbs/paused 40 60
+
+          echo "system refresh view xapi.fact_video_watch_intervals_mv" | ch
+          echo "system wait view xapi.fact_video_watch_intervals_mv" | ch
+
+          intervals=$(scalar "select count() from xapi.fact_video_watch_intervals final
+                              where actor_id = '$learner' and is_watched
+                                and start_video_position = 0 and end_video_position = 40")
+          seconds=$(scalar "select count() from xapi.fact_video_segments where actor_id = '$learner'")
+          echo "closed intervals for the new learner: $intervals, watched seconds: $seconds"
+
+          if [ "$intervals" != "1" ] || [ "$seconds" != "40" ]; then
+            echo "A play and a pause inserted separately did not produce one 0-40 interval" >&2
+            echo "and its 40 watched seconds. This is the regression in issue #176." >&2
+            echo "select * from xapi.fact_video_watch_intervals final where actor_id = '$learner' format Vertical" | ch >&2
+            echo "select view, status, exception from system.view_refreshes format Vertical" | ch >&2
+            exit 1
+          fi
+
       - name: Check docs coverage
         run: |
           dbt docs generate
