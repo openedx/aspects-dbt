@@ -10,13 +10,16 @@
 
 
         insert into `xapi`.`video_playback_events`
-        ("event_id", "emission_time_long", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "video_position", "video_duration")
+        ("event_id", "emission_time_long", "emission_time", "actor_id", "object_id", "course_key", "org", "verb_id", "video_position", "video_duration")-- The post_hook fixes tables created when emission_time_long was stored as DateTime.
+
 
 with
     final_results as (
         select
             event_id,
             emission_time,
+            -- In the final select, emission_time resolves to its DateTime alias.
+            toDateTime64(emission_time, 6) as _emission_time_long,
             actor_id,
             object_id,
             course_key,
@@ -66,7 +69,7 @@ with
     )
 select
     event_id,
-    emission_time as emission_time_long,
+    _emission_time_long as emission_time_long,
     CAST(emission_time, 'DateTime') as emission_time,
     actor_id,
     object_id,
