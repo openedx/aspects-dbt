@@ -1,0 +1,41 @@
+version: 2
+
+# Hand-built course and learners for the engagement unit tests: a deleted unit and problem, a
+# section where a learner only opened one subsection, a learner with a mailto: actor id, and a
+# section whose videos nobody watched.
+seeds:
+  - name: engagement_fixture_course_blocks
+    config:
+      column_types:
+        course_order: Int32
+        graded: Bool
+        section_course_order: Int32
+        subsection_course_order: Int32
+        in_latest_publish: Bool
+  - name: engagement_fixture_subsection_items
+    config:
+      column_types:
+        section_course_order: Int32
+        subsection_course_order: Int32
+        course_order: Int32
+        graded: Bool
+        item_count: UInt64
+  - name: engagement_fixture_user_pii
+  - name: engagement_fixture_page_visits
+    config:
+      column_types:
+        emission_time: DateTime
+  - name: engagement_fixture_problem_attempts
+    config:
+      column_types:
+        emission_time: DateTime
+  - name: engagement_fixture_video_watches
+    config:
+      column_types:
+        video_duration: Int64
+        watched_seconds: UInt64
+        max_views: UInt64
+        computed_at: DateTime64(6)
+  - name: fact_pageview_engagement_fixture_expected
+  - name: fact_problem_engagement_fixture_expected
+  - name: fact_video_engagement_fixture_expected
