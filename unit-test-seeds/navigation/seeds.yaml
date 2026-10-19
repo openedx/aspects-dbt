@@ -5,3 +5,8 @@ seeds:
     config:
       column_types:
         page_count: UInt64
+
+  - name: fact_learner_page_visits_expected
+    config:
+      column_types:
+        emission_time: DateTime

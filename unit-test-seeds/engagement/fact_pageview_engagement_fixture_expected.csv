@@ -1,0 +1,5 @@
+"org","course_key","section_subsection_name","content_level","actor_id","section_subsection_page_engagement","section_with_name","username","name","email"
+"Org0","course-v1:Org0+Fixture+Run","1:1:0 - Subsection 1.1","subsection","aaaaaaaa-0000-4000-8000-000000000001","All pages viewed","1:0:0 - Section 1","learner_a","Learner A","learner_a@example.com"
+"Org0","course-v1:Org0+Fixture+Run","1:0:0 - Section 1","section","aaaaaaaa-0000-4000-8000-000000000001","At least one page viewed","1:0:0 - Section 1","learner_a","Learner A","learner_a@example.com"
+"Org0","course-v1:Org0+Fixture+Run","1:2:0 - Subsection 1.2","subsection","mailto:learner_b@example.com","All pages viewed","1:0:0 - Section 1","learner_b","Learner B","learner_b@example.com"
+"Org0","course-v1:Org0+Fixture+Run","1:0:0 - Section 1","section","mailto:learner_b@example.com","At least one page viewed","1:0:0 - Section 1","learner_b","Learner B","learner_b@example.com"

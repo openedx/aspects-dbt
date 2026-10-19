@@ -1,0 +1,5 @@
+"org","course_key","actor_id","block_id","emission_time"
+"Org0","course-v1:Org0+Fixture+Run","aaaaaaaa-0000-4000-8000-000000000001","block-v1:Org0+Fixture+Run+type@vertical+block@u11a","2024-01-01 00:00:00"
+"Org0","course-v1:Org0+Fixture+Run","aaaaaaaa-0000-4000-8000-000000000001","block-v1:Org0+Fixture+Run+type@vertical+block@u11b","2024-01-01 00:00:00"
+"Org0","course-v1:Org0+Fixture+Run","aaaaaaaa-0000-4000-8000-000000000001","block-v1:Org0+Fixture+Run+type@vertical+block@ud","2024-01-01 00:00:00"
+"Org0","course-v1:Org0+Fixture+Run","mailto:learner_b@example.com","block-v1:Org0+Fixture+Run+type@vertical+block@u12a","2024-01-01 00:00:00"

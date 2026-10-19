@@ -1,0 +1,7 @@
+"org","course_key","section_subsection_name","content_level","actor_id","section_subsection_video_engagement","block_id","username","name","email"
+"Org0","course-v1:Org0+Fixture+Run","1:1:0 - Subsection 1.1","subsection","aaaaaaaa-0000-4000-8000-000000000001","All videos viewed","block-v1:Org0+Fixture+Run+type@sequential+block@s11","learner_a","Learner A","learner_a@example.com"
+"Org0","course-v1:Org0+Fixture+Run","1:0:0 - Section 1","section","aaaaaaaa-0000-4000-8000-000000000001","At least one video viewed","block-v1:Org0+Fixture+Run+type@chapter+block@ch1","learner_a","Learner A","learner_a@example.com"
+"Org0","course-v1:Org0+Fixture+Run","1:2:0 - Subsection 1.2","subsection","","No videos viewed yet","block-v1:Org0+Fixture+Run+type@sequential+block@s12","","",""
+"Org0","course-v1:Org0+Fixture+Run","1:0:0 - Section 1","section","","No videos viewed yet","block-v1:Org0+Fixture+Run+type@chapter+block@ch1","","",""
+"Org0","course-v1:Org0+Fixture+Run","2:1:0 - Subsection 2.1","subsection","","No videos viewed yet","block-v1:Org0+Fixture+Run+type@sequential+block@s21","","",""
+"Org0","course-v1:Org0+Fixture+Run","2:0:0 - Section 2","section","","No videos viewed yet","block-v1:Org0+Fixture+Run+type@chapter+block@ch2","","",""
