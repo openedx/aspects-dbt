@@ -12,211 +12,193 @@
 
 
 with
-    videos_viewed as (
-        select
-            intervals.org as org,
-            intervals.course_key as course_key,
-            blocks.section_number as section_number,
-            blocks.subsection_number as subsection_number,
-            intervals.actor_id as actor_id,
-            count(distinct blocks.block_id) as videos_viewed
-        from `xapi`.`fact_video_watch_intervals` as intervals
-        join
-            `xapi`.`dim_course_blocks` blocks
-            on (
-                intervals.course_key = blocks.course_key
-                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
-            )
-        where intervals.is_watched
-        group by org, course_key, section_number, subsection_number, actor_id
-    ),
-    watched_subsections as (
-        select
-            intervals.org as org,
-            intervals.course_key as course_key,
-            blocks.section_number as section_number,
-            blocks.subsection_number as subsection_number
-        from `xapi`.`fact_video_watch_intervals` as intervals
-        join
-            `xapi`.`dim_course_blocks` blocks
-            on (
-                intervals.course_key = blocks.course_key
-                and splitByString('/xblock/', intervals.object_id)[-1] = blocks.block_id
-            )
-        where intervals.is_watched
-        group by org, course_key, section_number, subsection_number
-    ),
-    fact_videos_per_subsection as (
-        select * from (
+    engagement as (
+        -- Skips FINAL: watched_seconds never drops back to 0, so an older row can only
+        -- repeat a video already counted.
+        
     with
-        items_per_subsection as (
+        items as (
+            select org, course_key, block_id, section_number, subsection_number
+            from `xapi`.`dim_course_blocks`
+            where block_type = 'video' and in_latest_publish
+        ),
+        per_subsection as (
+            select
+                engaged.org as org,
+                engaged.course_key as course_key,
+                engaged.actor_id as actor_id,
+                items.section_number as section_number,
+                items.subsection_number as subsection_number,
+                count(distinct engaged.block_id) as engaged
+            from (select org, course_key, actor_id, splitByString('/xblock/', object_id)[-1] as block_id from `xapi`.`fact_video_watches` where watched_seconds > 0) engaged
+            join
+                items
+                on engaged.org = items.org
+                and engaged.course_key = items.course_key
+                and engaged.block_id = items.block_id
+            group by org, course_key, actor_id, section_number, subsection_number
+        ),
+        subsection_items as (
+            select *
+            from `xapi`.`dim_course_subsection_items`
+            where block_type = 'video'
+        ),
+        section_items as (
             select
                 org,
                 course_key,
                 section_number,
-                subsection_number,
-                min(course_order) as course_order,
-                graded,
-                count(*) as item_count
-            from `xapi`.`dim_course_blocks`
-            where block_id like '%@video+block@%'
-            group by org, course_key, section_number, subsection_number, graded
+                any(section_block_id) as section_block_id,
+                any(section_with_name) as section_with_name,
+                sum(item_count) as item_count
+            from subsection_items
+            group by org, course_key, section_number
+        ),
+        counts as (
+            select
+                per_subsection.org as org,
+                per_subsection.course_key as course_key,
+                per_subsection.actor_id as actor_id,
+                'subsection' as content_level,
+                subsection_items.subsection_with_name as section_subsection_name,
+                subsection_items.section_with_name as section_with_name,
+                subsection_items.subsection_block_id as block_id,
+                per_subsection.engaged as engaged,
+                subsection_items.item_count as item_count
+            from per_subsection
+            join
+                subsection_items
+                on per_subsection.org = subsection_items.org
+                and per_subsection.course_key = subsection_items.course_key
+                and per_subsection.section_number = subsection_items.section_number
+                and per_subsection.subsection_number
+                = subsection_items.subsection_number
+            union all
+            select
+                per_subsection.org as org,
+                per_subsection.course_key as course_key,
+                per_subsection.actor_id as actor_id,
+                'section' as content_level,
+                any(section_items.section_with_name) as section_subsection_name,
+                any(section_items.section_with_name) as section_with_name,
+                any(section_items.section_block_id) as block_id,
+                sum(per_subsection.engaged) as engaged,
+                any(section_items.item_count) as item_count
+            from per_subsection
+            join
+                section_items
+                on per_subsection.org = section_items.org
+                and per_subsection.course_key = section_items.course_key
+                and per_subsection.section_number = section_items.section_number
+            group by org, course_key, actor_id, per_subsection.section_number
         )
-
     select
-        ips.org as org,
-        ips.course_key as course_key,
-        ips.section_number as section_number,
-        section_blocks.display_name_with_location as section_with_name,
-        ips.subsection_number as subsection_number,
-        subsection_blocks.display_name_with_location as subsection_with_name,
-        ips.course_order as course_order,
-        ips.graded as graded,
-        ips.item_count as item_count,
-        subsection_blocks.block_id as subsection_block_id,
-        section_blocks.block_id as section_block_id,
-        section_blocks.course_order as section_course_order,
-        subsection_blocks.course_order as subsection_course_order
-    from items_per_subsection ips
-    left join
-        `xapi`.`dim_course_blocks` section_blocks
-        on (
-            ips.section_number = section_blocks.hierarchy_location
-            and ips.org = section_blocks.org
-            and ips.course_key = section_blocks.course_key
-            and section_blocks.block_id like '%@chapter+block@%'
-        )
-    left join
-        `xapi`.`dim_course_blocks` subsection_blocks
-        on (
-            ips.subsection_number = subsection_blocks.hierarchy_location
-            and ips.org = subsection_blocks.org
-            and ips.course_key = subsection_blocks.course_key
-            and subsection_blocks.block_id like '%@sequential+block@%'
-        )
-)
+        *,
+        case
+            when engaged = 0
+            then 'No videos viewed yet'
+            when engaged = item_count
+            then 'All videos viewed'
+            else 'At least one video viewed'
+        end as status
+    from counts
+
     ),
-    subsection_viewers as (
-        select
-            org, course_key, section_number, subsection_number, actor_id, videos_viewed
-        from videos_viewed
-        union all
+    -- Subsections with videos nobody has watched get a row with a blank learner, and so
+    -- do their sections, so they still show up in the charts. A union rather than an
+    -- anti-join, so a course filter reaches both sides.
+    unwatched as (
         select
             org,
             course_key,
-            section_number,
-            subsection_number,
             '' as actor_id,
-            0 as videos_viewed
+            tupleElement(level, 1) as content_level,
+            tupleElement(level, 2) as section_subsection_name,
+            tupleElement(level, 3) as block_id,
+            'No videos viewed yet' as status
         from
             (
-                select org, course_key, section_number, subsection_number, 1 as watched
-                from watched_subsections
-                union all
-                select org, course_key, section_number, subsection_number, 0 as watched
-                from fact_videos_per_subsection
-            )
-        group by org, course_key, section_number, subsection_number
-        having max(watched) = 0
-    ),
-    fact_video_section_subsection as (
-        select
-            plays.org as org,
-            plays.course_key as course_key,
-            videos.subsection_course_order as course_order,
-            plays.actor_id as actor_id,
-            'section' as section_content_level,
-            'subsection' as subsection_content_level,
-            videos.item_count as item_count,
-            sum(plays.videos_viewed) as videos_viewed,
-            videos.section_block_id as section_block_id,
-            videos.subsection_block_id as subsection_block_id,
-            videos.section_with_name as section_with_name,
-            videos.subsection_with_name as subsection_with_name
-        from subsection_viewers plays
+                select
+                    org,
+                    course_key,
+                    subsection_block_id,
+                    any(subsection_with_name) as subsection_with_name,
+                    any(section_block_id) as section_block_id,
+                    any(section_with_name) as section_with_name
+                from
+                    (
+                        select
+                            org,
+                            course_key,
+                            block_id as subsection_block_id,
+                            '' as subsection_with_name,
+                            '' as section_block_id,
+                            '' as section_with_name,
+                            1 as watched
+                        from engagement
+                        where content_level = 'subsection'
+                        union all
+                        select
+                            org,
+                            course_key,
+                            subsection_block_id,
+                            subsection_with_name,
+                            section_block_id,
+                            section_with_name,
+                            0 as watched
+                        from `xapi`.`dim_course_subsection_items`
+                        where block_type = 'video'
+                    )
+                group by org, course_key, subsection_block_id
+                having max(watched) = 0
+            ) array
         join
-            fact_videos_per_subsection videos
-            on (
-                videos.org = plays.org
-                and videos.course_key = plays.course_key
-                and videos.section_number = plays.section_number
-                and videos.subsection_number = plays.subsection_number
-            )
-        group by
-            org,
-            course_key,
-            course_order,
-            actor_id,
-            item_count,
-            section_block_id,
-            subsection_block_id,
-            section_with_name,
-            subsection_with_name
-    ),
-    video_engagment as (
-        select
-            org,
-            course_key,
-            actor_id,
-            sum(videos_viewed) as videos_viewed,
-            sum(item_count) as item_count,
-            case
-                when videos_viewed = 0
-                then 'No videos viewed yet'
-                when videos_viewed = item_count
-                then 'All videos viewed'
-                else 'At least one video viewed'
-            end as section_subsection_video_engagement,
-            block_id,
-            section_subsection_name,
-            content_level
-        from fact_video_section_subsection ARRAY
-        join
-            arrayConcat([subsection_block_id], [section_block_id]) as block_id,
-            arrayConcat(
-                [subsection_with_name], [section_with_name]
-            ) as section_subsection_name,
-            arrayConcat(
-                [subsection_content_level], [section_content_level]
-            ) as content_level
-        group by
-            org, course_key, actor_id, block_id, section_subsection_name, content_level
+            [
+                ('subsection', subsection_with_name, subsection_block_id),
+                ('section', section_with_name, section_block_id)
+            ] as level
     ),
     final_results as (
         select
-            video_engagment.org as org,
-            video_engagment.course_key as course_key,
-            video_engagment.section_subsection_name as section_subsection_name,
-            video_engagment.content_level as content_level,
-            video_engagment.actor_id as actor_id,
-            video_engagment.section_subsection_video_engagement
-            as section_subsection_video_engagement,
-            video_engagment.block_id as block_id,
-            users.username as username,
-            users.name as name,
-            users.email as email
-        from video_engagment
-        left outer join
-            `xapi`.`dim_user_pii` users
-            on (
-                video_engagment.actor_id like 'mailto:%'
-                and SUBSTRING(video_engagment.actor_id, 8) = users.email
-            )
-            or video_engagment.actor_id = toString(users.external_user_id)
-        where video_engagment.section_subsection_name <> ''
+            org,
+            course_key,
+            actor_id,
+            content_level,
+            section_subsection_name,
+            block_id,
+            status
+        from engagement
+        union distinct
+        select
+            org,
+            course_key,
+            actor_id,
+            content_level,
+            section_subsection_name,
+            block_id,
+            status
+        from unwatched
     )
 select
-    org,
-    course_key,
-    section_subsection_name,
-    content_level,
-    actor_id,
-    section_subsection_video_engagement,
-    block_id,
-    username,
-    name,
-    email
+    final_results.org as org,
+    final_results.course_key as course_key,
+    final_results.section_subsection_name as section_subsection_name,
+    final_results.content_level as content_level,
+    final_results.actor_id as actor_id,
+    final_results.status as section_subsection_video_engagement,
+    final_results.block_id as block_id,
+    users.username as username,
+    users.name as name,
+    users.email as email
 from final_results
+left outer join
+    `xapi`.`dim_user_pii` users
+    on (
+        final_results.actor_id like 'mailto:%'
+        and SUBSTRING(final_results.actor_id, 8) = users.email
+    )
+    or final_results.actor_id = toString(users.external_user_id)
+where final_results.section_subsection_name <> ''
     
   )
       
