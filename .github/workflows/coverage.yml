@@ -42,6 +42,9 @@ jobs:
           tutor local do init-clickhouse
           tutor local do alembic -c "upgrade head"
           tutor local do dbt
+          # load-xapi-test-data sends its learner journeys through Vector, which reads them
+          # from the job's logs.
+          tutor local start -d vector
           tutor local do load-xapi-test-data
       - name: Check dbt tests
         run: |
