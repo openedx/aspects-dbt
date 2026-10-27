@@ -55,6 +55,8 @@
         ("view", reporting, "fact_video_plays"),
         ("view", reporting, "fact_watched_video_duration"),
         ("view", reporting, "fact_learner_response_attempts"),
+        ("view", reporting, "fact_video_segments_mv"),
+        ("view", reporting, "fact_video_engagement_mv"),
         ("mv", event_sink, "course_enrollment"),
         ("mv", event_sink, "course_relationships"),
         ("mv", xapi, "forum_events"),
