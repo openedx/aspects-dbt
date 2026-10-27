@@ -103,6 +103,9 @@ models:
 
   - name: dim_problem_responses
     columns:
+      - name: problem_id
+        data_type: String
+        description: "Problem usage key, including CCX identity, used in the replacement key."
       - name: org
         data_type: String
         description: '{{ doc("org") }}'
@@ -123,7 +126,7 @@ models:
         description: '{{ doc("emission_time") }}'
       - name: block_id_short
         data_type: String
-        description: '{{ doc("block_id") }}'
+        description: "Short block identifier for presentation; problem_id retains the full usage key."
       - name: problem_number
         data_type: String
         description: '{{ doc("problem_number") }}'
@@ -136,6 +139,9 @@ models:
 
   - name: dim_problem_results
     columns:
+      - name: problem_id
+        data_type: String
+        description: "Problem usage key, including CCX identity, used in the replacement key."
       - name: org
         data_type: String
         description: '{{ doc("org") }}'
@@ -159,7 +165,7 @@ models:
         description: "problem_number followed by the name of the problem"
       - name: block_id_short
         data_type: String
-        description: '{{ doc("block_id") }}'
+        description: "Short block identifier for presentation; problem_id retains the full usage key."
 
   - name: dim_subsection_problem_results
     columns:

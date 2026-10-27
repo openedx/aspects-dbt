@@ -33,7 +33,14 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from dim_problem_responses_expected
+        select expected.*, identities.problem_id
+        from dim_problem_responses_expected expected
+        join (
+          select distinct course_key, problem_id
+          from dim_learner_last_response_expected
+        ) identities
+          on expected.course_key = identities.course_key
+          and endsWith(identities.problem_id, concat('+block@', expected.block_id_short))
 
   - name: test_dim_problem_results
     model: dim_problem_results
@@ -51,7 +58,12 @@ unit_tests:
     expect:
       format: sql
       rows: |
-        select * from dim_problem_results_expected
+        select expected.*, latest.problem_id
+        from dim_problem_results_expected expected
+        join dim_learner_last_response_expected latest
+          on expected.course_key = latest.course_key
+          and expected.actor_id = latest.actor_id
+          and endsWith(latest.problem_id, concat('+block@', expected.block_id_short))
 
   - name: test_fact_problem_engagement
     model: fact_problem_engagement
@@ -153,3 +165,180 @@ unit_tests:
       format: sql
       rows: |
         select * from fact_problem_engagement_fixture_expected
+
+  - name: test_dim_problem_results_ccx_identifiers
+    model: dim_problem_results
+    config:
+      tags: ['ccx_identifiers']
+    given:
+      - input: ref('dim_learner_last_response')
+        format: sql
+        rows: |
+          with
+              if(
+                  ccx = 0,
+                  'course-v1:ORG+COURSE+RUN',
+                  concat('ccx-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+              ) as course_key,
+              if(
+                  ccx = 0,
+                  'block-v1:ORG+COURSE+RUN',
+                  concat('ccx-block-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+              ) as usage_key,
+              leftPad(toString(block), 32, '0') as block_id_short,
+              concat(usage_key, '+type@problem+block@', block_id_short) as problem_id
+          select
+              'ORG' as org,
+              course_key,
+              problem_id,
+              concat('https://lms.invalid/xblock/', problem_id) as object_id,
+              actor_id,
+              true as success,
+              toInt16(1) as attempts
+          from
+          values
+              (
+                  'ccx UInt16, block UInt8, actor_id String',
+                  (0, 1, 'actor1'),
+                  (2954, 1, 'actor1'),
+                  (2954, 2, 'actor1'),
+                  (2954, 3, 'actor1'),
+                  (2954, 4, 'actor1'),
+                  (2954, 5, 'actor1'),
+                  (2954, 1, 'actor2'),
+                  (2955, 1, 'actor1')
+              )
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select '' as course_key, '' as block_id, '' as display_name_with_location where false
+    expect:
+      format: sql
+      rows: |
+        with
+            if(
+                ccx = 0,
+                'course-v1:ORG+COURSE+RUN',
+                concat('ccx-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+            ) as course_key,
+            if(
+                ccx = 0,
+                'block-v1:ORG+COURSE+RUN',
+                concat('ccx-block-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+            ) as usage_key,
+            leftPad(toString(block), 32, '0') as block_id_short,
+            concat(usage_key, '+type@problem+block@', block_id_short) as problem_id
+        select
+            'ORG' as org,
+            course_key,
+            problem_id,
+            block_id_short,
+            actor_id,
+            true as success,
+            toInt16(1) as attempts,
+            cast('\b\b_1' as String) as problem_number,
+            cast('\b\b_1 - ' as String) as problem_name_location
+        from
+        values
+            (
+                'ccx UInt16, block UInt8, actor_id String',
+                (0, 1, 'actor1'),
+                (2954, 1, 'actor1'),
+                (2954, 2, 'actor1'),
+                (2954, 3, 'actor1'),
+                (2954, 4, 'actor1'),
+                (2954, 5, 'actor1'),
+                (2954, 1, 'actor2'),
+                (2955, 1, 'actor1')
+            )
+
+  - name: test_dim_problem_responses_ccx_identifiers
+    model: dim_problem_responses
+    config:
+      tags: ['ccx_identifiers']
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          with
+              if(
+                  ccx = 0,
+                  'course-v1:ORG+COURSE+RUN',
+                  concat('ccx-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+              ) as course_key,
+              if(
+                  ccx = 0,
+                  'block-v1:ORG+COURSE+RUN',
+                  concat('ccx-block-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+              ) as usage_key,
+              leftPad(toString(block), 32, '0') as block_id_short,
+              concat(usage_key, '+type@problem+block@', block_id_short) as problem_id
+          select
+              'ORG' as org,
+              course_key,
+              problem_id,
+              concat('https://lms.invalid/xblock/', problem_id) as object_id,
+              actor_id,
+              true as success,
+              toInt16(1) as attempts,
+              'https://w3id.org/xapi/acrossx/verbs/evaluated' as verb_id,
+              'other' as interaction_type,
+              'same' as responses,
+              toFloat32(1) as scaled_score,
+              toDateTime('2026-01-01 00:00:00') as emission_time
+          from
+          values
+              (
+                  'ccx UInt16, block UInt8, actor_id String',
+                  (0, 1, 'actor1'),
+                  (2954, 1, 'actor1'),
+                  (2954, 2, 'actor1'),
+                  (2954, 3, 'actor1'),
+                  (2954, 4, 'actor1'),
+                  (2954, 5, 'actor1'),
+                  (2954, 1, 'actor2'),
+                  (2955, 1, 'actor1')
+              )
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select '' as course_key, '' as block_id, '' as display_name_with_location where false
+    expect:
+      format: sql
+      rows: |
+        with
+            if(
+                ccx = 0,
+                'course-v1:ORG+COURSE+RUN',
+                concat('ccx-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+            ) as course_key,
+            if(
+                ccx = 0,
+                'block-v1:ORG+COURSE+RUN',
+                concat('ccx-block-v1:ORG+COURSE+RUN+ccx@', toString(ccx))
+            ) as usage_key,
+            leftPad(toString(block), 32, '0') as block_id_short,
+            concat(usage_key, '+type@problem+block@', block_id_short) as problem_id
+        select
+            'ORG' as org,
+            course_key,
+            problem_id,
+            block_id_short,
+            'same' as response,
+            response_count,
+            true as success,
+            'other' as interaction_type,
+            cast('\b\b_1' as String) as problem_number,
+            cast('\b\b_1 - ' as String) as problem_name_location
+        from
+        values
+            (
+                'ccx UInt16, block UInt8, response_count UInt64',
+                (0, 1, 1),
+                (2954, 1, 2),
+                (2954, 2, 1),
+                (2954, 3, 1),
+                (2954, 4, 1),
+                (2954, 5, 1),
+                (2955, 1, 1)
+            )

@@ -2,8 +2,8 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(course_key, block_id_short, response)",
-        order_by="(course_key, block_id_short, response)",
+        primary_key="(course_key, problem_id, response)",
+        order_by="(course_key, problem_id, response)",
     )
 }}
 
@@ -29,7 +29,8 @@ with
             first_response.org as org,
             first_response.course_key as course_key,
             first_response.emission_time as emission_time,
-            splitByChar('@', first_response.problem_id)[3] as block_id_short,
+            first_response.problem_id as problem_id,
+            {{ get_block_id_short("first_response.problem_id") }} as block_id_short,
             replaceRegexpAll(
                 first_response.responses,
                 '<.*?hint.*?<\/.*?hint>|</div>|<div>|\[|\]',
@@ -60,6 +61,7 @@ select
     org,
     course_key,
     block_id_short,
+    problem_id,
     response,
     success,
     interaction_type,
@@ -71,6 +73,7 @@ group by
     org,
     course_key,
     block_id_short,
+    problem_id,
     response,
     success,
     interaction_type,
