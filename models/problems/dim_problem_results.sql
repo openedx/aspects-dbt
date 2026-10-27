@@ -2,8 +2,8 @@
     config(
         materialized="materialized_view",
         engine=get_engine("ReplacingMergeTree()"),
-        primary_key="(course_key, block_id_short, actor_id)",
-        order_by="(course_key, block_id_short, actor_id)",
+        primary_key="(course_key, problem_id, actor_id)",
+        order_by="(course_key, problem_id, actor_id)",
     )
 }}
 
@@ -15,7 +15,8 @@ with
             last_response.success as success,
             last_response.attempts as attempts,
             last_response.actor_id as actor_id,
-            splitByChar('@', last_response.problem_id)[3] as block_id_short,
+            last_response.problem_id as problem_id,
+            {{ get_block_id_short("last_response.problem_id") }} as block_id_short,
             {{
                 format_problem_number_location(
                     "last_response.object_id", "blocks.display_name_with_location"
@@ -37,5 +38,6 @@ select
     actor_id,
     problem_number,
     problem_name_location,
-    block_id_short
+    block_id_short,
+    problem_id
 from final_results

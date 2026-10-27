@@ -13,7 +13,7 @@ with
             last_response.org as org,
             last_response.course_key as course_key,
             last_response.actor_id as actor_id,
-            splitByChar('@', subsection_blocks.block_id)[3] as block_id_short,
+            {{ get_block_id_short("subsection_blocks.block_id") }} as block_id_short,
             last_response.problem_id as problem_id,
             last_response.success as success,
             last_response.scaled_score as scaled_score,

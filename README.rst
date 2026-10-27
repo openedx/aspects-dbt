@@ -52,6 +52,21 @@ These require tables to be seeded first. To do this, add 'unit-test-seeds' to ``
 ``dbt test --selector all_tests`` will run all data/generic/unit tests.
 
 
+CCX problem identifiers
+=======================
+
+``dim_problem_results`` and ``dim_problem_responses`` expose ``problem_id`` and
+use it in their replacement keys. ``block_id_short`` remains a presentation field.
+
+Existing installations must rebuild these two models and
+``dim_subsection_problem_results`` to apply the corrected keys and short IDs.
+Results and subsection results require retained ``dim_learner_last_response``
+and course metadata; response distributions require retained ``problem_events``
+and course metadata. Preserve these sources and validate parallel targets before
+switching consumers. A full refresh affects every course in the selected models
+and cannot recover events missing from their sources.
+
+
 Removing old models
 ******************
 
