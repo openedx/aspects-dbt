@@ -26,3 +26,7 @@ seeds:
       column_types:
         score_range_count: UInt64
         total_avg: Float32
+  - name: fact_learner_problem_attempts_expected
+    config:
+      column_types:
+        emission_time: DateTime
