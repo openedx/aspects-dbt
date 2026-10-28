@@ -105,6 +105,9 @@ def main():
         "select database || '.' || name from system.tables where name = 'dim_course_names' "
         "format TSV"
     ).split()[0]
+    # The dictionary caches for its lifetime, and may have loaded while dbt was rebuilding
+    # course_overviews.
+    query(f"system reload dictionary {names}")
     course, name = query(
         f"select course_key, course_name from {names} where course_name != '' "
         "order by course_key limit 1 format TSV"
