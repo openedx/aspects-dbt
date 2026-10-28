@@ -46,8 +46,79 @@ models:
         data_type: String
         description: '{{ doc("email") }}'
 
+  - name: fact_video_watch_intervals
+    description: "One row per played event and the event that closed it"
+    columns:
+      - name: org
+        data_type: string
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: string
+        description: '{{ doc("course_key") }}'
+      - name: object_id
+        data_type: string
+        description: '{{ doc("object_id") }}'
+      - name: actor_id
+        data_type: string
+        description: '{{ doc("actor_id") }}'
+      - name: start_event_id
+        data_type: uuid
+        description: "The id of the played event that opened this interval"
+      - name: start_emission_time
+        data_type: DateTime64(6)
+        description: "When the played event that opened this interval was emitted"
+      - name: start_video_position
+        data_type: decimal(9, 2)
+        description: "The position in the video where this interval started"
+      - name: end_video_position
+        data_type: Nullable(decimal(9, 2))
+        description: "The position in the video where this interval ended; null while open"
+      - name: end_verb_id
+        data_type: string
+        description: "The verb IRI of the event that closed this interval; empty while open"
+      - name: video_duration
+        data_type: int64
+        description: "The duration of the video in seconds"
+      - name: is_interval_closed
+        data_type: UInt8
+        description: "Whether an event closing this play has been seen"
+      - name: is_watched
+        data_type: UInt8
+        description: "Whether this interval is closed and moved forward in the video"
+      - name: computed_at
+        data_type: DateTime64(6)
+        description: "When this row was computed"
+
+  - name: fact_video_watches
+    description: "Per learner and video: how many distinct seconds they watched and the most times they watched any one second. Refreshed with fact_video_watch_intervals; keep the latest row per learner and video (FINAL)."
+    columns:
+      - name: org
+        data_type: string
+        description: '{{ doc("org") }}'
+      - name: course_key
+        data_type: string
+        description: '{{ doc("course_key") }}'
+      - name: object_id
+        data_type: string
+        description: '{{ doc("object_id") }}'
+      - name: actor_id
+        data_type: string
+        description: '{{ doc("actor_id") }}'
+      - name: video_duration
+        data_type: Int64
+        description: "Total duration of the video"
+      - name: watched_seconds
+        data_type: UInt64
+        description: "Distinct seconds of the video the learner watched"
+      - name: max_views
+        data_type: UInt64
+        description: "The most times the learner watched any one second of the video"
+      - name: computed_at
+        data_type: DateTime64(6)
+        description: "When this row was computed"
+
   - name: fact_video_segments
-    description: "Each second of every video that has been watched"
+    description: "One row per second of each watched interval; a second watched twice appears twice"
     columns:
       - name: org
         data_type: string
@@ -68,8 +139,8 @@ models:
         data_type: Int32
         description: "Watched second of the video"
       - name: watch_count
-        data_type: Int32
-        description: "Number of times the segment has been watched"
+        data_type: UInt64
+        description: "Always 1; sum it per second to count views"
 
   - name: video_playback_events
     docs:

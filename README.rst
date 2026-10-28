@@ -61,6 +61,12 @@ If you need a model that has been removed due to custom reporting you should eit
 
 ``dbt run-operation remove_deprecated_models`` will drop the relations and ``dbt -d run-operation remove_deprecated_models`` will drop with debug information showing the commands that are run.
 
+
+Breaking Changes
+***************
+
+``fact_video_segments`` and ``fact_video_engagement`` are now views over the new ``fact_video_watch_intervals``, a refreshable materialized view (ClickHouse 24.10 or later). ``fact_video_segments`` has one row per second of each watched interval and ``watch_count`` is always 1: sum it instead of reading it per row. Video events loaded with an emission time older than ``ASPECTS_VIDEO_WATCH_INTERVALS_LOOKBACK`` (default 1 day), such as a replay or backfill, are only paired by the next ``dbt run -s fact_video_watch_intervals``.
+
 More Help
 =========
 

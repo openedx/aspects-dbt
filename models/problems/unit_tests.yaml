@@ -58,14 +58,18 @@ unit_tests:
     config:
       tags: 'ci'
     given:
-      - input: ref('problem_events')
+      - input: ref('fact_learner_problem_attempts')
         format: sql
         rows: |
-          select * from problem_events
+          select * from fact_learner_problem_attempts
       - input: ref('dim_course_blocks')
         format: sql
         rows: |
           select * from dim_course_blocks
+      - input: ref('dim_course_subsection_items')
+        format: sql
+        rows: |
+          select * from dim_course_subsection_items
       - input: ref('dim_user_pii')
         format: sql
         rows: |
@@ -74,7 +78,6 @@ unit_tests:
       format: sql
       rows: |
         select * from fact_problem_engagement_expected
-
   - name: test_problem_events
     model: problem_events
     config:
@@ -110,3 +113,43 @@ unit_tests:
       format: sql
       rows: |
         select * from dim_problem_coursewide_avg_expected
+
+  - name: test_fact_learner_problem_attempts
+    model: fact_learner_problem_attempts
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('problem_events')
+        format: sql
+        rows: |
+          select * from problem_events
+    expect:
+      format: sql
+      rows: |
+        select * from fact_learner_problem_attempts_expected
+
+  - name: test_fact_problem_engagement_sections
+    model: fact_problem_engagement
+    config:
+      tags: 'ci'
+    given:
+      - input: ref('fact_learner_problem_attempts')
+        format: sql
+        rows: |
+          select * from engagement_fixture_problem_attempts
+      - input: ref('dim_course_blocks')
+        format: sql
+        rows: |
+          select * from engagement_fixture_course_blocks
+      - input: ref('dim_course_subsection_items')
+        format: sql
+        rows: |
+          select * from engagement_fixture_subsection_items
+      - input: ref('dim_user_pii')
+        format: sql
+        rows: |
+          select * from engagement_fixture_user_pii
+    expect:
+      format: sql
+      rows: |
+        select * from fact_problem_engagement_fixture_expected
