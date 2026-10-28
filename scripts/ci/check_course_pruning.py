@@ -106,8 +106,9 @@ def main():
         "format TSV"
     ).split()[0]
     course, name = query(
-        f"select course_key, course_name from {names} limit 1 format TSV"
-    ).strip().split("\t")
+        f"select course_key, course_name from {names} where course_name != '' "
+        "order by course_key limit 1 format TSV"
+    ).rstrip("\n").split("\t")
     name = name.replace("'", "\\'")
     # The two ways Superset filters by course: row-level security for course staff, and the
     # course name filter.
