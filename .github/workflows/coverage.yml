@@ -31,7 +31,7 @@ jobs:
           python-version: "3.11.x"
       - name: Install dependencies
         run: |
-          pip install "tutor-contrib-aspects>=3.0.3,<4"
+          pip install "tutor-contrib-aspects>=3.0.3,<4" "tutor>=21,<22" "tutor-mfe>=21,<22"
           pip install -r requirements.txt
           dbt deps
       - name: Initialize Open edX
