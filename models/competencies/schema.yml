@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: dim_most_recent_student_competency_status
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
+    description: "Latest mastery status per learner and competency"
+    columns:
+      - name: id
+        data_type: Int64
+        description: '{{ doc("id") }}'
+      - name: actor_id
+        data_type: String
+        description: "The learner's xAPI actor id"
+      - name: tag_id
+        data_type: Int64
+        description: "Foreign key to the competency tag"
+      - name: taxonomy_id
+        data_type: Int64
+        description: "Foreign key to the competency's taxonomy"
+      - name: status_id
+        data_type: UInt8
+        description: "Mastery status: 20 PartiallyAttempted, 30 Demonstrated"
+      - name: status
+        data_type: String
+        description: "Mastery status name"
+      - name: created
+        data_type: DateTime64(6)
+        description: "When the learner first got a status for the competency"
+      - name: modified
+        data_type: DateTime64(6)
+        description: "When the status last rose; on a Demonstrated row, when the competency was demonstrated"
+      - name: time_last_dumped
+        data_type: DateTime64(6)
+        description: '{{ doc("time_last_dumped") }}'
+
+  - name: dim_most_recent_student_competency_criteria_group_status
+    docs:
+        node_color: '{{ var("color_event_sink") }}'
+    description: "Latest mastery status per learner and criteria group"
+    columns:
+      - name: id
+        data_type: Int64
+        description: '{{ doc("id") }}'
+      - name: actor_id
+        data_type: String
+        description: "The learner's xAPI actor id"
+      - name: group_id
+        data_type: Int64
+        description: "The criteria group"
+      - name: parent_group_id
+        data_type: Nullable(Int64)
+        description: "The group's parent group, null for a root group"
+      - name: tag_id
+        data_type: Int64
+        description: "Foreign key to the competency tag the group evaluates"
+      - name: taxonomy_id
+        data_type: Int64
+        description: "Foreign key to the competency's taxonomy"
+      - name: course_key
+        data_type: String
+        description: "The group's course run, or its course group's for a leaf; empty for a root"
+      - name: group_level
+        data_type: LowCardinality(String)
+        description: "root, course or leaf"
+      - name: status_id
+        data_type: UInt8
+        description: "Mastery status: 10 AttemptedNotDemonstrated, 20 PartiallyAttempted, 30 Demonstrated"
+      - name: status
+        data_type: String
+        description: "Mastery status name"
+      - name: created
+        data_type: DateTime64(6)
+        description: "When the learner first got a status for the group"
+      - name: modified
+        data_type: DateTime64(6)
+        description: "When the status last rose"
+      - name: time_last_dumped
+        data_type: DateTime64(6)
+        description: '{{ doc("time_last_dumped") }}'
