@@ -133,3 +133,16 @@ Course objects and their associated tags from CMS events:
 `COURSE_CREATED, XBLOCK_CREATED, LIBRARY_BLOCK_CREATED, CONTENT_OBJECT_ASSOCIATIONS_CHANGED`  
 and `post_save` Django signal on the Object Tag model
 {% enddocs %}
+
+{% docs student_competency_status_source %}
+A learner's current mastery status for one competency, from the `post_save` Django signal
+on the openedx-core `StudentCompetencyStatus` model. openedx-core only raises a status, never
+lowers it, and sends `post_save` on every create and raise.
+{% enddocs %}
+
+{% docs student_competency_criteria_group_status_source %}
+A learner's current mastery status for one competency criteria group, from the `post_save`
+Django signal on the openedx-core `StudentCompetencyCriteriaGroupStatus` model. Course-level
+groups hold the learner's status in one course, and are the only place AttemptedNotDemonstrated
+is stored. openedx-core only raises a status, never lowers it.
+{% enddocs %}
