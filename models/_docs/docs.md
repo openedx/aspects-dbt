@@ -133,3 +133,15 @@ Course objects and their associated tags from CMS events:
 `COURSE_CREATED, XBLOCK_CREATED, LIBRARY_BLOCK_CREATED, CONTENT_OBJECT_ASSOCIATIONS_CHANGED`  
 and `post_save` Django signal on the Object Tag model
 {% enddocs %}
+
+{% docs student_competency_status_source %}
+A learner's current mastery status for one competency, from the `post_save` Django signal
+on the openedx-core `StudentCompetencyStatus` model.
+{% enddocs %}
+
+{% docs student_competency_course_status_source %}
+A learner's current mastery status for one competency in one course run, from the `post_save`
+Django signal on the openedx-core `StudentCompetencyCriteriaGroupStatus` model, for
+course-level groups only. It is the only place AttemptedNotDemonstrated is stored per
+competency and course.
+{% enddocs %}

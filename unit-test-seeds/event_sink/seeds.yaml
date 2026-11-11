@@ -27,3 +27,5 @@ seeds:
   - name: taxonomy
     config:
       schema: event_sink
+      column_types:
+        taxonomy_type: LowCardinality(String)
