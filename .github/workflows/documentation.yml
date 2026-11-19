@@ -33,7 +33,9 @@ jobs:
           python-version: "3.11.x"
       - name: Install dependencies
         run: |
-          pip install tutor-contrib-aspects
+          # Competency sink tables and taxonomy.taxonomy_type (migrations 0043-0045) are not released yet.
+          # Back to `pip install tutor-contrib-aspects` once openedx/tutor-contrib-aspects#1392 is released.
+          pip install "tutor-contrib-aspects @ git+https://github.com/eduNEXT/tutor-contrib-aspects@fmo/cbe-sink"
           pip install -r requirements.txt
           dbt deps
       - name: Initialize Open edX
