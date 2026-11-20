@@ -31,7 +31,9 @@ jobs:
           python-version: "3.11.x"
       - name: Install dependencies
         run: |
-          pip install tutor-contrib-aspects
+          # Competency sink tables and taxonomy.taxonomy_type (migrations 0043-0045) are not released yet.
+          # Back to `pip install tutor-contrib-aspects` once openedx/tutor-contrib-aspects#1392 is released.
+          pip install "tutor-contrib-aspects @ git+https://github.com/eduNEXT/tutor-contrib-aspects@fmo/cbe-sink"
           pip install -r requirements.txt
           dbt deps
       - name: Initialize Open edX
@@ -39,6 +41,10 @@ jobs:
         run: |
           tutor plugins enable aspects
           tutor config save
+          # The published aspects image ships xapi-db-load v4.0.0, which inserts 4 columns into
+          # event_sink.taxonomy; migration 0045 makes it 5. Build the image so it gets the pinned
+          # eduNEXT/xapi-db-load@fmo/cbe-data. Drop with the tutor-contrib-aspects pin above.
+          tutor images build aspects
           tutor local do init-clickhouse
           tutor local do alembic -c "upgrade head"
           tutor local do dbt

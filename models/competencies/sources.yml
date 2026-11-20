@@ -1,0 +1,80 @@
+version: 2
+
+sources:
+  - name: event_sink
+    database: "{{ env_var('ASPECTS_EVENT_SINK_DATABASE', 'event_sink')}}"
+    tables:
+
+      - name: student_competency_status
+        description: '{{ doc("student_competency_status_source") }}'
+        columns:
+          - name: id
+            description: '{{ doc("id") }}'
+            type: Int64
+          - name: actor_id
+            description: "The learner's xAPI actor id"
+            type: String
+          - name: tag_id
+            description: "Foreign key to the competency tag"
+            type: Int64
+          - name: taxonomy_id
+            description: "Foreign key to the competency's taxonomy"
+            type: Int64
+          - name: status_id
+            description: "Mastery status (openedx-core MasteryStatus): 20 PartiallyAttempted, 30 Demonstrated"
+            type: UInt8
+          - name: status_name
+            description: "Mastery status name"
+            type: LowCardinality(String)
+          - name: created
+            description: "When the learner first got a status for the competency"
+            type: String
+          - name: modified
+            description: "When the status last changed"
+            type: String
+          - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
+          - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String
+
+      - name: student_competency_course_status
+        description: '{{ doc("student_competency_course_status_source") }}'
+        columns:
+          - name: id
+            description: '{{ doc("id") }}'
+            type: Int64
+          - name: actor_id
+            description: "The learner's xAPI actor id"
+            type: String
+          - name: group_id
+            description: "The openedx-core course-level criteria group id"
+            type: Int64
+          - name: tag_id
+            description: "Foreign key to the competency tag the group evaluates"
+            type: Int64
+          - name: taxonomy_id
+            description: "Foreign key to the competency's taxonomy"
+            type: Int64
+          - name: course_key
+            description: "The course run of the course-level group"
+            type: String
+          - name: status_id
+            description: "Mastery status (openedx-core MasteryStatus): 10 AttemptedNotDemonstrated, 20 PartiallyAttempted, 30 Demonstrated"
+            type: UInt8
+          - name: status_name
+            description: "Mastery status name"
+            type: LowCardinality(String)
+          - name: created
+            description: "When the learner first got a status for the competency in this course run"
+            type: String
+          - name: modified
+            description: "When the status last changed"
+            type: String
+          - name: dump_id
+            description: '{{ doc("dump_id") }}'
+            type: UUID
+          - name: time_last_dumped
+            description: '{{ doc("time_last_dumped") }}'
+            type: String

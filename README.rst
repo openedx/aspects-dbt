@@ -69,6 +69,8 @@ As of version 7.0.0 this project uses ASPECTS_RAW_XAPI_TABLE as the source for x
 
 ``fact_video_segments`` and ``fact_video_engagement`` are now views over the new ``fact_video_watch_intervals``, a refreshable materialized view (ClickHouse 24.10 or later). ``fact_video_segments`` has one row per second of each watched interval and ``watch_count`` is always 1: sum it instead of reading it per row. Video events loaded with an emission time older than ``ASPECTS_VIDEO_WATCH_INTERVALS_LOOKBACK`` (default 1 day), such as a replay or backfill, are only paired by the next ``dbt run -s fact_video_watch_intervals``.
 
+The competency models (``dim_learner_most_recent_competency_status``, ``dim_learner_most_recent_competency_course_status``) and the ``taxonomy_type`` column of ``dim_most_recent_taxonomies`` need tutor-contrib-aspects migrations 0043 to 0045 applied before ``dbt run``. Taxonomies dumped before migration 0045 read ``tags`` until they are dumped again with ``dump_data_to_clickhouse --object taxonomy --force``. Adding the ``taxonomy_type`` column changes an existing materialized view, so existing installs need ``dbt run --full-refresh --select dim_most_recent_taxonomies+`` once after upgrading.
+
 More Help
 =========
 

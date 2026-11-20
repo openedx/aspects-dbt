@@ -37,7 +37,7 @@ sources:
             type: String
 
       - name: taxonomy
-        description: Taxonomy data from `post_save` Django signal on the Taxonomy model
+        description: Taxonomy data from `post_save` Django signal on the Taxonomy and openedx-core CompetencyTaxonomy models
         columns:
           - name: id
             description: '{{ doc("id") }}'
@@ -51,6 +51,9 @@ sources:
           - name: time_last_dumped
             description: '{{ doc("time_last_dumped") }}'
             type: String
+          - name: taxonomy_type
+            description: "competency for a competency taxonomy (openedx-core CompetencyTaxonomy), tags otherwise"
+            type: LowCardinality(String)
 
       - name: tag
         description: Tag data from `post_save` Django signal on the Tag model. Includes parent tag and lineage string for heirarchal relationships.

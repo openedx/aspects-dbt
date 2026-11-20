@@ -82,3 +82,6 @@ models:
       - name: name
         data_type: String
         description: "Name for the taxonomy"
+      - name: taxonomy_type
+        data_type: LowCardinality(String)
+        description: "competency for a competency taxonomy, tags otherwise"
