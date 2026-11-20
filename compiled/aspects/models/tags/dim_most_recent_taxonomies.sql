@@ -5,7 +5,7 @@ with
         from `event_sink`.`taxonomy`
         group by id
     )
-select taxonomy.id as id, taxonomy.name as name
+select taxonomy.id as id, taxonomy.name as name, taxonomy.taxonomy_type as taxonomy_type
 from `event_sink`.`taxonomy` taxonomy
 inner join
     latest
